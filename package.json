@@ -1,0 +1,32 @@
+{
+  "name": "cgijs",
+  "description": "Node JS modules for running PHP in CGI mode",
+  "version": "1.0.0-beta4",
+  "author": {
+    "name": "Ganesh",
+    "email": "ganeshsurfs@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ganeshkbhat/node-php-cgi.git"
+  },
+  "main": "./main.js",
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "express": "*",
+    "mocha": "*",
+    "supertest": "*"
+  },
+  "keywords": [
+    "cgijs",
+    "node",
+    "nodejs",
+    "php",
+    "cgi",
+    "run cgi script",
+    "cgi js"
+  ]
+}
