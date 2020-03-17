@@ -302,7 +302,7 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 			} else {
 
 				if (!LANG_OPTS[type]["which"]) {
-					throw new Error('"php-cgi" cannot be found');
+					throw new Error('"cgi executable" cannot be found');
 				}
 
 				console.log("bin Path", LANG_OPTS[type]["cgi"])

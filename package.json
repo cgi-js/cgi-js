@@ -16,15 +16,14 @@
   },
   "main": "./main.js",
   "dependencies": {
+    
 
     "shelljs": "^0.6.0",
 
   },
   "devDependencies": {
     "express": "^4.17.1",
-    "cgi-env": "0.0.1",
-    "gateway": "^1.0.0",
-    "serve-cgi": "^0.6.1",
+    
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "mocha": "^7.1.0",
