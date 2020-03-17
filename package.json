@@ -10,23 +10,48 @@
     "type": "git",
     "url": "https://github.com/ganeshkbhat/cgi-js.git"
   },
+  "scripts": {
+    "start": "node ./server.js",
+    "test": "mocha"
+  },
   "main": "./main.js",
   "dependencies": {
-    "shelljs": "^0.8.3"
+
+    "shelljs": "^0.6.0",
+
   },
   "devDependencies": {
-    "eslint": "*",
-    "express": "*",
-    "mocha": "*",
-    "supertest": "*"
+    "express": "^4.17.1",
+    "cgi-env": "0.0.1",
+    "gateway": "^1.0.0",
+    "serve-cgi": "^0.6.1",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "mocha": "^7.1.0",
+    "supertest": "^4.0.2"
   },
   "keywords": [
-    "cgijs",
     "node",
     "nodejs",
-    "php",
+    "node.js",
+    "node js",
     "cgi",
-    "run cgi script",
-    "cgi js"
+    "cgijs",
+    "php",
+    "python",
+    "ruby",
+    "javascript",
+    "perl",
+    "cgi py",
+    "cgi rb",
+    "cgi php",
+    "cgi js",
+    "scripts",
+    "cgi scripts",
+    "run cgi scripts",
+    "run cgi scripts using javascript",
+    "run cgi scripts using js",
+    "run proxy to third party servers",
+    "run proxy to thrid party cgi based servers"
   ]
 }

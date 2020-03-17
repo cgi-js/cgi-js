@@ -1,0 +1,5 @@
+{
+    "port": 4000,
+    "log_file": "awesome.log",
+    "environment": "staging"
+}

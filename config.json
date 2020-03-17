@@ -1,0 +1,40 @@
+{
+    "php": {
+        "embed": {
+            "path": "",
+            "bin": "",
+            "config": {
+                "file": "",
+                "extension": ""
+            }
+        },
+        "script": {
+            "type": "file",
+            "path": ""
+        }
+    },
+    "py": {
+        "embed": {
+            "path": "",
+            "bin": "",
+            "config": {
+                "file": "",
+                "extension": ""
+            }
+        },
+        "script": {
+            "type": "server",
+            "path": "",
+            "server": {
+                "host": "",
+                "port": "",
+                "username": "",
+                "password": "",
+                "ssl": {
+                    "crt": "",
+                    "pem": ""
+                }
+            }
+        }
+    }
+}

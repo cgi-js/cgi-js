@@ -3,10 +3,15 @@
 //      CGI supporting executable for Interpreted languages Embedded Distribution
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 
-var files = require("./src/index")
+var files = require("./files")
+var proxy = require("./proxy")
+
 
 // GOOD
 // https://www.npmjs.com/package/electron-json-storage
 // https://www.npmjs.com/package/smart-fs
 
-module.exports = files
+module.exports = {
+    "serve": files.serve,
+    "proxy": proxy.proxy
+}
