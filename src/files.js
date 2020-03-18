@@ -17,7 +17,7 @@ const util = require('util')
 var PHP_CGI = shell.which('php-cgi');
 var PERL_CGI = shell.which('perl');
 var PYTHON_CGI = shell.which('python');
-var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python3') : shell.which('python');
+var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python') : shell.which('python3');
 var RUBY_CGI = shell.which('ruby');
 
 
