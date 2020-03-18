@@ -12,7 +12,7 @@ var child = require('child_process');
 var path = require('path');
 var fs = require('fs');
 var shell = require('shelljs');
-const util = require('util')
+const util = require('util');
 
 var PHP_CGI = shell.which('php-cgi');
 var PERL_CGI = shell.which('perl');
