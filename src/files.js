@@ -6,6 +6,7 @@
 
 /* eslint no-console: 0 */
 
+var process = require('process');
 var URL = require('url');
 var child = require('child_process');
 var path = require('path');
@@ -16,8 +17,9 @@ const util = require('util')
 var PHP_CGI = shell.which('php-cgi');
 var PERL_CGI = shell.which('perl');
 var PYTHON_CGI = shell.which('python');
-var PYTHON3_CGI = shell.which('python3');
+var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python3') : shell.which('python');
 var RUBY_CGI = shell.which('ruby');
+
 
 var LANG_OPTS = {
 	"rb": {
@@ -180,6 +182,27 @@ function getPattern(type) {
 	return false;
 }
 
+function getType(type) {
+
+	if (type == "py") {
+		return "py"
+	} else if (type == "py3") {
+		return "py"
+	} else if (type == "php") {
+		return "php"
+	} else if (type == "pl") {
+		return "pl"
+	} else if (type == "plc") {
+		return "plc"
+	} else if (type == "pld") {
+		return "pld"
+	} else if (type == "rb") {
+		return "rb"
+	}
+
+	return false;
+}
+
 function getPHPHtml(lines, res) {
 
 	var line = 0;
@@ -241,7 +264,7 @@ function fileExists(type, req_url, web_files_root, callback) {
 		// File does not exist
 		if (err || stat.isDirectory()) {
 			if (stat && stat.isDirectory()) {
-				file = path.join(file, 'index.' + type);
+				file = path.join(file, 'index.' + getType(type));
 				console.log("Path created file ", file)
 			}
 			if (file.includes(process.cwd())) {
@@ -267,7 +290,7 @@ function fileExists(type, req_url, web_files_root, callback) {
 function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 
 	var pathinfo = '';
-	var i = req.url.indexOf('.' + type);
+	var i = req.url.indexOf('.' + getType(type));
 
 	if (i > 0) {
 		pathinfo = url.pathname.substring(i + 4)
@@ -294,7 +317,7 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 
 			if (!!cgi_bin_path && cgi_bin_path !== '') {
 
-				console.log("cgi_bin Path", cgi_bin_path + "/" + LANG_OPTS[type]["cgi"])
+				console.log("runCGI cgi_bin Path", cgi_bin_path + "/" + LANG_OPTS[type]["cgi"])
 				proc = child.spawn(cgi_bin_path + "/" + LANG_OPTS[type]["cgi"], [], {
 					env: env
 				});
@@ -302,10 +325,10 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 			} else {
 
 				if (!LANG_OPTS[type]["which"]) {
-					throw new Error('"cgi executable" cannot be found');
+					throw new Error('"runCGI cgi executable" cannot be found');
 				}
 
-				console.log("bin Path", LANG_OPTS[type]["cgi"])
+				console.log("runCGI bin Path", LANG_OPTS[type]["cgi"])
 				proc = child.spawn(LANG_OPTS[type]["cgi"], [file], {
 					env: env
 				});
@@ -313,7 +336,7 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 			}
 
 			proc.stdin.on('error', function () {
-				console.error("Error from server")
+				console.error("runCGI Error from server")
 			});
 
 			// Pipe request stream directly into the php process
@@ -329,7 +352,7 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 			});
 
 			proc.on('error', function (err) {
-				console.error("error", err);
+				console.error("runCGI error", err);
 			});
 
 			proc.on('exit', function () {
@@ -356,8 +379,8 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 					html = tmp_result;
 				}
 
-				// console.log('STATUS: '+res.statusCode);
-				// console.log('HTML: '+ html);
+				// console.log('runCGI STATUS: ' + res.statusCode);
+				// console.log('runCGI HTML: ' + html);
 
 				if (res.statusCode) {
 					res.status(res.statusCode).send(html);
@@ -383,7 +406,7 @@ function serve(type, web_files_root, cgi_bin_path) {
 		file = fileExists(type, req_url, web_files_root, function (file) {
 			if (file) {
 
-				console.log("fileExists call", cgi_bin_path, file);
+				console.log("serve fileExists call", cgi_bin_path, file);
 				runCGI(req, res, next, req_url, type, file, web_files_root, cgi_bin_path);
 			} else {
 

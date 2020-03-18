@@ -22,6 +22,8 @@ app.use("/pld", cgi.serve('pld', pl));
 app.use("/pl", cgi.serve('pl', pl));
 // PYTHON File
 app.use("/py", cgi.serve('py', py));
+// PYTHON3 File
+app.use("/py3", cgi.serve('py3', py));
 
 app.use("/", function(req, res){
     res.send(`
