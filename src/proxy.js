@@ -3,6 +3,9 @@
 //      CGI supporting executable for Interpreted languages 
 //      Embedded Distribution
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+// 
+
+/* eslint no-console: 0 */
 
 // Promising- Good
 // https://www.npmjs.com/package/fast-proxy
@@ -22,9 +25,17 @@
 var handler = require("./proxyhandler")
 
 function setupProxy() {
-    
+
 }
 
+/**
+ *
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} config
+ * @returns
+ */
 function proxy(req, res, config) {
 
     // set up proxy for individual

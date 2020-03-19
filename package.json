@@ -16,9 +16,7 @@
   },
   "main": "./main.js",
   "dependencies": {
-    "shelljs": "^0.6.0",
-    
-    
+    "shelljs": "^0.6.0"
   },
   "devDependencies": {
     "express": "^4.17.1",
