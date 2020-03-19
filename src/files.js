@@ -53,6 +53,15 @@ var LANG_OPTS = {
 	}
 }
 
+/**
+ *
+ *
+ * @param {*} pathinfo
+ * @param {*} file
+ * @param {*} req
+ * @param {*} url
+ * @returns
+ */
 function getEnv(pathinfo, file, req, url) {
 
 	var env = {
@@ -162,6 +171,12 @@ function getEnv(pathinfo, file, req, url) {
 	return env
 }
 
+/**
+ *
+ *
+ * @param {*} type
+ * @returns
+ */
 function getPattern(type) {
 
 	if (type == "py") {
@@ -183,6 +198,12 @@ function getPattern(type) {
 	return false;
 }
 
+/**
+ *
+ *
+ * @param {*} type
+ * @returns
+ */
 function getType(type) {
 
 	if (type == "py") {
@@ -204,6 +225,13 @@ function getType(type) {
 	return false;
 }
 
+/**
+ *
+ *
+ * @param {*} lines
+ * @param {*} res
+ * @returns
+ */
 function getPHPHtml(lines, res) {
 
 	var line = 0;
@@ -228,6 +256,13 @@ function getPHPHtml(lines, res) {
 	};
 }
 
+/**
+ *
+ *
+ * @param {*} lines
+ * @param {*} res
+ * @returns
+ */
 function getCGIHtml(lines, res) {
 
 	var line = 0;
@@ -257,6 +292,14 @@ function getCGIHtml(lines, res) {
 	};
 }
 
+/**
+ *
+ *
+ * @param {*} type
+ * @param {*} req_url
+ * @param {*} web_files_root
+ * @param {*} callback
+ */
 function fileExists(type, req_url, web_files_root, callback) {
 
 	var file = path.join(web_files_root, req_url.pathname);
@@ -288,6 +331,18 @@ function fileExists(type, req_url, web_files_root, callback) {
 	});
 }
 
+/**
+ *
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * @param {*} url
+ * @param {*} type
+ * @param {*} file
+ * @param {*} web_files_root
+ * @param {*} cgi_bin_path
+ */
 function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 
 	var pathinfo = '';
@@ -396,6 +451,14 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 	}
 }
 
+/**
+ *
+ *
+ * @param {*} type
+ * @param {*} web_files_root
+ * @param {*} cgi_bin_path
+ * @returns
+ */
 function serve(type, web_files_root, cgi_bin_path) {
 
 	return function (req, res, next) {
