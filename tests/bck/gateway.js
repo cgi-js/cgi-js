@@ -1,3 +1,9 @@
+// License: MIT
+// Dynamic CGI serving using dynamic path imports for 
+//      CGI supporting executable for Interpreted languages Embedded Distribution
+// Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+// 
+
 var fs = require('fs')
   , URL = require('url')
   , path = require('path')
