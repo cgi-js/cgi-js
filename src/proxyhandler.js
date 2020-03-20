@@ -102,7 +102,7 @@ function handler() {
      * @param {*} proc
      * @returns
      */
-    function connectProxy(conn, proc) {
+    function connect(conn, proc) {
         return conn
     }
 
@@ -111,10 +111,10 @@ function handler() {
      *
      * @param {*} conn
      */
-    function closeProxy(conn) {
+    function close(conn) {
         conn.close()
     }
-    
+
     /**
      *
      *
@@ -129,10 +129,12 @@ function handler() {
         conn: conn,
         config: config,
         setConfig: setConfig,
-        start: startProxy,
-        stop: stopProxy,
-        connect: connectProxy,
-        closeConn: closeProxy,
+        start: startProcess,
+        stop: stopProcess,
+        proxyStart: startProxy,
+        proxyEnd: stopProxy,
+        connect: connect,
+        close: close
     }
 }
 
