@@ -5,16 +5,19 @@
 // 
 
 var express = require('express');
-var cgi = require("./main"); 
+var cgi = require("./main");
 // var cgi = require("cgijs");
-var path = require("path"); 
+var path = require("path");
 
 var app = express();
 
-var php = path.join("tests/php")
-var rby = path.join("tests/ruby")
-var pl = path.join("tests/perl")
-var py = path.join("tests/py")
+var php = path.join("tests/php");
+var rby = path.join("tests/ruby");
+var pl = path.join("tests/perl");
+var py = path.join("tests/py");
+
+// Subsystem
+app.use("/sub", cgi.proxyHandler);
 
 // PHP File
 app.use("/php", cgi.serve('php', php));
@@ -31,7 +34,7 @@ app.use("/py", cgi.serve('py', py));
 // PYTHON3 File
 app.use("/py3", cgi.serve('py3', py));
 
-app.use("/", function(req, res){
+app.use("/", function (req, res) {
     res.send(`
         "Testing my server"
     `)

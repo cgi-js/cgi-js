@@ -30,18 +30,74 @@
 // https://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
 
 
-/**
- *
- *
- * @returns
- */
-function handler() {
+    /**
+     * handler
+     *
+     * @returns
+     */
+    function handler() {
 
-    var config = {};
-    var conn, proc;
+    let config = {}, conn = {}, proc = {};
 
     /**
+     * setConfig
      *
+     * @param {*} options
+     */
+    function setConfig(options) {
+        // Make it attributewise
+        config = options
+    }
+
+    /**
+     * getConfig
+     *
+     */
+    function getConfig() {
+        return config
+    }
+
+    /**
+     * getConn
+     *
+     * @param {*} name
+     * @returns
+     */
+    function getConn(name) {
+        return conn[name];
+    }
+
+    /**
+     * setConn
+     *
+     * @param {*} name
+     * @param {*} connection
+     */
+    function setConn(name, connection) {
+        conn[name] = connection;
+    }
+
+    /**
+     * getProc
+     *
+     * @param {*} name
+     * @returns
+     */
+    function getProc(prc) {
+        return proc[prc.id];
+    }
+
+    /**
+     * setProc
+     *
+     * @param {*} prc
+     */
+    function setProc(prc) {
+        proc[prc.id] = prc;
+    }
+
+    /**
+     * startProcess
      *
      * @param {*} cmd
      * @param {*} args
@@ -50,92 +106,93 @@ function handler() {
      * @returns
      */
     function startProcess(cmd, args, options, file) {
-        options["stdio"] = 'inherit'
-        var pSpawn = require('child_process').spawn;
-        var proc = pSpawn(cmd, [args], options);
-
+        options["stdio"] = 'inherit';
+        let pSpawn = require('child_process').spawn;
+        let prc = pSpawn(cmd, [args], options);
         // console.log(proc.pid);
 
-        // // CLEAN UP ON PROCESS EXIT
-        proc.stdin.resume();
-        [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach((eventType) => {
-            proc.on(eventType, cleanUpServer.bind(null, eventType));
-        })
+        // CLEAN UP ON PROCESS EXIT
+        prc.stdin.resume();
 
-        return proc
+        [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
+            prc.on(eventType, cleanUpServer.bind(null, eventType));
+        }.bind(prc));
+
+        proc[prc.id] = prc;
+        return prc;
     }
 
     /**
+     * stopProcess
      *
-     *
-     * @param {*} proc
+     * @param {*} prc
      */
-    function stopProcess(proc) {
-        proc.kill();
-        proc.stdin.end();
+    function stopProcess(prc) {
+        proc[prc.id].kill();
+        proc[prc.id].stdin.end();
     }
 
     /**
-     *
+     * startProxy
      *
      * @param {*} conn
      * @param {*} options
      */
     function startProxy(conn, options) {
-
+        const gateway = require('restana')();
+        const { proxy, close } = require('fast-proxy')({
+            base: options.base
+        });
+        gateway.all(options.url, function (req, res) {
+            proxy(req, res, req.url, {});
+        });
+        gateway.start(options.port);
+        return gateway;
     }
 
     /**
-     *
+     * stopProxy
      *
      * @param {*} conn
-     * @param {*} proc
+     * @param {*} prxy
      */
-    function stopProxy(conn, proc) {
+    function stopProxy(conn, prxy) {
 
     }
 
     /**
+     * connect
      *
-     *
-     * @param {*} conn
-     * @param {*} proc
+     * @param {*} name
+     * @param {*} prxy
      * @returns
      */
-    function connect(conn, proc) {
-        return conn
+    function connect(name, prxy) {
+        return conn[name];
     }
 
-    /**
+    /** 
+     * close
      *
-     *
-     * @param {*} conn
+     * @param {*} name
      */
-    function close(conn) {
-        conn.close()
-    }
-
-    /**
-     *
-     *
-     * @param {*} options
-     */
-    function setConfig(options) {
-
+    function close(name) {
+        conn[name].close();
     }
 
     return {
-        proc: proc,
-        conn: conn,
-        config: config,
         setConfig: setConfig,
+        getConn: getConn,
+        setConn: setConn,
+        getProc: getProc,
+        setProc: setProc,
         start: startProcess,
         stop: stopProcess,
-        proxyStart: startProxy,
+        startProxy: startProxy,
         proxyEnd: stopProxy,
         connect: connect,
         close: close
     }
 }
 
-module.exports = handler
+module.exports = handler;

@@ -9,7 +9,6 @@
 var files = require("./files")
 var proxy = require("./proxy")
 
-
 // GOOD
 // https://www.npmjs.com/package/electron-json-storage
 // https://www.npmjs.com/package/smart-fs
@@ -17,4 +16,4 @@ var proxy = require("./proxy")
 module.exports = {
     "serve": files.serve,
     "proxy": proxy.proxy
-}
+};
