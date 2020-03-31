@@ -11,14 +11,15 @@ var proxy = require('./src/proxy');
 // https://www.npmjs.com/package/smart-fs
 
 function proxyHandler(req, res) {
-    return proxy.setupProxy({
-        host: 'http://127.0.0.1:8080/',
+    let handler = proxy.handler();
+    return proxy.setupProxy(handler, {
+        host: 'http://127.0.0.1:8000/',
         url: req.url.split('/')[0],
         req: req,
         res: res,
         cbase: 'http://127.0.0.1:5000',
         curl: '/*',
-        cport: 8080
+        cport: 8000
     });
 }
 
