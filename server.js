@@ -16,7 +16,7 @@ var rby = path.join("tests/ruby");
 var pl = path.join("tests/perl");
 var py = path.join("tests/py");
 
-// Subsystem
+// Subsystem for proxyHandler
 app.use("/sub", cgi.proxyHandler);
 
 // PHP File
