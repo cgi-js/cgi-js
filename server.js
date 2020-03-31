@@ -16,8 +16,16 @@ var rby = path.join("tests/ruby");
 var pl = path.join("tests/perl");
 var py = path.join("tests/py");
 
+
+let config = {
+    host: 'http://127.0.0.1:8000/',
+    cbase: 'http://127.0.0.1:5000',
+    curl: '/*',
+    cport: 8000
+};
+
 // Subsystem for proxyHandler
-app.use("/sub", cgi.proxyHandler);
+app.use("/sub", cgi.proxyHandler(config));
 
 // PHP File
 app.use("/php", cgi.serve('php', php));

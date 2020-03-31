@@ -10,19 +10,23 @@ var proxy = require('./src/proxy');
 // https://www.npmjs.com/package/electron-json-storage
 // https://www.npmjs.com/package/smart-fs
 
-function proxyHandler(req, res) {
-    let handler = proxy.handler();
-    return proxy.setupProxy(handler, {
-        host: 'http://127.0.0.1:8000/',
-        url: req.url.split('/')[0],
-        req: req,
-        res: res,
-        cbase: 'http://127.0.0.1:5000',
-        curl: '/*',
-        cport: 8000
-    });
+
+function proxyRouteHandler(conf) {
+    let {host, cbase, curl, cport} = conf;
+    return function proxyHandler(req, res) {
+        let handler = proxy.handler();
+        return proxy.setupProxy(handler, {
+            host: host,
+            url: req.url.split('/')[0],
+            req: req,
+            res: res,
+            cbase: cbase,
+            curl: curl,
+            cport: cport
+        });
+    }
 }
 
-files.proxyHandler = proxyHandler;
+files.proxyHandler = proxyRouteHandler;
 
 module.exports = files;

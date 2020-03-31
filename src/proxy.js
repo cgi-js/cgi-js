@@ -221,6 +221,7 @@ function handler() {
 function setupProxy(handler, options) {
     const { host, url, req, res, cbase, curl, cport } = options;
     const request = require('request');
+
     const conn = handler.startProxy({}, { base: cbase, url: curl, port: cport });
 
     request(host + url, function (error, response, body) {
