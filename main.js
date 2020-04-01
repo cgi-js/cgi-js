@@ -11,22 +11,7 @@ var proxy = require('./src/proxy');
 // https://www.npmjs.com/package/smart-fs
 
 
-function proxyRouteHandler(conf) {
-    let {host, cbase, curl, cport} = conf;
-    return function proxyHandler(req, res) {
-        let handler = proxy.handler();
-        return proxy.setupProxy(handler, {
-            host: host,
-            url: req.url.split('/')[0],
-            req: req,
-            res: res,
-            cbase: cbase,
-            curl: curl,
-            cport: cport
-        });
-    }
-}
-
-files.proxyHandler = proxyRouteHandler;
+files.handler = proxy.handler;
+files.proxyHandler = proxy.proxy;
 
 module.exports = files;

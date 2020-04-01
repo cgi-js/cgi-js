@@ -212,30 +212,58 @@ function handler() {
     }
 }
 
-/**
- *
- *
- * @param {*} handler
- * @param {*} options
- */
-function setupProxy(handler, options) {
-    const { host, url, req, res, cbase, curl, cport } = options;
-    const request = require('request');
 
-    const conn = handler.startProxy({}, { base: cbase, url: curl, port: cport });
+function proxy() {
+    /**
+     *
+     *
+     * @param {*} handler
+     * @param {*} options
+     */
+    function setupProxy(handler, options) {
+        const { host, url, req, res, cbase, curl, cport } = options;
+        const request = require('request');
 
-    request(host + url, function (error, response, body) {
-        // Print the error if one occurred
-        // console.error('error: ', error);
-        // Print the response status code if a response was received
-        // console.log('statusCode: ', response && response.statusCode);
-        // Print the HTML for the Google homepage
-        // console.log('body: ', body);
-        if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
-    }.bind(req, res));
+        request(host + url, function (error, response, body) {
+            // Print the error if one occurred
+            // console.error('error: ', error);
+            // Print the response status code if a response was received
+            // console.log('statusCode: ', response && response.statusCode);
+            // Print the HTML for the Google homepage
+            // console.log('body: ', body);
+            if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
+        }.bind(req, res));
+    }
+
+    /**
+     *
+     *
+     * @param {*} handler
+     * @param {*} conf
+     * @returns
+     */
+    function proxy(handler, proxy, conf) {
+        let { host, cbase, curl, cport } = conf;
+        return function proxyHandler(req, res) {
+            return proxy.setupProxy(handler, {
+                host: host,
+                url: req.url.split('/')[0],
+                req: req,
+                res: res,
+                cbase: cbase,
+                curl: curl,
+                cport: cport
+            });
+        }
+    }
+
+    return {
+        proxy: proxy,
+        setupProxy: setupProxy
+    }
 }
 
 module.exports = {
     handler,
-    setupProxy
+    proxy
 };

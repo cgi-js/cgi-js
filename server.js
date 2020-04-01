@@ -16,7 +16,6 @@ var rby = path.join("tests/ruby");
 var pl = path.join("tests/perl");
 var py = path.join("tests/py");
 
-
 let config = {
     host: 'http://127.0.0.1:8000/',
     cbase: 'http://127.0.0.1:5000',
@@ -24,8 +23,14 @@ let config = {
     cport: 8000
 };
 
+let h = cgi.handler();
+const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
+h.setConn(config, conn);
+let proxy = cgi.proxy();
+let proxyHandler = proxy.proxy(h, proxy, config);
+
 // Subsystem for proxyHandler
-app.use("/sub", cgi.proxyHandler(config));
+app.use("/sub", proxyHandler);
 
 // PHP File
 app.use("/php", cgi.serve('php', php));
