@@ -14,7 +14,7 @@
     "start": "node ./server.js",
     "test": "mocha"
   },
-  "main": "./main.js",
+  "main": "./src/main.js",
   "dependencies": {
     "bfn-proxy": "^1.4.0",
     "cgi-env": "0.0.1",

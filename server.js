@@ -5,7 +5,7 @@
 // 
 
 var express = require('express');
-var cgi = require("./main");
+var cgi = require("./src");
 // var cgi = require("cgijs");
 var path = require("path");
 

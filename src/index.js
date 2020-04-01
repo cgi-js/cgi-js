@@ -6,8 +6,8 @@
 
 /* eslint no-console: 0 */
 
-var files = require("./files")
-var proxy = require("./proxy")
+var files = require("./files");
+var proxy = require("./proxy");
 
 // GOOD
 // https://www.npmjs.com/package/electron-json-storage
@@ -15,5 +15,6 @@ var proxy = require("./proxy")
 
 module.exports = {
     "serve": files.serve,
-    "proxy": proxy.proxy
+    "proxy": proxy.proxy,
+    "handler": proxy.handler
 };
