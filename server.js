@@ -23,14 +23,16 @@ let config = {
     cport: 8000
 };
 
-let h = cgi.handler();
-const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
-h.setConn(config, conn);
-let proxy = cgi.proxy();
-let proxyHandler = proxy.proxy(h, proxy, config);
+function proxyHandler(cgi) {
+    let h = cgi.handler();
+    let proxy = cgi.proxy();
+    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
+    h.setConn(config, conn);
+    return proxy.proxy(h, proxy, config);
+}
 
 // Subsystem for proxyHandler
-app.use("/sub", proxyHandler);
+app.use("/sub", proxyHandler(cgi));
 
 // PHP File
 app.use("/php", cgi.serve('php', php));
