@@ -23,7 +23,7 @@ let config = {
     cport: 8000
 };
 
-function proxyHandler(cgi) {
+function proxyHandler(cgi, config) {
     let h = cgi.handler();
     let proxy = cgi.proxy();
     const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
@@ -32,7 +32,7 @@ function proxyHandler(cgi) {
 }
 
 // Subsystem for proxyHandler
-app.use("/sub", proxyHandler(cgi));
+app.use("/sub", proxyHandler(cgi, config));
 
 // PHP File
 app.use("/php", cgi.serve('php', php));
