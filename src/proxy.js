@@ -220,7 +220,7 @@ function proxy() {
      * @param {*} handler
      * @param {*} options
      */
-    function setupProxy(handler, options) {
+    function serve(handler, options) {
         const { host, url, req, res, cbase, curl, cport } = options;
         const request = require('request');
 
@@ -242,10 +242,10 @@ function proxy() {
      * @param {*} conf
      * @returns
      */
-    function proxy(handler, proxy, conf) {
+    function setup(handler, proxy, conf) {
         let { host, cbase, curl, cport } = conf;
         return function proxyHandler(req, res) {
-            return proxy.setupProxy(handler, {
+            return proxy.serve(handler, {
                 host: host,
                 url: req.url.split('/')[0],
                 req: req,
@@ -258,8 +258,8 @@ function proxy() {
     }
 
     return {
-        proxy: proxy,
-        setupProxy: setupProxy
+        setup: setup,
+        serve: serve
     }
 }
 
