@@ -177,26 +177,6 @@ function handler() {
 
     }
 
-    /**
-     * connect
-     *
-     * @param {*} name
-     * @param {*} prxy
-     * @returns
-     */
-    function connect(name, prxy) {
-        return conn[name];
-    }
-
-    /** 
-     * close
-     *
-     * @param {*} name
-     */
-    function close(name) {
-        conn[name].close();
-    }
-
     return {
         setConfig: setConfig,
         getConn: getConn,
@@ -206,9 +186,7 @@ function handler() {
         start: startProcess,
         stop: stopProcess,
         startProxy: startProxy,
-        proxyEnd: stopProxy,
-        connect: connect,
-        close: close
+        proxyEnd: stopProxy
     }
 }
 

@@ -27,7 +27,7 @@ function proxyHandler(cgi, config) {
     let h = cgi.handler();
     let proxy = cgi.proxy();
     const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
-    h.setConn(config, conn);
+    // h.setConn(config, conn);
     return proxy.setup(h, proxy, config);
 }
 
