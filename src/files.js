@@ -15,41 +15,52 @@ var fs = require('fs');
 var shell = require('shelljs');
 const util = require('util');
 
-var PHP_CGI = shell.which('php-cgi');
-var PERL_CGI = shell.which('perl');
-var PYTHON_CGI = shell.which('python');
-var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python') : shell.which('python3');
-var RUBY_CGI = shell.which('ruby');
+function getVars() {
 
+	var PHP_CGI = shell.which('php-cgi');
+	var PERL_CGI = shell.which('perl');
+	var PYTHON_CGI = shell.which('python');
+	var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python') : shell.which('python3');
+	var RUBY_CGI = shell.which('ruby');
 
-var LANG_OPTS = {
-	"rb": {
-		"cgi": "ruby",
-		"which": RUBY_CGI
-	},
-	"pl": {
-		"cgi": "perl",
-		"which": PERL_CGI
-	},
-	"plc": {
-		"cgi": "perl",
-		"which": PERL_CGI
-	},
-	"pld": {
-		"cgi": "perl",
-		"which": PERL_CGI
-	},
-	"py3": {
-		"cgi": "python3",
-		"which": PYTHON3_CGI
-	},
-	"py": {
-		"cgi": "python",
-		"which": PYTHON_CGI
-	},
-	"php": {
-		"cgi": "php-cgi",
-		"which": PHP_CGI
+	var LANG_OPTS = {
+		"rb": {
+			"cgi": "ruby",
+			"which": RUBY_CGI
+		},
+		"pl": {
+			"cgi": "perl",
+			"which": PERL_CGI
+		},
+		"plc": {
+			"cgi": "perl",
+			"which": PERL_CGI
+		},
+		"pld": {
+			"cgi": "perl",
+			"which": PERL_CGI
+		},
+		"py3": {
+			"cgi": "python3",
+			"which": PYTHON3_CGI
+		},
+		"py": {
+			"cgi": "python",
+			"which": PYTHON_CGI
+		},
+		"php": {
+			"cgi": "php-cgi",
+			"which": PHP_CGI
+		}
+	}
+
+	return {
+		PHP_CGI: PHP_CGI,
+		PERL_CGI: PERL_CGI,
+		PYTHON_CGI: PYTHON_CGI,
+		PYTHON3_CGI: PYTHON3_CGI,
+		RUBY_CGI: RUBY_CGI,
+		LANG_OPTS: LANG_OPTS
 	}
 }
 
@@ -345,8 +356,8 @@ function fileExists(type, req_url, web_files_root, callback) {
  */
 function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 
-	var pathinfo = '';
-	var i = req.url.indexOf('.' + getType(type));
+	let pathinfo = '';
+	let i = req.url.indexOf('.' + getType(type));
 
 	if (i > 0) {
 		pathinfo = url.pathname.substring(i + 4)
@@ -357,19 +368,19 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 	// console.log("runCGI pathinfo", pathinfo)
 	// console.log("runCGI req", req)
 
-	var env = getEnv(pathinfo, file, req, url);
+	let env = getEnv(pathinfo, file, req, url);
 
 	Object.keys(req.headers).map(function (x) {
 		return env['HTTP_' + x.toUpperCase().replace('-', '_')] = req.headers[x];
 	});
 
-	var pattern_chk = getPattern(type);
+	let pattern_chk = getPattern(type);
 
 	if (!!pattern_chk) {
 		if (pattern_chk.test(path.join(process.cwd(), file))) {
 
-			var tmp_result = '', err = '';
-			var proc;
+			let tmp_result = '', err = '', LANG_OPTS = getVars().LANG_OPTS;
+			let proc;
 
 			if (!!cgi_bin_path && cgi_bin_path !== '') {
 
@@ -416,8 +427,8 @@ function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
 				// extract headers
 				proc.stdin.end();
 
-				var lines = tmp_result.split('\r\n');
-				var html = '', CGIObj = {};
+				let lines = tmp_result.split('\r\n');
+				let html = '', CGIObj = {};
 
 				if (lines.length) {
 					if (type == "php") {
