@@ -11,10 +11,10 @@ var path = require("path");
 
 var app = express();
 
-var php = path.join("tests/php");
-var rby = path.join("tests/ruby");
-var pl = path.join("tests/perl");
-var py = path.join("tests/py");
+var php = path.join("www/php");
+var rby = path.join("www/ruby");
+var pl = path.join("www/perl");
+var py = path.join("www/py");
 
 let config = {
     host: 'http://127.0.0.1:8000/',
@@ -61,3 +61,6 @@ app.use("/", function (req, res) {
 
 app.listen(9090, '127.0.0.1');
 console.log("Server listening at 9090!");
+
+// // Run flask application
+// FLASK_APP=main.py FLASK_ENV=development flask run

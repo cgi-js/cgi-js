@@ -1,0 +1,14 @@
+// Alternative proxiy and cgi runners
+"start-proxy-server": "^1.0.1",
+"serve-cgi": "^0.6.1",
+"local-web-server": "^4.0.0",
+"fastify": "^2.12.1",
+"fastify-vhost": "^1.2.0",
+"bfn-proxy": "^1.4.0",
+
+
+// Required for further development using config files
+"cgi-env": "0.0.1",
+"yaml-settings": "^1.1.0"
+"jsonfile": "^6.0.1",
+"multilevel-ini": "^1.1.2",
