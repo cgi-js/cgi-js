@@ -199,7 +199,7 @@ function handler() {
         start: startProcess,
         stop: stopProcess,
         startProxy: startProxy,
-        proxyEnd: stopProxy
+        stopProxy: stopProxy
     }
 }
 
