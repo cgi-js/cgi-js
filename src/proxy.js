@@ -156,7 +156,19 @@ function handler() {
      * @param {*} options
      */
     function startProxy(conn, options) {
-        const gateway = require('restana')();
+        const https = require('https');
+        let gateway;
+        if (!!options.https.key && options.https.cert) {
+            gateway = require('restana')({
+                server: https.createServer({
+                    key: options.https.key,
+                    cert: options.https.cert
+                })
+            });
+        } else {
+            gateway = require('restana')();
+        }
+
         const { proxy, close } = require('fast-proxy')({
             base: options.base
         });
@@ -173,8 +185,9 @@ function handler() {
      * @param {*} conn
      * @param {*} prxy
      */
-    function stopProxy(conn, prxy) {
-
+    function stopProxy(gateway) {
+        gateway.close().then(()=> {})
+        return true;
     }
 
     return {

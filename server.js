@@ -20,13 +20,17 @@ let config = {
     host: 'http://127.0.0.1:8000/',
     cbase: 'http://127.0.0.1:5000',
     curl: '/*',
-    cport: 8000
+    cport: 8000,
+    chttps: {
+        key: null,
+        cert: null
+    }
 };
 
 function proxyHandler(cgi, config) {
     let h = cgi.handler();
     let proxy = cgi.proxy();
-    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport });
+    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport, https: config.chttps });
     // h.setConn(config, conn);
     return proxy.setup(h, proxy, config);
 }
