@@ -5,7 +5,9 @@
 // 
 
 var express = require('express');
-var cgi = require("./src");
+var cgijs = require("./src");
+var cgi = cgijs.serve();
+
 // var cgi = require("cgijs");
 var path = require("path");
 
@@ -27,16 +29,16 @@ let config = {
     }
 };
 
-function proxyHandler(cgi, config) {
-    let h = cgi.handler();
-    let proxy = cgi.proxy();
+function proxyHandler(cgijs, config) {
+    let h = cgijs.handler();
+    let proxy = cgijs.proxy();
     const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport, https: config.chttps });
     // h.setConn(config, conn);
     return proxy.setup(h, proxy, config);
 }
 
 // Subsystem for proxyHandler
-app.use("/sub", proxyHandler(cgi, config));
+app.use("/sub", proxyHandler(cgijs, config));
 
 // PHP File
 app.use("/php", cgi.serve('php', php));
