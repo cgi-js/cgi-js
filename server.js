@@ -41,19 +41,19 @@ function proxyHandler(cgijs, config) {
 app.use("/sub", proxyHandler(cgijs, config));
 
 // PHP File
-app.use("/php", cgi.serve('php', php));
+app.use("/php", cgi.serve('php', { web_files_root: php }));
 // RB File
-app.use("/rb", cgi.serve('rb', rby));
+app.use("/rb", cgi.serve('rb', { web_files_root: rby }));
 // PLC File
-app.use("/plc", cgi.serve('plc', pl));
+app.use("/plc", cgi.serve('plc', { web_files_root: pl }));
 // PLD File
-app.use("/pld", cgi.serve('pld', pl));
+app.use("/pld", cgi.serve('pld', { web_files_root: pl }));
 // PL File
-app.use("/pl", cgi.serve('pl', pl));
+app.use("/pl", cgi.serve('pl', { web_files_root: pl }));
 // PYTHON File
-app.use("/py", cgi.serve('py', py));
+app.use("/py", cgi.serve('py', { web_files_root: py }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', py));
+app.use("/py3", cgi.serve('py3', { web_files_root: py }));
 
 app.use("/", function (req, res) {
     res.send(`

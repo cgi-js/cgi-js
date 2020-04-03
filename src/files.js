@@ -310,12 +310,12 @@ function cgiServe() {
 	 *
 	 * @param {*} type
 	 * @param {*} req_url
-	 * @param {*} web_files_root
+	 * @param {*} exe_options.web_files_root
 	 * @param {*} callback
 	 */
-	function fileExists(type, req_url, web_files_root, callback) {
+	function fileExists(type, req_url, exe_options, callback) {
 
-		var file = path.join(web_files_root, req_url.pathname);
+		var file = path.join(exe_options.web_files_root, req_url.pathname);
 
 		fs.stat(file, function (err, stat) {
 			// File does not exist
@@ -353,10 +353,9 @@ function cgiServe() {
 	 * @param {*} url
 	 * @param {*} type
 	 * @param {*} file
-	 * @param {*} web_files_root
-	 * @param {*} cgi_bin_path
+	 * @param {*} exe_options
 	 */
-	function runCGI(req, res, next, url, type, file, web_files_root, cgi_bin_path) {
+	function runCGI(req, res, next, url, type, file, exe_options) {
 
 		let pathinfo = '';
 		let i = req.url.indexOf('.' + getType(type));
@@ -384,10 +383,10 @@ function cgiServe() {
 				let tmp_result = '', err = '', LANG_OPTS = getVars().LANG_OPTS;
 				let proc;
 
-				if (!!cgi_bin_path && cgi_bin_path !== '') {
+				if (!!exe_options.cgi_bin_path && exe_options.cgi_bin_path !== '') {
 
-					console.log("runCGI cgi_bin Path", cgi_bin_path + "/" + LANG_OPTS[type]["cgi"])
-					proc = child.spawn(cgi_bin_path + "/" + LANG_OPTS[type]["cgi"], [], {
+					console.log("runCGI cgi_bin Path", exe_options.cgi_bin_path + "/" + LANG_OPTS[type]["cgi"])
+					proc = child.spawn(exe_options.cgi_bin_path + "/" + LANG_OPTS[type]["cgi"], [], {
 						env: env
 					});
 
@@ -468,11 +467,10 @@ function cgiServe() {
 	 *
 	 *
 	 * @param {*} type
-	 * @param {*} web_files_root
-	 * @param {*} cgi_bin_path
+	 * @param {*} exe_options
 	 * @returns
 	 */
-	function serve(type, web_files_root, cgi_bin_path) {
+	function serve(type, exe_options) {
 
 		return function (req, res, next) {
 
@@ -480,11 +478,11 @@ function cgiServe() {
 			req.pause();
 			var req_url = URL.parse(req.url);
 
-			file = fileExists(type, req_url, web_files_root, function (file) {
+			file = fileExists(type, req_url, exe_options, function (file) {
 				if (file) {
 
-					console.log("serve fileExists call", cgi_bin_path, file);
-					runCGI(req, res, next, req_url, type, file, web_files_root, cgi_bin_path);
+					console.log("serve fileExists call", exe_options.cgi_bin_path, file);
+					runCGI(req, res, next, req_url, type, file, exe_options);
 				} else {
 
 					next();
