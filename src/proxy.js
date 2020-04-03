@@ -45,7 +45,8 @@
 // https://www.npmjs.com/package/start-proxy-server
 // https://www.npmjs.com/package/bfn-proxy
 
-
+const https = require('https');
+const request = require('request');
 
 /**
  * handler
@@ -156,7 +157,10 @@ function handler() {
      * @param {*} options
      */
     function startProxy(conn, options) {
-        const https = require('https');
+        const { proxy, close } = require('fast-proxy')({
+            base: options.base
+        });
+
         let gateway;
         if (!!options.https.key && options.https.cert) {
             gateway = require('restana')({
@@ -168,14 +172,11 @@ function handler() {
         } else {
             gateway = require('restana')();
         }
-
-        const { proxy, close } = require('fast-proxy')({
-            base: options.base
-        });
         gateway.all(options.url, function (req, res) {
             proxy(req, res, req.url, {});
         });
         gateway.start(options.port);
+
         return gateway;
     }
 
@@ -186,7 +187,7 @@ function handler() {
      * @param {*} prxy
      */
     function stopProxy(gateway) {
-        gateway.close().then(()=> {})
+        gateway.close().then(() => { })
         return true;
     }
 
@@ -213,7 +214,6 @@ function proxy() {
      */
     function serve(handler, options) {
         const { host, url, req, res, cbase, curl, cport } = options;
-        const request = require('request');
 
         request(host + url, function (error, response, body) {
             // Print the error if one occurred
