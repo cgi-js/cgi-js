@@ -4,13 +4,24 @@
             "path": "",
             "bin": "",
             "config": {
-                "file": "",
-                "extension": ""
-            }
+                "file": ""
+            },
+            "options": ""
         },
         "script": {
             "type": "file",
-            "path": ""
+            "path": "",
+            "server": {
+                "host": "",
+                "port": "",
+                "username": "",
+                "password": "",
+                "ssl": {
+                    "crt": "",
+                    "pem": ""
+                }
+            },
+            "options": ""
         }
     },
     "py": {
@@ -18,9 +29,9 @@
             "path": "",
             "bin": "",
             "config": {
-                "file": "",
-                "extension": ""
-            }
+                "file": ""
+            },
+            "options": ""
         },
         "script": {
             "type": "server",
@@ -34,7 +45,8 @@
                     "crt": "",
                     "pem": ""
                 }
-            }
+            },
+            "options": ""
         }
     }
 }

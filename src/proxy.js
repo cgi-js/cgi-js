@@ -158,7 +158,7 @@ function handler() {
      */
     function startProxy(conn, options) {
         const { proxy, close } = require('fast-proxy')({
-            base: options.base
+            base: options.basehost + ":" + options.baseport
         });
 
         let gateway;
@@ -172,10 +172,11 @@ function handler() {
         } else {
             gateway = require('restana')();
         }
-        gateway.all(options.url, function (req, res) {
+
+        gateway.all(options.baseurl, function (req, res) {
             proxy(req, res, req.url, {});
         });
-        gateway.start(options.port);
+        gateway.start(options.port ? options.port : 0);
 
         return gateway;
     }
@@ -187,8 +188,9 @@ function handler() {
      * @param {*} prxy
      */
     function stopProxy(gateway) {
-        gateway.close().then(() => { })
-        return true;
+        gateway.close().then(() => {
+            return true;
+         });
     }
 
     return {
@@ -213,9 +215,8 @@ function proxy() {
      * @param {*} options
      */
     function serve(handler, options) {
-        const { host, url, req, res, cbase, curl, cport } = options;
-
-        request(host + url, function (error, response, body) {
+        const { host, port, url, req, res, cbase, curl, cport } = options;
+        request(host + ":" + port + url, function (error, response, body) {
             // Print the error if one occurred
             // console.error('error: ', error);
             // Print the response status code if a response was received
@@ -234,11 +235,12 @@ function proxy() {
      * @returns
      */
     function setup(handler, proxy, conf) {
-        let { host, cbase, curl, cport } = conf;
+        let { host, port, cbase, curl, cport } = conf;
         return function proxyHandler(req, res) {
             return proxy.serve(handler, {
                 host: host,
-                url: req.url.split('/')[0],
+                url: req.url,
+                port: port,
                 req: req,
                 res: res,
                 cbase: cbase,

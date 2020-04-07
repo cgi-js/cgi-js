@@ -20,10 +20,11 @@ let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
 let config = {
-    host: 'http://127.0.0.1:8000/',
-    cbase: 'http://127.0.0.1:5000',
+    host: 'http://127.0.0.1',
+    port: 8000,
+    cbase: 'http://127.0.0.1',
+    cport: 5000,
     curl: '/*',
-    cport: 8000,
     chttps: {
         key: null,
         cert: null
@@ -33,7 +34,7 @@ let config = {
 function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
     let proxy = cgijs.proxy();
-    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, sport: config.cport, https: config.chttps });
+    const conn = h.startProxy({}, { basehost: config.cbase, baseport: config.cport, baseurl: config.curl, host: config.host, port: config.port, https: config.chttps });
     // h.setConn(config, conn);
     return proxy.setup(h, proxy, config);
 }
