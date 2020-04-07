@@ -63,7 +63,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Following is the structure for providing the decalaration of paths
 
-// app.use("/", some.cgi('type_of_interpretor', { 
+// app.use("/", cgi.serve('type_of_interpretor', { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin_path: '/path/to/cgiexe/without/executable_name', 
 //         config_path: '/path/to/some.ini', 
@@ -74,7 +74,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 // Following works without a local CGI path and tries to 
 //          use CGI installed in system by default
 
-// app.use("/", some.cgi("type_of_interpretor", { 
+// app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin_path: '', 
 //         config_path: '', 
@@ -85,7 +85,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 // Following uses a path in second argument defining the local copy of CGI 
 //          that you want to use for the application
 
-// app.use("/", some.cgi("py", { 
+// app.use("/", cgi.serve("py", { 
 //         web_files_root: /path/to/cgiscript, 
 //         bin_path: '/usr/bin/', 
 //         config_path: '/path/to/cgi.ini', 
