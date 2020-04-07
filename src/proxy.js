@@ -158,7 +158,7 @@ function handler() {
      */
     function startProxy(conn, options) {
         const { proxy, close } = require('fast-proxy')({
-            base: options.basehost + ":" + options.baseport
+            base: options.base_host + ":" + options.base_port
         });
 
         let gateway;
@@ -173,10 +173,10 @@ function handler() {
             gateway = require('restana')();
         }
 
-        gateway.all(options.baseurl, function (req, res) {
+        gateway.all(options.base_url, function (req, res) {
             proxy(req, res, req.url, {});
         });
-        gateway.start(options.port ? options.port : 0);
+        gateway.start(options.proxy_port ? options.proxy_port : 0);
 
         return gateway;
     }
