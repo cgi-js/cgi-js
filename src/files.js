@@ -17,53 +17,144 @@ const util = require('util');
 
 function cgiServe() {
 
-	function getVars() {
+	var LANG_OPTS = {
+		"rb": {
+			"name": "ruby",
+			"cgi": "ruby",
+			"which": ""
+		},
+		"pl": {
+			"name": "perl",
+			"cgi": "perl",
+			"which": ""
+		},
+		"plc": {
+			"name": "perl",
+			"cgi": "perl",
+			"which": ""
+		},
+		"pld": {
+			"name": "perl",
+			"cgi": "perl",
+			"which": ""
+		},
+		"py3": {
+			"name": "python3",
+			"cgi": "python3",
+			"which": ""
+		},
+		"py": {
+			"name": "python",
+			"cgi": "python",
+			"which": ""
+		},
+		"php": {
+			"name": "php",
+			"cgi": "php-cgi",
+			"which": ""
+		}
+	}
 
-		var PHP_CGI = shell.which('php-cgi');
-		var PERL_CGI = shell.which('perl');
-		var PYTHON_CGI = shell.which('python');
-		var PYTHON3_CGI = (process.platform === "win32") ? shell.which('python') : shell.which('python3');
-		var RUBY_CGI = shell.which('ruby');
+	function getPHPCGI(cgiBinPath) {
+		let PHP_CGI;
+		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+		try {
+			PHP_CGI = shell.which(cgiBinPath + 'php-cgi');
+		} catch (e) {
+			return false;
+		}
+		return PHP_CGI;
+	}
 
-		var LANG_OPTS = {
-			"rb": {
-				"cgi": "ruby",
-				"which": RUBY_CGI
-			},
-			"pl": {
-				"cgi": "perl",
-				"which": PERL_CGI
-			},
-			"plc": {
-				"cgi": "perl",
-				"which": PERL_CGI
-			},
-			"pld": {
-				"cgi": "perl",
-				"which": PERL_CGI
-			},
-			"py3": {
-				"cgi": "python3",
-				"which": PYTHON3_CGI
-			},
-			"py": {
-				"cgi": "python",
-				"which": PYTHON_CGI
-			},
-			"php": {
-				"cgi": "php-cgi",
-				"which": PHP_CGI
-			}
+	function getPerlCGI(cgiBinPath) {
+		let PERL_CGI;
+		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+		try {
+			PERL_CGI = shell.which(cgiBinPath + 'perl');
+		} catch (e) {
+			return false;
+		}
+		return PERL_CGI;
+	}
+
+	function getPythonCGI(cgiBinPath) {
+		let PYTHON_CGI;
+		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+		try {
+			PYTHON_CGI = shell.which(cgiBinPath + 'python');
+		} catch (e) {
+			return false;
+		}
+		return PYTHON_CGI;
+	}
+
+	function getPython3CGI(cgiBinPath) {
+		let PYTHON3_CGI;
+		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+		try {
+			PYTHON3_CGI = (process.platform === "win32") ? shell.which(cgiBinPath + 'python') : shell.which(cgiBinPath + 'python3');
+		} catch (e) {
+			return false;
+		}
+		return PYTHON3_CGI;
+	}
+
+	function getRubyCGI(cgiBinPath) {
+		let RUBY_CGI;
+		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+		try {
+			RUBY_CGI = shell.which(cgiBinPath + 'ruby');
+		} catch (e) {
+			return false;
+		}
+		return RUBY_CGI;
+	}
+
+	function getAllCGIType() {
+		LANG_OPTS[getType('php')]["which"] = getPHPCGI();
+		LANG_OPTS[getType('pl')]["which"] = getPerlCGI();
+		LANG_OPTS[getType('plc')]["which"] = getPerlCGI();
+		LANG_OPTS[getType('pld')]["which"] = getPerlCGI();
+		LANG_OPTS[getType('py')]["which"] = getPythonCGI();
+		LANG_OPTS[getType('py3')]["which"] = getPython3CGI();
+		LANG_OPTS[getType('rb')]["which"] = getRubyCGI();
+		return LANG_OPTS;
+	}
+
+	function getCGIType(type, LANG_OPTS) {
+		if (!!LANG_OPTS[type]) { return LANG_OPTS[type].cgi; }
+		return false;
+	}
+
+	function pathClean(type, exe_options) {
+		let cgiBinPath = exe_options.bin_path;
+		let cgiType = getCGIType(type, LANG_OPTS);
+		let cgiExeIndex = cgiBinPath.lastIndexOf(cgiType);
+		let cgiSlashIndex = cgiBinPath.lastIndexOf("/");
+		let cgiLen = cgiBinPath.length;
+		
+		// remove exe from path
+		if (cgiExeIndex + cgiType.length === cgiLen) {
+			cgiBinPath = cgiBinPath.substring(0, cgiExeIndex);
 		}
 
+		// remove slash if there for cgi path
+		if (cgiSlashIndex === cgiBinPath.length - 1) {
+			cgiBinPath = cgiBinPath.substring(0, cgiBinPath.length - 1);
+		}
+
+		cgiBinPath = cgiBinPath + '/' + cgiType;
+		exe_options.bin_path = cgiBinPath;
+		LANG_OPTS[getType(type)]["which"] = cgiType;
+		
 		return {
-			PHP_CGI: PHP_CGI,
-			PERL_CGI: PERL_CGI,
-			PYTHON_CGI: PYTHON_CGI,
-			PYTHON3_CGI: PYTHON3_CGI,
-			RUBY_CGI: RUBY_CGI,
-			LANG_OPTS: LANG_OPTS
-		}
+			LANG_OPTS: LANG_OPTS,
+			exe_options: exe_options
+		};
+	}
+
+	function getVars(type, exe_options) {
+		return pathClean(type, exe_options);
 	}
 
 	/**
@@ -73,9 +164,11 @@ function cgiServe() {
 	 * @param {*} file
 	 * @param {*} req
 	 * @param {*} url
+	 * @param {*} host
+	 * @param {*} port
 	 * @returns
 	 */
-	function getEnv(pathinfo, file, req, url) {
+	function getEnv(pathinfo, file, req, url, host, port) {
 
 		var env = {
 			SERVER_SIGNATURE: 'NodeJS server at localhost',
@@ -97,7 +190,8 @@ function cgiServe() {
 			// The full URL to the current object requested by the client.
 			SCRIPT_URI: req.url,
 
-			// The full URI of the current request. It is made of the concatenation of SCRIPT_NAME and PATH_INFO (if available.)
+			// The full URI of the current request. It is made of the 
+			// 			concatenation of SCRIPT_NAME and PATH_INFO (if available.)
 			URL: req.url,
 
 			SCRIPT_URL: req.url,
@@ -111,7 +205,8 @@ function cgiServe() {
 			// The information which follows the ? character in the requested URL.
 			QUERY_STRING: url.query || '',
 
-			// 'multipart/form-data', //'application/x-www-form-urlencoded', //The MIME type of the request body; set only for POST or PUT requests.
+			// 'multipart/form-data', //'application/x-www-form-urlencoded', 
+			//The MIME type of the request body; set only for POST or PUT requests.
 			CONTENT_TYPE: req.get('Content-Type') || '',
 
 			// The length in bytes of the request body; set only for POST or PUT requests.
@@ -122,17 +217,21 @@ function cgiServe() {
 
 			AUTH_USER: '',
 
-			// The name of the user as issued by the client when authenticating itself to access the script.
+			// The name of the user as issued by the client when authenticating itself to 
+			// 			access the script.
 			REMOTE_USER: '',
 
-			// All HTTP headers sent by the client. Headers are separated by carriage return characters (ASCII 13 - \n) and each header name is prefixed by HTTP_, transformed to upper cases, and - characters it contains are replaced by _ characters.
+			// All HTTP headers sent by the client. Headers are separated by carriage return 
+			// 		characters (ASCII 13 - \n) and each header name is prefixed by HTTP_, 
+			// 		transformed to upper cases, and - characters it contains are replaced by _ characters.
 			ALL_HTTP: Object.keys(req.headers).map(function (x) {
 				return 'HTTP_' + x.toUpperCase().replace('-', '_') + ': ' + req.headers[x];
 			}).reduce(function (a, b) {
 				return a + b + '\n';
 			}, ''),
 
-			// All HTTP headers as sent by the client in raw form. No transformation on the header names is applied.
+			// All HTTP headers as sent by the client in raw form. No transformation 
+			// 			on the header names is applied.
 			ALL_RAW: Object.keys(req.headers).map(function (x) {
 				return x + ': ' + req.headers[x];
 			}).reduce(function (a, b) {
@@ -142,14 +241,15 @@ function cgiServe() {
 			// The web server's software identity.
 			SERVER_SOFTWARE: 'NodeJS',
 
-			// The host name or the IP address of the computer running the web server as given in the requested URL.
+			// The host name or the IP address of the computer running the web server 
+			// 			as given in the requested URL.
 			SERVER_NAME: 'localhost',
 
 			// The IP address of the computer running the web server.
-			SERVER_ADDR: '127.0.0.1',
+			SERVER_ADDR: host,
 
 			// The port to which the request was sent.
-			SERVER_PORT: 8011,
+			SERVER_PORT: port,
 
 			// The CGI Specification version supported by the web server; always set to CGI/1.1.
 			GATEWAY_INTERFACE: 'CGI/1.1',
@@ -166,16 +266,22 @@ function cgiServe() {
 			// The absolute path of the web site files. It has the same value as Documents Path.
 			DOCUMENT_ROOT: '',
 
-			// The numerical identifier of the host which served the request. On Abyss Web Server X1, it is always set to 1 since there is only a single host.
+			// The numerical identifier of the host which served the request. On Abyss Web 
+			// 			Server X1, it is always set to 1 since there is only a single host.
 			INSTANCE_ID: '',
 
-			// The virtual path of the deepest alias which contains the request URI. If no alias contains the request URI, the variable is set to /.
+			// The virtual path of the deepest alias which contains the request URI. If no alias 
+			// 			contains the request URI, the variable is set to /.
 			APPL_MD_PATH: '',
 
-			// The real path of the deepest alias which contains the request URI. If no alias contains the request URI, the variable is set to the same value as DOCUMENT_ROOT.
+			// The real path of the deepest alias which contains the request URI. If no alias 
+			// 			contains the request URI, the variable is set to the same value as DOCUMENT_ROOT.
 			APPL_PHYSICAL_PATH: '',
 
-			// It is set to true if the current request is a subrequest, i.e. a request not directly invoked by a client. Otherwise, it is set to true. Subrequests are generated by the server for internal processing. XSSI includes for example result in subrequests.
+			// It is set to true if the current request is a subrequest, i.e. a request not 
+			// 			directly invoked by a client. Otherwise, it is set to true. Subrequests 
+			// 			are generated by the server for internal processing. XSSI includes for 
+			// 			example result in subrequests.
 			IS_SUBREQ: '',
 
 			REDIRECT_STATUS: 1
@@ -220,19 +326,19 @@ function cgiServe() {
 	function getType(type) {
 
 		if (type == "py") {
-			return "py"
+			return "py";
 		} else if (type == "py3") {
-			return "py"
+			return "py";
 		} else if (type == "php") {
-			return "php"
+			return "php";
 		} else if (type == "pl") {
-			return "pl"
+			return "pl";
 		} else if (type == "plc") {
-			return "plc"
+			return "plc";
 		} else if (type == "pld") {
-			return "pld"
+			return "pld";
 		} else if (type == "rb") {
-			return "rb"
+			return "rb";
 		}
 
 		return false;
@@ -305,43 +411,51 @@ function cgiServe() {
 		};
 	}
 
-	/**
-	 *
-	 *
-	 * @param {*} type
-	 * @param {*} req_url
-	 * @param {*} exe_options.web_files_root
-	 * @param {*} callback
-	 */
-	function fileExists(type, req_url, exe_options, callback) {
+	function fileExists(type, req_url, exe_options) {
+		let promise = new Promise(function (resolve, reject) {
 
-		var file = path.join(exe_options.web_files_root, req_url.pathname);
-
-		fs.stat(file, function (err, stat) {
-			// File does not exist
-			if (err || stat.isDirectory()) {
-				if (stat && stat.isDirectory()) {
-					file = path.join(file, 'index.' + getType(type));
-					console.log("Path created file ", file)
-				}
-				if (file.includes(process.cwd())) {
-					fs.exists(file, function (exists) {
-						console.log("Path join", file, exists)
-						callback(exists && file);
-					});
+			let feFn = function (f) {
+				if (!!f) {
+					resolve(f);
 				} else {
-					fs.exists(path.join(process.cwd(), file), function (exists) {
-						console.log("No path join", file, exists)
-						callback(exists && file);
-					});
+					resolve(false);
 				}
 			}
 
-			// File found
-			else {
-				callback(file);
-			}
+			let file = path.join(exe_options.web_files_root, req_url.pathname);
+			// console.log("Path fileExists", file);
+			fs.stat(file, function (err, stat) {
+				// File does not exist
+				if (err || stat.isDirectory()) {
+					if (stat && stat.isDirectory()) {
+						file = path.join(file, 'index.' + getType(type));
+						console.log("Path created file ", file)
+					}
+					if (file.includes(process.cwd())) {
+						fs.exists(file, function (exists) {
+							console.log("Path join", file, exists)
+							if (!!exists) {
+								feFn(file);
+							}
+						});
+					} else {
+						fs.exists(path.join(process.cwd(), file), function (exists) {
+							console.log("No path join", file, exists)
+							if (!!exists) {
+								feFn(file);
+							}
+						});
+					}
+				}
+
+				// File found
+				else {
+					console.log("Else Path", file);
+					callback(file);
+				}
+			});
 		});
+		return promise;
 	}
 
 	/**
@@ -361,50 +475,48 @@ function cgiServe() {
 		let i = req.url.indexOf('.' + getType(type));
 
 		if (i > 0) {
-			pathinfo = url.pathname.substring(i + 4)
+			pathinfo = url.pathname.substring(i + 4);
 		} else {
-			pathinfo = url.pathname
+			pathinfo = url.pathname;
 		};
 
-		// console.log("runCGI pathinfo", pathinfo)
+		// console.log("runCGI pathinfo", pathinfo, file, url.pathname);
 		// console.log("runCGI req", req)
 
-		let env = getEnv(pathinfo, file, req, url);
+		let env = getEnv(pathinfo, file, req, url.pathname, exe_options.host, exe_options.port);
 
 		Object.keys(req.headers).map(function (x) {
 			return env['HTTP_' + x.toUpperCase().replace('-', '_')] = req.headers[x];
 		});
 
 		let pattern_chk = getPattern(type);
-
 		if (!!pattern_chk) {
-			if (pattern_chk.test(path.join(process.cwd(), file))) {
-
-				let tmp_result = '', err = '', LANG_OPTS = getVars().LANG_OPTS;
+			if (!!pattern_chk.test(path.join(process.cwd(), file))) {
+				let tmp_result = '', err = '';
+				let gvars = getVars(type, exe_options);
+				exe_options = gvars.exe_options;
+				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
 
-				if (!!exe_options.cgi_bin_path && exe_options.cgi_bin_path !== '') {
-
-					console.log("runCGI cgi_bin Path", exe_options.cgi_bin_path + "/" + LANG_OPTS[type]["cgi"])
-					proc = child.spawn(exe_options.cgi_bin_path + "/" + LANG_OPTS[type]["cgi"], [], {
+				if ((!!exe_options.bin_path) && (exe_options.bin_path !== '') && (('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin_path.length) ) {
+					console.log('runCGI 1', exe_options.bin_path);
+					proc = child.spawn(exe_options.bin_path, [file], {
 						env: env
 					});
 
 				} else {
-
 					if (!LANG_OPTS[type]["which"]) {
+						console.log('which" Error');
 						throw new Error('"runCGI cgi executable" cannot be found');
 					}
-
-					console.log("runCGI bin Path", LANG_OPTS[type]["cgi"])
-					proc = child.spawn(LANG_OPTS[type]["cgi"], [file], {
+					console.log('runCGI 2', exe_options.bin_path.split('/')[1]);
+					proc = child.spawn(exe_options.bin_path.split('/')[1], [file], {
 						env: env
 					});
-
 				}
 
 				proc.stdin.on('error', function () {
-					console.error("runCGI Error from server")
+					console.error("runCGI Error from server");
 				});
 
 				// Pipe request stream directly into the php process
@@ -424,7 +536,6 @@ function cgiServe() {
 				});
 
 				proc.on('exit', function () {
-
 					// extract headers
 					proc.stdin.end();
 
@@ -433,32 +544,28 @@ function cgiServe() {
 
 					if (lines.length) {
 						if (type == "php") {
-
 							CGIObj = getPHPHtml(lines, res);
-							html = CGIObj["html"]
-							res = CGIObj["res"]
+							html = CGIObj["html"];
+							res = CGIObj["res"];
 						} else {
-
 							CGIObj = getCGIHtml(lines, res);
-							html = CGIObj["html"]
-							res = CGIObj["res"]
+							html = CGIObj["html"];
+							res = CGIObj["res"];
 						}
 					} else {
 						html = tmp_result;
 					}
-
 					// console.log('runCGI STATUS: ' + res.statusCode);
 					// console.log('runCGI HTML: ' + html);
-
 					if (res.statusCode) {
-						res.status(res.statusCode).send(html);
+						return res.status(res.statusCode).send(html);
 					} else {
-						res.send(html);
+						return res.send(html);
 					}
-					res.end();
+					return res.end();
 				});
 			} else {
-				res.sendFile(file);
+				return res.sendFile(file);
 			}
 		}
 	}
@@ -471,23 +578,23 @@ function cgiServe() {
 	 * @returns
 	 */
 	function serve(type, exe_options) {
-
+		// console.log(exe_options.bin_path);
 		return function (req, res, next) {
-
 			// stop stream until child-process is opened
 			req.pause();
+
 			var req_url = URL.parse(req.url);
+			// req_url = req_url.path;
 
-			file = fileExists(type, req_url, exe_options, function (file) {
-				if (file) {
-
-					console.log("serve fileExists call", exe_options.cgi_bin_path, file);
+			fileExists(type, req_url, exe_options).then(function(file){
+				if (!!file){
 					runCGI(req, res, next, req_url, type, file, exe_options);
 				} else {
-
-					next();
+					res.end("File serve exists error: 1");
 				}
-			})
+			}).catch(function(e) {
+				res.end("File serve promise error: 2");
+			});
 		};
 	}
 

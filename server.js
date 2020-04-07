@@ -13,10 +13,11 @@ var path = require("path");
 
 var app = express();
 
-var php = path.join("www/php");
-var rby = path.join("www/ruby");
-var pl = path.join("www/perl");
-var py = path.join("www/py");
+let php = path.join("www/php");
+let rby = path.join("www/ruby");
+let pl = path.join("www/perl");
+let py = path.join("www/py");
+let sport = 9090, shost = '127.0.0.1';
 
 let config = {
     host: 'http://127.0.0.1:8000/',
@@ -32,7 +33,7 @@ let config = {
 function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
     let proxy = cgijs.proxy();
-    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, port: config.cport, https: config.chttps });
+    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, sport: config.cport, https: config.chttps });
     // h.setConn(config, conn);
     return proxy.setup(h, proxy, config);
 }
@@ -41,28 +42,28 @@ function proxyHandler(cgijs, config) {
 app.use("/sub", proxyHandler(cgijs, config));
 
 // PHP File
-app.use("/php", cgi.serve('php', { web_files_root: php }));
+app.use("/php", cgi.serve('php', { web_files_root: php, bin_path: '', config_path: '', host: shost, port: sport }));
 // RB File
-app.use("/rb", cgi.serve('rb', { web_files_root: rby }));
+app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PLC File
-app.use("/plc", cgi.serve('plc', { web_files_root: pl }));
+app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PLD File
-app.use("/pld", cgi.serve('pld', { web_files_root: pl }));
+app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PL File
-app.use("/pl", cgi.serve('pl', { web_files_root: pl }));
+app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PYTHON File
-app.use("/py", cgi.serve('py', { web_files_root: py }));
+app.use("/py", cgi.serve('py', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', { web_files_root: py }));
+app.use("/py3", cgi.serve('py3', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 app.use("/", function (req, res) {
     res.send(`
         "Testing my server"
-    `)
+    `);
 });
 
-app.listen(9090, '127.0.0.1');
-console.log("Server listening at 9090!");
+app.listen(sport, shost);
+console.log(`Server listening at ${sport}!`);
 
 // // Run flask application
 // FLASK_APP=main.py FLASK_ENV=development flask run
