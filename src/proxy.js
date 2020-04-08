@@ -59,20 +59,39 @@ function handler() {
 
     /**
      * setConfig
+     * 
      *
      * @param {*} options
      */
     function setConfig(options) {
-        // Make it attributewise
-        config = options
+        if (!!options) {
+            keys = options.keys();
+            for (let i = 0; i < keys.length; i++) {
+                if (!!config[keys[i]]) {
+                    config[keys[i]] = options[key[i]];
+                }
+            }
+        }
     }
 
     /**
      * getConfig
      *
      */
-    function getConfig() {
-        return config
+    function getConfig(args) {
+        if (!!args) {
+            if (typeof args === String) {
+                return config[args];
+            } else if (typeof args === Array) {
+                let tmp = {};
+                for (let i = 0; i < args.length; i++) {
+                    if (!!config[args[i]]) {
+                        tmp[args[i]] = config[args[i]];
+                    }
+                }
+            }
+        }
+        return config;
     }
 
     /**
@@ -190,7 +209,7 @@ function handler() {
     function stopProxy(gateway) {
         gateway.close().then(() => {
             return true;
-         });
+        });
     }
 
     return {
