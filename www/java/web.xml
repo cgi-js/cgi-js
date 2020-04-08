@@ -1,0 +1,14 @@
+<web-app>  
+    <servlet>  
+        <servlet-name>jspdemo</servlet-name>  
+        <jsp-file>/index.jsp</jsp-file>  
+        <init-param>  
+            <param-name>dname</param-name>  
+            <param-value>sun.jdbc.odbc.JdbcOdbcDriver</param-value>  
+        </init-param>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>jspdemo</servlet-name>  
+        <url-pattern>/</url-pattern>  
+    </servlet-mapping>  
+</web-app>  
