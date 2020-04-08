@@ -35,7 +35,7 @@ function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
     let proxy = cgijs.proxy();
     const conn = h.startProxy({}, { base_host: config.cbase, base_port: config.cport, base_url: config.curl, proxy_host: config.host, proxy_port: config.port, https: config.chttps });
-    // h.setConn(config, conn);
+    // h.setConnection({config.cbase + config.cport.toString(): conn});
     return proxy.setup(h, proxy, config);
 }
 

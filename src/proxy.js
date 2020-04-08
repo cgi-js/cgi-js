@@ -49,6 +49,7 @@ const https = require('https');
 const request = require('request');
 
 /**
+ * 
  * handler
  *
  * @returns
@@ -58,84 +59,146 @@ function handler() {
     let config = {}, conn = {}, proc = {};
 
     /**
-     * setConfig
      * 
+     * setterFunction
      *
-     * @param {undefined, object} options
+     * @param {*} obj
+     * 
+     * @param {*} values
+     * 
+     * @returns
+     * 
      */
-    function setConfig(options) {
+    function setterFunction(obj, values) {
         if (!!options) {
-            keys = options.keys();
+            keys = values.keys();
             for (let i = 0; i < keys.length; i++) {
-                if (!!config[keys[i]]) {
-                    config[keys[i]] = options[key[i]];
-                }
+                obj[keys[i]] = values[key[i]];
             }
         }
     }
 
     /**
+     * 
+     * getterFunction
      *
-     *
-     * @param {undefined, string, array} args
+     * @param {*} obj
+     * 
+     * @param {*} args
+     * 
      * @returns
+     * 
      */
-    function getConfig(args) {
+    function getterFunction(obj, args) {
         if (!!args) {
             if (typeof args === String) {
-                return config[args];
+                return obj[args];
             } else if (typeof args === Array) {
                 let tmp = {};
                 for (let i = 0; i < args.length; i++) {
-                    if (!!config[args[i]]) {
-                        tmp[args[i]] = config[args[i]];
+                    if (!!obj[args[i]]) {
+                        tmp[args[i]] = obj[args[i]];
                     }
                 }
+                return tmp;
             }
         }
-        return config;
+        return obj;
     }
 
     /**
+     * 
+     * getConfig
+     * Returns the config of requested args
+     * can be single key, or array of keys or complete config object for fetch
+     *
+     * @param {undefined, String, Array} args
+     * args is either single config string key or Array of keys to be fetched
+     * @returns {*} config
+     * config: configurations object
+     * 
+     */
+    function getConfig(args) {
+        return getterFunction(config, args);
+    }
+
+    /**
+     * 
+     * setConfig
+     * Sets the key of the config provided
+     * can be single or multiple keys or complete config object for setting config
+     *
+     * @param {undefined, Object} options
+     * options is the an object of configuration with names of config as keys
+     * @returns undefined
+     * 
+     */
+    function setConfig(options) {
+        setterFunction(config, options);
+    }
+
+    /**
+     * 
      * getConn
+     * Returns the connection requested
+     * can be single key, or array of keys or complete conn object for fetch
      *
-     * @param {*} name
-     * @returns
+     * @param {undefined, String, Array} connNames
+     * conns : single name of conn or array of conns to be fetched
+     * @returns {*} conn
+     * conn: connections object
+     * 
      */
-    function getConn(name) {
-        return conn[name];
+    function getConn(connNames) {
+        return getterFunction(conn, connNames);
     }
 
     /**
+     * 
      * setConn
+     * Sets the conn of the connection key name provided
+     * can be single or multiple keys or complete connection object for setting conn
      *
-     * @param {*} name
-     * @param {*} connection
+     * @param {undefined, Object} connObject
+     * connObject is an object of connections with names of connection as keys
+     * @returns undefined
+     * 
      */
-    function setConn(name, connection) {
-        conn[name] = connection;
+    function setConn(connObject) {
+        setterFunction(conn, connObject);
     }
 
     /**
+     * 
      * getProc
+     * Returns the process requested
+     * can be single key, or array of keys or complete process object for fetch
      *
-     * @param {*} name
-     * @returns
+     * @param {undefined, String, Array} procIds
+     * prcObject is single or Array of ids
+     * @returns {*} proc
+     * proc: processes object
+     * 
      */
-    function getProc(prc) {
-        return proc[prc.id];
+    function getProc(procIds) {
+        return getterFunction(proc, procIds);
     }
 
     /**
+     * 
      * setProc
+     * Sets the proc of the connection key procId provided
+     * can be single or multiple keys or complete process object for setting proc
      *
-     * @param {*} prc
+     * @param {undefined, object} procObj
+     * 
      */
-    function setProc(prc) {
-        proc[prc.id] = prc;
+    function setProc(procObj) {
+        setterFunction(proc, procObj);
     }
 
     /**
+     * 
      * startProcess
      *
      * @param {*} cmd
@@ -162,6 +225,7 @@ function handler() {
     }
 
     /**
+     * 
      * stopProcess
      *
      * @param {*} prc
@@ -172,6 +236,7 @@ function handler() {
     }
 
     /**
+     * 
      * startProxy
      *
      * @param {*} conn
@@ -203,6 +268,7 @@ function handler() {
     }
 
     /**
+     * 
      * stopProxy
      *
      * @param {*} conn
@@ -216,10 +282,11 @@ function handler() {
 
     return {
         setConfig: setConfig,
-        getConn: getConn,
-        setConn: setConn,
-        getProc: getProc,
-        setProc: setProc,
+        getConfig: getConfig,
+        getConnection: getConn,
+        setConnection: setConn,
+        getProcess: getProc,
+        setProcess: setProc,
         start: startProcess,
         stop: stopProcess,
         startProxy: startProxy,
@@ -227,10 +294,16 @@ function handler() {
     }
 }
 
-
+/**
+ *
+ *
+ * @returns
+ */
 function proxy() {
+
     /**
      *
+     * serve
      *
      * @param {*} handler
      * @param {*} options
@@ -250,6 +323,7 @@ function proxy() {
 
     /**
      *
+     * setup
      *
      * @param {*} handler
      * @param {*} conf
