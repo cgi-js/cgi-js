@@ -61,7 +61,7 @@ function handler() {
      * setConfig
      * 
      *
-     * @param {*} options
+     * @param {undefined, object} options
      */
     function setConfig(options) {
         if (!!options) {
@@ -75,8 +75,10 @@ function handler() {
     }
 
     /**
-     * getConfig
      *
+     *
+     * @param {undefined, string, array} args
+     * @returns
      */
     function getConfig(args) {
         if (!!args) {
