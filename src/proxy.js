@@ -215,6 +215,7 @@ function handler() {
 
         // CLEAN UP ON PROCESS EXIT
         process.stdin.resume();
+        
         // prc.on('data', function(data) {
         //     console.log(data);
         // });
