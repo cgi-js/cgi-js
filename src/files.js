@@ -104,28 +104,28 @@ function cgiServe() {
 
 	function pathClean(type, exe_options) {
 		// CGI bin path
-		let cgiBinPath = exe_options.bin_path;
+		let binPath = exe_options.bin_path;
 		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
 		// last index of CGI executable if in the bin path
-		let cgiExeIndex = cgiBinPath.lastIndexOf(cgiType);
+		let exeIndex = binPath.lastIndexOf(cgiType);
 		// last index of / in the bin path to ensure it the folder that ends with /
-		let cgiSlashIndex = cgiBinPath.lastIndexOf("/");
+		let slashIndex = binPath.lastIndexOf("/");
 		// length of the path string
-		let cgiLen = cgiBinPath.length;
+		let cgiLen = binPath.length;
 		
 		// remove exe from path
-		if (cgiExeIndex + cgiType.length === cgiLen) {
-			cgiBinPath = cgiBinPath.substring(0, cgiExeIndex);
+		if (exeIndex + cgiType.length === cgiLen) {
+			binPath = binPath.substring(0, exeIndex);
 		}
 
 		// remove slash if there for cgi path
-		if (cgiSlashIndex === cgiBinPath.length - 1) {
-			cgiBinPath = cgiBinPath.substring(0, cgiBinPath.length - 1);
+		if (slashIndex === binPath.length - 1) {
+			binPath = binPath.substring(0, binPath.length - 1);
 		}
 
-		cgiBinPath = cgiBinPath + '/' + cgiType;
-		exe_options.bin_path = cgiBinPath;
+		binPath = binPath + '/' + cgiType;
+		exe_options.bin_path = binPath;
 		LANG_OPTS[getType(type)]["which"] = cgiType;
 		
 		return {
