@@ -211,17 +211,27 @@ function handler() {
         options["stdio"] = 'inherit';
         let pSpawn = require('child_process').spawn;
         let prc = pSpawn(cmd, [args], options);
-        // console.log(proc.pid);
+        // console.log(prc.pid);
 
         // CLEAN UP ON PROCESS EXIT
-        prc.stdin.resume();
+        process.stdin.resume();
+        // prc.on('data', function(data) {
+        //     console.log(data);
+        // });
+
+        function cleanUpServer(options, exitCode) {
+            console.log("Event Type", eventType);
+            if (options.cleanup) console.log('clean');
+            if (exitCode || exitCode === 0) console.log(exitCode);
+            if (options.exit) process.exit();
+        }
 
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
             prc.on(eventType, cleanUpServer.bind(null, eventType));
-        }.bind(prc));
+        }.bind(prc, cleanUpServer));
 
-        proc[prc.id] = prc;
-        return prc;
+        proc[prc.pid] = prc;
+        return prc.pid;
     }
 
     /**
@@ -230,9 +240,15 @@ function handler() {
      *
      * @param {*} prc
      */
-    function stopProcess(prc) {
-        proc[prc.id].kill();
-        proc[prc.id].stdin.end();
+    function stopProcess(prc, signal) {
+        // Ending the process through proc closure
+        // Test the same
+        // proc[prc].kill();
+        process.kill(prc, signal);
+        console.log('Killed process ' + proc[prc].pid);
+        proc[prc] = null;
+        process.stdin.end();
+        return true;
     }
 
     /**
@@ -287,8 +303,8 @@ function handler() {
         setConnection: setConn,
         getProcess: getProc,
         setProcess: setProc,
-        start: startProcess,
-        stop: stopProcess,
+        startProcess: startProcess,
+        stopProcess: stopProcess,
         startProxy: startProxy,
         stopProxy: stopProxy
     }
