@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node ./server.js",
+    "process": "node ./process.js",
     "test": "mocha"
   },
   "main": "./src/index.js",
