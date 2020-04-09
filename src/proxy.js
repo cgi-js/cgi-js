@@ -215,12 +215,13 @@ function handler() {
 
         // CLEAN UP ON PROCESS EXIT
         process.stdin.resume();
-        
-        // prc.on('data', function(data) {
-        //     console.log(data);
-        // });
+
+        prc.on('data', function(data) {
+            console.log(data);
+        });
 
         function cleanUpServer(options, exitCode) {
+            // TODO: Not getting triggered. Check error
             console.log("Event Type", eventType);
             if (options.cleanup) console.log('clean');
             if (exitCode || exitCode === 0) console.log(exitCode);
