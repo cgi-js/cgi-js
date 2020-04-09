@@ -55,59 +55,35 @@ function cgiServe() {
 		}
 	}
 
-	function getPHPCGI(cgiBinPath) {
-		let PHP_CGI;
-		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
+	function getCGI(cgi_executable, cgi_bin_path) {
+		let WHICH_CGI;
+		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
 		try {
-			PHP_CGI = shell.which(cgiBinPath + 'php-cgi');
+			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 		} catch (e) {
 			return false;
 		}
-		return PHP_CGI;
+		return WHICH_CGI;
+	}
+
+	function getPHPCGI(cgiBinPath) {
+		return getCGI('php-cgi', cgiBinPath);
 	}
 
 	function getPerlCGI(cgiBinPath) {
-		let PERL_CGI;
-		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
-		try {
-			PERL_CGI = shell.which(cgiBinPath + 'perl');
-		} catch (e) {
-			return false;
-		}
-		return PERL_CGI;
+		return getCGI('perl', cgiBinPath);
 	}
 
 	function getPythonCGI(cgiBinPath) {
-		let PYTHON_CGI;
-		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
-		try {
-			PYTHON_CGI = shell.which(cgiBinPath + 'python');
-		} catch (e) {
-			return false;
-		}
-		return PYTHON_CGI;
+		return getCGI('python', cgiBinPath);
 	}
 
 	function getPython3CGI(cgiBinPath) {
-		let PYTHON3_CGI;
-		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
-		try {
-			PYTHON3_CGI = (process.platform === "win32") ? shell.which(cgiBinPath + 'python') : shell.which(cgiBinPath + 'python3');
-		} catch (e) {
-			return false;
-		}
-		return PYTHON3_CGI;
+		return getCGI((process.platform === "win32") ? shell.which(cgiBinPath + 'python') : shell.which(cgiBinPath + 'python3'), cgiBinPath);
 	}
 
 	function getRubyCGI(cgiBinPath) {
-		let RUBY_CGI;
-		cgiBinPath = (!!cgiBinPath) ? cgiBinPath : '';
-		try {
-			RUBY_CGI = shell.which(cgiBinPath + 'ruby');
-		} catch (e) {
-			return false;
-		}
-		return RUBY_CGI;
+		return getCGI('ruby', cgiBinPath);
 	}
 
 	function getAllCGIType() {
@@ -127,10 +103,15 @@ function cgiServe() {
 	}
 
 	function pathClean(type, exe_options) {
+		// CGI bin path
 		let cgiBinPath = exe_options.bin_path;
+		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
+		// last index of CGI executable if in the bin path
 		let cgiExeIndex = cgiBinPath.lastIndexOf(cgiType);
+		// last index of / in the bin path to ensure it the folder that ends with /
 		let cgiSlashIndex = cgiBinPath.lastIndexOf("/");
+		// length of the path string
 		let cgiLen = cgiBinPath.length;
 		
 		// remove exe from path
