@@ -6,7 +6,7 @@
 
 /* eslint no-console: 0 */
 
-var files = require("./files");
+var file = require("./file");
 var proxy = require("./proxy");
 
 // GOOD
@@ -14,7 +14,7 @@ var proxy = require("./proxy");
 // https://www.npmjs.com/package/smart-fs
 
 module.exports = {
-    "serve": files.serve,
+    "serve": file.serve,
     "proxy": proxy.proxy,
     "handler": proxy.handler
 };

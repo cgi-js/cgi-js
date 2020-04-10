@@ -2,3 +2,15 @@ node_modules/
 package.json
 package-lock.json
 www/*/__pycache__/
+binaries/mongoose/src/
+binaries/http/src/
+binaries/https/src/
+binaries/nginx/src/
+binaries/perl/src/
+binaries/php/src/
+binaries/putty/src/
+binaries/python/src/
+binaries/python3/src/
+binaries/tomcat/src/
+binaries/java/src/
+
