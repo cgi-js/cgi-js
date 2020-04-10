@@ -7,12 +7,12 @@
 
 /* eslint no-console: 0 */
 
-var process = require('process');
-var URL = require('url');
-var child = require('child_process');
-var path = require('path');
-var fs = require('fs');
-var shell = require('shelljs');
+const process = require('process');
+const URL = require('url');
+const child = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const shell = require('shelljs');
 const util = require('util');
 
 function cgiServe() {
