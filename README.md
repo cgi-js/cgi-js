@@ -41,8 +41,8 @@ npm install cgijs --save
 
 ##### The script will pipe all proxies of above languages and following:
 
-* JSP (With Tomcat)
-* ASPX (With IIS, Apache)
+* Jsp (With Tomcat)
+* Aspx (With IIS, Apache)
 
 ##### The script currently allows proxying to following servers:
 
