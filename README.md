@@ -18,7 +18,7 @@ npm install cgijs --save
 
 * Run any scripts that support cgi based serving
 * Run any host that servers a web app using proxy 
-    - (Development Server or Web Server Support)
+    - In App / Local / Remote proxy support
     - Allows embedding servers, which can be
 * Allows
     - running multiple interpreters in one app
