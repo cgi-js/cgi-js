@@ -2,7 +2,7 @@
 > run interpreted script files or their proxies
 --------
 
-Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote servers using proxying.
+Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
 
 
 
