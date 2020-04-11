@@ -27,13 +27,11 @@ npm install cgijs --save
 
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
-This project contains example that demonstrates working with ExpressJS
-
 
 
 # Usage
 
-To run CGI/Interpreted scripts with node js and express create the following script like below: 
+This project contains example that demonstrates working with ExpressJS. To run CGI/Interpreted scripts with node js and express create the following script like below: 
 
 ```javascript
 
