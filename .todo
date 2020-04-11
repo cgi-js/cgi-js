@@ -5,4 +5,5 @@ Add:
 
 Modify:
     - Make config and options dynamic based on config file
+    - Check Authentication for proxy connections for VLAN proxies
 
