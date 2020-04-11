@@ -19,17 +19,17 @@ function cgiServe() {
 
 	let ruby = "ruby", perl = "perl", python = "python", php = "php";
 	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
-	let langOptions = { "name": '', "cgi": '', "which": '', "pattern": null };
+	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
 
 	// TODO: Make this simpler, dynamic, and generic
 	let LANG_OPTS = {
-		"rb": { "name": ruby, "cgi": ruby, "which": "", pattern:  /.*?\.rb$/ },
-		"pl": { "name": perl, "cgi": perl, "which": "", pattern:  /.*?\.pl$/ },
-		"plc": { "name": perl, "cgi": perl, "which": "", pattern: /.*?\.plc$/ },
-		"pld": { "name": perl, "cgi": perl, "which": "", pattern: /.*?\.pld$/ },
-		"py3": { "name": python3, "cgi": python3, "which": "", pattern: /.*?\.py$/ },
-		"py": { "name": python, "cgi": python, "which": "", pattern: /.*?\.py$/ },
-		"php": { "name": php, "cgi": php + "-cgi", "which": "", pattern: /.*?\.php$/ }
+		"rb": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern":  /.*?\.rb$/ },
+		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern":  /.*?\.pl$/ },
+		"plc": { "name": perl, "cgi": perl, "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
+		"pld": { "name": perl, "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
+		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"py": { "name": python, "cgi": python, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
 	}
 
 	function addLangOpts(type, option) {
@@ -264,21 +264,9 @@ function cgiServe() {
 	 * @returns
 	 */
 	function getType(type) {
-
-		if ((type == "py") || (type == "py3")) {
-			return "py";
-		} else if (type == "php") {
-			return "php";
-		} else if (type == "pl") {
-			return "pl";
-		} else if (type == "plc") {
-			return "plc";
-		} else if (type == "pld") {
-			return "pld";
-		} else if (type == "rb") {
-			return "rb";
+		if (!!LANG_OPTS[type] && !!LANG_OPTS[type].type) {
+			return LANG_OPTS[type].type;
 		}
-
 		return false;
 	}
 
