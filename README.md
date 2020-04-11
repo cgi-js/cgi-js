@@ -1,26 +1,35 @@
 # cgi-js
-Run any scripts that support cgi based serving
+--------
+
+Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote servers using proxying.
+
+# Features
+----------
+
+* Run any scripts that support cgi based serving
+* Run any host that servers a web app using proxy 
+    - (Development Server or Web Server Support)
 
 
-NodeCGIEmbedded - run scripts that support cgi using nodejs
------------------------------------------------------------
+NodeCGIEmbedded - run interpreted scripts that support cgi using nodejs
+-----------------------------------------------------------------------
+This project contains example that demonstrates working with ExpressJS
 
 
-
-
-Installation
-------------
+# Installation
+--------------
 
 ```
 npm install cgijs --save
 ```
 
-Usage
------
+# Usage
+-------
 
 To run php scripts with node js and express create the following script like below: 
 
 ```javascript
+
 
 var express = require('express');
 var cgijs = require("./src");
@@ -38,10 +47,11 @@ let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
 let config = {
-    host: 'http://127.0.0.1:8000/',
-    cbase: 'http://127.0.0.1:5000',
+    host: 'http://127.0.0.1',
+    port: 8000,
+    cbase: 'http://127.0.0.1',
+    cport: 5000,
     curl: '/*',
-    cport: 8000,
     chttps: {
         key: null,
         cert: null
@@ -51,15 +61,41 @@ let config = {
 function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
     let proxy = cgijs.proxy();
-    const conn = h.startProxy({}, { base: config.cbase, url: config.curl, sport: config.cport, https: config.chttps });
-    // h.setConn(config, conn);
+    const conn = h.startProxy({}, { base_host: config.cbase, base_port: config.cport, base_url: config.curl, proxy_host: config.host, proxy_port: config.port, https: config.chttps });
+    // h.setConnection({config.cbase + config.cport.toString(): conn});
     return proxy.setup(h, proxy, config);
 }
 
 // Subsystem for proxyHandler
 // Following is the structure for providing the 
 //          proxyHandler decalaration of config
+
+//      function proxyHandler(cgijs, config) {
+//           let h = cgijs.handler();
+//           let proxy = cgijs.proxy();
+//           const conn = h.startProxy({}, { 
+//               base: config.cbase,
+//               url: config.curl,
+//               sport: config.cport,
+//               https: config.chttps
+//           });
+//          return proxy.setup(h, proxy, config);
+//       }
+
+//    app.use("/main-server-path", proxyHandler(cgijs-lib, {
+//            host: 'https://path-to-proxy-server:port',
+//            port: proxied-port,
+//            cbase: 'https://path-to-your-web-app-server:port',
+//            cport: webapp-port,
+//            curl: '/*',
+//            chttps: {
+//                key: 'key-file',
+//                cert: 'cert-file'
+//            }
+
+// Subsystem for proxyHandler
 app.use("/sub", proxyHandler(cgijs, config));
+
 
 // Following is the structure for providing the decalaration of paths
 
@@ -125,24 +161,51 @@ console.log(`Server listening at ${sport}!`);
 
 ```
 
-Explanation
------------
+# Explanation
+-------------
 
-The script will pipe all files based on language:
+### The script will pipe all files based on language:
 
-* 
-* 
-* 
+* Python (2.x, 3.x)
+* Perl (Current, outdated)
+* PHP (Any Version)
+* Ruby (Current Version)
 
-Basic permalinks are supported but the support for them can probably be improved. 
+### The script currently allows proxying to following servers:
+
+* Apache HTTPD (Allows Embed & Proxy)
+* Apache TomCat (Allows Embed & Proxy)
+* Nginx (Allows Embed & Proxy)
+* Mongoose (Allows Embed & Proxy)
+* IIS (Allows Proxy)
+
+### The script will pipe all proxies of above languages and following:
+
+* JSP (With Tomcat)
+* ASPX (With IIS, Apache)
+
+### Basic permalinks are supported but the support for them can probably be improved. 
+
 
 Dependencies
 ------------
 
+### Library dependencies:
+    - Nodejs (> 8.x),
+    - gateway": "^1.0.0",
+    - "request": "^2.88.2",
+    - "restana": "^4.2.0",
+    - "shelljs": "^0.6.0",
+    - "fast-proxy": "^1.5.0"
 
-License
--------
+### App Dependencies:
+    - Your app, you decide
+    - Example has "express": "^4.17.1"
+    - OR, Use other Nodejs framework you want to use for your app
 
-Copyright © 2019 - till it works Ganesh B <ganeshsurfs@gmail.com>
 
+# License
+----------
+
+Copyright © 2019 - till library works: Ganesh B <ganeshsurfs@gmail.com>
 The MIT License (MIT) - See [LICENSE](./LICENSE) for further details.
