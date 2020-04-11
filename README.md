@@ -17,7 +17,7 @@ npm install cgijs --save
 # Features
 
 
-> Light weight (Flexible)
+> Light weight, Flexible, Generic implementation)
 
 
 * Run any scripts that support cgi based serving
@@ -200,7 +200,7 @@ console.log(`Server listening at ${sport}!`);
 
 # Library Technical Specifications
 
-...  > Wiki link to be added
+...  * Wiki link to be added
 
 
 
