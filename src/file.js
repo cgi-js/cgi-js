@@ -61,7 +61,11 @@ function cgiServe() {
 		return getCGI(cgiExe, cgiBinPath);
 	}
 
-	function getAllCGIType() {
+	function setAllCGITypes(cgiBinPaths) {
+		// LANG_OPTS
+	}
+
+	function getAllCGITypes() {
 		return LANG_OPTS;
 	}
 
