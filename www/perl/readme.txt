@@ -7,3 +7,16 @@ perl/
     vendor/
     index.pl
 
+perl/
+    bin/
+    tmp/
+    src/
+    vendor/
+    index.plc
+
+perl/
+    bin/
+    tmp/
+    src/
+    vendor/
+    index.pld
