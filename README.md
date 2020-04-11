@@ -170,6 +170,11 @@ console.log(`Server listening at ${sport}!`);
 * PHP (Any Version)
 * Ruby (Current Version)
 
+##### The script will pipe all proxies of above languages and following:
+
+* JSP (With Tomcat)
+* ASPX (With IIS, Apache)
+
 ##### The script currently allows proxying to following servers:
 
 * Apache HTTPD (Allows Embed & Proxy)
@@ -177,11 +182,6 @@ console.log(`Server listening at ${sport}!`);
 * Nginx (Allows Embed & Proxy)
 * Mongoose (Allows Embed & Proxy)
 * IIS (Allows Proxy)
-
-##### The script will pipe all proxies of above languages and following:
-
-* JSP (With Tomcat)
-* ASPX (With IIS, Apache)
 
 > Basic permalinks are supported but the support for them can probably be improved. 
 
