@@ -23,8 +23,8 @@ function cgiServe() {
 
 	// Use addLangOpts(type, options) to add new interpreter options to LANG_OPTS
 	let LANG_OPTS = {
-		"rb": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern":  /.*?\.rb$/ },
-		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern":  /.*?\.pl$/ },
+		"rb": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
 		"plc": { "name": perl, "cgi": perl, "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
 		"pld": { "name": perl, "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
 		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
@@ -32,7 +32,7 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
 	}
 
-	function addLangOpts(type, options) {
+	function setScript(type, options) {
 		let keys = langOptions.keys();
 		let types = LANG_OPTS.keys();
 		for (let j = 0; j < types.length; j++) {
@@ -43,6 +43,10 @@ function cgiServe() {
 				}
 			}
 		}
+	}
+
+	function getScript(scripts) {
+
 	}
 
 	function getCGI(cgi_executable, cgi_bin_path) {
@@ -529,6 +533,13 @@ function cgiServe() {
 	}
 
 	return {
+		setScript: setScript,
+		getScript: getScript,
+		getCGI: getCGI,
+		getCGIExe: getCGIExe,
+		setAllCGITypes: setAllCGITypes,
+		getAllCGITypes: getAllCGITypes,
+		getCGIType: getCGIType,
 		getVars: getVars,
 		getEnv: getEnv,
 		getPattern: getPattern,
