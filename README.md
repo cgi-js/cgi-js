@@ -5,6 +5,13 @@
 Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote servers using proxying.
 
 
+# Installation
+
+```
+npm install cgijs --save
+```
+
+
 # Features
 
 * Run any scripts that support cgi based serving
@@ -19,13 +26,6 @@ Supports running Interpreted Language scripts running on express server. Support
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
 This project contains example that demonstrates working with ExpressJS
-
-
-# Installation
-
-```
-npm install cgijs --save
-```
 
 
 # Usage
