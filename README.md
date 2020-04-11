@@ -5,26 +5,23 @@ Supports running Interpreted Language scripts running on express server. Support
 
 # Features
 
-
 * Run any scripts that support cgi based serving
 * Run any host that servers a web app using proxy 
     - (Development Server or Web Server Support)
 
 
-### NodeCGIEmbedded - run interpreted scripts that support cgi using nodejs
+#### NodeCGIEmbedded - run interpreted scripts that support cgi using nodejs
 
 This project contains example that demonstrates working with ExpressJS
 
 
 # Installation
 
-
 ```
 npm install cgijs --save
 ```
 
 # Usage
-
 
 To run php scripts with node js and express create the following script like below: 
 
@@ -163,15 +160,14 @@ console.log(`Server listening at ${sport}!`);
 
 # Explanation
 
-
-### The script will pipe all files based on language:
+#### The script will pipe all files based on language:
 
 * Python (2.x, 3.x)
 * Perl (Current, outdated)
 * PHP (Any Version)
 * Ruby (Current Version)
 
-### The script currently allows proxying to following servers:
+#### The script currently allows proxying to following servers:
 
 * Apache HTTPD (Allows Embed & Proxy)
 * Apache TomCat (Allows Embed & Proxy)
@@ -179,7 +175,7 @@ console.log(`Server listening at ${sport}!`);
 * Mongoose (Allows Embed & Proxy)
 * IIS (Allows Proxy)
 
-### The script will pipe all proxies of above languages and following:
+#### The script will pipe all proxies of above languages and following:
 
 * JSP (With Tomcat)
 * ASPX (With IIS, Apache)
@@ -187,10 +183,9 @@ console.log(`Server listening at ${sport}!`);
 > Basic permalinks are supported but the support for them can probably be improved. 
 
 
-Dependencies
-------------
+# Dependencies
 
-### Library dependencies:
+#### Library dependencies:
     - Nodejs (> 8.x),
     - gateway": "^1.0.0",
     - "request": "^2.88.2",
@@ -198,14 +193,15 @@ Dependencies
     - "shelljs": "^0.6.0",
     - "fast-proxy": "^1.5.0"
 
-### App Dependencies:
+#### App Dependencies:
     - Your app, you decide
     - Example has "express": "^4.17.1"
     - OR, Use other Nodejs framework you want to use for your app
 
 
 # License
-----------
+
 
 Copyright © 2019 - till library works: Ganesh B <ganeshsurfs@gmail.com>
+
 The MIT License (MIT) - See [LICENSE](./LICENSE) for further details.
