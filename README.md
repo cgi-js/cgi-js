@@ -17,7 +17,7 @@ npm install cgijs --save
 # Features
 
 
-> Light weight, Flexible, Generic implementation)
+> Light weight, Flexible, Generic implementation
 
 
 * Run any scripts that support cgi based serving
