@@ -98,6 +98,7 @@ function cgiServe() {
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 		} catch (e) {
+			console.error("getCGI: CGI Executable fetch error");
 			return false;
 		}
 		return WHICH_CGI;
