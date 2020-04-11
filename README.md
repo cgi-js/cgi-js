@@ -38,7 +38,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 var express = require('express');
 var cgijs = require("./src");
-var cgi = cgijs.serve();
+var cgi = cgijs.init();
 
 // var cgi = require("cgijs");
 var path = require("path");

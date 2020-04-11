@@ -6,7 +6,7 @@
 
 var express = require('express');
 var cgijs = require("./src");
-var cgi = cgijs.serve();
+var cgi = cgijs.init();
 
 // var cgi = require("cgijs");
 var path = require("path");

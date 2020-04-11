@@ -15,7 +15,7 @@ let proxy = require("./proxy");
 // https://www.npmjs.com/package/smart-fs
 
 module.exports = {
-    "serve": file.serve,
+    "init": file.serve,
     "proxy": proxy.proxy,
     "handler": proxy.handler
 };
