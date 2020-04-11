@@ -29,7 +29,7 @@ npm install cgijs --save
 
 
 
-# Functionality / Technical Specifications
+# Functionality Details
 
 ##### The script will pipe all files based on language:
 
