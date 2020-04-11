@@ -17,41 +17,25 @@ const util = require('util');
 
 function cgiServe() {
 
-	var LANG_OPTS = {
-		"rb": {
-			"name": "ruby",
-			"cgi": "ruby",
-			"which": ""
-		},
-		"pl": {
-			"name": "perl",
-			"cgi": "perl",
-			"which": ""
-		},
-		"plc": {
-			"name": "perl",
-			"cgi": "perl",
-			"which": ""
-		},
-		"pld": {
-			"name": "perl",
-			"cgi": "perl",
-			"which": ""
-		},
-		"py3": {
-			"name": "python3",
-			"cgi": "python3",
-			"which": ""
-		},
-		"py": {
-			"name": "python",
-			"cgi": "python",
-			"which": ""
-		},
-		"php": {
-			"name": "php",
-			"cgi": "php-cgi",
-			"which": ""
+	let ruby = "ruby", perl = "perl", python3 = "python3", python = "python", php = "php";
+	let langOptions = { "name": '', "cgi": '', "which": '' };
+
+	// TODO: Make this simpler, dynamic, and generic
+	let LANG_OPTS = {
+		"rb": { "name": ruby, "cgi": ruby, "which": "" },
+		"pl": { "name": perl, "cgi": perl, "which": "" },
+		"plc": { "name": perl, "cgi": perl, "which": "" },
+		"pld": { "name": perl, "cgi": perl, "which": "" },
+		"py3": { "name": python3, "cgi": python3, "which": "" },
+		"py": { "name": python, "cgi": python, "which": "" },
+		"php": { "name": php, "cgi": php + "-cgi", "which": "" }
+	}
+
+	function addLangOpts(type, option) {
+		let keys = langOptions.keys();
+		for (let i = 0; i < keys.length; i++) {
+			LANG_OPTS[type] = type;
+			LANG_OPTS[type][keys[i]] = option[keys[i]] ? option[keys[i]]: '';
 		}
 	}
 
@@ -60,40 +44,29 @@ function cgiServe() {
 		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
+			// Apply CGI to LANG_OPTS
 		} catch (e) {
 			return false;
 		}
 		return WHICH_CGI;
 	}
 
-	function getPHPCGI(cgiBinPath) {
-		return getCGI('php-cgi', cgiBinPath);
+	function getCGIExe(cgiExe, cgiBinPath) {
+		return getCGI(cgiExe, cgiBinPath);
 	}
 
-	function getPerlCGI(cgiBinPath) {
-		return getCGI('perl', cgiBinPath);
-	}
-
-	function getPythonCGI(cgiBinPath) {
-		return getCGI('python', cgiBinPath);
-	}
-
-	function getPython3CGI(cgiBinPath) {
-		return getCGI((process.platform === "win32") ? shell.which(cgiBinPath + 'python') : shell.which(cgiBinPath + 'python3'), cgiBinPath);
-	}
-
-	function getRubyCGI(cgiBinPath) {
-		return getCGI('ruby', cgiBinPath);
-	}
-
-	function getAllCGIType() {
-		LANG_OPTS[getType('php')]["which"] = getPHPCGI();
-		LANG_OPTS[getType('pl')]["which"] = getPerlCGI();
-		LANG_OPTS[getType('plc')]["which"] = getPerlCGI();
-		LANG_OPTS[getType('pld')]["which"] = getPerlCGI();
-		LANG_OPTS[getType('py')]["which"] = getPythonCGI();
-		LANG_OPTS[getType('py3')]["which"] = getPython3CGI();
-		LANG_OPTS[getType('rb')]["which"] = getRubyCGI();
+	function getAllCGIType(cgiBinPath) {
+		let keys = LANG_OPTS.keys();
+		for (let i = 0; i < keys.length; i++) {
+			
+			if ((process.platform !== "win32") && keys[i] !== 'py3') {
+				LANG_OPTS[getType(keys[i])]["which"] = getCGIExe(LANG_OPTS[keys[i]].cgi, cgiBinPath);
+			}
+			// Adding variations for specific languages
+			else if ((process.platform === "win32") && keys[i] === 'py3') {
+				LANG_OPTS[getType(keys[i])]["which"] = getCGIExe((process.platform === "win32") ? 'python' : 'python3', cgiBinPath);
+			}
+		}
 		return LANG_OPTS;
 	}
 
@@ -103,14 +76,19 @@ function cgiServe() {
 	}
 
 	function pathClean(type, exe_options) {
+		
 		// CGI bin path
 		let binPath = exe_options.bin_path;
+		
 		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
+		
 		// last index of CGI executable if in the bin path
 		let exeIndex = binPath.lastIndexOf(cgiType);
+		
 		// last index of / in the bin path to ensure it the folder that ends with /
 		let slashIndex = binPath.lastIndexOf("/");
+		
 		// length of the path string
 		let cgiLen = binPath.length;
 		
@@ -268,7 +246,7 @@ function cgiServe() {
 			REDIRECT_STATUS: 1
 		};
 
-		return env
+		return env;
 	}
 
 	/**
