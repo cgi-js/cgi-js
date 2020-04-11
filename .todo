@@ -1,9 +1,8 @@
 Add:
-    - Dynamic config files
     - Manual commands
     - Command line options for all interpretors in config
+    - Add embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function)
 
 Modify:
-    - Storing of proxy and connections
     - Make config and options dynamic based on config file
 
