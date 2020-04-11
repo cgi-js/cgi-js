@@ -33,9 +33,14 @@ function cgiServe() {
 
 	function addLangOpts(type, option) {
 		let keys = langOptions.keys();
-		for (let i = 0; i < keys.length; i++) {
-			LANG_OPTS[type] = type;
-			LANG_OPTS[type][keys[i]] = option[keys[i]] ? option[keys[i]]: '';
+		let types = LANG_OPTS.keys();
+		for (let j = 0; j < types.length; j++) {
+			for (let i = 0; i < keys.length; i++) {
+				if (type !== types[j]) {
+					LANG_OPTS[type] = {};
+					LANG_OPTS[type][keys[i]] = option[keys[i]] ? option[keys[i]] : '';
+				}
+			}
 		}
 	}
 
@@ -58,7 +63,7 @@ function cgiServe() {
 	function getAllCGIType(cgiBinPath) {
 		let keys = LANG_OPTS.keys();
 		for (let i = 0; i < keys.length; i++) {
-			
+
 			if ((process.platform !== "win32") && keys[i] !== 'py3') {
 				LANG_OPTS[getType(keys[i])]["which"] = getCGIExe(LANG_OPTS[keys[i]].cgi, cgiBinPath);
 			}
@@ -76,22 +81,22 @@ function cgiServe() {
 	}
 
 	function pathClean(type, exe_options) {
-		
+
 		// CGI bin path
 		let binPath = exe_options.bin_path;
-		
+
 		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
-		
+
 		// last index of CGI executable if in the bin path
 		let exeIndex = binPath.lastIndexOf(cgiType);
-		
+
 		// last index of / in the bin path to ensure it the folder that ends with /
 		let slashIndex = binPath.lastIndexOf("/");
-		
+
 		// length of the path string
 		let cgiLen = binPath.length;
-		
+
 		// remove exe from path
 		if (exeIndex + cgiType.length === cgiLen) {
 			binPath = binPath.substring(0, exeIndex);
@@ -105,7 +110,7 @@ function cgiServe() {
 		binPath = binPath + '/' + cgiType;
 		exe_options.bin_path = binPath;
 		LANG_OPTS[getType(type)]["which"] = cgiType;
-		
+
 		return {
 			LANG_OPTS: LANG_OPTS,
 			exe_options: exe_options
@@ -457,7 +462,7 @@ function cgiServe() {
 				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
 
-				if ((!!exe_options.bin_path) && (exe_options.bin_path !== '') && (('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin_path.length) ) {
+				if ((!!exe_options.bin_path) && (exe_options.bin_path !== '') && (('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin_path.length)) {
 					console.log('runCGI 1', exe_options.bin_path);
 					proc = child.spawn(exe_options.bin_path, [file], {
 						env: env
@@ -545,13 +550,13 @@ function cgiServe() {
 			var req_url = URL.parse(req.url);
 			// req_url = req_url.path;
 
-			fileExists(type, req_url, exe_options).then(function(file){
-				if (!!file){
+			fileExists(type, req_url, exe_options).then(function (file) {
+				if (!!file) {
 					runCGI(req, res, next, req_url, type, file, exe_options);
 				} else {
 					res.end("File serve exists error: 1");
 				}
-			}).catch(function(e) {
+			}).catch(function (e) {
 				res.end("File serve promise error: 2");
 			});
 		};
