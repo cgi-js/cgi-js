@@ -9,7 +9,7 @@ let py = path.join("www/py");
 
 var app = express();
 
-app.use('/', cgi.serve('py', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use('/', cgi.serve('py3', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 describe('GET /', function() {
   it('should respond with /index.py', function(done) {
