@@ -193,7 +193,7 @@ console.log(`Server listening at ${sport}!`);
     - gateway: (> 1.0.0),
     - request: (> 2.88.2),
     - restana: (> 4.2.0),
-    - shelljs: (= 0.6.0),
+    - shelljs: (= 0.6.1),
     - fast-proxy: (> 1.5.0)
 
 ##### App Dependencies:
