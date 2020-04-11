@@ -204,7 +204,7 @@ console.log(`Server listening at ${sport}!`);
     - shelljs: (= 0.6.1),
     - fast-proxy: (> 1.5.0)
 
-##### App Dependencies:
+##### Application Dependencies:
     - Your app, you decide
     - Example has "express": "^4.17.1"
     - OR, Use other Nodejs framework you want to use for your app
