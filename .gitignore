@@ -13,4 +13,4 @@ binaries/python/src/
 binaries/python3/src/
 binaries/tomcat/src/
 binaries/java/src/
-
+*/*/__pycache__/

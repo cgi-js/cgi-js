@@ -67,4 +67,4 @@ app.listen(sport, shost);
 console.log(`Server listening at ${sport}!`);
 
 // // Run flask application
-// FLASK_APP=main.py FLASK_ENV=development flask run
+// FLASK_APP=./www/py/main.py FLASK_ENV=development flask run
