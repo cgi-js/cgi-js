@@ -265,9 +265,7 @@ function cgiServe() {
 	 */
 	function getType(type) {
 
-		if (type == "py") {
-			return "py";
-		} else if (type == "py3") {
+		if ((type == "py") || (type == "py3")) {
 			return "py";
 		} else if (type == "php") {
 			return "php";
