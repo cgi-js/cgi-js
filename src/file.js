@@ -21,7 +21,7 @@ function cgiServe() {
 	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
 
-	// TODO: Make this simpler, dynamic, and generic
+	// Use addLangOpts(type, options) to add new interpreter options to LANG_OPTS
 	let LANG_OPTS = {
 		"rb": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern":  /.*?\.rb$/ },
 		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern":  /.*?\.pl$/ },
@@ -32,14 +32,14 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
 	}
 
-	function addLangOpts(type, option) {
+	function addLangOpts(type, options) {
 		let keys = langOptions.keys();
 		let types = LANG_OPTS.keys();
 		for (let j = 0; j < types.length; j++) {
 			for (let i = 0; i < keys.length; i++) {
 				if (type !== types[j]) {
 					LANG_OPTS[type] = {};
-					LANG_OPTS[type][keys[i]] = option[keys[i]] ? option[keys[i]] : '';
+					LANG_OPTS[type][keys[i]] = options[keys[i]] ? options[keys[i]] : '';
 				}
 			}
 		}
