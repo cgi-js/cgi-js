@@ -49,12 +49,43 @@ function cgiServe() {
 
 	}
 
-	function getCGI(cgi_executable, cgi_bin_path) {
+	function setCGI(cgi_executable, cgi_bin_path, type) {
 		let WHICH_CGI;
+
+		// BUG:
+		// This sets the CGI exe to default path if path not provided
+		// This is a bug if the person doesnt want that to happen
+		// 			or if the app is not supposed to use default
+		// Solution:
+		// Add Boolean if default path should be picked up from the library
 		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 			// Apply CGI to LANG_OPTS
+			if (!!LANG_OPTS[type]) {
+				LANG_OPTS[type] = WHICH_CGI;
+			} else {
+				return false;
+			}
+		} catch (e) {
+			return false;
+		}
+		return true;
+	}
+
+	function getCGI(cgi_executable, cgi_bin_path) {
+		let WHICH_CGI;
+		
+		// BUG:
+		// This sets the CGI exe to default path if path not provided
+		// This is a bug if the person doesnt want that to happen
+		// 			or if the app is not supposed to use default
+		// Solution:
+		// Add Boolean if default path should be picked up from the library
+		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
+
+		try {
+			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 		} catch (e) {
 			return false;
 		}
