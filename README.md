@@ -35,9 +35,9 @@ npm install cgijs --save
 ##### The script will pipe all files based on language:
 
 * Python (2.x, 3.x)
-* Perl (Current, outdated)
-* PHP (Any Version)
-* Ruby (Current Version)
+* Perl (Version Independent)
+* PHP (Version Independent)
+* Ruby (Version Independent)
 
 ##### The script will pipe all proxies of above languages and following:
 
