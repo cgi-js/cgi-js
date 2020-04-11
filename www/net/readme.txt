@@ -7,3 +7,13 @@ Challenges:
             (Proxy to IIS)
         - Apache
             (not preferred for linux - could be buggy due to mono)
+
+Recommended .NET ASPX Folder Structure
+
+net/
+    tmp/
+    src/
+    vendor/
+    index.apsx
+
+
