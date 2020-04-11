@@ -16,6 +16,10 @@ npm install cgijs --save
 
 # Features
 
+
+> Light weight (Flexible)
+
+
 * Run any scripts that support cgi based serving
 * Run any host that servers a web app using proxy 
     - In App / Local / Remote proxy support
@@ -24,9 +28,6 @@ npm install cgijs --save
     - running multiple interpreters in one app
     - running multiple proxies in one app
     - multiple embedded servers in one app
-
-
-> Light weight (Flexible)
 
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
