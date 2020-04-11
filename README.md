@@ -206,6 +206,16 @@ console.log(`Server listening at ${sport}!`);
     - OR, Use other Nodejs framework you want to use for your app
 
 
+# Status
+
+In development
+
+
+# TODO
+
+Check TODO file - .todo
+
+
 # License
 
 
