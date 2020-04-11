@@ -195,7 +195,7 @@ console.log(`Server listening at ${sport}!`);
 
 
 
-# LIBRARY Explanation / Technical Specifications
+# LIBRARY Technical Specifications
 
 ...
 
