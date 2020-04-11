@@ -72,11 +72,11 @@ function cgiServe() {
 			if (!!LANG_OPTS[type]) {
 				LANG_OPTS[type] = WHICH_CGI;
 			} else {
-				error("setCGI: CGI Executable type apply error");
+				console.error("setCGI: CGI Executable type apply error");
 				return false;
 			}
 		} catch (e) {
-			error("setCGI: CGI Executable fetch error");
+			console.error("setCGI: CGI Executable fetch error");
 			return false;
 		}
 		return true;
@@ -377,7 +377,7 @@ function cgiServe() {
 						res.setHeader(m[0], m[1]);
 					}
 				} catch (err) {
-					console.log(err)
+					console.error(err)
 				}
 			}
 		}
@@ -476,7 +476,7 @@ function cgiServe() {
 				exe_options = gvars.exe_options;
 				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
-				console.log("runCGI: exe_options.bin, exe_options.bin.bin_path", exe_options.bin, exe_options.bin.bin_path);
+				// console.log("runCGI: exe_options.bin, exe_options.bin.bin_path", exe_options.bin, exe_options.bin.bin_path);
 
 				if (
 					(!!exe_options.bin.bin_path) &&
@@ -489,8 +489,8 @@ function cgiServe() {
 
 				} else {
 					if (!LANG_OPTS[type]["which"]) {
-						console.log('which" Error');
-						throw new Error('"runCGI cgi executable" cannot be found');
+						console.error('which" Error');
+						throw new Error('"runCGI: cgi executable" cannot be found');
 					}
 					console.log('runCGI: 2', exe_options.bin.bin_path.split('/')[1]);
 					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [file], {
