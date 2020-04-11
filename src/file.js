@@ -64,8 +64,8 @@ function cgiServe() {
 		// Add Boolean if default path should be picked up from the library
 		cgi_bin_path = (!!cgi_bin && typeof cgi_bin === Object) ?
 			(!!cgi_bin.bin_path) ? cgi_bin.bin_path : (!!cgi_bin.useDefault) ?
-				"" : error("Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
-				cgi_bin : error("Bin path or bin config object not provided");
+				"" : error("setCGI: Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
+				cgi_bin : error("setCGI: Bin path or bin config object not provided");
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 			// Apply CGI to LANG_OPTS
