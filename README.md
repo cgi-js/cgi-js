@@ -30,6 +30,7 @@ npm install cgijs --save
     - running multiple interpreters in one app
     - running multiple proxies in one app
     - multiple embedded servers in one app
+* Nodejs framework independent / agnostic for app development
 
 
 
