@@ -187,11 +187,11 @@ console.log(`Server listening at ${sport}!`);
 
 #### Library dependencies:
     - Nodejs: (> 8.x),
-    - gateway: >1.0.0,
-    - request: >2.88.2,
-    - restana: >4.2.0,
-    - shelljs: >0.6.0,
-    - fast-proxy: >1.5.0
+    - gateway: (> 1.0.0),
+    - request: (> 2.88.2),
+    - restana: (> 4.2.0),
+    - shelljs: (= 0.6.0),
+    - fast-proxy: (> 1.5.0)
 
 #### App Dependencies:
     - Your app, you decide
