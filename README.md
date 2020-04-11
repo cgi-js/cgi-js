@@ -213,7 +213,7 @@ In development
 
 # TODO
 
-Check TODO file - .todo
+Check file - .todo
 
 
 # License
