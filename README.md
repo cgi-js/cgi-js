@@ -20,7 +20,7 @@ npm install cgijs --save
 > Light weight, Flexible, Generic implementation
 
 
-#### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
+##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
 * Run any scripts that support cgi based serving
 * Run any host that servers a web app using proxy 
