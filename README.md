@@ -26,6 +26,8 @@ npm install cgijs --save
     - multiple embedded servers in one app
 
 
+> Light weight (Flexible)
+
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
 
@@ -195,7 +197,7 @@ console.log(`Server listening at ${sport}!`);
 
 
 
-# LIBRARY Technical Specifications
+# Library Technical Specifications
 
 ...
 
