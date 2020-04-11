@@ -17,18 +17,19 @@ const util = require('util');
 
 function cgiServe() {
 
-	let ruby = "ruby", perl = "perl", python3 = "python3", python = "python", php = "php";
-	let langOptions = { "name": '', "cgi": '', "which": '' };
+	let ruby = "ruby", perl = "perl", python = "python", php = "php";
+	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
+	let langOptions = { "name": '', "cgi": '', "which": '', "pattern": null };
 
 	// TODO: Make this simpler, dynamic, and generic
 	let LANG_OPTS = {
-		"rb": { "name": ruby, "cgi": ruby, "which": "" },
-		"pl": { "name": perl, "cgi": perl, "which": "" },
-		"plc": { "name": perl, "cgi": perl, "which": "" },
-		"pld": { "name": perl, "cgi": perl, "which": "" },
-		"py3": { "name": python3, "cgi": python3, "which": "" },
-		"py": { "name": python, "cgi": python, "which": "" },
-		"php": { "name": php, "cgi": php + "-cgi", "which": "" }
+		"rb": { "name": ruby, "cgi": ruby, "which": "", pattern:  /.*?\.rb$/ },
+		"pl": { "name": perl, "cgi": perl, "which": "", pattern:  /.*?\.pl$/ },
+		"plc": { "name": perl, "cgi": perl, "which": "", pattern: /.*?\.plc$/ },
+		"pld": { "name": perl, "cgi": perl, "which": "", pattern: /.*?\.pld$/ },
+		"py3": { "name": python3, "cgi": python3, "which": "", pattern: /.*?\.py$/ },
+		"py": { "name": python, "cgi": python, "which": "", pattern: /.*?\.py$/ },
+		"php": { "name": php, "cgi": php + "-cgi", "which": "", pattern: /.*?\.php$/ }
 	}
 
 	function addLangOpts(type, option) {
@@ -60,18 +61,7 @@ function cgiServe() {
 		return getCGI(cgiExe, cgiBinPath);
 	}
 
-	function getAllCGIType(cgiBinPath) {
-		let keys = LANG_OPTS.keys();
-		for (let i = 0; i < keys.length; i++) {
-
-			if ((process.platform !== "win32") && keys[i] !== 'py3') {
-				LANG_OPTS[getType(keys[i])]["which"] = getCGIExe(LANG_OPTS[keys[i]].cgi, cgiBinPath);
-			}
-			// Adding variations for specific languages
-			else if ((process.platform === "win32") && keys[i] === 'py3') {
-				LANG_OPTS[getType(keys[i])]["which"] = getCGIExe((process.platform === "win32") ? 'python' : 'python3', cgiBinPath);
-			}
-		}
+	function getAllCGIType() {
 		return LANG_OPTS;
 	}
 
@@ -261,23 +251,9 @@ function cgiServe() {
 	 * @returns
 	 */
 	function getPattern(type) {
-
-		if (type == "py") {
-			return /.*?\.py$/
-		} else if (type == "py3") {
-			return /.*?\.py$/
-		} else if (type == "php") {
-			return /.*?\.php$/
-		} else if (type == "pl") {
-			return /.*?\.pl$/
-		} else if (type == "plc") {
-			return /.*?\.plc$/
-		} else if (type == "pld") {
-			return /.*?\.pld$/
-		} else if (type == "rb") {
-			return /.*?\.rb$/
+		if (!!LANG_OPTS[type] && !!LANG_OPTS[type].pattern) {
+			return LANG_OPTS[type].pattern;
 		}
-
 		return false;
 	}
 
