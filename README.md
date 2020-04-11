@@ -25,7 +25,7 @@ npm install cgijs --save
 
 # Usage
 
-To run php scripts with node js and express create the following script like below: 
+To run CGI/Interpreted scripts with node js and express create the following script like below: 
 
 ```javascript
 
