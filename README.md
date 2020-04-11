@@ -29,6 +29,32 @@ npm install cgijs --save
 
 
 
+# Functionality / Technical Specifications
+
+##### The script will pipe all files based on language:
+
+* Python (2.x, 3.x)
+* Perl (Current, outdated)
+* PHP (Any Version)
+* Ruby (Current Version)
+
+##### The script will pipe all proxies of above languages and following:
+
+* JSP (With Tomcat)
+* ASPX (With IIS, Apache)
+
+##### The script currently allows proxying to following servers:
+
+* Apache HTTPD (Allows Embed & Proxy)
+* Apache TomCat (Allows Embed & Proxy)
+* Nginx (Allows Embed & Proxy)
+* Mongoose (Allows Embed & Proxy)
+* IIS (Allows Proxy)
+
+> Basic permalinks are supported but the support for them can probably be improved. 
+
+
+
 # Usage
 
 This project contains example that demonstrates working with ExpressJS. To run CGI/Interpreted scripts with node js and express create the following script like below: 
@@ -170,27 +196,7 @@ console.log(`Server listening at ${sport}!`);
 
 # Explanation
 
-##### The script will pipe all files based on language:
-
-* Python (2.x, 3.x)
-* Perl (Current, outdated)
-* PHP (Any Version)
-* Ruby (Current Version)
-
-##### The script will pipe all proxies of above languages and following:
-
-* JSP (With Tomcat)
-* ASPX (With IIS, Apache)
-
-##### The script currently allows proxying to following servers:
-
-* Apache HTTPD (Allows Embed & Proxy)
-* Apache TomCat (Allows Embed & Proxy)
-* Nginx (Allows Embed & Proxy)
-* Mongoose (Allows Embed & Proxy)
-* IIS (Allows Proxy)
-
-> Basic permalinks are supported but the support for them can probably be improved. 
+...
 
 
 
