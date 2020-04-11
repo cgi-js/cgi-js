@@ -5,11 +5,13 @@
 Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote servers using proxying.
 
 
+
 # Installation
 
 ```
 npm install cgijs --save
 ```
+
 
 
 # Features
@@ -26,6 +28,7 @@ npm install cgijs --save
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
 This project contains example that demonstrates working with ExpressJS
+
 
 
 # Usage
@@ -166,6 +169,7 @@ console.log(`Server listening at ${sport}!`);
 ```
 
 
+
 # Explanation
 
 ##### The script will pipe all files based on language:
@@ -191,6 +195,7 @@ console.log(`Server listening at ${sport}!`);
 > Basic permalinks are supported but the support for them can probably be improved. 
 
 
+
 # Dependencies
 
 ##### Library dependencies:
@@ -207,14 +212,17 @@ console.log(`Server listening at ${sport}!`);
     - OR, Use other Nodejs framework you want to use for your app
 
 
+
 # Status
 
 In development
 
 
+
 # TODO
 
 Check file - .todo
+
 
 
 # License
