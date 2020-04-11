@@ -20,9 +20,10 @@ npm install cgijs --save
 * Run any host that servers a web app using proxy 
     - (Development Server or Web Server Support)
     - Allows embedding servers, which can be
-* Allows running multiple interpreters in one app
-* Allows running multiple proxies in one app
-* Allows multiple embedded servers in one app
+* Allows
+    - running multiple interpreters in one app
+    - running multiple proxies in one app
+    - multiple embedded servers in one app
 
 
 #### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
