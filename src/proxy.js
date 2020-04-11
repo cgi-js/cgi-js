@@ -61,7 +61,7 @@ function handler() {
 
     /**
      * 
-     * setterFunction
+     * setter
      *
      * @param {*} obj
      * 
@@ -70,7 +70,7 @@ function handler() {
      * @returns
      * 
      */
-    function setterFunction(obj, values) {
+    function setter(obj, values) {
         if (!!options) {
             keys = values.keys();
             for (let i = 0; i < keys.length; i++) {
@@ -81,7 +81,7 @@ function handler() {
 
     /**
      * 
-     * getterFunction
+     * getter
      *
      * @param {*} obj
      * 
@@ -90,7 +90,7 @@ function handler() {
      * @returns
      * 
      */
-    function getterFunction(obj, args) {
+    function getter(obj, args) {
         if (!!args) {
             if (typeof args === String) {
                 return obj[args];
@@ -120,7 +120,7 @@ function handler() {
      * 
      */
     function getConfig(args) {
-        return getterFunction(config, args);
+        return getter(config, args);
     }
 
     /**
@@ -135,7 +135,7 @@ function handler() {
      * 
      */
     function setConfig(options) {
-        setterFunction(config, options);
+        setter(config, options);
     }
 
     /**
@@ -151,7 +151,7 @@ function handler() {
      * 
      */
     function getConn(connNames) {
-        return getterFunction(conn, connNames);
+        return getter(conn, connNames);
     }
 
     /**
@@ -166,7 +166,7 @@ function handler() {
      * 
      */
     function setConn(connObject) {
-        setterFunction(conn, connObject);
+        setter(conn, connObject);
     }
 
     /**
@@ -182,7 +182,7 @@ function handler() {
      * 
      */
     function getProc(procIds) {
-        return getterFunction(proc, procIds);
+        return getter(proc, procIds);
     }
 
     /**
@@ -195,7 +195,7 @@ function handler() {
      * 
      */
     function setProc(procObj) {
-        setterFunction(proc, procObj);
+        setter(proc, procObj);
     }
 
     /**

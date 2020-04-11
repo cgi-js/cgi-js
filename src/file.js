@@ -32,6 +32,10 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
 	}
 
+	function error(msg) {
+		throw new Error(msg);
+	}
+
 	function setScript(type, options) {
 		let keys = langOptions.keys();
 		let types = LANG_OPTS.keys();
@@ -58,32 +62,39 @@ function cgiServe() {
 		// 			or if the app is not supposed to use default
 		// Solution:
 		// Add Boolean if default path should be picked up from the library
-		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
+		cgi_bin_path = (!!cgi_bin && typeof cgi_bin === Object) ?
+			(!!cgi_bin.bin_path) ? cgi_bin.bin_path : (!!cgi_bin.useDefault) ?
+				"" : error("Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
+				cgi_bin : error("Bin path or bin config object not provided");
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 			// Apply CGI to LANG_OPTS
 			if (!!LANG_OPTS[type]) {
 				LANG_OPTS[type] = WHICH_CGI;
 			} else {
+				error("setCGI: CGI Executable type apply error");
 				return false;
 			}
 		} catch (e) {
+			error("setCGI: CGI Executable fetch error");
 			return false;
 		}
 		return true;
 	}
 
-	function getCGI(cgi_executable, cgi_bin_path) {
+	function getCGI(cgi_executable, cgi_bin) {
 		let WHICH_CGI;
-		
+
 		// BUG:
 		// This sets the CGI exe to default path if path not provided
 		// This is a bug if the person doesnt want that to happen
 		// 			or if the app is not supposed to use default
 		// Solution:
 		// Add Boolean if default path should be picked up from the library
-		cgi_bin_path = (!!cgi_bin_path) ? cgi_bin_path : '';
-
+		cgi_bin_path = (!!cgi_bin && typeof cgi_bin === Object) ?
+			(!!cgi_bin.bin_path) ? cgi_bin.bin_path : (!!cgi_bin.useDefault) ?
+				"" : error("getCGI: Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
+				cgi_bin : error("getCGI: Bin path or bin config object not provided");
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 		} catch (e) {
@@ -92,11 +103,11 @@ function cgiServe() {
 		return WHICH_CGI;
 	}
 
-	function getCGIExe(cgiExe, cgiBinPath) {
-		return getCGI(cgiExe, cgiBinPath);
+	function getCGIExe(cgiExe, cgiBin) {
+		return getCGI(cgiExe, cgiBin);
 	}
 
-	function setAllCGITypes(cgiBinPaths) {
+	function setAllCGITypes(cgiBin) {
 		// LANG_OPTS
 	}
 
@@ -112,7 +123,10 @@ function cgiServe() {
 	function pathClean(type, exe_options) {
 
 		// CGI bin path
-		let binPath = exe_options.bin_path;
+		let binPath = !!exe_options ? !!exe_options.bin ?
+			!!exe_options.bin.bin_path ? exe_options.bin.bin_path :
+				(!!exe_options.bin.useDefault) ? '' : error('pathClean: bin_path not provided') :
+			(!!exe_options.bin.useDefault) ? '' : error('pathClean: bin not provided') : '';
 
 		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
@@ -137,7 +151,7 @@ function cgiServe() {
 		}
 
 		binPath = binPath + '/' + cgiType;
-		exe_options.bin_path = binPath;
+		exe_options.bin.bin_path = binPath;
 		LANG_OPTS[getType(type)]["which"] = cgiType;
 
 		return {
@@ -394,18 +408,18 @@ function cgiServe() {
 				if (err || stat.isDirectory()) {
 					if (stat && stat.isDirectory()) {
 						file = path.join(file, 'index.' + getType(type));
-						console.log("Path created file ", file)
+						console.log("fileExists: Path created file ", file)
 					}
 					if (file.includes(process.cwd())) {
 						fs.exists(file, function (exists) {
-							console.log("Path join", file, exists)
+							console.log("fileExists: Path join", file, exists)
 							if (!!exists) {
 								feFn(file);
 							}
 						});
 					} else {
 						fs.exists(path.join(process.cwd(), file), function (exists) {
-							console.log("No path join", file, exists)
+							console.log("fileExists: No path join", file, exists)
 							if (!!exists) {
 								feFn(file);
 							}
@@ -415,7 +429,7 @@ function cgiServe() {
 
 				// File found
 				else {
-					console.log("Else Path", file);
+					console.log("fileExists: Else Path", file);
 					callback(file);
 				}
 			});
@@ -462,10 +476,14 @@ function cgiServe() {
 				exe_options = gvars.exe_options;
 				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
+				console.log("runCGI: exe_options.bin, exe_options.bin.bin_path", exe_options.bin, exe_options.bin.bin_path);
 
-				if ((!!exe_options.bin_path) && (exe_options.bin_path !== '') && (('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin_path.length)) {
-					console.log('runCGI 1', exe_options.bin_path);
-					proc = child.spawn(exe_options.bin_path, [file], {
+				if (
+					(!!exe_options.bin.bin_path) &&
+					(('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin.bin_path.length)
+				) {
+					console.log('runCGI: 1', exe_options.bin.bin_path);
+					proc = child.spawn(exe_options.bin.bin_path, [file], {
 						env: env
 					});
 
@@ -474,14 +492,14 @@ function cgiServe() {
 						console.log('which" Error');
 						throw new Error('"runCGI cgi executable" cannot be found');
 					}
-					console.log('runCGI 2', exe_options.bin_path.split('/')[1]);
-					proc = child.spawn(exe_options.bin_path.split('/')[1], [file], {
+					console.log('runCGI: 2', exe_options.bin.bin_path.split('/')[1]);
+					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [file], {
 						env: env
 					});
 				}
 
 				proc.stdin.on('error', function () {
-					console.error("runCGI Error from server");
+					console.error("runCGI: Error from server");
 				});
 
 				// Pipe request stream directly into the php process
@@ -497,7 +515,7 @@ function cgiServe() {
 				});
 
 				proc.on('error', function (err) {
-					console.error("runCGI error", err);
+					console.error("runCGI: error event", err);
 				});
 
 				proc.on('exit', function () {
@@ -543,7 +561,7 @@ function cgiServe() {
 	 * @returns
 	 */
 	function serve(type, exe_options) {
-		// console.log(exe_options.bin_path);
+		// console.log(exe_options.bin.bin_path, exe_options.bin.useDefault);
 		return function (req, res, next) {
 			// stop stream until child-process is opened
 			req.pause();
@@ -555,10 +573,10 @@ function cgiServe() {
 				if (!!file) {
 					runCGI(req, res, next, req_url, type, file, exe_options);
 				} else {
-					res.end("File serve exists error: 1");
+					res.end("serve: File serve exists error: 1");
 				}
 			}).catch(function (e) {
-				res.end("File serve promise error: 2");
+				res.end("serve: File serve promise error: 2");
 			});
 		};
 	}
