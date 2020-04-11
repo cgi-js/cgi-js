@@ -4,27 +4,27 @@
 Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote servers using proxying.
 
 # Features
-----------
+
 
 * Run any scripts that support cgi based serving
 * Run any host that servers a web app using proxy 
     - (Development Server or Web Server Support)
 
 
-NodeCGIEmbedded - run interpreted scripts that support cgi using nodejs
------------------------------------------------------------------------
+### NodeCGIEmbedded - run interpreted scripts that support cgi using nodejs
+
 This project contains example that demonstrates working with ExpressJS
 
 
 # Installation
---------------
+
 
 ```
 npm install cgijs --save
 ```
 
 # Usage
--------
+
 
 To run php scripts with node js and express create the following script like below: 
 
@@ -162,7 +162,7 @@ console.log(`Server listening at ${sport}!`);
 ```
 
 # Explanation
--------------
+
 
 ### The script will pipe all files based on language:
 
@@ -184,7 +184,7 @@ console.log(`Server listening at ${sport}!`);
 * JSP (With Tomcat)
 * ASPX (With IIS, Apache)
 
-### Basic permalinks are supported but the support for them can probably be improved. 
+> Basic permalinks are supported but the support for them can probably be improved. 
 
 
 Dependencies
