@@ -594,13 +594,13 @@ function cgiServe() {
 	return {
 		setter: {
 			script: setScript,
-			allCGITypes: setAllCGITypes,
+			allScripts: setAllCGITypes,
 		},
 		getter: {
 			script: getScript,
+			allScripts: getAllCGITypes,
 			cgi: getCGI,
 			cgiExe: getCGIExe,
-			allCGITypes: getAllCGITypes,
 			cgiType: getCGIType,
 			vars: getVars,
 			env: getEnv,
