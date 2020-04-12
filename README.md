@@ -229,7 +229,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 //     });
 
 // Example 9:
-// app.use("/", cgi.serve("py", { 
+// app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '/usr/bin/',
 //         config_path: '', 
