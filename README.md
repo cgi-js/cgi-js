@@ -1,5 +1,5 @@
 # cgi-js
-> run interpreted script files or their proxies
+> run interpreted script files or connect to cgi / other server proxies
 --------
 
 Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
@@ -83,12 +83,12 @@ let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
 let config = {
-    host: 'http://127.0.0.1',
-    port: 8000,
-    cbase: 'http://127.0.0.1',
-    cport: 5000,
-    curl: '/*',
-    chttps: {
+    proxy_host: 'http://127.0.0.1',
+    proxy_port: 8000,
+    base_host: 'http://127.0.0.1',
+    base_port: 5000,
+    base_url: '/*',
+    https: {
         key: null,
         cert: null
     }
@@ -96,10 +96,9 @@ let config = {
 
 function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
-    let proxy = cgijs.proxy();
-    const conn = h.startProxy({}, { base_host: config.cbase, base_port: config.cport, base_url: config.curl, proxy_host: config.host, proxy_port: config.port, https: config.chttps });
-    // h.setConnection({config.cbase + config.cport.toString(): conn});
-    return proxy.setup(h, proxy, config);
+    const conn = h.proxy.start({}, config);
+    // h.setter.connection({config.cbase + config.cport.toString(): conn});
+    return h.proxy.setup(h, config, h.proxy.serve);
 }
 
 // Subsystem for proxyHandler

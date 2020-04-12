@@ -307,8 +307,8 @@ function handler() {
      * @param {*} options
      */
     function serveProxy(handler, options) {
-        const { host, port, url, req, res, cbase, curl, cport } = options;
-        request(host + ":" + port + url, function (error, response, body) {
+        const { proxy_host, proxy_port, proxy_url, req, res, base_host, base_url, base_port } = options;
+        request(proxy_host + ":" + proxy_port + proxy_url, function (error, response, body) {
             // Print the error if one occurred
             // console.error('error: ', error);
             // Print the response status code if a response was received
@@ -328,17 +328,17 @@ function handler() {
      * @returns
      */
     function setupProxy(handler, conf, serve) {
-        let { host, port, cbase, curl, cport } = conf;
+        let { proxy_host, proxy_port, base_host, base_url, base_port } = conf;
         return function proxyHandler(req, res) {
             return serve(handler, {
-                host: host,
-                url: req.url,
-                port: port,
+                proxy_host: proxy_host,
+                proxy_port: proxy_port,
+                proxy_url: req.url,
                 req: req,
                 res: res,
-                cbase: cbase,
-                curl: curl,
-                cport: cport
+                base_host: base_host,
+                base_url: base_url,
+                base_port: base_port
             });
         }
     }
