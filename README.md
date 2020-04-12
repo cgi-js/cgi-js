@@ -105,28 +105,24 @@ function proxyHandler(cgijs, config) {
 // Following is the structure for providing the 
 //          proxyHandler decalaration of config
 
-//      function proxyHandler(cgijs, config) {
-//           let h = cgijs.handler();
-//           let proxy = cgijs.proxy();
-//           const conn = h.startProxy({}, { 
-//               base: config.cbase,
-//               url: config.curl,
-//               sport: config.cport,
-//               https: config.chttps
-//           });
-//          return proxy.setup(h, proxy, config);
-//       }
+// function proxyHandler(cgijs, config) {
+//     let h = cgijs.handler();
+//     const conn = h.proxy.start({}, config);
+//     // h.setter.connection({config.base_host + config.base_port.toString(): conn});
+//     return h.proxy.setup(h, config, h.proxy.serve);
+// }
 
 //    app.use("/main-server-path", proxyHandler(cgijs-lib, {
-//            host: 'https://path-to-proxy-server:port',
-//            port: proxied-port,
-//            cbase: 'https://path-to-your-web-app-server:port',
-//            cport: webapp-port,
-//            curl: '/*',
-//            chttps: {
+//            proxy_host: 'https://path-to-proxy-server',
+//            proxy_port: proxied-port,
+//            base_host: 'https://path-to-your-web-app-server',
+//            base_port: webapp-port,
+//            base_url: '/*',
+//            https: {
 //                key: 'key-file',
 //                cert: 'cert-file'
-//            }
+//            })
+//      )
 
 // Subsystem for proxyHandler
 app.use("/sub", proxyHandler(cgijs, config));
