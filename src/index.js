@@ -16,6 +16,5 @@ let proxy = require("./proxy");
 
 module.exports = {
     "init": file.serve,
-    "proxy": proxy.proxy,
-    "handler": proxy.handler
+    "handler": proxy
 };

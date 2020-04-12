@@ -299,6 +299,50 @@ function handler() {
         });
     }
 
+    /**
+     *
+     * serve
+     *
+     * @param {*} handler
+     * @param {*} options
+     */
+    function serveProxy(handler, options) {
+        const { host, port, url, req, res, cbase, curl, cport } = options;
+        request(host + ":" + port + url, function (error, response, body) {
+            // Print the error if one occurred
+            // console.error('error: ', error);
+            // Print the response status code if a response was received
+            // console.log('statusCode: ', response && response.statusCode);
+            // Print the HTML for the Google homepage
+            // console.log('body: ', body);
+            if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
+        }.bind(req, res));
+    }
+
+    /**
+     *
+     * setup
+     *
+     * @param {*} handler
+     * @param {*} conf
+     * @returns
+     */
+    function setupProxy(handler, conf, serve) {
+        let { host, port, cbase, curl, cport } = conf;
+        return function proxyHandler(req, res) {
+            return serve(handler, {
+                host: host,
+                url: req.url,
+                port: port,
+                req: req,
+                res: res,
+                cbase: cbase,
+                curl: curl,
+                cport: cport
+            });
+        }
+    }
+
     function startServer() {
 
     }
@@ -365,6 +409,8 @@ function handler() {
         proxy: {
             start: startProxy,
             stop: stopProxy,
+            serve: serveProxy,
+            setup: setupProxy
         },
         server: {
             httpd: {
@@ -396,64 +442,4 @@ function handler() {
 }
 
 
-/**
- *
- *
- * @returns
- */
-function proxy() {
-
-    /**
-     *
-     * serve
-     *
-     * @param {*} handler
-     * @param {*} options
-     */
-    function serve(handler, options) {
-        const { host, port, url, req, res, cbase, curl, cport } = options;
-        request(host + ":" + port + url, function (error, response, body) {
-            // Print the error if one occurred
-            // console.error('error: ', error);
-            // Print the response status code if a response was received
-            // console.log('statusCode: ', response && response.statusCode);
-            // Print the HTML for the Google homepage
-            // console.log('body: ', body);
-            if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
-        }.bind(req, res));
-    }
-
-    /**
-     *
-     * setup
-     *
-     * @param {*} handler
-     * @param {*} conf
-     * @returns
-     */
-    function setup(handler, proxy, conf) {
-        let { host, port, cbase, curl, cport } = conf;
-        return function proxyHandler(req, res) {
-            return proxy.serve(handler, {
-                host: host,
-                url: req.url,
-                port: port,
-                req: req,
-                res: res,
-                cbase: cbase,
-                curl: curl,
-                cport: cport
-            });
-        }
-    }
-
-    return {
-        setup: setup,
-        serve: serve
-    }
-}
-
-module.exports = {
-    handler,
-    proxy
-};
+module.exports = handler;
