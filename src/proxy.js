@@ -301,14 +301,14 @@ function handler() {
 
     return {
         setter: {
-            setConfig: setConfig,
-            setConnection: setConn,
-            setProcess: setProc
+            config: setConfig,
+            connection: setConn,
+            process: setProc
         },
         getter: {
-            getConfig: getConfig,
-            getConnection: getConn,
-            getProcess: getProc
+            config: getConfig,
+            connection: getConn,
+            process: getProc
         },
         startProcess: startProcess,
         stopProcess: stopProcess,
