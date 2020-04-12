@@ -13,7 +13,7 @@ const child = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
-const util = require('util');
+const utils = require('./utils')();
 
 function cgiServe() {
 
@@ -494,16 +494,17 @@ function cgiServe() {
 					(('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin.bin_path.length)
 				) {
 					console.log('runCGI: 1', exe_options.bin.bin_path);
-					proc = child.spawn(exe_options.bin.bin_path, [file], {
+					proc = child.spawn(exe_options.bin.bin_path, [...utils.createArray(exe_options.cmd_options), file], {
 						env: env
 					});
+
 				} else {
 					if (!LANG_OPTS[type]["which"]) {
 						console.error('which" Error');
 						throw new Error('"runCGI: cgi executable" cannot be found');
 					}
 					console.log('runCGI: 2', exe_options.bin.bin_path.split('/')[1]);
-					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [file], {
+					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [...utils.createArray(exe_options.cmd_options), file], {
 						env: env
 					});
 				}
@@ -548,8 +549,10 @@ function cgiServe() {
 					} else {
 						html = tmp_result;
 					}
+
 					// console.log('runCGI STATUS: ' + res.statusCode);
 					// console.log('runCGI HTML: ' + html);
+					
 					if (res.statusCode) {
 						return res.status(res.statusCode).send(html);
 					} else {
