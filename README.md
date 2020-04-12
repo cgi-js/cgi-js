@@ -205,7 +205,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Following uses a path in second argument defining the local copy of CGI 
 //          that you want to use for the application 
-//          (Specially true if you are using multiple copies of the same executable)
+//          (Specially true if you are using multiple versions of the same executable in OS)
 
 // app.use("/", cgi.serve("py", { 
 //         web_files_root: /path/to/cgiscript, 
