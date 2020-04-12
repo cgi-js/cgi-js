@@ -299,6 +299,14 @@ function handler() {
         });
     }
 
+    function startServer() {
+
+    }
+
+    function stopServer() {
+
+    }
+
     return {
         setter: {
             config: setConfig,
@@ -313,7 +321,9 @@ function handler() {
         startProcess: startProcess,
         stopProcess: stopProcess,
         startProxy: startProxy,
-        stopProxy: stopProxy
+        stopProxy: stopProxy,
+        startServer: startServer,
+        stopServer: stopServer
     }
 }
 
@@ -453,7 +463,6 @@ function proxy() {
         serve: serve
     }
 }
-
 
 module.exports = {
     handler,

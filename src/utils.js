@@ -36,8 +36,10 @@ function utils() {
     }
 
     return {
-        createArray: createArray,
-        createString: createString
+        convert: {
+            array: createArray,
+            string: createString,
+        }
     }
 }
 

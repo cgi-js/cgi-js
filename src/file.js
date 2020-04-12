@@ -494,7 +494,8 @@ function cgiServe() {
 					(('/' + LANG_OPTS[getType(type)].cgi).length !== exe_options.bin.bin_path.length)
 				) {
 					console.log('runCGI: 1', exe_options.bin.bin_path);
-					proc = child.spawn(exe_options.bin.bin_path, [...utils.createArray(exe_options.cmd_options), file], {
+					proc = child.spawn(exe_options.bin.bin_path, [...utils.convert.array(exe_options.cmd_options), file], {
+						cwd: process.cwd(),
 						env: env
 					});
 
@@ -504,7 +505,8 @@ function cgiServe() {
 						throw new Error('"runCGI: cgi executable" cannot be found');
 					}
 					console.log('runCGI: 2', exe_options.bin.bin_path.split('/')[1]);
-					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [...utils.createArray(exe_options.cmd_options), file], {
+					proc = child.spawn(exe_options.bin.bin_path.split('/')[1], [...utils.convert.array(exe_options.cmd_options), file], {
+						cwd: process.cwd(),
 						env: env
 					});
 				}
@@ -552,7 +554,7 @@ function cgiServe() {
 
 					// console.log('runCGI STATUS: ' + res.statusCode);
 					// console.log('runCGI HTML: ' + html);
-					
+
 					if (res.statusCode) {
 						return res.status(res.statusCode).send(html);
 					} else {
