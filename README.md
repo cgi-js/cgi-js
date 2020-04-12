@@ -139,7 +139,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 // app.use("/", cgi.serve('type_of_interpretor', { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
-//                 bin_path: '/path/to/cgiexe/without/executable_name',
+//                 bin_path: '/path/to/cgi-executable-dir/without-executable-name/',
 //                 useDefault: true,
 //         }
 //         config_path: '/path/to/some.ini', 
@@ -150,7 +150,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 // Example 2:
 // app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
-//         bin: '/path/to/cgiexe/without/executable_name',
+//         bin: '/path/to/cgi-executable-dir/without-executable-name/',
 //         config_path: '', 
 //         host: shost, 
 //         port: sport 
@@ -160,9 +160,21 @@ app.use("/sub", proxyHandler(cgijs, config));
 // Following works without a local CGI path and tries to 
 //          use CGI installed in system by default
 // if useDefault is false then the application errors out
-// Default value of useDefault is false. Example: 5 and Example: 6 will error out
+// Default value of useDefault is false. Example: 6 and Example: 7 will error out
 
 // Example 3:
+// app.use("/", cgi.serve("type_of_interpretor", { 
+//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         bin: {
+//                 bin_path: '/path/to/cgi-executable-dir/without-executable-name/'
+//         }
+//         config_path: '', 
+//         host: shost, 
+//         port: sport 
+//     });
+
+
+// Example 4:
 // app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
@@ -174,7 +186,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 //         port: sport 
 //     });
 
-// Example 4:
+// Example 5:
 // app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
@@ -185,7 +197,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 //         port: sport 
 //     });
 
-// Example 5:
+// Example 6:
 // app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '',
@@ -194,7 +206,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 //         port: sport 
 //     });
 
-// Example 6:
+// Example 7:
 // app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         config_path: '', 
@@ -207,15 +219,17 @@ app.use("/sub", proxyHandler(cgijs, config));
 //          that you want to use for the application 
 //          (Specially true if you are using multiple versions of the same executable in OS)
 
-// app.use("/", cgi.serve("py", { 
+// Example 8:
+// app.use("/", cgi.serve("type_of_interpretor", { 
 //         web_files_root: /path/to/cgiscript, 
-//         bin: '/usr/bin/', 
+//         bin: '/path/to/cgi-executable-dir/without-executable-name/', 
 //         config_path: '/path/to/cgi.ini', 
 //         host: shost, 
 //         port: sport 
 //     });
 
-// app.use("/", cgi.serve("type_of_interpretor", { 
+// Example 9:
+// app.use("/", cgi.serve("py", { 
 //         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '/usr/bin/',
 //         config_path: '', 
