@@ -592,19 +592,21 @@ function cgiServe() {
 	}
 
 	return {
-		setScript: setScript,
-		getScript: getScript,
-		getCGI: getCGI,
-		getCGIExe: getCGIExe,
-		setAllCGITypes: setAllCGITypes,
-		getAllCGITypes: getAllCGITypes,
-		getCGIType: getCGIType,
-		getVars: getVars,
-		getEnv: getEnv,
-		getPattern: getPattern,
-		getType: getType,
-		getPHPHtml: getPHPHtml,
-		getCGIHtml: getCGIHtml,
+		setter: {
+			script: setScript,
+			allCGITypes: setAllCGITypes,
+		},
+		getter: {
+			script: getScript,
+			cgi: getCGI,
+			cgiExe: getCGIExe,
+			allCGITypes: getAllCGITypes,
+			cgiType: getCGIType,
+			vars: getVars,
+			env: getEnv,
+			pattern: getPattern,
+			type: getType
+		},
 		fileExists: fileExists,
 		runCGI: runCGI,
 		serve: serve
