@@ -600,12 +600,8 @@ function cgiServe() {
 			script: getScript,
 			allScripts: getAllCGITypes,
 			cgi: getCGI,
-			cgiExe: getCGIExe,
-			cgiType: getCGIType,
 			vars: getVars,
-			env: getEnv,
-			pattern: getPattern,
-			type: getType
+			env: getEnv
 		},
 		fileExists: fileExists,
 		runCGI: runCGI,
