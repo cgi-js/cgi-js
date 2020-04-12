@@ -42,16 +42,25 @@ function proxyHandler(cgijs, config) {
 // Subsystem for proxyHandler
 app.use("/sub", proxyHandler(cgijs, config));
 
-// PHP File
-app.use("/php", cgi.serve('php', { web_files_root: php, bin: { bin_path: '', useDefault: false }, config_path: '', host: shost, port: sport }));
+// PHP File: Use bin as string
+app.use("/php", cgi.serve('php', { web_files_root: php, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+// PHP File: Use bin as object definition
+app.use("/phpud", cgi.serve('php', { web_files_root: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport }));
+// PHP File: Use bin as Object definition with useDefault false
+app.use("/phpnud", cgi.serve('php', { web_files_root: php, bin: { bin_path: '/usr/bin/', useDefault: false }, config_path: '', host: shost, port: sport }));
+
 // RB File
-app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+// RB File
+app.use("/rbud", cgi.serve('rb', { web_files_root: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+
 // PLC File
 app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PLD File
 app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PL File
 app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+
 // PYTHON File
 app.use("/py", cgi.serve('py', { web_files_root: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PYTHON3 File
