@@ -217,7 +217,7 @@ function handler() {
         // CLEAN UP ON PROCESS EXIT
         process.stdin.resume();
 
-        prc.on('data', function(data) {
+        prc.on('data', function (data) {
             console.log(data);
         });
 
@@ -300,12 +300,16 @@ function handler() {
     }
 
     return {
-        setConfig: setConfig,
-        getConfig: getConfig,
-        getConnection: getConn,
-        setConnection: setConn,
-        getProcess: getProc,
-        setProcess: setProc,
+        setter: {
+            setConfig: setConfig,
+            setConnection: setConn,
+            setProcess: setProc
+        },
+        getter: {
+            getConfig: getConfig,
+            getConnection: getConn,
+            getProcess: getProc
+        },
         startProcess: startProcess,
         stopProcess: stopProcess,
         startProxy: startProxy,
