@@ -33,7 +33,34 @@ function cgiServe() {
 	}
 
 	function error(msg) {
-		throw new Error(msg);
+		console.error(msg);
+		process.exit();
+	}
+
+	function cleanBinPath(fnc, exe_options) {
+		if (!!exe_options) {
+			if (exe_options.hasOwnProperty("bin")) {
+				if (typeof exe_options.bin === "string") {
+					return exe_options.bin;
+				} else if (typeof exe_options.bin === "object") {
+					if (!!exe_options.bin.bin_path) {
+						if (typeof exe_options.bin.bin_path === "string") {
+							return exe_options.bin.bin_path;
+						}
+					} else if (exe_options.bin.bin_path === "") {
+						return exe_options.bin.bin_path;
+					} else {
+						if (!!exe_options.bin.useDefault) {
+							return "";
+						} else {
+							error("cleanBinPath: bin path config type definition error");
+						}
+					}
+				} else {
+					error("cleanBinPath: bin config type definition error");
+				}
+			}
+		}
 	}
 
 	function setScript(type, options) {
@@ -53,19 +80,10 @@ function cgiServe() {
 
 	}
 
-	function setCGI(cgi_executable, cgi_bin_path, type) {
+	function setCGI(cgi_executable, exe_options, type) {
 		let WHICH_CGI;
-
-		// BUG:
-		// This sets the CGI exe to default path if path not provided
-		// This is a bug if the person doesnt want that to happen
-		// 			or if the app is not supposed to use default
-		// Solution:
-		// Add Boolean if default path should be picked up from the library
-		cgi_bin_path = (!!cgi_bin && typeof cgi_bin === Object) ?
-			(!!cgi_bin.bin_path) ? cgi_bin.bin_path : (!!cgi_bin.useDefault) ?
-				"" : error("setCGI: Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
-				cgi_bin : error("setCGI: Bin path or bin config object not provided");
+		let cgi_bin_path = cleanBinPath("setCGI", exe_options);
+		console.log(cgi_bin_path);
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 			// Apply CGI to LANG_OPTS
@@ -82,19 +100,10 @@ function cgiServe() {
 		return true;
 	}
 
-	function getCGI(cgi_executable, cgi_bin) {
+	function getCGI(cgi_executable, exe_options) {
 		let WHICH_CGI;
+		let cgi_bin_path = cleanBinPath("getCGI", exe_options);
 
-		// BUG:
-		// This sets the CGI exe to default path if path not provided
-		// This is a bug if the person doesnt want that to happen
-		// 			or if the app is not supposed to use default
-		// Solution:
-		// Add Boolean if default path should be picked up from the library
-		cgi_bin_path = (!!cgi_bin && typeof cgi_bin === Object) ?
-			(!!cgi_bin.bin_path) ? cgi_bin.bin_path : (!!cgi_bin.useDefault) ?
-				"" : error("getCGI: Bin path not provided") : (!!cgi_bin && typeof cgi_bin === String) ?
-				cgi_bin : error("getCGI: Bin path or bin config object not provided");
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgi_executable);
 		} catch (e) {
@@ -104,11 +113,11 @@ function cgiServe() {
 		return WHICH_CGI;
 	}
 
-	function getCGIExe(cgiExe, cgiBin) {
-		return getCGI(cgiExe, cgiBin);
+	function getCGIExe(cgiExe, exe_options) {
+		return getCGI(cgiExe, exe_options);
 	}
 
-	function setAllCGITypes(cgiBin) {
+	function setAllCGITypes() {
 		// LANG_OPTS
 	}
 
@@ -124,10 +133,8 @@ function cgiServe() {
 	function pathClean(type, exe_options) {
 
 		// CGI bin path
-		let binPath = !!exe_options ? !!exe_options.bin ?
-			!!exe_options.bin.bin_path ? exe_options.bin.bin_path :
-				(!!exe_options.bin.useDefault) ? '' : error('pathClean: bin_path not provided') :
-			(!!exe_options.bin.useDefault) ? '' : error('pathClean: bin not provided') : '';
+		binPath = cleanBinPath("pathClean", exe_options);
+		// binPath = exe_options.bin;
 
 		// type of CGI - python, ruby, etc
 		let cgiType = getCGIType(type, LANG_OPTS);
@@ -147,11 +154,14 @@ function cgiServe() {
 		}
 
 		// remove slash if there for cgi path
-		if (slashIndex === binPath.length - 1) {
+		if (binPath.length !== 0 && slashIndex === binPath.length - 1) {
 			binPath = binPath.substring(0, binPath.length - 1);
 		}
 
 		binPath = binPath + '/' + cgiType;
+		if (typeof exe_options.bin === "string") {
+			exe_options.bin = {};
+		}
 		exe_options.bin.bin_path = binPath;
 		LANG_OPTS[getType(type)]["which"] = cgiType;
 
@@ -487,7 +497,6 @@ function cgiServe() {
 					proc = child.spawn(exe_options.bin.bin_path, [file], {
 						env: env
 					});
-
 				} else {
 					if (!LANG_OPTS[type]["which"]) {
 						console.error('which" Error');

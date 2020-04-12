@@ -43,19 +43,19 @@ function proxyHandler(cgijs, config) {
 app.use("/sub", proxyHandler(cgijs, config));
 
 // PHP File
-app.use("/php", cgi.serve('php', { web_files_root: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/php", cgi.serve('php', { web_files_root: php, bin: { bin_path: '', useDefault: false }, config_path: '', host: shost, port: sport }));
 // RB File
 app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PLC File
-app.use("/plc", cgi.serve('plc', { web_files_root: pl,  bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PLD File
-app.use("/pld", cgi.serve('pld', { web_files_root: pl,  bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PL File
-app.use("/pl", cgi.serve('pl', { web_files_root: pl,  bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PYTHON File
-app.use("/py", cgi.serve('py', { web_files_root: py,  bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/py", cgi.serve('py', { web_files_root: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', { web_files_root: py,  bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/py3", cgi.serve('py3', { web_files_root: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 
 app.use("/", function (req, res) {
     res.send(`
