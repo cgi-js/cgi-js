@@ -209,7 +209,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // app.use("/", cgi.serve("py", { 
 //         web_files_root: /path/to/cgiscript, 
-//         bin_path: '/usr/bin/', 
+//         bin: '/usr/bin/', 
 //         config_path: '/path/to/cgi.ini', 
 //         host: shost, 
 //         port: sport 
@@ -234,19 +234,19 @@ app.use("/phpnud", cgi.serve('php', { web_files_root: php, bin: { bin_path: '/us
 // RB File
 app.use("/rbud", cgi.serve('rb', { web_files_root: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // RB File
-app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 // PLC File
-app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PLD File
-app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PL File
-app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 // PYTHON File
-app.use("/py", cgi.serve('py', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/py", cgi.serve('py', { web_files_root: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', { web_files_root: py, bin_path: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/py3", cgi.serve('py3', { web_files_root: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 app.use("/", function (req, res) {
     res.send(`
