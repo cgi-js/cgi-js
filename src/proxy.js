@@ -396,22 +396,6 @@ function handler() {
 }
 
 
-function servers() {
-
-    function start() {
-
-    }
-
-    function stop() {
-
-    }
-
-
-
-    return
-
-}
-
 /**
  *
  *
