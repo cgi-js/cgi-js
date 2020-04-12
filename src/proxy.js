@@ -307,37 +307,6 @@ function handler() {
 
     }
 
-    return {
-        setter: {
-            config: setConfig,
-            connection: setConn,
-            process: setProc
-        },
-        getter: {
-            config: getConfig,
-            connection: getConn,
-            process: getProc
-        },
-        startProcess: startProcess,
-        stopProcess: stopProcess,
-        startProxy: startProxy,
-        stopProxy: stopProxy,
-        startServer: startServer,
-        stopServer: stopServer
-    }
-}
-
-
-function servers() {
-
-    function start() {
-
-    }
-
-    function stop() {
-
-    }
-
     function startHttpd() {
 
     }
@@ -379,31 +348,67 @@ function servers() {
     }
 
     return {
-        httpd: {
-            start: startHttpd,
-            stop: stopHttpd
+        setter: {
+            config: setConfig,
+            connection: setConn,
+            process: setProc
         },
-        nginx: {
-            start: startNginx,
-            stop: stopNginx
+        getter: {
+            config: getConfig,
+            connection: getConn,
+            process: getProc
         },
-        mongoose: {
-            start: startMongoose,
-            stop: stopMongoose
+        process: {
+            start: startProcess,
+            stop: stopProcess
         },
-        putty: {
-            start: startPutty,
-            stop: stopPutty
-        },
-        tomcat: {
-            start: startTomcat,
-            stop: stopTomcat
+        proxy: {
+            start: startProxy,
+            stop: stopProxy,
         },
         server: {
-            start: start,
-            stop: stop
+            httpd: {
+                start: startHttpd,
+                stop: stopHttpd
+            },
+            nginx: {
+                start: startNginx,
+                stop: stopNginx
+            },
+            mongoose: {
+                start: startMongoose,
+                stop: stopMongoose
+            },
+            putty: {
+                start: startPutty,
+                stop: stopPutty
+            },
+            tomcat: {
+                start: startTomcat,
+                stop: stopTomcat
+            },
+            any: {
+                start: startServer,
+                stop: stopServer
+            }
         }
     }
+}
+
+
+function servers() {
+
+    function start() {
+
+    }
+
+    function stop() {
+
+    }
+
+
+
+    return
 
 }
 

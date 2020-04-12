@@ -34,7 +34,7 @@ let config = {
 function proxyHandler(cgijs, config) {
     let h = cgijs.handler();
     let proxy = cgijs.proxy();
-    const conn = h.startProxy({}, { base_host: config.cbase, base_port: config.cport, base_url: config.curl, proxy_host: config.host, proxy_port: config.port, https: config.chttps });
+    const conn = h.proxy.start({}, { base_host: config.cbase, base_port: config.cport, base_url: config.curl, proxy_host: config.host, proxy_port: config.port, https: config.chttps });
     // h.setConnection({config.cbase + config.cport.toString(): conn});
     return proxy.setup(h, proxy, config);
 }
@@ -50,7 +50,7 @@ app.use("/phpud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '', 
 app.use("/phpnud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '/usr/bin/', useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
 // RB File
-app.use("/rb", cgi.serve('rb', { web_root_folder: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/rb", cgi.serve('rb', { web_root_folder: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport, cmd_options: {} }));
 // RB File
 app.use("/rbud", cgi.serve('rb', { web_root_folder: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
