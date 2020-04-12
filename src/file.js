@@ -412,7 +412,7 @@ function cgiServe() {
 				}
 			}
 
-			let file = path.join(exe_options.web_files_root, req_url.pathname);
+			let file = path.join(exe_options.web_root_folder, req_url.pathname);
 			// console.log("Path fileExists", file);
 			fs.stat(file, function (err, stat) {
 				// File does not exist

@@ -137,7 +137,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 1:
 // app.use("/", cgi.serve('type_of_interpretor', { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
 //                 bin_path: '/path/to/cgi-executable-dir/without-executable-name/',
 //                 useDefault: true,
@@ -149,7 +149,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 2:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '/path/to/cgi-executable-dir/without-executable-name/',
 //         config_path: '', 
 //         host: shost, 
@@ -164,7 +164,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 3:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
 //                 bin_path: '/path/to/cgi-executable-dir/without-executable-name/'
 //         }
@@ -176,7 +176,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 4:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
 //                 bin_path: '',
 //                 useDefault: true,
@@ -188,7 +188,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 5:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: {
 //                 useDefault: true,
 //         }
@@ -199,7 +199,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 6:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '',
 //         config_path: '', 
 //         host: shost, 
@@ -208,7 +208,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 7:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         config_path: '', 
 //         host: shost, 
 //         port: sport 
@@ -221,7 +221,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 8:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: /path/to/cgiscript, 
+//         web_root_folder: /path/to/cgiscript, 
 //         bin: '/path/to/cgi-executable-dir/without-executable-name/', 
 //         config_path: '/path/to/cgi.ini', 
 //         host: shost, 
@@ -230,7 +230,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 // Example 9:
 // app.use("/", cgi.serve("type_of_interpretor", { 
-//         web_files_root: "/path/to/cgiscript/www/folder/with/or/without/filename", 
+//         web_root_folder: "/path/to/cgiscript/www/folder/with/or/without/filename", 
 //         bin: '/usr/bin/',
 //         config_path: '', 
 //         host: shost, 
@@ -239,28 +239,28 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 
 // PHP File: Use bin as string
-app.use("/php", cgi.serve('php', { web_files_root: php, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/php", cgi.serve('php', { web_root_folder: php, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PHP File: Use bin as Object definition with useDefault true
-app.use("/phpud", cgi.serve('php', { web_files_root: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/phpud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport }));
 // PHP File: Use bin as Object definition with useDefault false
-app.use("/phpnud", cgi.serve('php', { web_files_root: php, bin: { bin_path: '/usr/bin/', useDefault: false }, config_path: '', host: shost, port: sport }));
+app.use("/phpnud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '/usr/bin/', useDefault: false }, config_path: '', host: shost, port: sport }));
 
 // RB File
-app.use("/rbud", cgi.serve('rb', { web_files_root: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
+app.use("/rbud", cgi.serve('rb', { web_root_folder: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport }));
 // RB File
-app.use("/rb", cgi.serve('rb', { web_files_root: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/rb", cgi.serve('rb', { web_root_folder: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 // PLC File
-app.use("/plc", cgi.serve('plc', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/plc", cgi.serve('plc', { web_root_folder: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PLD File
-app.use("/pld", cgi.serve('pld', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/pld", cgi.serve('pld', { web_root_folder: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PL File
-app.use("/pl", cgi.serve('pl', { web_files_root: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/pl", cgi.serve('pl', { web_root_folder: pl, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 // PYTHON File
-app.use("/py", cgi.serve('py', { web_files_root: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/py", cgi.serve('py', { web_root_folder: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', { web_files_root: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
+app.use("/py3", cgi.serve('py3', { web_root_folder: py, bin: '/usr/bin/', config_path: '', host: shost, port: sport }));
 
 app.use("/", function (req, res) {
     res.send(`
