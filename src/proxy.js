@@ -59,10 +59,10 @@ let servers = {};
  */
 function handler() {
 
-    // List ofConfigurations (config)
-    // List of Conections (conn)
-    // List of Processes (proc)
-    let config = {}, conn = {}, proc = {};
+    // List of Configurations (config)
+    // List of Conections (connections)
+    // List of Processes (processes)
+    let config = {}, connections = {}, processes = {};
     
     // List of servers maintained per handler instance
     let instanceServers = {};
@@ -149,61 +149,61 @@ function handler() {
     /**
      * 
      * getConn
-     * Returns the connection requested
-     * can be single key, or array of keys or complete conn object for fetch
+     * Returns the connections requested
+     * can be single key, or array of keys or complete connections object for fetch
      *
      * @param {undefined, String, Array} connNames
-     * conns : single name of conn or array of conns to be fetched
-     * @returns {*} conn
-     * conn: connections object
+     * conns : single name of connection or array of connections to be fetched
+     * @returns {*} connections
+     * connections: connections object
      * 
      */
-    function getConn(connNames) {
-        return getter(conn, connNames);
+    function getConnection(connNames) {
+        return getter(connections, connNames);
     }
 
     /**
      * 
      * setConn
-     * Sets the conn of the connection key name provided
-     * can be single or multiple keys or complete connection object for setting conn
+     * Sets the connection of the connection key name provided
+     * can be single or multiple keys or complete connection object for setting connections
      *
      * @param {undefined, Object} connObject
      * connObject is an object of connections with names of connection as keys
      * @returns undefined
      * 
      */
-    function setConn(connObject) {
-        setter(conn, connObject);
+    function setConnection(connObject) {
+        setter(connections, connObject);
     }
 
     /**
      * 
      * getProc
-     * Returns the process requested
+     * Returns the processes requested
      * can be single key, or array of keys or complete process object for fetch
      *
      * @param {undefined, String, Array} procIds
      * prcObject is single or Array of ids
-     * @returns {*} proc
-     * proc: processes object
+     * @returns {*} processes
+     * processes: processes list object
      * 
      */
-    function getProc(procIds) {
-        return getter(proc, procIds);
+    function getProcess(procIds) {
+        return getter(processes, procIds);
     }
 
     /**
      * 
      * setProc
-     * Sets the proc of the connection key procId provided
-     * can be single or multiple keys or complete process object for setting proc
+     * Sets the process of the connection key procId provided
+     * can be single or multiple keys or complete process object for setting processes
      *
      * @param {undefined, object} procObj
      * 
      */
-    function setProc(procObj) {
-        setter(proc, procObj);
+    function setProcess(procObj) {
+        setter(processes, procObj);
     }
 
     /**
@@ -241,7 +241,7 @@ function handler() {
             prc.on(eventType, cleanUpServer.bind(null, eventType));
         }.bind(prc, cleanUpServer));
 
-        proc[prc.pid] = prc;
+        processes[prc.pid] = prc;
         return prc.pid;
     }
 
@@ -256,8 +256,8 @@ function handler() {
         // Test the same
         // proc[prc].kill();
         process.kill(prc, signal);
-        console.log('Killed process ' + proc[prc].pid);
-        proc[prc] = null;
+        console.log('Killed process ' + processes[prc].pid);
+        processes[prc] = null;
         process.stdin.end();
         return true;
     }
@@ -399,13 +399,13 @@ function handler() {
     return {
         setter: {
             config: setConfig,
-            connection: setConn,
-            process: setProc
+            connection: setConnection,
+            process: setProcess
         },
         getter: {
             config: getConfig,
-            connection: getConn,
-            process: getProc
+            connection: getConnection,
+            process: getProcess
         },
         process: {
             start: startProcess,
