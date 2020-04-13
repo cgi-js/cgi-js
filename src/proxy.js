@@ -49,7 +49,7 @@ const https = require('https');
 const request = require('request');
 
 // List of common servers maintained per application instance
-let srvs = {};
+let servers = {};
 
 /**
  * 
@@ -65,7 +65,7 @@ function handler() {
     let config = {}, conn = {}, proc = {};
     
     // List of servers maintained per handler instance
-    let instSrvs = {};
+    let instanceServers = {};
 
     /**
      * 
