@@ -48,6 +48,7 @@
 const https = require('https');
 const request = require('request');
 
+let servers = {};
 
 /**
  * 
@@ -57,7 +58,7 @@ const request = require('request');
  */
 function handler() {
 
-    let config = {}, conn = {}, proc = {};
+    let config = {}, conn = {}, proc = {}, srv = {};
 
     /**
      * 
@@ -309,11 +310,8 @@ function handler() {
     function serveProxy(handler, options) {
         const { proxy_host, proxy_port, proxy_url, req, res, base_host, base_url, base_port } = options;
         request(proxy_host + ":" + proxy_port + proxy_url, function (error, response, body) {
-            // Print the error if one occurred
             // console.error('error: ', error);
-            // Print the response status code if a response was received
             // console.log('statusCode: ', response && response.statusCode);
-            // Print the HTML for the Google homepage
             // console.log('body: ', body);
             if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
         }.bind(req, res));
