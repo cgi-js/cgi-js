@@ -48,7 +48,8 @@
 const https = require('https');
 const request = require('request');
 
-let servers = {};
+// List of common servers maintained per application instance
+let srvs = {};
 
 /**
  * 
@@ -58,7 +59,13 @@ let servers = {};
  */
 function handler() {
 
-    let config = {}, conn = {}, proc = {}, srv = {};
+    // List ofConfigurations (config)
+    // List of Conections (conn)
+    // List of Processes (proc)
+    let config = {}, conn = {}, proc = {};
+    
+    // List of servers maintained per handler instance
+    let instSrvs = {};
 
     /**
      * 
