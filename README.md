@@ -55,6 +55,7 @@ npm install cgijs --save
 * Nginx (Allows Embed & Proxy)
 * Mongoose (Allows Embed & Proxy)
 * IIS (Allows Proxy)
+* Other Proxy-able local/remote servers
 
 > Basic permalinks are supported but the support for them can probably be improved. 
 
