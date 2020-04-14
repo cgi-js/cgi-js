@@ -309,8 +309,12 @@ function handler() {
         
         let e = args.entries().flat(Infinity);
 
-        if (!!other.command) { e.push(other[other.command]); }
-        if (!!file) { e.push(file); }
+        if (!!other.serverType && !!other.command && !!file) {
+            error("Server definition or process definition allowed, not both");
+        }
+        
+        if (!!other.command && !file) { e.push(other[other.command]); }
+        if (!!file && !other.serverType) { e.push(file); }
 
         let prc = procSpawn(exe, [...e], options);
         // console.log(prc.pid);
