@@ -49,12 +49,63 @@ const https = require('https');
 const request = require('request');
 
 // List of common servers maintained per application instance
-let servers = {};
+let servers = {}, serverPortRanges = ['8000-9000', '10000-15000'];
+let serverCommands = {
+    httpd: {
+        cmd: 'apache2', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "Windows_NT": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+    tomcat: {
+        cmd: '', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+    mongoose: {
+        cmd: 'mongoose', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+    putty: {
+        cmd: '', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+    nginx: {
+        cmd: 'nginx', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+    commandObject: {
+        cmd: '', args: {}, options: {}, other: {
+            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
+                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
+                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
+            }
+        }
+    },
+};
+
 
 /**
  * 
  * handler
- *
+ * 
  * @returns
  */
 function handler() {
@@ -63,9 +114,9 @@ function handler() {
     // List of Conections (connections)
     // List of Processes (processes)
     let config = {}, connections = {}, processes = {};
-    
+
     // List of servers maintained per handler instance
-    let instanceServers = {};
+    let instanceServers = {}, instancePortRanges = [];
 
     /**
      * 
@@ -216,10 +267,30 @@ function handler() {
      * @param {*} file
      * @returns
      */
-    function startProcess(cmd, args, options, file) {
+    function startProcess(procObject, file) {
+        let { cmd, args, options, other } = procObject;
         options["stdio"] = 'inherit';
-        let pSpawn = require('child_process').spawn;
-        let prc = pSpawn(cmd, [args], options);
+        let procSpawn = require('child_process').spawn;
+
+        args.conf = !!other.osPaths.conf ?
+            (other.osPaths.conf + args.conf) : args.conf;
+
+        cmd = other.osPaths.exe + cmd;
+
+        let e = args.entries(), tArgs = [];
+        for (let i = 0; i < e.length; i++) {
+            let a = e[i];
+            let str = " ";
+            for (let j = 0; j < a.length; i++) {
+                str = str + " " + a[j];
+            }
+            tArgs.push(str);
+        }
+
+        if (!!other.cmd) { tArgs.push(other[other.cmd]); }
+        if (!!file) { tArgs.push(file); }
+
+        let prc = procSpawn(cmd, [...tArgs], cmds.options);
         // console.log(prc.pid);
 
         // CLEAN UP ON PROCESS EXIT
@@ -242,7 +313,7 @@ function handler() {
         }.bind(prc, cleanUpServer));
 
         processes[prc.pid] = prc;
-        return prc.pid;
+        return { pid: prc.pid, srv: procObject };
     }
 
     /**
@@ -348,52 +419,26 @@ function handler() {
         }
     }
 
-    function startServer() {
-
+    function startServer(srvCmdObject, useSystemDefault = false) {
+        // serverObject structure
+        // cmd: 'apache2', args: {}, options: {}, useDefault: true, other: {
+        //     conf: '', host: '', port:10, starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: { conf: {}, exe: {} }
+        // }
+        let srv;
+        if (srvCmdObject.hasOwnProperty("useDefault") && srvCmdObject.useDefault !== true) {
+            srv = srvCmdObject;
+        } else {
+            srv = serverCommands[srvCmdObject.server];
+            let keys = srvCmdObject.keys();
+            for (let i = 0; i < keys.length; i++) {
+                srv = (!!serverCommands[keys[i]]) ? srvCmdObject[keys[i]] : serverCommands[keys[i]];
+            }
+        }
+        return startProcess(srv);
     }
 
-    function stopServer() {
-
-    }
-
-    function startHttpd() {
-
-    }
-
-    function stopHttpd() {
-
-    }
-
-    function startNginx() {
-
-    }
-
-    function stopNginx() {
-
-    }
-
-    function startMongoose() {
-
-    }
-
-    function stopMongoose() {
-
-    }
-
-    function startPutty() {
-
-    }
-
-    function stopPutty() {
-
-    }
-
-    function startTomcat() {
-
-    }
-
-    function stopTomcat() {
-
+    function stopServer(prc) {
+        stopProcess(prc);
     }
 
     return {
@@ -418,33 +463,10 @@ function handler() {
             setup: setupProxy
         },
         server: {
-            httpd: {
-                start: startHttpd,
-                stop: stopHttpd
-            },
-            nginx: {
-                start: startNginx,
-                stop: stopNginx
-            },
-            mongoose: {
-                start: startMongoose,
-                stop: stopMongoose
-            },
-            putty: {
-                start: startPutty,
-                stop: stopPutty
-            },
-            tomcat: {
-                start: startTomcat,
-                stop: stopTomcat
-            },
-            any: {
-                start: startServer,
-                stop: stopServer
-            }
+            start: startServer,
+            stop: stopServer
         }
     }
 }
-
 
 module.exports = handler;
