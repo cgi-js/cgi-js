@@ -433,11 +433,32 @@ function handler() {
      * 
      * startServer
      * 
-     * serverObject structure : 
-     * { exe: 'apache2', args: {}, options: {}, useDefault: true, other: { serverType: 'httpd', host: '', port:10, command: 'starter', conf: '', starter: 'start', stopper: 'stop', restarter: 'restart',  osPaths: { conf: {}, exe: {} } } }
      *
      * @param {*} srvObject
+     * Expected Structure: { exe, args, options, other }
+     *      exe: executable for process, 
+     *      args: arguments for process, 
+     *      options: options for process,
+     *      useDefault: option if system defaults should be used
+     *      other: optional-more-for-server-processes
+     *          Expected Structure: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } }
+     *          serverType: 
+     *          host: 
+     *          port: 
+     *          command: 
+     *          conf: 
+     *          starter: 'start'
+     *          stopper: 'stop'
+     *          restarter: 'restart'
+     *          osPaths: optional-more-for-server-processes
+     *              Expected Structure: { conf: {}, exe: {} }
+     *              conf:
+     *              exe:
+     * Example:
+     * { exe, args, options, other: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } } }
+     * 
      * @returns
+     * 
      */
     function startServer(srvObject) {
         let srv;
