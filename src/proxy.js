@@ -268,14 +268,15 @@ function handler() {
      * @returns
      */
     function startProcess(procObject, file) {
-        let { cmd, args, options, other } = procObject;
-        options["stdio"] = 'inherit';
+
         let procSpawn = require('child_process').spawn;
+        let { exe, args, options, other } = procObject;
+        // options["stdio"] = 'inherit';
 
         args.conf = !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) : args.conf;
 
-        cmd = other.osPaths.exe + cmd;
+        exe = other.osPaths.exe + exe;
 
         let e = args.entries(), tArgs = [];
         for (let i = 0; i < e.length; i++) {
@@ -287,10 +288,10 @@ function handler() {
             tArgs.push(str);
         }
 
-        if (!!other.cmd) { tArgs.push(other[other.cmd]); }
+        if (!!other.command) { tArgs.push(other[other.command]); }
         if (!!file) { tArgs.push(file); }
 
-        let prc = procSpawn(cmd, [...tArgs], cmds.options);
+        let prc = procSpawn(exe, [...tArgs], options);
         // console.log(prc.pid);
 
         // CLEAN UP ON PROCESS EXIT
@@ -420,10 +421,17 @@ function handler() {
     }
 
     function startServer(srvCmdObject, useSystemDefault = false) {
+
         // serverObject structure
-        // cmd: 'apache2', args: {}, options: {}, useDefault: true, other: {
-        //     conf: '', host: '', port:10, starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: { conf: {}, exe: {} }
+        // {
+        //     exe: 'apache2', args: {}, options: {}, useDefault: true, other: {
+        //         serverType: 'httpd',
+        //         host: '', port:10, command: 'starter', conf: '', 
+        //         starter: 'start', stopper: 'stop', restarter: 'restart', 
+        //         osPaths: { conf: {}, exe: {} }
+        //    }
         // }
+
         let srv;
         if (srvCmdObject.hasOwnProperty("useDefault") && srvCmdObject.useDefault !== true) {
             srv = srvCmdObject;
@@ -438,7 +446,14 @@ function handler() {
     }
 
     function stopServer(prc) {
-        stopProcess(prc);
+        if (!!prc.other && !!prc.other.serverType) {
+            prc = startProcess(prc.srv);
+            if (!prc.pid) { return true; }
+            return false;
+        } else {
+            if (!!stopProcess(prc.pid, 'EXIT')) { return true; }
+            return false;
+        }
     }
 
     return {
