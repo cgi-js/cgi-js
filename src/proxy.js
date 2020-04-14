@@ -439,7 +439,7 @@ function handler() {
      *      exe: executable for process, 
      *      args: arguments for process, 
      *      options: options for process,
-     *      useDefault: option if system defaults should be used
+     *      useDefault: key provided if system defaults should be used and not to use embedded executable
      *      other: optional-more-for-server-processes
      *          Expected Structure: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } }
      *          serverType: 
