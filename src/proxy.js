@@ -420,17 +420,17 @@ function handler() {
         }
     }
 
-    function startServer(srvObject, useSystemDefault = false) {
-
-        // serverObject structure
-        // {
-        //     exe: 'apache2', args: {}, options: {}, useDefault: true, other: {
-        //         serverType: 'httpd',
-        //         host: '', port:10, command: 'starter', conf: '', 
-        //         starter: 'start', stopper: 'stop', restarter: 'restart', 
-        //         osPaths: { conf: {}, exe: {} }
-        //    }
-        // }
+    /**
+     * 
+     * startServer
+     * 
+     * serverObject structure : 
+     * { exe: 'apache2', args: {}, options: {}, useDefault: true, other: { serverType: 'httpd', host: '', port:10, command: 'starter', conf: '', starter: 'start', stopper: 'stop', restarter: 'restart',  osPaths: { conf: {}, exe: {} } } }
+     *
+     * @param {*} srvObject
+     * @returns
+     */
+    function startServer(srvObject) {
 
         let srv;
         if (srvObject.hasOwnProperty("useDefault") && srvObject.useDefault !== true) {
