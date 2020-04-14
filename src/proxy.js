@@ -287,20 +287,32 @@ function handler() {
 
         exe = other.osPaths.exe + exe;
 
-        let e = args.entries(), tArgs = [];
-        for (let i = 0; i < e.length; i++) {
-            let a = e[i];
-            let str = " ";
-            for (let j = 0; j < a.length; i++) {
-                str = str + " " + a[j];
-            }
-            tArgs.push(str);
-        }
+        // function flatten(arr) {
+        //     return arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
+        // };
+        // let e = flatten(args.entries());
+        
+        // // OR
+        // let e = args.entries(), tArgs = [];
+        // for (let i = 0; i < e.length; i++) {
+        //     let a = e[i];
+        //     let str = " ";
+        //     for (let j = 0; j < a.length; i++) {
+        //         str = str + " " + a[j];
+        //     }
+        //     tArgs.push(str);
+        // }
+        // if (!!other.command) { tArgs.push(other[other.command]); }
+        // if (!!file) { tArgs.push(file); }
+        // let prc = procSpawn(exe, [...tArgs], options);
+        // OR
+        
+        let e = args.entries().flat(Infinity);
 
-        if (!!other.command) { tArgs.push(other[other.command]); }
-        if (!!file) { tArgs.push(file); }
+        if (!!other.command) { e.push(other[other.command]); }
+        if (!!file) { e.push(file); }
 
-        let prc = procSpawn(exe, [...tArgs], options);
+        let prc = procSpawn(exe, [...e], options);
         // console.log(prc.pid);
 
         // CLEAN UP ON PROCESS EXIT
