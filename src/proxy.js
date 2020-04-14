@@ -205,6 +205,7 @@ function handler() {
      *
      * @param {undefined, String, Array} connNames
      * conns : single name of connection or array of connections to be fetched
+     * 
      * @returns {*} connections
      * connections: connections object
      * 
@@ -260,12 +261,20 @@ function handler() {
     /**
      * 
      * startProcess
+     * 
      *
-     * @param {*} cmd
-     * @param {*} args
-     * @param {*} options
+     * @param {*} procObject
+     * Defines the process Object needed to start the process
+     * Expected Structure: { exe, args, options, other }
+     *      exe: executable for process, 
+     *      args: arguments for process, 
+     *      options: options for process,
+     *      other: optional-more-for-server-processes
+     * 
      * @param {*} file
+     * 
      * @returns
+     * 
      */
     function startProcess(procObject, file) {
 
@@ -431,7 +440,6 @@ function handler() {
      * @returns
      */
     function startServer(srvObject) {
-
         let srv;
         if (srvObject.hasOwnProperty("useDefault") && srvObject.useDefault !== true) {
             srv = srvObject;
