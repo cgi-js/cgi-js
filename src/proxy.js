@@ -420,7 +420,7 @@ function handler() {
         }
     }
 
-    function startServer(srvCmdObject, useSystemDefault = false) {
+    function startServer(srvObject, useSystemDefault = false) {
 
         // serverObject structure
         // {
@@ -433,13 +433,13 @@ function handler() {
         // }
 
         let srv;
-        if (srvCmdObject.hasOwnProperty("useDefault") && srvCmdObject.useDefault !== true) {
-            srv = srvCmdObject;
+        if (srvObject.hasOwnProperty("useDefault") && srvObject.useDefault !== true) {
+            srv = srvObject;
         } else {
-            srv = serverCommands[srvCmdObject.server];
-            let keys = srvCmdObject.keys();
+            srv = serverCommands[srvObject.server];
+            let keys = srvObject.keys();
             for (let i = 0; i < keys.length; i++) {
-                srv = (!!serverCommands[keys[i]]) ? srvCmdObject[keys[i]] : serverCommands[keys[i]];
+                srv = (!!serverCommands[keys[i]]) ? srvObject[keys[i]] : serverCommands[keys[i]];
             }
         }
         return startProcess(srv);
