@@ -309,7 +309,7 @@ function handler() {
         
         // Option Three
         let e = args.entries().flat(Infinity);
-
+        
         if (!!other.serverType && !!other.command && !!file) {
             error("Server definition or process definition allowed, not both");
         }
