@@ -286,34 +286,12 @@ function handler() {
             (other.osPaths.conf + args.conf) : args.conf;
 
         exe = other.osPaths.exe + exe;
-
-        // Option One
-        // function flatten(arr) {
-        //     return arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
-        // };
-        // let e = flatten(args.entries());
-        
-        // Option Two
-        // let e = args.entries(), tArgs = [];
-        // for (let i = 0; i < e.length; i++) {
-        //     let a = e[i];
-        //     let str = " ";
-        //     for (let j = 0; j < a.length; i++) {
-        //         str = str + " " + a[j];
-        //     }
-        //     tArgs.push(str);
-        // }
-        // if (!!other.command) { tArgs.push(other[other.command]); }
-        // if (!!file) { tArgs.push(file); }
-        // let prc = procSpawn(exe, [...tArgs], options);
-        
-        // Option Three
-        let e = args.entries().flat(Infinity);
         
         if (!!other.serverType && !!other.command && !!file) {
             error("Server definition or process definition allowed, not both");
         }
         
+        let e = args.entries().flat(Infinity);
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
 
