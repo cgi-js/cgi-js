@@ -287,12 +287,13 @@ function handler() {
 
         exe = other.osPaths.exe + exe;
 
+        // Option One
         // function flatten(arr) {
         //     return arr.reduce((acc, cur) => acc.concat(Array.isArray(cur) ? flatten(cur) : cur), []);
         // };
         // let e = flatten(args.entries());
         
-        // // OR
+        // Option Two
         // let e = args.entries(), tArgs = [];
         // for (let i = 0; i < e.length; i++) {
         //     let a = e[i];
@@ -305,8 +306,8 @@ function handler() {
         // if (!!other.command) { tArgs.push(other[other.command]); }
         // if (!!file) { tArgs.push(file); }
         // let prc = procSpawn(exe, [...tArgs], options);
-        // OR
         
+        // Option Three
         let e = args.entries().flat(Infinity);
 
         if (!!other.serverType && !!other.command && !!file) {
