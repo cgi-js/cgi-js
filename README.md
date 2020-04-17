@@ -60,7 +60,7 @@ npm install cgijs --save
     Basic permalinks are supported but the support for them can probably be improved. 
 
 
-##### Package Dependencies"
+##### Package Dependencies:
 
 * Library dependencies:
     - Nodejs: (> 8.x),
