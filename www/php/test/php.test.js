@@ -3,14 +3,14 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var express = require('express');
-var php = require('../main');
+var php = require('../../../src/').init();
 
 var app = express();
 
-app.use('/', php.cgi(__dirname + '/php'));
+app.use('/', php.serve(__dirname + '/php'));
 
 describe('GET /', function() {
-  it('should respond with /index.php', function(done) {
+  it('GET / : should respond with /index.php', function(done) {
     request(app)
       .get('/')
       .set('Accept', 'application/json')
@@ -22,13 +22,13 @@ describe('GET /', function() {
         } else {
           assert.match(res.body.$_SERVER.SCRIPT_FILENAME, /index.php$/);
         }
-        done();
+        // done();
       });
   });
 });
 
 describe('Get /index.php', function() {
-  it('should return a valid $_SERVER variable', function(done) {
+  it('Get /index.php : should return a valid $_SERVER variable', function(done) {
     request(app)
       .get('/index.php')
       .set('Accept', 'application/json')
@@ -40,7 +40,13 @@ describe('Get /index.php', function() {
         } else {
           assert.match(res.body.$_SERVER.REMOTE_ADDR, /127.0.0.1|::1/);
         }
-        done();
+        // done();
       });
   });
 });
+
+// describe('Get /index.php', function() {
+//   it('Get /index.php : should return a valid $_SERVER variable', function(done) {
+    
+//   });
+// });

@@ -1,9 +1,9 @@
 # cgi-js
-> run interpreted script files or connect to cgi / other server proxies
---------
+    
+    Run interpreted script files or connect to cgi / other server proxies
+
 
 Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
-
 
 
 # Installation
@@ -13,11 +13,9 @@ npm install cgijs --save
 ```
 
 
-
 # Features
 
-
-> Light weight, Flexible, Generic implementation
+    Light weight, Flexible, Generic implementation
 
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
@@ -33,7 +31,6 @@ npm install cgijs --save
 * Nodejs framework independent / agnostic for app development
 
 
-
 # Functionality Details
 
 ##### The script will pipe all files based on language:
@@ -43,10 +40,12 @@ npm install cgijs --save
 * PHP (Version Independent)
 * Ruby (Version Independent)
 
+
 ##### The script will pipe all proxies of above languages and following:
 
 * Jsp (With Tomcat)
 * Aspx (With IIS, Apache)
+
 
 ##### The script currently allows proxying to following servers:
 
@@ -57,13 +56,30 @@ npm install cgijs --save
 * IIS (Allows Proxy)
 * Other Proxy-able local/remote servers
 
-> Basic permalinks are supported but the support for them can probably be improved. 
+##### Note:
+    Basic permalinks are supported but the support for them can probably be improved. 
 
 
+##### Package Dependencies"
 
-# Usage
+* Library dependencies:
+    - Nodejs: (> 8.x),
+    - gateway: (> 1.0.0),
+    - request: (> 2.88.2),
+    - restana: (> 4.2.0),
+    - shelljs: (= 0.6.1),
+    - fast-proxy: (> 1.5.0)
+
+* Application Dependencies:
+    - Your app, you decide
+    - Example has "express": "^4.17.1"
+    - OR, Use other Nodejs framework you want to use for your app
+
+
+##### Usage Demo:
 
 This project contains example that demonstrates working with ExpressJS. To run CGI/Interpreted scripts with node js and express create the following script like below: 
+
 
 ```javascript
 
@@ -270,45 +286,32 @@ console.log(`Server listening at ${sport}!`);
 ```
 
 
-
-# Library Technical Specifications
+# Technical Specifications
 
 ...  * Wiki link to be added
 
 
-
-# Dependencies
-
-##### Library dependencies:
-    - Nodejs: (> 8.x),
-    - gateway: (> 1.0.0),
-    - request: (> 2.88.2),
-    - restana: (> 4.2.0),
-    - shelljs: (= 0.6.1),
-    - fast-proxy: (> 1.5.0)
-
-##### Application Dependencies:
-    - Your app, you decide
-    - Example has "express": "^4.17.1"
-    - OR, Use other Nodejs framework you want to use for your app
-
+# Wiki
 
 
 # Status
 
-In development
+    In development
 
 
+# Todo
 
-# TODO
+    Check file - .todo
 
-Check file - .todo
 
+# References
 
 
 # License
 
+The MIT License (MIT) - See [LICENSE](./LICENSE) for further details
 
-Copyright © 2019 - till library works: Ganesh B <ganeshsurfs@gmail.com>
 
-The MIT License (MIT) - See [LICENSE](./LICENSE) for further details.
+Copyright © 2019 - till library works:
+    Ganesh B <ganeshsurfs@gmail.com>
+

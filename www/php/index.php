@@ -5,6 +5,7 @@
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>  
 
 header('Content-Type: application/json');
-  echo json_encode(array('$_SERVER' => $_SERVER));
+header('Content-Type: text/html; charset=utf-8');
+echo json_encode(array('$_SERVER' => $_SERVER));
 
 ?>

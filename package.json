@@ -13,7 +13,7 @@
   "scripts": {
     "start": "node ./server.js",
     "process": "node ./process.js",
-    "test": "mocha"
+    "test": "mocha ./test/src ./www/php/test"
   },
   "main": "./src/index.js",
   "dependencies": {
