@@ -350,6 +350,9 @@ function handler() {
             base: options.base_host + ":" + options.base_port
         });
 
+        // try express instead of restana
+        // app.all(path, callback [, callback ...])
+        // app.all('*', loadUser)
         let gateway;
         if (!!options.https.key && options.https.cert) {
             gateway = require('restana')({
