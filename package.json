@@ -17,11 +17,10 @@
   },
   "main": "./src/index.js",
   "dependencies": {
-    "gateway": "^1.0.0",
+    "fast-proxy": "^1.5.0",
     "request": "^2.88.2",
     "restana": "^4.2.0",
-    "shelljs": "0.6.1",
-    "fast-proxy": "^1.5.0"
+    "shelljs": "0.6.1"
   },
   "devDependencies": {
     "express": "^4.17.1",
