@@ -15,6 +15,12 @@ const fs = require('fs');
 const shell = require('shelljs');
 const utils = require('./utils')();
 
+
+/**
+ *
+ *
+ * @returns
+ */
 function cgiServe() {
 
 	let ruby = "ruby", perl = "perl", python = "python", php = "php";
@@ -32,11 +38,23 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} msg
+	 */
 	function error(msg) {
 		console.error(msg);
 		process.exit();
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} fnc
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function cleanBinPath(fnc, exeOptions) {
 		if (!!exeOptions) {
 			if (exeOptions.hasOwnProperty("bin")) {
@@ -63,9 +81,16 @@ function cgiServe() {
 		}
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} options
+	 */
 	function setScript(type, options) {
 		let keys = langOptions.keys();
 		let types = LANG_OPTS.keys();
+
 		for (let j = 0; j < types.length; j++) {
 			for (let i = 0; i < keys.length; i++) {
 				if (type !== types[j]) {
@@ -80,10 +105,19 @@ function cgiServe() {
 
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} cgiExecutable
+	 * @param {*} exeOptions
+	 * @param {*} type
+	 * @returns
+	 */
 	function setCGI(cgiExecutable, exeOptions, type) {
 		let WHICH_CGI;
 		let cgi_bin_path = cleanBinPath("setCGI", exeOptions);
 		console.log(cgi_bin_path);
+
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgiExecutable);
 			// Apply CGI to LANG_OPTS
@@ -97,9 +131,17 @@ function cgiServe() {
 			console.error("setCGI: CGI Executable fetch error");
 			return false;
 		}
+
 		return true;
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} cgiExecutable
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function getCGI(cgiExecutable, exeOptions) {
 		let WHICH_CGI;
 		let cgi_bin_path = cleanBinPath("getCGI", exeOptions);
@@ -110,9 +152,17 @@ function cgiServe() {
 			console.error("getCGI: CGI Executable fetch error");
 			return false;
 		}
+
 		return WHICH_CGI;
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} cgiExe
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function getCGIExe(cgiExe, exeOptions) {
 		return getCGI(cgiExe, exeOptions);
 	}
@@ -121,15 +171,34 @@ function cgiServe() {
 		// LANG_OPTS
 	}
 
+	/**
+	 *
+	 *
+	 * @returns
+	 */
 	function getAllCGITypes() {
 		return LANG_OPTS;
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} LANG_OPTS
+	 * @returns
+	 */
 	function getCGIType(type, LANG_OPTS) {
 		if (!!LANG_OPTS[type]) { return LANG_OPTS[type].cgi; }
 		return false;
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function pathClean(type, exeOptions) {
 
 		// CGI bin path
@@ -171,6 +240,13 @@ function cgiServe() {
 		};
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function getVars(type, exeOptions) {
 		return pathClean(type, exeOptions);
 	}
@@ -401,6 +477,14 @@ function cgiServe() {
 		};
 	}
 
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} req_url
+	 * @param {*} exeOptions
+	 * @returns
+	 */
 	function fileExists(type, req_url, exeOptions) {
 		let promise = new Promise(function (resolve, reject) {
 
