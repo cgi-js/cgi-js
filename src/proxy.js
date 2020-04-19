@@ -346,6 +346,7 @@ function handler() {
      * @param {*} options
      */
     function startProxy(conn, options) {
+
         const { proxy, close } = require('fast-proxy')({
             base: options.base_host + ":" + options.base_port
         });
@@ -353,24 +354,27 @@ function handler() {
         // try express instead of restana
         // app.all(path, callback [, callback ...])
         // app.all('*', loadUser)
-        let gateway;
+        
+        let express;
         if (!!options.https.key && options.https.cert) {
-            gateway = require('restana')({
+            express = require('express')({
                 server: https.createServer({
                     key: options.https.key,
                     cert: options.https.cert
                 })
             });
         } else {
-            gateway = require('restana')();
+            express = require('express')();
         }
 
-        gateway.all(options.base_url, function (req, res) {
+        express.all(options.base_url, function (req, res) {
             proxy(req, res, req.url, {});
         });
-        gateway.start(options.proxy_port ? options.proxy_port : 0);
 
-        return gateway;
+        express.listen(options.proxy_port ? options.proxy_port : 0);
+
+        return express;
+
     }
 
     /**
