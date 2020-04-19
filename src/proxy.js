@@ -286,11 +286,11 @@ function handler() {
             (other.osPaths.conf + args.conf) : args.conf;
 
         exe = other.osPaths.exe + exe;
-        
+
         if (!!other.serverType && !!other.command && !!file) {
             error("Server definition or process definition allowed, not both");
         }
-        
+
         let e = args.entries().flat(Infinity);
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
@@ -354,7 +354,7 @@ function handler() {
         // try express instead of restana
         // app.all(path, callback [, callback ...])
         // app.all('*', loadUser)
-        
+
         let express;
         if (!!options.https.key && options.https.cert) {
             express = require('express')({
