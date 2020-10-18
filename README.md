@@ -303,7 +303,17 @@ console.log(`Server listening at ${sport}!`);
 
 # Todo
 
-    Check file - .todo
+    Check .todo file for latest TODO list
+
+    Add:
+    - Manual commands
+    - Command line options for all interpretors in config
+    - Add embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function)
+
+    Modify:
+    - Make config and options dynamic based on config file
+    - Check Authentication for proxy connections for VLAN proxies
+    - Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support
 
 
 # References
