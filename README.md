@@ -20,41 +20,43 @@ npm install cgijs --save
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
-* Run any scripts that support cgi based serving
-* Run any host that servers a web app using proxy 
-    - In App / Local / Remote proxy support
-    - Allows embedding servers, which can be
-* Allows
-    - running multiple interpreters in one app
-    - running multiple proxies in one app
-    - multiple embedded servers in one app
-* Nodejs framework independent / agnostic for app development
+* [x] Run any scripts that support cgi based serving
+* [x] Run any host that servers a web app using proxy 
+    - [x] In App / Local / Remote proxy support
+    - [] Allows embedding servers, which can be [TODO]
+* [x] Allows
+    - [x] running multiple interpreters in one app
+    - [x] running multiple proxies in one app
+    - [x] multiple embedded servers in one app
+* [x] Nodejs framework independent / agnostic for app development
 
 
 # Functionality Details
 
 ##### The script will pipe all files based on language:
 
-* Python (2.x, 3.x)
-* Perl (Version Independent)
-* PHP (Version Independent)
-* Ruby (Version Independent)
+* [x] Python (2.x, 3.x)
+* [x] Perl (Version Independent)
+* [x] PHP (Version Independent)
+* [x] Ruby (Version Independent)
 
 
 ##### The script will pipe all proxies of above languages and following:
 
-* Jsp (With Tomcat)
-* Aspx (With IIS, Apache)
+* [x] Jsp (With Tomcat as proxy)
+* [] Jsp (With Tomcat) [TODO]
+* [x] Aspx (With IIS, Apache as proxy)
+* [] Aspx (With IIS, Apache) [TODO]
 
 
 ##### The script currently allows proxying to following servers:
 
-* Apache HTTPD (Allows Embed & Proxy)
-* Apache TomCat (Allows Embed & Proxy)
-* Nginx (Allows Embed & Proxy)
-* Mongoose (Allows Embed & Proxy)
-* IIS (Allows Proxy)
-* Other Proxy-able local/remote servers
+* [] Apache HTTPD (Allows Embed & Proxy) [TODO]
+* [] Apache TomCat (Allows Embed & Proxy) [TODO]
+* [] Nginx (Allows Embed & Proxy) [TODO]
+* [] Mongoose (Allows Embed & Proxy) [TODO]
+* [] IIS (Allows Proxy) [TODO]
+* [x] Other Proxy-able local/remote servers
 
 ##### Note:
     Basic permalinks are supported but the support for them can probably be improved. 
@@ -296,7 +298,7 @@ console.log(`Server listening at ${sport}!`);
 
 # Status
 
-    In development
+    In development [for allowing embedded server executables]
 
 
 # Todo

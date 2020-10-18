@@ -23,7 +23,7 @@ let config = {
     proxy_host: 'http://127.0.0.1',
     proxy_port: 8000,
     base_host: 'http://127.0.0.1',
-    base_port: 5000,
+    base_port: 80,
     base_url: '/*',
     https: {
         key: null,
