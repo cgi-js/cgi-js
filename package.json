@@ -18,14 +18,14 @@
   "main": "./src/index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "fast-proxy": "^1.5.0",
+    "fast-proxy": "^1.7.0",
     "request": "^2.88.2",
     "shelljs": "0.6.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
-    "mocha": "^7.1.0",
+    "mocha": "^7.2.0",
     "supertest": "^4.0.2"
   },
   "keywords": [
