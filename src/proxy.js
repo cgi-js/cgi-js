@@ -348,7 +348,7 @@ function handler() {
     function startProxy(conn, options) {
 
         const { proxy, close } = require('fast-proxy')({
-            base: options.base_host + ":" + options.base_port
+            base: options.remote_host + ":" + options.remote_port
         });
 
         // try express instead of restana
@@ -367,7 +367,7 @@ function handler() {
             express = require('express')();
         }
 
-        express.all(options.base_url, function (req, res) {
+        express.all(options.remote_url, function (req, res) {
             proxy(req, res, req.url, {});
         });
 
@@ -398,7 +398,7 @@ function handler() {
      * @param {*} options
      */
     function serveProxy(handler, options) {
-        const { proxy_host, proxy_port, proxy_url, req, res, base_host, base_url, base_port } = options;
+        const { proxy_host, proxy_port, proxy_url, req, res, remote_host, remote_url, remote_port } = options;
         request(proxy_host + ":" + proxy_port + proxy_url, function (error, response, body) {
             // console.error('error: ', error);
             // console.log('statusCode: ', response && response.statusCode);
@@ -416,7 +416,7 @@ function handler() {
      * @returns
      */
     function setupProxy(handler, conf, serve) {
-        let { proxy_host, proxy_port, base_host, base_url, base_port } = conf;
+        let { proxy_host, proxy_port, remote_host, remote_url, remote_port } = conf;
         return function proxyHandler(req, res) {
             return serve(handler, {
                 proxy_host: proxy_host,
@@ -424,9 +424,9 @@ function handler() {
                 proxy_url: req.url,
                 req: req,
                 res: res,
-                base_host: base_host,
-                base_url: base_url,
-                base_port: base_port
+                remote_host: remote_host,
+                remote_url: remote_url,
+                remote_port: remote_port
             });
         }
     }

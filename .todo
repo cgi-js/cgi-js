@@ -7,4 +7,5 @@ Modify:
     - Make config and options dynamic based on config file
     - Check Authentication for proxy connections for VLAN proxies
     - Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support
+    - IMPORTANT: Remove multiple libraries for httpserver and fix one
 

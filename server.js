@@ -22,9 +22,9 @@ let sport = 9090, shost = '127.0.0.1';
 let config = {
     proxy_host: 'http://127.0.0.1',
     proxy_port: 8000,
-    base_host: 'http://127.0.0.1',
-    base_port: 80,
-    base_url: '/*',
+    remote_host: 'http://127.0.0.1',
+    remote_port: 80,
+    remote_url: '/*',
     https: {
         key: null,
         cert: null
@@ -65,7 +65,7 @@ app.use("/py", cgi.serve('py', { web_root_folder: py, bin: { bin_path: '/usr/bin
 // PYTHON3 File
 app.use("/py3", cgi.serve('py3', { web_root_folder: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
-app.use("/", function (req, res) {
+app.use("*", function (req, res) {
     res.send(`
         "Testing my server"
     `);

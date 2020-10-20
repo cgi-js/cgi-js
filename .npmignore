@@ -1,6 +1,7 @@
 .git
 node_modules/
 www/*/__pycache__/
+www/*
 binaries/mongoose/src/
 binaries/http/src/
 binaries/https/src/
@@ -13,3 +14,5 @@ binaries/python3/src/
 binaries/tomcat/src/
 binaries/java/src/
 */*/__pycache__/
+.gitignore
+req.checks.credits.txt

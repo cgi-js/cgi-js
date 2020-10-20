@@ -21,7 +21,7 @@ npm install cgijs --save
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
 * [x] Run any scripts that support cgi based serving
-* [x] Run any host that servers a web app using proxy 
+* [x] Run any host that serves a web app using proxy 
     - [x] In App / Local / Remote proxy support
     - [] Allows embedding servers, which can be [TODO]
 * [x] Allows
@@ -86,10 +86,9 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 
 var express = require('express');
-var cgijs = require("./src");
+var cgijs = require("cgijs");
 var cgi = cgijs.init();
 
-// var cgi = require("cgijs");
 var path = require("path");
 
 var app = express();
@@ -103,9 +102,9 @@ let sport = 9090, shost = '127.0.0.1';
 let config = {
     proxy_host: 'http://127.0.0.1',
     proxy_port: 8000,
-    base_host: 'http://127.0.0.1',
-    base_port: 5000,
-    base_url: '/*',
+    remote_host: 'http://127.0.0.1',
+    remote_port: 5000,
+    remote_url: '/*',
     https: {
         key: null,
         cert: null
@@ -126,16 +125,16 @@ function proxyHandler(cgijs, config) {
 // function proxyHandler(cgijs, config) {
 //     let h = cgijs.handler();
 //     const conn = h.proxy.start({}, config);
-//     // h.setter.connection({config.base_host + config.base_port.toString(): conn});
+//     // h.setter.connection({config.remote_host + config.remote_port.toString(): conn});
 //     return h.proxy.setup(h, config, h.proxy.serve);
 // }
 
 //    app.use("/main-server-path", proxyHandler(cgijs-lib, {
 //            proxy_host: 'https://path-to-proxy-server',
 //            proxy_port: proxied-port,
-//            base_host: 'https://path-to-your-web-app-server',
-//            base_port: webapp-port,
-//            base_url: '/*',
+//            remote_host: 'https://path-to-your-web-app-server',
+//            remote_port: webapp-port,
+//            remote_url: '/*',
 //            https: {
 //                key: 'key-file',
 //                cert: 'cert-file'
@@ -294,6 +293,8 @@ console.log(`Server listening at ${sport}!`);
 
 
 # Wiki
+
+... * Use case: Run Single or Multiple Interpreted Language Web apps as a Single desktop app using Electron
 
 
 # Status
