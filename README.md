@@ -23,7 +23,10 @@ npm install cgijs --save
 * [x] Run any scripts that support cgi based serving
 * [x] Run any host that serves a web app using proxy 
     - [x] In App / Local / Remote proxy support
-    - [] Allows embedding servers, which can be [TODO]
+    - [] Allows Embedding Servers, which can run proxies [TODO]
+    - [] Allows running and closing processes
+            - Runs unsupported proxies/ processes/ services [TODO]
+            - Work with Embedded Database servers, Language embedded servers
 * [x] Allows
     - [x] running multiple interpreters in one app
     - [x] running multiple proxies in one app
@@ -291,6 +294,16 @@ console.log(`Server listening at ${sport}!`);
 
 ...  * Wiki link to be added
 
+### Type of Interpreters (type_of_interpretor)
+
+* PHP - `php` (for .php extension files)
+* Python 3 - `py3` (for Python .py extension files. Needed for *nix systems)
+* Python 2 - `py` (for Python .py extension files. Needed for *nix systems)
+* Ruby - `rb` (for Ruby .rb extension files)
+* Perl - `plc` (for Perl .plc extension files)
+* Perl - `pld` (for Perl .pld extension files)
+* Perl - `pl` (for Perl .pl extension files)
+
 
 # Wiki
 
@@ -329,5 +342,9 @@ Copyright © 2019 - till library works:
     Ganesh B <ganeshsurfs@gmail.com>
 
 
-# Please support the development
+# Please support the development in github repository through 
+    - need reporting, 
+    - testing, 
+    - issue reporting, 
+    - contribution 
 

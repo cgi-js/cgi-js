@@ -8,7 +8,7 @@ setInterval(function () {
     let res = handler.stopProcess(procId, 'SIGINT');
     if (!!res) {
         // End this node process process.js
-        console.log("End this node process", process.pid);
+        console.log("Ending this node process", process.pid);
         process.exit();
     }
 }, 5000);

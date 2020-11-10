@@ -1,8 +1,8 @@
 {
     "php": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "F:/languages/php",
+            "bin": "F:/languages/php",
             "config": {
                 "file": ""
             },
@@ -26,8 +26,8 @@
     },
     "py": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "F:/languages/py",
+            "bin": "F:/languages/py",
             "config": {
                 "file": ""
             },
@@ -48,5 +48,70 @@
             },
             "options": ""
         }
+    },
+    "pl": {
+        "embed": {
+            "path": "F:/languages/perl/bin",
+            "bin": "F:/languages/perl/bin",
+            "config": {
+                "file": ""
+            },
+            "options": ""
+        },
+        "script": {
+            "type": "server",
+            "path": "",
+            "server": {
+                "host": "",
+                "port": "",
+                "username": "",
+                "password": "",
+                "ssl": {
+                    "crt": "",
+                    "pem": ""
+                }
+            },
+            "options": ""
+        }
+    },
+    "rb": {
+        "embed": {
+            "path": "F:/languages/Rails/Ruby2.3.3/bin",
+            "bin": "F:/languages/Rails/Ruby2.3.3/bin",
+            "config": {
+                "file": ""
+            },
+            "options": ""
+        },
+        "script": {
+            "type": "server",
+            "path": "",
+            "server": {
+                "host": "",
+                "port": "",
+                "username": "",
+                "password": "",
+                "ssl": {
+                    "crt": "",
+                    "pem": ""
+                }
+            },
+            "options": ""
+        }
+    },
+    "proxy": {
+        "proxy_host": "127.0.0.1",
+        "proxy_port": 8000,
+        "remote_host": "127.0.0.1",
+        "remote_port": 80,
+        "remote_url": "\/*",
+        "https": {
+            "key": "",
+            "cert": ""
+        }
+    },
+    "server": {
+        "host": "127.0.0.1",
+        "port": 9090
     }
 }

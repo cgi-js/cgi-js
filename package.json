@@ -15,18 +15,18 @@
     "process": "node ./process.js",
     "test": "mocha ./test/src ./www/php/test"
   },
-  "main": "./src/index.js",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
     "fast-proxy": "^1.7.0",
     "request": "^2.88.2",
-    "shelljs": "0.6.1"
+    "shelljs": "^0.6.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "mocha": "^7.2.0",
-    "supertest": "^4.0.2"
+    "eslint": "^7.0.0",
+    "mocha": "^8.0.0",
+    "supertest": "^6.0.0"
   },
   "private": false,
   "license": "MIT",

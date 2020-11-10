@@ -5,13 +5,18 @@
 // 
 
 var express = require('express');
-var cgijs = require("./src");
+var cgijs = require("../src");
 var cgi = cgijs.init();
 
 // var cgi = require("cgijs");
 var path = require("path");
 
 var app = express();
+
+let php_bin = path.join("F:/languages/php");
+let rby_bin = path.join("F:/languages/Rails/Ruby2.3.3/bin");
+let pl_bin = path.join("F:/languages/perl/bin");
+let py_bin = path.join("F:/languages/py");
 
 let php = path.join("www/php");
 let rby = path.join("www/ruby");
@@ -41,29 +46,30 @@ function proxyHandler(cgijs, config) {
 // Subsystem for proxyHandler
 app.use("/sub", proxyHandler(cgijs, config));
 
+
 // PHP File: Use bin as string
-app.use("/php", cgi.serve('php', { web_root_folder: php, bin: '/usr/bin/', config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/php", cgi.serve('php', { web_root_folder: php, bin: php_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PHP File: Use bin as object definition
 app.use("/phpud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PHP File: Use bin as Object definition with useDefault false
-app.use("/phpnud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '/usr/bin/', useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/phpnud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
 // RB File
-app.use("/rb", cgi.serve('rb', { web_root_folder: rby, bin: '/usr/bin/', config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/rb", cgi.serve('rb', { web_root_folder: rby, bin: rby_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // RB File
-app.use("/rbud", cgi.serve('rb', { web_root_folder: rby, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/rbud", cgi.serve('rb', { web_root_folder: rby, bin: { bin_path: rby_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
 // PLC File
-app.use("/plc", cgi.serve('plc', { web_root_folder: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/plc", cgi.serve('plc', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PLD File
-app.use("/pld", cgi.serve('pld', { web_root_folder: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/pld", cgi.serve('pld', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PL File
-app.use("/pl", cgi.serve('pl', { web_root_folder: pl, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/pl", cgi.serve('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
 // PYTHON File
-app.use("/py", cgi.serve('py', { web_root_folder: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/py", cgi.serve('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PYTHON3 File
-app.use("/py3", cgi.serve('py3', { web_root_folder: py, bin: { bin_path: '/usr/bin/', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/py3", cgi.serve('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 
 app.use("*", function (req, res) {
     res.send(`

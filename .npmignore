@@ -16,3 +16,5 @@ binaries/java/src/
 */*/__pycache__/
 .gitignore
 req.checks.credits.txt
+tmp/*
+data/*
