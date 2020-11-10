@@ -11,8 +11,8 @@
     "url": "https://github.com/ganeshkbhat/cgi-js.git"
   },
   "scripts": {
-    "start": "node ./server.js",
-    "process": "node ./process.js",
+    "start": "node ./demo/server.js",
+    "process": "node ./demo/process.js",
     "test": "mocha ./test/src ./www/php/test"
   },
   "main": "index.js",
