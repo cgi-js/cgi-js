@@ -8,7 +8,7 @@ const fs = require('fs');
 let express = require('express');
 let app = express();
 
-let conf = fs.readFileSync('../config.json');
+let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
 let { host, port } = configuration.server;
 

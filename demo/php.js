@@ -12,7 +12,7 @@ var cgi = cgijs.init();
 var path = require("path");
 var app = express();
 
-let conf = fs.readFileSync('./config.json');
+let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
 let php_bin = configuration.php.embed.bin
 let php_www = configuration.php.script.path
