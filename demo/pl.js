@@ -15,7 +15,7 @@ var app = express();
 let conf = fs.readFileSync('./config.json');
 let configuration = JSON.parse(conf);
 let pl_bin = configuration.pl.embed.bin
-let pl_www = './www/perl/'
+let pl_www = configuration.pl.script.path
 
 // PLC File
 app.use("/plc", cgi.serve('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));

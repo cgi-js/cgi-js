@@ -16,7 +16,7 @@ var app = express();
 let conf = fs.readFileSync('./config.json');
 let configuration = JSON.parse(conf);
 let ruby_bin = configuration.rb.embed.bin
-let ruby_www = './www/ruby/'
+let ruby_www = configuration.rb.script.path
 
 
 // RB File

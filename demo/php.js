@@ -15,7 +15,7 @@ var app = express();
 let conf = fs.readFileSync('./config.json');
 let configuration = JSON.parse(conf);
 let php_bin = configuration.php.embed.bin
-let php_www = './www/php/'
+let php_www = configuration.php.script.path
 
 // PHP File: Use bin as string
 app.use("/php", cgi.serve('php', { web_root_folder: php_www, bin: php_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));

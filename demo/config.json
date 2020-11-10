@@ -10,7 +10,7 @@
         },
         "script": {
             "type": "file",
-            "path": "",
+            "path": "./www/php/",
             "server": {
                 "host": "",
                 "port": "",
@@ -35,7 +35,7 @@
         },
         "script": {
             "type": "server",
-            "path": "",
+            "path": "./www/py/",
             "server": {
                 "host": "",
                 "port": "",
@@ -60,7 +60,7 @@
         },
         "script": {
             "type": "server",
-            "path": "",
+            "path": "./www/perl/",
             "server": {
                 "host": "",
                 "port": "",
@@ -85,7 +85,7 @@
         },
         "script": {
             "type": "server",
-            "path": "",
+            "path": "./www/ruby/",
             "server": {
                 "host": "",
                 "port": "",

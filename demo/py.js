@@ -16,7 +16,7 @@ var app = express();
 let conf = fs.readFileSync('./config.json');
 let configuration = JSON.parse(conf);
 let py_bin = configuration.py.embed.bin
-let py_www = './www/py/'
+let py_www = configuration.py.script.path
 
 
 // PYTHON File
