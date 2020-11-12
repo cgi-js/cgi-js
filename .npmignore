@@ -18,3 +18,5 @@ binaries/java/src/
 req.checks.credits.txt
 tmp/*
 data/*
+downloads/*
+docs/*
