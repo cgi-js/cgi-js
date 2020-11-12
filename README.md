@@ -25,8 +25,8 @@ npm install cgijs --save
     - [x] In App / Local / Remote proxy support
     - [] Allows Embedding Servers, which can run proxies [TODO]
     - [] Allows running and closing processes
-            - Runs unsupported proxies/ processes/ services [TODO]
-            - Work with Embedded Database servers, Language embedded servers
+        * Runs unsupported proxies/ processes/ services [TODO]
+        * Work with Embedded Database servers, Language embedded servers
 * [x] Allows
     - [x] running multiple interpreters in one app
     - [x] running multiple proxies in one app
