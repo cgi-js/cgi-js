@@ -67,12 +67,11 @@ npm install cgijs --save
 
 ##### Package Dependencies:
 
-* Library dependencies:
+* Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - request: (> 2.88.2),
-    - restana: (> 4.2.0),
-    - shelljs: (= 0.6.1),
-    - fast-proxy: (> 1.5.0)
+    - request,
+    - shelljs,
+    - fast-proxy
 
 * Application Dependencies:
     - Your app, you decide
