@@ -14,3 +14,6 @@ binaries/python3/src/
 binaries/tomcat/src/
 binaries/java/src/
 */*/__pycache__/
+
+tmp/*
+data/*/*
