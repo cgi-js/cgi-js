@@ -16,4 +16,9 @@ binaries/java/src/
 */*/__pycache__/
 
 tmp/*
-data/*/*
+data/app/
+data/crash/
+data/data/
+data/logs/
+data/recent/
+data/user/
