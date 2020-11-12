@@ -26,7 +26,7 @@ npm install cgijs --save
     - [] Allows Embedding Servers, which can run proxies [TODO]
     - [] Allows running and closing processes
         * Runs unsupported proxies/ processes/ services [TODO]
-        * Work with Embedded Database servers, Language embedded servers
+        * Work with Embedded Database servers, Language embedded servers [TODO]
 * [x] Allows
     - [x] running multiple interpreters in one app
     - [x] running multiple proxies in one app
