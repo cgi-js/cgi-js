@@ -497,7 +497,7 @@ function cgiServe() {
 			}
 
 			let file = path.join(exeOptions.web_root_folder, req_url.pathname);
-			// console.log("Path fileExists", file);
+			console.log("Path fileExists", file);
 			fs.stat(file, function (err, stat) {
 				// File does not exist
 				if (err || stat.isDirectory()) {
@@ -548,13 +548,15 @@ function cgiServe() {
 		let pathinfo = '';
 		let i = req.url.indexOf('.' + getType(type));
 
+		console.log("url.pathname", url.pathname);
+
 		if (i > 0) {
 			pathinfo = url.pathname.substring(i + 4);
 		} else {
 			pathinfo = url.pathname;
 		};
 
-		// console.log("runCGI pathinfo", pathinfo, file, url.pathname);
+		console.log("runCGI pathinfo", pathinfo, file, url.pathname);
 		// console.log("runCGI req", req)
 
 		let env = getEnv(pathinfo, file, req, url.pathname, exeOptions.host, exeOptions.port);
@@ -571,13 +573,13 @@ function cgiServe() {
 				exeOptions = gvars.exeOptions;
 				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
-				// console.log("runCGI: exeOptions.bin, exeOptions.bin.bin_path", exeOptions.bin, exeOptions.bin.bin_path);
+				console.log("runCGI: exeOptions.bin, exeOptions.bin.bin_path", exeOptions.bin, exeOptions.bin.bin_path);
 
 				if (
 					(!!exeOptions.bin.bin_path) &&
 					(('/' + LANG_OPTS[getType(type)].cgi).length !== exeOptions.bin.bin_path.length)
 				) {
-					console.log('runCGI: 1', exeOptions.bin.bin_path);
+					console.log('runCGI: 1', exeOptions.bin.bin_path, ...utils.convert.array(exeOptions.cmd_options), file);
 					proc = child.spawn(exeOptions.bin.bin_path, [...utils.convert.array(exeOptions.cmd_options), file], {
 						cwd: process.cwd(),
 						env: env
@@ -667,7 +669,7 @@ function cgiServe() {
 
 			var req_url = URL.parse(req.url);
 			// req_url = req_url.path;
-
+			console.log("file details", type, req.url, req_url, exeOptions);
 			fileExists(type, req_url, exeOptions).then(function (file) {
 				if (!!file) {
 					runCGI(req, res, next, req_url, type, file, exeOptions);

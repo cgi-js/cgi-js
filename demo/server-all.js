@@ -77,7 +77,6 @@ app.use("*", function (req, res) {
     `);
 });
 
-
 app.listen(sport, shost);
 console.log(`Server listening at ${sport}!`);
 
