@@ -11,7 +11,9 @@
     "url": "https://github.com/ganeshkbhat/cgi-js.git"
   },
   "scripts": {
-    "start": "node ./demo/server.js",
+    "segregated": "node ./demo/server.js",
+    "segregatedall": "node ./demo/server-all.js",
+    "recursive": "node ./demo/server-recursive.js",
     "process": "node ./demo/process.js",
     "test": "mocha ./test/src ./www/php/test"
   },
