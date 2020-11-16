@@ -19,16 +19,16 @@
   },
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1",
-    "fast-proxy": "^1.7.0",
-    "request": "^2.88.2",
-    "shelljs": "^0.6.1"
+    "express": "4.17.1",
+    "fast-proxy": "1.7.0",
+    "request": "2.88.2",
+    "shelljs": "0.6.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^7.0.0",
-    "mocha": "^8.0.0",
-    "supertest": "^6.0.0"
+    "chai": "4.2.0",
+    "eslint": "7.13.0",
+    "mocha": "8.2.1",
+    "supertest": "6.0.1"
   },
   "private": false,
   "license": "MIT",

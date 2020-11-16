@@ -372,9 +372,7 @@ function handler() {
         });
 
         express.listen(options.proxy_port ? options.proxy_port : 0);
-
         return express;
-
     }
 
     /**
