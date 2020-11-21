@@ -48,7 +48,7 @@ app.use("/sub", proxyHandler(cgijs, config));
 
 
 // PHP File: Use bin as string
-app.use("/php", cgi.serve('phpc', { web_root_folder: php, bin: php_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/php", cgi.serve('php', { web_root_folder: php, bin: php_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PHP File: Use bin as object definition
 app.use("/phpud", cgi.serve('php', { web_root_folder: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PHP File: Use bin as Object definition with useDefault false
