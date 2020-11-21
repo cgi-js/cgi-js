@@ -732,7 +732,6 @@ function cgiServe() {
 			vars: getVars,
 			env: getEnv
 		},
-		fileExists: fileExists,
 		runCGI: runCGI,
 		serve: serve
 	}
