@@ -425,10 +425,10 @@ function cgiServe() {
 	 * @returns
 	 */
 	function getPattern(type) {
-		if (!!LANG_OPTS[type] && !!LANG_OPTS[type].pattern) {
+		if (!!LANG_OPTS[type] && !!LANG_OPTS[type].pattern && LANG_OPTS[type].pattern !== "") {
 			return LANG_OPTS[type].pattern;
 		}
-		return false;
+		error("Pattern does not exist");
 	}
 
 
