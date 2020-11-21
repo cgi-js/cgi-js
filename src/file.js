@@ -204,7 +204,7 @@ function cgiServe() {
 	 * @returns
 	 */
 	function getCGITypes(cgiLang) {
-		if (typeof(cgiLang) === 'string') {
+		if (typeof (cgiLang) === 'string') {
 			return LANG_OPTS[cgiLang];
 		} else if (Array.isArray(cgiLang)) {
 			let l = [];
@@ -721,11 +721,12 @@ function cgiServe() {
 	return {
 		setter: {
 			script: setScript,
-			allScripts: setCGITypes,
+			cgiTypes: setCGITypes,
 		},
 		getter: {
 			script: getScript,
-			allScripts: getCGITypes,
+			cgiTypes: getCGITypes,
+			cgiType: getCGIType,
 			cgi: getCGI,
 			vars: getVars,
 			env: getEnv
@@ -734,7 +735,6 @@ function cgiServe() {
 		runCGI: runCGI,
 		serve: serve
 	}
-
 }
 
 exports.serve = cgiServe;
