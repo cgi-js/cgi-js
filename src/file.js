@@ -220,18 +220,6 @@ function cgiServe() {
 	 *
 	 *
 	 * @param {*} type
-	 * @param {*} LANG_OPTS
-	 * @returns
-	 */
-	function getCGIType(type, LANG_OPTS) {
-		if (!!LANG_OPTS[type]) { return LANG_OPTS[type].cgi; }
-		return false;
-	}
-
-	/**
-	 *
-	 *
-	 * @param {*} type
 	 * @param {*} exeOptions
 	 * @returns
 	 */
@@ -722,11 +710,11 @@ function cgiServe() {
 		setter: {
 			script: setScript,
 			cgiTypes: setCGITypes,
+			cgi: setCGI
 		},
 		getter: {
 			script: getScript,
 			cgiTypes: getCGITypes,
-			cgiType: getCGIType,
 			cgi: getCGI,
 			vars: getVars,
 			env: getEnv
