@@ -23,7 +23,7 @@ const utils = require('./utils')();
  */
 function cgiServe() {
 
-	let ruby = "ruby", perl = "perl", python = "python", php = "php";
+	let ruby = "ruby", perl = "perl", python = "python", php = "php", node = "node";
 	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
 
@@ -35,7 +35,8 @@ function cgiServe() {
 		"pld": { "name": perl, "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
 		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
 		"py": { "name": python, "cgi": python, "which": "", "type": "py", "pattern": /.*?\.py$/ },
-		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ }
+		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ }
 	}
 
 	/**
@@ -88,8 +89,8 @@ function cgiServe() {
 	 * @param {*} options
 	 */
 	function setScript(type, options) {
-		let keys = langOptions.keys();
-		let types = LANG_OPTS.keys();
+		let keys = Object.keys(langOptions);
+		let types = Object.keys(LANG_OPTS);
 
 		for (let j = 0; j < types.length; j++) {
 			for (let i = 0; i < keys.length; i++) {
@@ -167,8 +168,34 @@ function cgiServe() {
 		return getCGI(cgiExe, exeOptions);
 	}
 
-	function setAllCGITypes() {
-		// LANG_OPTS
+	function setCGITypes(cgiLang) {
+		function validateLangOptionStructure(obj) {
+			let k = Object.keys(obj), l = Object.keys(langOptions);
+			for (let i = 0; i < l.length; i++) {
+				if (k.indexOf(l[i]) >= 0) {
+					return false;
+				}
+			}
+		}
+		if (Array.isArray(cgiLang)) {
+			for (let i = 0; i < cgiLang.length; i++) {
+				let res = validateLangOptionStructure(cgiLang[i]);
+				if (!res) {
+					return res;
+				}
+			}
+			langOptions.push(...cgiLang);
+			return true;
+		} else if (typeof (cgiLang) === 'object') {
+			let res = validateLangOptionStructure(cgiLang[i]);
+			if (!res) {
+				return res;
+			}
+			langOptions.push(cgiLang);
+			return true;
+		} else {
+			throw Error("Incorrect Type provided");
+		}
 	}
 
 	/**
@@ -176,7 +203,16 @@ function cgiServe() {
 	 *
 	 * @returns
 	 */
-	function getAllCGITypes() {
+	function getCGITypes(cgiLang) {
+		if (typeof(cgiLang) === 'string') {
+			return LANG_OPTS[cgiLang];
+		} else if (Array.isArray(cgiLang)) {
+			let l = [];
+			for (let i = 0; i < cgiLang.length; i++) {
+				l.push(cgiLang[i]);
+			}
+			return l;
+		}
 		return LANG_OPTS;
 	}
 
@@ -685,11 +721,11 @@ function cgiServe() {
 	return {
 		setter: {
 			script: setScript,
-			allScripts: setAllCGITypes,
+			allScripts: setCGITypes,
 		},
 		getter: {
 			script: getScript,
-			allScripts: getAllCGITypes,
+			allScripts: getCGITypes,
 			cgi: getCGI,
 			vars: getVars,
 			env: getEnv
