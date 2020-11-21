@@ -39,6 +39,7 @@ function cgiServe() {
 		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ }
 	}
 
+
 	/**
 	 *
 	 *
@@ -82,6 +83,18 @@ function cgiServe() {
 		}
 	}
 
+
+	function validateLangOptionStructure(obj) {
+		let k = Object.keys(obj), l = Object.keys(langOptions);
+		for (let i = 0; i < l.length; i++) {
+			if (k.indexOf(l[i]) >= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
 	/**
 	 *
 	 *
@@ -102,12 +115,14 @@ function cgiServe() {
 		}
 	}
 
-	function getScript(scripts) {
 
+	function getScript(type) {
+		return LANG_OPTS[type];
 	}
 
+
 	/**
-	 *
+	 * Check this again
 	 *
 	 * @param {*} cgiExecutable
 	 * @param {*} exeOptions
@@ -117,7 +132,7 @@ function cgiServe() {
 	function setCGI(cgiExecutable, exeOptions, type) {
 		let WHICH_CGI;
 		let cgi_bin_path = cleanBinPath("setCGI", exeOptions);
-		console.log(cgi_bin_path);
+		// console.log(cgi_bin_path);
 
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgiExecutable);
@@ -125,16 +140,17 @@ function cgiServe() {
 			if (!!LANG_OPTS[type]) {
 				LANG_OPTS[type] = WHICH_CGI;
 			} else {
-				console.error("setCGI: CGI Executable type apply error");
+				error("setCGI: CGI Executable type apply error");
 				return false;
 			}
 		} catch (e) {
-			console.error("setCGI: CGI Executable fetch error");
+			error("setCGI: CGI Executable fetch error");
 			return false;
 		}
 
 		return true;
 	}
+
 
 	/**
 	 *
@@ -150,12 +166,13 @@ function cgiServe() {
 		try {
 			WHICH_CGI = shell.which(cgi_bin_path + cgiExecutable);
 		} catch (e) {
-			console.error("getCGI: CGI Executable fetch error");
+			error("getCGI: CGI Executable fetch error");
 			return false;
 		}
 
 		return WHICH_CGI;
 	}
+
 
 	/**
 	 *
@@ -168,35 +185,24 @@ function cgiServe() {
 		return getCGI(cgiExe, exeOptions);
 	}
 
+
 	function setCGITypes(cgiLang) {
-		function validateLangOptionStructure(obj) {
-			let k = Object.keys(obj), l = Object.keys(langOptions);
-			for (let i = 0; i < l.length; i++) {
-				if (k.indexOf(l[i]) >= 0) {
-					return false;
-				}
-			}
-		}
 		if (Array.isArray(cgiLang)) {
 			for (let i = 0; i < cgiLang.length; i++) {
 				let res = validateLangOptionStructure(cgiLang[i]);
-				if (!res) {
-					return res;
-				}
+				if (!res) { return res; }
 			}
 			langOptions.push(...cgiLang);
 			return true;
 		} else if (typeof (cgiLang) === 'object') {
 			let res = validateLangOptionStructure(cgiLang[i]);
-			if (!res) {
-				return res;
-			}
+			if (!res) { return res; }
 			langOptions.push(cgiLang);
 			return true;
-		} else {
-			throw Error("Incorrect Type provided");
 		}
+		error("Incorrect Type provided");
 	}
+
 
 	/**
 	 *
@@ -215,6 +221,7 @@ function cgiServe() {
 		}
 		return LANG_OPTS;
 	}
+
 
 	/**
 	 *
@@ -264,6 +271,7 @@ function cgiServe() {
 		};
 	}
 
+
 	/**
 	 *
 	 *
@@ -274,6 +282,7 @@ function cgiServe() {
 	function getVars(type, exeOptions) {
 		return pathClean(type, exeOptions);
 	}
+
 
 	/**
 	 *
@@ -408,6 +417,7 @@ function cgiServe() {
 		return env;
 	}
 
+
 	/**
 	 *
 	 *
@@ -421,6 +431,7 @@ function cgiServe() {
 		return false;
 	}
 
+
 	/**
 	 *
 	 *
@@ -431,8 +442,9 @@ function cgiServe() {
 		if (!!LANG_OPTS[type] && !!LANG_OPTS[type].type) {
 			return LANG_OPTS[type].type;
 		}
-		return false;
+		error("Type does not exist");
 	}
+
 
 	/**
 	 *
@@ -464,6 +476,7 @@ function cgiServe() {
 			res: res
 		};
 	}
+
 
 	/**
 	 *
@@ -501,6 +514,7 @@ function cgiServe() {
 		};
 	}
 
+
 	/**
 	 *
 	 *
@@ -513,32 +527,28 @@ function cgiServe() {
 		let promise = new Promise(function (resolve, reject) {
 
 			let feFn = function (f) {
-				if (!!f) {
-					resolve(f);
-				} else {
-					resolve(false);
-				}
+				if (!!f) { resolve(f); } else { resolve(false); }
 			}
 
 			let file = path.join(exeOptions.web_root_folder, req_url.pathname);
-			console.log("Path fileExists", file);
+			// console.log("Path fileExists", file);
 			fs.stat(file, function (err, stat) {
 				// File does not exist
 				if (err || stat.isDirectory()) {
 					if (stat && stat.isDirectory()) {
 						file = path.join(file, 'index.' + getType(type));
-						console.log("fileExists: Path created file ", file)
+						// console.log("fileExists: Path created file ", file);
 					}
 					if (file.includes(process.cwd())) {
 						fs.exists(file, function (exists) {
-							console.log("fileExists: Path join", file, exists)
+							// console.log("fileExists: Path join", file, exists);
 							if (!!exists) {
 								feFn(file);
 							}
 						});
 					} else {
 						fs.exists(path.join(process.cwd(), file), function (exists) {
-							console.log("fileExists: No path join", file, exists)
+							// console.log("fileExists: No path join", file, exists);
 							if (!!exists) {
 								feFn(file);
 							}
@@ -548,13 +558,14 @@ function cgiServe() {
 
 				// File found
 				else {
-					console.log("fileExists: Else Path", file);
+					// console.log("fileExists: Else Path", file);
 					callback(file);
 				}
 			});
 		});
 		return promise;
 	}
+
 
 	/**
 	 *
@@ -572,17 +583,15 @@ function cgiServe() {
 		let pathinfo = '';
 		let i = req.url.indexOf('.' + getType(type));
 
-		console.log("url.pathname", url.pathname);
-
+		// console.log("url.pathname", url.pathname);
 		if (i > 0) {
 			pathinfo = url.pathname.substring(i + 4);
 		} else {
 			pathinfo = url.pathname;
 		};
 
-		console.log("runCGI pathinfo", pathinfo, file, url.pathname);
-		// console.log("runCGI req", req)
-
+		// console.log("runCGI pathinfo", pathinfo, file, url.pathname);
+		// console.log("runCGI req", req);
 		let env = getEnv(pathinfo, file, req, url.pathname, exeOptions.host, exeOptions.port);
 
 		Object.keys(req.headers).map(function (x) {
@@ -597,13 +606,13 @@ function cgiServe() {
 				exeOptions = gvars.exeOptions;
 				LANG_OPTS = gvars.LANG_OPTS;
 				let proc;
-				console.log("runCGI: exeOptions.bin, exeOptions.bin.bin_path", exeOptions.bin, exeOptions.bin.bin_path);
+				// console.log("runCGI: exeOptions.bin, exeOptions.bin.bin_path", exeOptions.bin, exeOptions.bin.bin_path);
 
 				if (
 					(!!exeOptions.bin.bin_path) &&
 					(('/' + LANG_OPTS[getType(type)].cgi).length !== exeOptions.bin.bin_path.length)
 				) {
-					console.log('runCGI: 1', exeOptions.bin.bin_path, ...utils.convert.array(exeOptions.cmd_options), file);
+					// console.log('runCGI: 1', exeOptions.bin.bin_path, ...utils.convert.array(exeOptions.cmd_options), file);
 					proc = child.spawn(exeOptions.bin.bin_path, [...utils.convert.array(exeOptions.cmd_options), file], {
 						cwd: process.cwd(),
 						env: env
@@ -611,10 +620,10 @@ function cgiServe() {
 
 				} else {
 					if (!LANG_OPTS[type]["which"]) {
-						console.error('which" Error');
+						error('which" Error');
 						throw new Error('"runCGI: cgi executable" cannot be found');
 					}
-					console.log('runCGI: 2', exeOptions.bin.bin_path.split('/')[1]);
+					// console.log('runCGI: 2', exeOptions.bin.bin_path.split('/')[1]);
 					proc = child.spawn(exeOptions.bin.bin_path.split('/')[1], [...utils.convert.array(exeOptions.cmd_options), file], {
 						cwd: process.cwd(),
 						env: env
@@ -678,6 +687,7 @@ function cgiServe() {
 		}
 	}
 
+
 	/**
 	 *
 	 *
@@ -688,34 +698,37 @@ function cgiServe() {
 	function serve(type, exeOptions) {
 		// console.log(exeOptions.bin.bin_path, exeOptions.bin.useDefault);
 		return function (req, res, next) {
-			// stop stream until child-process is opened
-			req.pause();
+			try {
+				// stop stream until child-process is opened
+				req.pause();
 
-			var req_url = URL.parse(req.url);
-			// req_url = req_url.path;
-			console.log("file details", type, req.url, req_url, exeOptions);
-			fileExists(type, req_url, exeOptions).then(function (file) {
-				if (!!file) {
-					runCGI(req, res, next, req_url, type, file, exeOptions);
-				} else {
-					res.end("serve: File serve exists error: 1");
-				}
-			}).catch(function (e) {
-				res.end("serve: File serve promise error: 2");
-			});
+				var req_url = URL.parse(req.url);
+				// req_url = req_url.path;
+				// console.log("file details", type, req.url, req_url, exeOptions);
+				fileExists(type, req_url, exeOptions).then(function (file) {
+					if (!!file) {
+						runCGI(req, res, next, req_url, type, file, exeOptions);
+					} else {
+						res.end("serve: File serve exists error: 1");
+					}
+				}).catch(function (e) {
+					res.end("serve: File serve promise error: 2");
+				});
+			} catch (e) {
+				res.end("serve: File serve promise error: 3", e);
+			}
 		};
 	}
+
 
 	return {
 		setter: {
 			script: setScript,
-			cgiTypes: setCGITypes,
-			cgi: setCGI
+			cgiTypes: setCGITypes
 		},
 		getter: {
 			script: getScript,
 			cgiTypes: getCGITypes,
-			cgi: getCGI,
 			vars: getVars,
 			env: getEnv
 		},
