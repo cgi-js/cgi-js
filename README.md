@@ -151,7 +151,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 # Todo
 
-    Check .todo file for latest TODO list
+    Check [.todo](./.todo) file for latest TODO list
 
     Add:
     - [] Manual commands [TODO]
