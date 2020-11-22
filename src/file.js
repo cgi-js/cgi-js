@@ -429,7 +429,10 @@ function cgiServe() {
 				return res.end();
 			});
 		} else {
-			return res.sendFile(file);
+			if (!!exeOptions.sendFile) {
+				return res.sendFile(file);
+			}
+			return res.send(400, "Access denied or file could not be processed");
 		}
 	}
 
