@@ -500,25 +500,25 @@ function cgiServe() {
 		});
 
 		if (!!pattern_chk.test(path.join(process.cwd(), file))) {
-			let tmp_result = '', err = '', proc;
+			let tmp_result = '', err = '', proc, executable;
 
 			if ((!!exeOptions.bin.bin_path) && (('/' + LANG_OPTS[type].cgi).length !== exeOptions.bin.bin_path.length)) {
-				// console.log('runCGI: 1', exeOptions.bin.bin_path, "-", ...utils.convert.array(exeOptions.cmd_options), file);
-				proc = child.spawn(exeOptions.bin.bin_path + "/" + LANG_OPTS[type].cgi, [...utils.convert.array(exeOptions.cmd_options), file], {
-					cwd: process.cwd(),
-					env: env
-				});
+				// console.log('runCGI: 1', exeOptions.bin.bin_path);
+				executable = exeOptions.bin.bin_path + "/" + LANG_OPTS[type].cgi;
+
 			} else {
 				// console.log('runCGI: 2', exeOptions.bin.bin_path.split('/')[1]);
 				if (!LANG_OPTS[type]["which"]) {
 					error('"runCGI: cgi executable" cannot be found, "which" Error');
 				}
 				let p = exeOptions.bin.bin_path.split('/')[1];
-				proc = child.spawn(((!!p) ? p + "/" : "") + LANG_OPTS[type].cgi, [...utils.convert.array(exeOptions.cmd_options), file], {
-					cwd: process.cwd(),
-					env: env
-				});
+				executable = ((!!p) ? p + "/" : "") + LANG_OPTS[type].cgi;
 			}
+
+			proc = child.spawn(executable, [...utils.convert.array(exeOptions.cmd_options), file], {
+				cwd: process.cwd(),
+				env: env
+			});
 
 			proc.stdin.on('error', function () {
 				error("runCGI: Error from server");
