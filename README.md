@@ -120,6 +120,9 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 # Wiki
 
+* Getting started
+    - Quick demo - CGI files
+    - Quick demo - proxying to proxies/servers
 * Run CGI files
     - PHP (.php)
     - Perl (Perl any versions - .plc, .pld, .pl)
