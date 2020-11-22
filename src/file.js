@@ -108,8 +108,7 @@ function cgiServe() {
 			}
 			return LANG_OPTS[type].which;
 		} catch (e) {
-			error("getCGI: CGI Executable fetch error");
-			return false;
+			error("getCGI: CGI Executable fetch error " + e.toString());
 		}
 	}
 
