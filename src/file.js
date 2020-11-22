@@ -444,9 +444,8 @@ function cgiServe() {
 		let pattern = getPattern(type);
 		let gvars = getVars(exeOptions);
 		exeOptions = gvars.exeOptions;
-		let exe = setCGI(type, LANG_OPTS[type].cgi, exeOptions);
-		if (!exe) {
-			error("serve: Exe setCGI failed");
+		if (!LANG_OPTS[type].which) {
+			let exe = setCGI(type, LANG_OPTS[type].cgi, exeOptions);
 		}
 		return function (req, res, next) {
 			try {
