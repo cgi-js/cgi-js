@@ -133,6 +133,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 * Manage Embedded Database Servers (for desktop-cgi use case):
     - Embedded Mysql
     - Embedded PgSQL
+    - Working with SQLite
 * Run any executable/process based on need for application
 * Working with config.json file for simpler implementation in apps
 

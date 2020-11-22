@@ -6,100 +6,8 @@
 
 /* eslint no-console: 0 */
 
-// command <string> The command to run.
-// args <string[]> List of string arguments.
-
-// options <Object>
-
-//     cwd <string> Current working directory of the child process.
-//     env <Object> Environment key-value pairs. Default: process.env.
-//     argv0 <string> Explicitly set the value of argv[0] sent to the child process. This will be set to command if not specified.
-//     stdio <Array> | <string> Child's stdio configuration (see options.stdio).
-//     detached <boolean> Prepare child to run independently of its parent process. Specific behavior depends on the platform, see options.detached).
-//     uid <number> Sets the user identity of the process (see setuid(2)).
-//     gid <number> Sets the group identity of the process (see setgid(2)).
-//     serialization <string> Specify the kind of serialization used for sending messages between processes. Possible values are 'json' and 'advanced'. See Advanced Serialization for more details. Default: 'json'.
-//     shell <boolean> | <string> If true, runs command inside of a shell. Uses '/bin/sh' on Unix, and process.env.ComSpec on Windows. A different shell can be specified as a string. See Shell Requirements and Default Windows Shell. Default: false (no shell).
-//     windowsVerbatimArguments <boolean> No quoting or escaping of arguments is done on Windows. Ignored on Unix. This is set to true automatically when shell is specified and is CMD. Default: false.
-//     windowsHide <boolean> Hide the subprocess console window that would normally be created on Windows systems. Default: false.
-
-
-// https://nodejs.org/api/child_process.html
-// https://gist.github.com/ami-GS/9503132
-
-// https://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
-
-
-// Promising- Good
-// https://www.npmjs.com/package/fast-proxy
-
-// 
-// https://www.npmjs.com/package/proxy-chain
-
-// Promising - Good
-// + fastify
-// https://www.npmjs.com/package/fastify-vhost
-
-// 
-// https://www.npmjs.com/package/local-web-server
-// https://www.npmjs.com/package/start-proxy-server
-// https://www.npmjs.com/package/bfn-proxy
-
 const https = require('https');
 const request = require('request');
-
-// List of common servers maintained per application instance
-let servers = {}, serverPortRanges = ['8000-9000', '10000-15000'];
-let serverCommands = {
-    httpd: {
-        cmd: 'apache2', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "Windows_NT": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-    tomcat: {
-        cmd: '', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-    mongoose: {
-        cmd: 'mongoose', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-    putty: {
-        cmd: '', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-    nginx: {
-        cmd: 'nginx', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-    commandObject: {
-        cmd: '', args: {}, options: {}, other: {
-            conf: '', starter: 'start', stopper: 'stop', restarter: 'restart', osPaths: {
-                "win32": { conf: {}, exe: {} }, "win64": { conf: {}, exe: {} }, "darwin": { conf: {}, exe: {} },
-                "fedora": { conf: {}, exe: {} }, "debian": { conf: {}, exe: {} }, "unix": { conf: {}, exe: {} }
-            }
-        }
-    },
-};
 
 
 /**
@@ -110,13 +18,63 @@ let serverCommands = {
  */
 function handler() {
 
-    // List of Configurations (config)
-    // List of Conections (connections)
-    // List of Processes (processes)
-    let config = {}, connections = {}, processes = {};
+    // List of Configurations (config), Conections (connections), Processes (processes), ServerCommands (server commands)
+    let config = {}, connections = {}, processes = {}, serverCommands = {};
 
     // List of servers maintained per handler instance
     let instanceServers = {}, instancePortRanges = [];
+    let servers = {}, serverPortRanges = ['8000-9000', '10000-15000'];
+    let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
+    let serverList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql"];
+    let processList = [];
+    let commandObject = {
+        generic: {
+            executable: {
+                exe: '', args: {}, options: {}, commands: {
+                    start: 'start', stop: 'stop', restart: 'restart', envVars: {
+                        bin: "", runtime: ""
+                    }
+                }
+            },
+            service: {
+                name: "", exe: '', args: {}, options: {}, commands: {
+                    start: 'start', stop: 'stop', restart: 'restart', envVars: {
+                        bin: "", runtime: ""
+                    }
+                }
+            }
+        },
+        os: {
+            "osname": {
+                executable: {
+                    exe: '', args: {}, options: {}, commands: {
+                        start: 'start', stop: 'stop', restart: 'restart', envVars: {
+                            bin: "", runtime: ""
+                        }
+                    }
+                },
+                service: {
+                    name: "", exe: '', args: {}, options: {}, commands: {
+                        start: 'start', stop: 'stop', restart: 'restart', envVars: {
+                            bin: "", runtime: ""
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    function setOS(obj) { }
+
+    function getOS(name) { }
+
+    function setServers(obj) { }
+
+    function getServers(name) { }
+
+    function setProcesses(obj) { }
+
+    function getProcesses(name) { }
 
     /**
      * 
@@ -231,7 +189,7 @@ function handler() {
 
     /**
      * 
-     * getProc
+     * getProcess
      * Returns the processes requested
      * can be single key, or array of keys or complete process object for fetch
      *
@@ -247,7 +205,7 @@ function handler() {
 
     /**
      * 
-     * setProc
+     * setProcess
      * Sets the process of the connection key procId provided
      * can be single or multiple keys or complete process object for setting processes
      *
@@ -485,16 +443,26 @@ function handler() {
         }
     }
 
+    function setupWebsocket() { }
+    function startWebsocket() { }
+    function stopWebsocket() { }
+
     return {
         setter: {
             config: setConfig,
             connection: setConnection,
-            process: setProcess
+            process: setProcess,
+            os: setOS,
+            servers: setServers,
+            processes: setProcesses
         },
         getter: {
             config: getConfig,
             connection: getConnection,
-            process: getProcess
+            process: getProcess,
+            os: getOS,
+            servers: getServers,
+            processes: getProcesses
         },
         process: {
             start: startProcess,
@@ -509,6 +477,11 @@ function handler() {
         server: {
             start: startServer,
             stop: stopServer
+        },
+        websocket: {
+            start: startWebsocket,
+            stop: stopWebsocket,
+            setup: setupWebsocket
         }
     }
 }

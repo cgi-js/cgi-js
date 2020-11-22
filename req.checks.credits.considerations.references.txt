@@ -1,0 +1,58 @@
+// Alternative proxiy and cgi runners
+"start-proxy-server": "^1.0.1",
+"serve-cgi": "^0.6.1",
+"local-web-server": "^4.0.0",
+"fastify": "^2.12.1",
+"fastify-vhost": "^1.2.0",
+"bfn-proxy": "^1.4.0",
+
+// Under consideration for option as config files
+"yaml-settings": "^1.1.0"
+
+
+// Required for further development using config files
+"cgi-env": "0.0.1",
+"jsonfile": "^6.0.1",
+
+// ?? Consider ??
+"multilevel-ini": "^1.1.2",
+xml parser
+
+// command <string> The command to run.
+// args <string[]> List of string arguments.
+
+// options <Object>
+
+//     cwd <string> Current working directory of the child process.
+//     env <Object> Environment key-value pairs. Default: process.env.
+//     argv0 <string> Explicitly set the value of argv[0] sent to the child process. This will be set to command if not specified.
+//     stdio <Array> | <string> Child's stdio configuration (see options.stdio).
+//     detached <boolean> Prepare child to run independently of its parent process. Specific behavior depends on the platform, see options.detached).
+//     uid <number> Sets the user identity of the process (see setuid(2)).
+//     gid <number> Sets the group identity of the process (see setgid(2)).
+//     serialization <string> Specify the kind of serialization used for sending messages between processes. Possible values are 'json' and 'advanced'. See Advanced Serialization for more details. Default: 'json'.
+//     shell <boolean> | <string> If true, runs command inside of a shell. Uses '/bin/sh' on Unix, and process.env.ComSpec on Windows. A different shell can be specified as a string. See Shell Requirements and Default Windows Shell. Default: false (no shell).
+//     windowsVerbatimArguments <boolean> No quoting or escaping of arguments is done on Windows. Ignored on Unix. This is set to true automatically when shell is specified and is CMD. Default: false.
+//     windowsHide <boolean> Hide the subprocess console window that would normally be created on Windows systems. Default: false.
+
+
+// https://nodejs.org/api/child_process.html
+// https://gist.github.com/ami-GS/9503132
+
+// https://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
+
+
+// Proxy libraries for consideration
+// Promising- Good
+// https://www.npmjs.com/package/fast-proxy
+
+// https://www.npmjs.com/package/proxy-chain
+
+// Promising - Good
+// + fastify
+// https://www.npmjs.com/package/fastify-vhost
+
+// https://www.npmjs.com/package/local-web-server
+// https://www.npmjs.com/package/start-proxy-server
+// https://www.npmjs.com/package/bfn-proxy
+

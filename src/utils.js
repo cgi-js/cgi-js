@@ -41,10 +41,16 @@ function utils() {
         }
     }
 
+    function validate(baseObject, validateObj) { }
+
+    function allowedListItem(baseArray, name) {} 
+
     return {
         convert: {
             array: createArray,
             string: createString,
+            allowedItem: allowedListItem,    
+            validate: validate
         }
     }
 }

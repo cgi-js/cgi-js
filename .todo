@@ -6,6 +6,7 @@ Add:
 - [] Work with any executables/processes [Partially done]
 - [] Add support for websockets [TODO]
 - [] Consider support for gRPC [TODO]
+- [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
 Modify:
 - [*] Make config and options dynamic based on config file
