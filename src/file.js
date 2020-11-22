@@ -446,7 +446,7 @@ function cgiServe() {
 				// File does not exist
 				if (err || stat.isDirectory()) {
 					if (stat && stat.isDirectory()) {
-						file = path.join(file, 'index.' + getType(type));
+						file = path.join(file, 'index.' + type);
 						// console.log("fileExists: Path created file ", file);
 					}
 					if (file.includes(process.cwd())) {
