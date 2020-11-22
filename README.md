@@ -103,7 +103,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 # Technical Specifications
 
-...  * Wiki link to be added
+...  * Wiki links to be added
 
 
 ### Type of Interpreters (type_of_interpretor)
@@ -119,8 +119,6 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 
 # Wiki
-
-... * Use case: Run Single or Multiple Interpreted Language Web apps as a Single desktop app using Electron
 
 * Run CGI files
     - PHP (.php)
