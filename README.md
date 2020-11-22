@@ -1,9 +1,9 @@
 # cgi-js
     
-    Run interpreted script files or connect to cgi / other server proxies
+    Run cgi / interpreted script files, or connect to cgi / other server proxies
 
 
-Supports running Interpreted Language scripts running on node.js server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
+Supports running cgi / Interpreted Language scripts running on node.js server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
 
 
 # Installation
