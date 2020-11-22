@@ -151,20 +151,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 # Todo
 
-    Check [.todo](./.todo) file for latest TODO list
-
-Add:
-- [] Manual commands [TODO]
-- [*] Command line options for all interpretors in config [Done]
-- [] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
-- [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
-- [] Work with any executables/processes [Partially done]
-
-Modify:
-- [*] Make config and options dynamic based on config file
-- [] Check Authentication for proxy connections for VLAN proxies [TODO]
-- [*] Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [Done]
-
+Check [.todo](./.todo) file for latest TODO list
 
 # References
 
