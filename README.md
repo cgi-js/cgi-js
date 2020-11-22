@@ -39,11 +39,11 @@ npm install cgijs --save
 
 ##### The script will pipe all files based on language:
 
-* [x] Python (2.x, 3.x)
-* [x] Perl (Version Independent)
-* [x] PHP (Version Independent)
-* [x] Ruby (Version Independent)
-* [x] Node.js (Version Independent)
+* [x] Python (2.x, 3.x) - `py` (for Python .py extension files. Needed for *nix systems)
+* [x] Perl (Version Independent) - `plc`, `pld`, `pl` (for Perl .pl, .plc, .pld extension files)
+* [x] PHP (Version Independent) - `php` (for .php extension files)
+* [x] Ruby (Version Independent) - `rb` (for Ruby .rb extension files)
+* [x] Node.js (Version Independent) - `js` (for Node.js .js extension files)
 
 
 ##### The script will pipe all proxies of above languages and following:
@@ -101,21 +101,10 @@ This project contains example that demonstrates working with ExpressJS. To run C
 - working with CGI / interpreted languages from any Node.js app
 - using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
 
+
 # Technical Specifications
 
 ...  * Wiki links to be added
-
-
-### Type of Interpreters (type_of_interpretor)
-
-* PHP - `php` (for .php extension files)
-* Python 3 - `py3` (for Python .py extension files. Needed for *nix systems)
-* Python 2 - `py` (for Python .py extension files. Needed for *nix systems)
-* Ruby - `rb` (for Ruby .rb extension files)
-* Perl - `plc` (for Perl .plc extension files)
-* Perl - `pld` (for Perl .pld extension files)
-* Perl - `pl` (for Perl .pl extension files)
-* Node.js - `js` (for Node.js .js extension files)
 
 
 ### Wiki
