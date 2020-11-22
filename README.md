@@ -119,8 +119,8 @@ This project contains example that demonstrates working with ExpressJS. To run C
     - Ruby (.rb)
     - Node.js (.js)
 * Run Proxy servers to connect to:
-    - Local http/https Servers
-    - Remote http/https  Servers
+    - Any Local http/https Servers
+    - Any Remote http/https  Servers
     - Embedded Apache httpd (http/https)
     - Embedded Apache tomcat (http/https)
     - Embedded Mongoose http server (http/https)
