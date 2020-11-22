@@ -81,18 +81,17 @@ function cgiServe() {
 	 * @returns {bool} / {throw error}
 	 */
 	function setCGI(type, cgiExecutable, exeOptions) {
-		let WHICH_CGI;
 		try {
-			WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
+			let WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
 			if (!!LANG_OPTS[type]) {
 				LANG_OPTS[type].which = WHICH_CGI;
+				return true;
 			} else {
 				error("setCGI: CGI Executable type apply error");
 			}
 		} catch (e) {
 			error("setCGI: CGI Executable fetch error");
 		}
-		return true;
 	}
 
 	/**
@@ -103,17 +102,15 @@ function cgiServe() {
 	 * @returns {string} WHICH_CGI
 	 */
 	function getCGI(type, exeOptions) {
-		let WHICH_CGI;
 		try {
 			if (!LANG_OPTS[type].which) {
 				setCGI(type, LANG_OPTS[type], exeOptions);
 			}
-			WHICH_CGI = LANG_OPTS[type].which;
+			return LANG_OPTS[type].which;
 		} catch (e) {
 			error("getCGI: CGI Executable fetch error");
 			return false;
 		}
-		return WHICH_CGI;
 	}
 
 	/**
