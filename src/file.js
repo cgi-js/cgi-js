@@ -370,7 +370,6 @@ function cgiServe() {
 	 * @returns {Object} {html, res}
 	 */
 	function getPHPHtml(lines, res) {
-
 		var line = 0;
 		do {
 			var m = lines[line].split(': ');
