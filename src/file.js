@@ -6,8 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
 const utils = require('./utils')();
+
 /**
- *
  *
  * @returns {Object}
  */
@@ -28,7 +28,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} msg
 	 * @return {throw error}
 	 */
@@ -38,7 +37,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} action
 	 * @param {Object} exeOptions
@@ -59,6 +57,7 @@ function cgiServe() {
 	}
 
 	/**
+	 * 
 	 * @param  {Object} obj
 	 * @returns {bool} validated
 	 */
@@ -73,8 +72,7 @@ function cgiServe() {
 	}
 
 	/**
-	 * Check this again
-	 *
+	 * 
 	 * @param {string} cgiExecutable
 	 * @param {Object} exeOptions
 	 * @param {string} type
@@ -96,7 +94,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} type
 	 * @param {Object} exeOptions
 	 * @returns {string} WHICH_CGI
@@ -113,7 +110,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} cgiLang
 	 * @returns {bool} / {throw error}
@@ -155,7 +151,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} type
 	 * @param {Object} exeOptions
 	 * @returns {Object} {LANG_OPTS, exeOptions}
@@ -170,7 +165,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} type
 	 * @param {Object} exeOptions
 	 * @returns {Object} {LANG_OPTS, exeOptions}
@@ -180,7 +174,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} pathinfo
 	 * @param {string} file
@@ -239,7 +232,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} type
 	 * @returns {^regex pattern} pattern / {throw error}
 	 */
@@ -253,7 +245,6 @@ function cgiServe() {
 
 	/**
 	 *
-	 *
 	 * @param {string} type
 	 * @returns {string} type / {throw error}
 	 */
@@ -266,7 +257,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {array} lines
 	 * @param {Object} res
@@ -293,7 +283,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} lines
 	 * @param {Object res} res
@@ -325,7 +314,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} type
 	 * @param {Object} exeOptions
@@ -365,7 +353,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {Object req} req
 	 * @param {Object res} res
@@ -447,7 +434,6 @@ function cgiServe() {
 	}
 
 	/**
-	 *
 	 *
 	 * @param {string} type
 	 * @param {Object} exeOptions
