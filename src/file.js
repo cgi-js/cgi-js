@@ -25,6 +25,7 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
 		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ }
 	}
+
 	/**
 	 *
 	 *
@@ -35,6 +36,7 @@ function cgiServe() {
 		console.error(msg);
 		process.exit(msg);
 	}
+
 	/**
 	 *
 	 *
@@ -55,6 +57,11 @@ function cgiServe() {
 			}
 		}
 	}
+
+	/**
+	 * @param  {Object} obj
+	 * @returns {bool} validated
+	 */
 	function validateLangOptionStructure(obj) {
 		let k = Object.keys(obj), l = Object.keys(langOptions);
 		for (let i = 0; i < l.length; i++) {
@@ -64,6 +71,7 @@ function cgiServe() {
 		}
 		return true;
 	}
+
 	/**
 	 * Check this again
 	 *
@@ -86,6 +94,7 @@ function cgiServe() {
 		}
 		return true;
 	}
+
 	/**
 	 *
 	 *
@@ -106,6 +115,7 @@ function cgiServe() {
 		}
 		return WHICH_CGI;
 	}
+
 	/**
 	 *
 	 *
@@ -128,6 +138,7 @@ function cgiServe() {
 		}
 		error("setCGITypes: Incorrect Type provided");
 	}
+
 	/**
 	 *
 	 * @param {string, array} cgiLang
@@ -145,6 +156,7 @@ function cgiServe() {
 		}
 		return LANG_OPTS;
 	}
+
 	/**
 	 *
 	 *
@@ -159,6 +171,7 @@ function cgiServe() {
 			exeOptions: exeOptions
 		};
 	}
+
 	/**
 	 *
 	 *
@@ -169,6 +182,7 @@ function cgiServe() {
 	function getVars(exeOptions) {
 		return pathClean(exeOptions);
 	}
+
 	/**
 	 *
 	 *
@@ -226,6 +240,7 @@ function cgiServe() {
 		};
 		return env;
 	}
+
 	/**
 	 *
 	 *
@@ -239,6 +254,7 @@ function cgiServe() {
 		}
 		error("getPattern: Pattern does not exist ", pattern);
 	}
+
 	/**
 	 *
 	 *
@@ -252,6 +268,7 @@ function cgiServe() {
 		}
 		error("getType: Type does not exist ", type);
 	}
+
 	/**
 	 *
 	 *
@@ -278,6 +295,7 @@ function cgiServe() {
 			res: res
 		};
 	}
+
 	/**
 	 *
 	 *
@@ -309,6 +327,7 @@ function cgiServe() {
 			res: res
 		};
 	}
+
 	/**
 	 *
 	 *
@@ -342,13 +361,13 @@ function cgiServe() {
 					}
 				}
 				else {
-					console.log("fileExists: Else Path", file);
 					callback(file);
 				}
 			});
 		});
 		return promise;
 	}
+
 	/**
 	 *
 	 *
@@ -430,6 +449,7 @@ function cgiServe() {
 			return res.sendFile(file);
 		}
 	}
+
 	/**
 	 *
 	 *
@@ -464,6 +484,7 @@ function cgiServe() {
 			}
 		};
 	}
+
 	return {
 		setter: {
 			which: setCGI,
@@ -479,4 +500,5 @@ function cgiServe() {
 		serve: serve
 	}
 }
+
 exports.serve = cgiServe;
