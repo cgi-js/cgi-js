@@ -355,24 +355,24 @@ function handler() {
         // app.all(path, callback [, callback ...])
         // app.all('*', loadUser)
 
-        let express;
+        let gateway;
         if (!!options.https.key && options.https.cert) {
-            express = require('express')({
+            gateway = require('express')({
                 server: https.createServer({
                     key: options.https.key,
                     cert: options.https.cert
                 })
             });
         } else {
-            express = require('express')();
+            gateway = require('express')();
         }
 
-        express.all(options.remote_url, function (req, res) {
+        gateway.all(options.remote_url, function (req, res) {
             proxy(req, res, req.url, {});
         });
 
-        express.listen(options.proxy_port ? options.proxy_port : 0);
-        return express;
+        gateway.listen(options.proxy_port ? options.proxy_port : 0);
+        return gateway;
     }
 
     /**

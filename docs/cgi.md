@@ -1,5 +1,21 @@
-# cgi mode
+# cgi-js
     
+    Run interpreted script files or connect to cgi / other server proxies
+
+
+Supports running Interpreted Language scripts running on express server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
+
+
+# Installation
+
+```
+npm install cgijs --save
+```
+
+
+# Features
+
+    Light weight, Flexible, Generic implementation
 
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
@@ -28,8 +44,39 @@
 * [x] Ruby (Version Independent)
 
 
+##### The script will pipe all proxies of above languages and following:
+
+* [x] Jsp (With Tomcat as proxy)
+* [] Jsp (With Tomcat) [TODO]
+* [x] Aspx (With IIS, Apache as proxy)
+* [] Aspx (With IIS, Apache) [TODO]
+
+
+##### The script currently allows proxying to following servers:
+
+* [] Apache HTTPD (Allows Embed & Proxy) [TODO]
+* [] Apache TomCat (Allows Embed & Proxy) [TODO]
+* [] Nginx (Allows Embed & Proxy) [TODO]
+* [] Mongoose (Allows Embed & Proxy) [TODO]
+* [] IIS (Allows Proxy) [TODO]
+* [x] Other Proxy-able local/remote servers
+
 ##### Note:
     Basic permalinks are supported but the support for them can probably be improved. 
+
+
+##### Package Dependencies:
+
+* Environment and Library dependencies:
+    - Nodejs: (> 8.x),
+    - request,
+    - shelljs,
+    - fast-proxy
+
+* Application Dependencies:
+    - Your app, you decide
+    - Example has "express": "^4.17.1"
+    - OR, Use other Nodejs framework you want to use for your app
 
 
 ##### Usage Demo:
@@ -240,4 +287,63 @@ app.listen(sport, shost);
 console.log(`Server listening at ${sport}!`);
 
 ```
+
+
+# Technical Specifications
+
+...  * Wiki link to be added
+
+### Type of Interpreters (type_of_interpretor)
+
+* PHP - `php` (for .php extension files)
+* Python 3 - `py3` (for Python .py extension files. Needed for *nix systems)
+* Python 2 - `py` (for Python .py extension files. Needed for *nix systems)
+* Ruby - `rb` (for Ruby .rb extension files)
+* Perl - `plc` (for Perl .plc extension files)
+* Perl - `pld` (for Perl .pld extension files)
+* Perl - `pl` (for Perl .pl extension files)
+
+
+# Wiki
+
+... * Use case: Run Single or Multiple Interpreted Language Web apps as a Single desktop app using Electron
+
+
+# Status
+
+    In development [for allowing embedded server executables]
+
+
+# Todo
+
+    Check .todo file for latest TODO list
+
+    Add:
+    - Manual commands
+    - Command line options for all interpretors in config
+    - Add embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function)
+
+    Modify:
+    - Make config and options dynamic based on config file
+    - Check Authentication for proxy connections for VLAN proxies
+    - Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support
+
+
+# References
+
+
+# License
+
+The MIT License (MIT) - See [LICENSE](./LICENSE) for further details
+
+
+Copyright © 2019 - till library works:
+    Ganesh B <ganeshsurfs@gmail.com>
+
+
+# Please support the development in github repository through 
+    - need reporting, 
+    - testing, 
+    - issue reporting, 
+    - contribution 
 

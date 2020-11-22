@@ -1,13 +1,15 @@
 Add:
-    - Manual commands [TODO]
-    - Command line options for all interpretors in config
-    - Add embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function)  [TODO]
+- [] Manual commands [TODO]
+- [*] Command line options for all interpretors in config [Done]
+- [] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
+- [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
+- [] Work with any executables/processes [Partially done]
 
 Modify:
-    - Make config and options dynamic based on config file [TODO Partial]
-    - Check Authentication for proxy connections for VLAN proxies [TODO]
-    - Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [TODO]
-    - IMPORTANT: Remove multiple libraries for httpserver and fix one [TODO Partial]
+- [*] Make config and options dynamic based on config file
+- [] Check Authentication for proxy connections for VLAN proxies [TODO]
+- [*] Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [Done]
+    - IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
 
 Low Priority, High Effort:
     - Putty SSH tunneling (Check usage with Process and Create Proxy)
