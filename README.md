@@ -145,7 +145,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
     - Embedded Mysql
     - Embedded PgSQL
 * Run any executable/process based on need for application
-
+* Working with config.json file for simpler implementation in apps
 
 # Status
 
