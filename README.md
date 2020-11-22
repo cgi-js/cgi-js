@@ -145,7 +145,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 
 Check [.todo](./.todo) file for latest TODO list
 
-# References
+<!-- # References -->
 
 
 # License
