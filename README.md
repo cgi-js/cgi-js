@@ -99,7 +99,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 [cgijs](https://www.npmjs.com/package/cgijs) library has been created to address following use cases:
     
 - working with CGI / interpreted languages from any Node.js app
-- using any CGI apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
+- using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
 
 # Technical Specifications
 
