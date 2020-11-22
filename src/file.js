@@ -386,8 +386,12 @@ function cgiServe() {
 				cwd: process.cwd(),
 				env: env
 			});
-			proc.stdin.on('error', function () {
-				error("runCGI: Error from server");
+			proc.stdin.on('error', function (err) {
+				if (res.statusCode) {
+					return res.status(res.statusCode).send("runCGI: error in server" + err.toString());
+				} else {
+					return res.send(500, "runCGI: error in server" + err.toString());
+				}
 			});
 			req.pipe(proc.stdin);
 			req.resume();
