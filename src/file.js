@@ -104,7 +104,7 @@ function cgiServe() {
 	function getCGI(type, exeOptions) {
 		try {
 			if (!LANG_OPTS[type].which) {
-				setCGI(type, LANG_OPTS[type], exeOptions);
+				let cgiset = setCGI(type, LANG_OPTS[type], exeOptions);
 			}
 			return LANG_OPTS[type].which;
 		} catch (e) {
