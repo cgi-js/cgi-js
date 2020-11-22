@@ -19,7 +19,7 @@ const utils = require('./utils')();
 /**
  *
  *
- * @returns
+ * @returns {Object}
  */
 function cgiServe() {
 
@@ -396,8 +396,8 @@ function cgiServe() {
 	/**
 	 *
 	 *
-	 * @param {*} lines
-	 * @param {*} res
+	 * @param {string} lines
+	 * @param {Object res} res
 	 * @returns {Object} {html, res}
 	 */
 	function getCGIHtml(lines, res) {
@@ -431,8 +431,8 @@ function cgiServe() {
 	/**
 	 *
 	 *
-	 * @param {*} type
-	 * @param {*} exeOptions
+	 * @param {string} type
+	 * @param {Object} exeOptions
 	 * @returns {Object promise} resolve(file/bool)
 	 */
 	function fileExists(type, exeOptions) {
@@ -480,14 +480,14 @@ function cgiServe() {
 	/**
 	 *
 	 *
-	 * @param {*} req
-	 * @param {*} res
-	 * @param {*} next
-	 * @param {*} url
-	 * @param {*} type
-	 * @param {*} file
-	 * @param {*} pattern_chk
-	 * @param {*} exeOptions
+	 * @param {Object req} req
+	 * @param {Object res} res
+	 * @param {Object next} next
+	 * @param {Object url} url
+	 * @param {string} type
+	 * @param {string} file
+	 * @param {^regex pattern} pattern_chk
+	 * @param {Object} exeOptions
 	 * @returns
 	 */
 	function runCGI(req, res, next, url, type, file, pattern_chk, exeOptions) {
@@ -581,8 +581,8 @@ function cgiServe() {
 	/**
 	 *
 	 *
-	 * @param {*} type
-	 * @param {*} exeOptions
+	 * @param {string} type
+	 * @param {Object} exeOptions
 	 * @returns
 	 */
 	function serve(type, exeOptions) {
