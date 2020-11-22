@@ -37,7 +37,7 @@ npm install cgijs --save
 
 # Functionality Details
 
-##### The script will pipe all files based on language:
+##### The script will pipe all files of below interpreted language:
 
 * [x] Python (2.x, 3.x) - `py` (for Python .py extension files. Needed for *nix systems)
 * [x] Perl (Version Independent) - `plc`, `pld`, `pl` (for Perl .pl, .plc, .pld extension files)
