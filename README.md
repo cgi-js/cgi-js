@@ -54,7 +54,7 @@ npm install cgijs --save
 * [] Aspx (With Nginx, Apache) [TODO]
 
 
-##### The script currently allows proxying to following servers:
+##### The script currently supports (tested) proxying to following web servers:
 
 * [] Apache HTTPD (Allows Embed & Proxy) [TODO]
 * [] Apache TomCat (Allows Embed & Proxy) [TODO]
@@ -64,7 +64,7 @@ npm install cgijs --save
 * [x] Other Proxy-able local/remote servers
 
 
-##### The script currently allows running (starting, stopping, restarting) following databases and process:
+##### The script currently allows running (starting, stopping, restarting) following databases and processes:
 
 * [] Mysql [TODO]
 * [] PgSQL [TODO]

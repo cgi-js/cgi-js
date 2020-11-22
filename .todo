@@ -4,6 +4,7 @@ Add:
 - [] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
 - [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
 - [] Work with any executables/processes [Partially done]
+- [] Add support for websockets
 
 Modify:
 - [*] Make config and options dynamic based on config file
