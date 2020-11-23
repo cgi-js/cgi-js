@@ -4,13 +4,13 @@
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 // 
 
-var express = require('express');
+const express = require('express');
 const URL = require('url');
-var cgijs = require("../src");
+const path = require("path");
+const cgijs = require("../src");
+// const cgijs = require("cgijs");
 // var cgi = cgijs.init();
 
-// var cgi = require("cgijs");
-var path = require("path");
 var app = express();
 
 let php_bin = path.join("F:/languages/php");

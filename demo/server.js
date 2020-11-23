@@ -5,12 +5,12 @@
 // 
 
 const fs = require('fs');
-let express = require('express');
-let app = express();
+const express = require('express');
 
-let conf = fs.readFileSync('./demo/config.json');
-let configuration = JSON.parse(conf);
-let { host, port } = configuration.server;
+const conf = fs.readFileSync('./demo/config.json');
+var configuration = JSON.parse(conf);
+var { host, port } = configuration.server;
+var app = express();
 
 let php = require("./php")
 app.use(php)

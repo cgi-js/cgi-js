@@ -1,11 +1,11 @@
 const fs = require('fs');
 const express = require('express');
-const cgijs = require("../src/index");
+const cgijs = require("../src");
+// const cgijs = require("cgijs");
 const path = require("path");
-
 var cgi = cgijs.init();
 var app = express();
-let cgiapps = require("./cgifiles_recursive");
+var cgiapps = require("./cgifiles_recursive");
 
 app.use(cgiapps);
 
