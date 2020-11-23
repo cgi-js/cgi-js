@@ -1,12 +1,12 @@
 /* eslint no-console: 0 */
 const process = require('process');
-const URL = require('url');
 const child = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
+const { request } = require('http');
+const { json } = require('express');
 const utils = require('./utils')();
-
 /**
  *
  * @returns {Object}
@@ -25,7 +25,6 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
 		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ }
 	}
-
 	/**
 	 *
 	 * @param {string} msg
@@ -33,9 +32,9 @@ function cgiServe() {
 	 */
 	function error(msg) {
 		console.error(msg);
-		process.exit(msg);
+		// process.exit(msg);
+		throw new Error(msg);
 	}
-
 	/**
 	 *
 	 * @param {string} action
@@ -46,16 +45,15 @@ function cgiServe() {
 		if (typeof exeOptions.bin === "string") {
 			return exeOptions.bin;
 		} else if (typeof exeOptions.bin === "object") {
-			if (!!exeOptions.bin.useDefault) {
+			if (!!exeOptions.bin.useDefault && (exeOptions.bin.bin_path === "" || !("bin_path" in exeOptions.bin))) {
 				return "";
 			} else if (!!exeOptions.bin.bin_path) {
 				return exeOptions.bin.bin_path;
 			} else {
-				error("cleanBinPath: bin path config type definition error");
+				return error("cleanBinPath: bin path config type definition error");
 			}
 		}
 	}
-
 	/**
 	 * 
 	 * @param  {Object} obj
@@ -70,7 +68,6 @@ function cgiServe() {
 		}
 		return true;
 	}
-
 	/**
 	 * 
 	 * @param {string} cgiExecutable
@@ -85,13 +82,12 @@ function cgiServe() {
 				LANG_OPTS[type].which = WHICH_CGI;
 				return true;
 			} else {
-				error("setCGI: CGI Executable type apply error");
+				return error("setCGI: CGI Executable type apply error");
 			}
 		} catch (e) {
-			error("setCGI: CGI Executable fetch error");
+			return error("setCGI: CGI Executable fetch error");
 		}
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -105,10 +101,9 @@ function cgiServe() {
 			}
 			return LANG_OPTS[type].which;
 		} catch (e) {
-			error("getCGI: CGI Executable fetch error " + e.toString());
+			return error("getCGI: CGI Executable fetch error " + e.toString());
 		}
 	}
-
 	/**
 	 *
 	 * @param {string} cgiLang
@@ -128,9 +123,8 @@ function cgiServe() {
 			langOptions.push(cgiLang);
 			return true;
 		}
-		error("setCGITypes: Incorrect Type provided");
+		return error("setCGITypes: Incorrect Type provided");
 	}
-
 	/**
 	 *
 	 * @param {string, array} cgiLang
@@ -148,7 +142,6 @@ function cgiServe() {
 		}
 		return LANG_OPTS;
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -162,7 +155,6 @@ function cgiServe() {
 			exeOptions: exeOptions
 		};
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -172,33 +164,29 @@ function cgiServe() {
 	function getVars(exeOptions) {
 		return pathClean(exeOptions);
 	}
-
 	/**
 	 *
-	 * @param {string} pathinfo
-	 * @param {string} file
-	 * @param {Object request} req
-	 * @param {Object url} url
+	 * @param {Object} req
 	 * @param {string} host
 	 * @param {int} port
 	 * @returns {Object} env(environment)
 	 */
-	function getEnv(pathinfo, file, req, url, host, port) {
+	function getEnv(req, host, port) {
 		var env = {
 			SERVER_SIGNATURE: 'NodeJS server at localhost',
-			PATH_INFO: pathinfo,
+			PATH_INFO: req.pathinfo,
 			PATH_TRANSLATED: '',
-			SCRIPT_NAME: url.pathname,
-			SCRIPT_FILENAME: file,
-			REQUEST_FILENAME: file,
-			SCRIPT_URI: req.url,
-			URL: req.url,
-			SCRIPT_URL: req.url,
-			REQUEST_URI: req.url,
+			SCRIPT_NAME: req.url.pathname,
+			SCRIPT_FILENAME: req.file,
+			REQUEST_FILENAME: req.file,
+			SCRIPT_URI: req.file,
+			URL: req.originalUrl,
+			SCRIPT_URL: req.url.originalUrl,
+			REQUEST_URI: req.url.originalUrl,
 			REQUEST_METHOD: req.method,
-			QUERY_STRING: url.query || '',
-			CONTENT_TYPE: req.get('Content-Type') || '',
-			CONTENT_LENGTH: req.get('Content-Length') || 0,
+			QUERY_STRING: req.query || '',
+			CONTENT_TYPE: req.headers['Content-Type'] || '',
+			CONTENT_LENGTH: req.headers['Content-Length'] || 0,
 			AUTH_TYPE: '',
 			AUTH_USER: '',
 			REMOTE_USER: '',
@@ -229,7 +217,6 @@ function cgiServe() {
 		};
 		return env;
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -240,9 +227,8 @@ function cgiServe() {
 		if (!!ty && !!ty.pattern && ty.pattern !== "") {
 			return ty.pattern;
 		}
-		error("getPattern: Pattern does not exist ", pattern);
+		return error("getPattern: Pattern does not exist ", pattern);
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -253,66 +239,64 @@ function cgiServe() {
 		if (!!ty && !!ty.type && ty.type !== "") {
 			return ty.type;
 		}
-		error("getType: Type does not exist ", type);
+		return error("getType: Type does not exist ", type);
 	}
-
 	/**
 	 *
 	 * @param {array} lines
-	 * @param {Object} res
-	 * @returns {Object} {html, res}
+	 * @returns {Object} {html}
 	 */
-	function getPHPHtml(lines, res) {
-		var line = 0;
+	function getPHPHtml(lines) {
+		var line = 0, headers = {}, statusCode;
 		do {
 			var m = lines[line].split(': ');
 			if (m[0] === '') break;
 			if (m[0] == 'Status') {
-				res.statusCode = parseInt(m[1]);
+				statusCode = parseInt(m[1]);
 			}
 			if (m.length == 2) {
-				res.setHeader(m[0], m[1]);
+				headers[m[0]] = m[1];
 			}
 			line++;
 		} while (lines[line] !== '');
 		html = lines.splice(line + 1).join('\n')
 		return {
-			html: html,
-			res: res
+			response: html,
+			headers: headers,
+			statusCode: statusCode
 		};
 	}
-
 	/**
 	 *
 	 * @param {string} lines
-	 * @param {Object res} res
 	 * @returns {Object} {html, res}
 	 */
-	function getCGIHtml(lines, res) {
-		var line = 0;
+	function getCGIHtml(lines) {
+		var line = 0, headers = {}, statusCode;
 		for (var i = 0; i < lines.length; i++) {
 			if (lines[line] !== '') {
 				try {
 					var m = lines[line].split(': ');
 					if (m[0] === '') break;
 					if (m[0] == 'Status') {
-						res.statusCode = parseInt(m[1]);
+						statusCode = parseInt(m[1]);
 					}
 					if (m.length == 2) {
-						res.setHeader(m[0], m[1]);
+						headers[m[0]] = m[1];
 					}
 				} catch (err) {
 					console.error("getCGIHtml: ", err)
+					return error(err.toString());
 				}
 			}
 		}
 		html = lines.join('\n')
 		return {
-			html: html,
-			res: res
+			response: html,
+			headers: headers,
+			statusCode: statusCode
 		};
 	}
-
 	/**
 	 *
 	 * @param {string} type
@@ -345,134 +329,167 @@ function cgiServe() {
 					}
 				}
 				else {
-					callback(file);
+					feFn(file);
 				}
 			});
 		});
 		return promise;
 	}
-
 	/**
 	 *
 	 * @param {Object req} req
-	 * @param {Object res} res
-	 * @param {Object next} next
-	 * @param {Object url} url
-	 * @param {string} type
-	 * @param {string} file
-	 * @param {^regex pattern} pattern_chk
 	 * @param {Object} exeOptions
 	 * @returns
 	 */
-	function runCGI(req, res, next, url, type, file, pattern_chk, exeOptions) {
-		let index = req.originalUrl.indexOf('.' + type);
-		let pathinfo = (index >= 0) ? url.pathname.substring(index + type.length + 1) : url.pathname;
-		let env = getEnv(pathinfo, file, req, url.pathname, exeOptions.host, exeOptions.port);
-		Object.keys(req.headers).map(function (x) {
-			return env['HTTP_' + x.toUpperCase().replace('-', '_')] = req.headers[x];
-		});
-		if (!!pattern_chk.test(path.join(process.cwd(), file))) {
-			let tmp_result = '', err = '', proc, executable;
-			if ((!!exeOptions.bin.bin_path) && (('/' + LANG_OPTS[type].cgi).length !== exeOptions.bin.bin_path.length)) {
-				executable = exeOptions.bin.bin_path + "/" + LANG_OPTS[type].cgi;
-			} else {
-				if (!LANG_OPTS[type]["which"]) {
-					error('"runCGI: cgi executable" cannot be found, "which" Error');
-				}
-				let p = exeOptions.bin.bin_path.split('/')[1];
-				executable = ((!!p) ? p + "/" : "") + LANG_OPTS[type].cgi;
-			}
-			proc = child.spawn(executable, [...utils.convert.array(exeOptions.cmd_options), file], {
-				cwd: process.cwd(),
-				env: env
+	function runCGI(req, exeOptions) {
+		let promise = new Promise(function (resolve, reject) {
+			let index = req.originalUrl.indexOf('.' + req.type);
+			req["pathinfo"] = (index >= 0) ? req.url.pathname.substring(index + req.type.length + 1) : req.url.pathname;
+			let env = getEnv(req, exeOptions.host, exeOptions.port);
+			Object.keys(req.headers).map(function (x) {
+				return env['HTTP_' + x.toUpperCase().replace('-', '_')] = req.headers[x];
 			});
-			proc.stdin.on('error', function (err) {
-				if (res.statusCode) {
-					return res.status(res.statusCode).send("runCGI: error in server" + err.toString());
+			if (!!req.pattern_chk.test(path.join(process.cwd(), req.file))) {
+				let tmp_result = '', err = '', proc, executable;
+				if ((!!exeOptions.bin.bin_path) && (('/' + LANG_OPTS[req.type].cgi).length !== exeOptions.bin.bin_path.length)) {
+					executable = exeOptions.bin.bin_path + "/" + LANG_OPTS[req.type].cgi;
 				} else {
-					return res.send(500, "runCGI: error in server" + err.toString());
-				}
-			});
-			req.pipe(proc.stdin);
-			req.resume();
-			proc.stdout.on('data', function (data) {
-				tmp_result += data.toString();
-			});
-			proc.stderr.on('data', function (data) {
-				err += data.toString();
-			});
-			proc.on('error', function (err) {
-				if (res.statusCode) {
-					return res.status(res.statusCode).send("runCGI: error event" + err.toString());
-				} else {
-					return res.send(500, "runCGI: error event" + err.toString());
-				}
-			});
-			proc.on('exit', function () {
-				proc.stdin.end();
-				let lines = tmp_result.split('\r\n');
-				let html = '', CGIObj = {};
-				if (lines.length) {
-					if (type == "php") {
-						CGIObj = getPHPHtml(lines, res);
-						html = CGIObj["html"];
-						res = CGIObj["res"];
-					} else {
-						CGIObj = getCGIHtml(lines, res);
-						html = CGIObj["html"];
-						res = CGIObj["res"];
+					if (!LANG_OPTS[req.type]["which"]) {
+						try {
+							error('"runCGI: cgi executable" cannot be found, "which" Error ')
+						} catch (e) {
+							reject({
+								headers: {},
+								statusCode: 500,
+								response: e.toString() + " - Executable not found"
+							});
+						}
 					}
-				} else {
-					html = tmp_result;
+					let p = exeOptions.bin.bin_path.split('/')[1];
+					executable = ((!!p) ? p + "/" : "") + LANG_OPTS[req.type].cgi;
 				}
-				if (res.statusCode) {
-					return res.status(res.statusCode).send(html);
-				} else {
-					return res.send(html);
+				proc = child.spawn(executable, [...utils.convert.array(exeOptions.cmd_options), req.file], {
+					cwd: process.cwd(),
+					env: env
+				});
+				proc.stdin.on('error', function (err) {
+					reject({
+						headers: {},
+						statusCode: 500,
+						response: "runCGI: error in server " + err.toString()
+					});
+				});
+				proc.stdout.on('data', function (data) {
+					tmp_result += data.toString();
+				});
+				proc.stderr.on('data', function (data) {
+					err += data.toString();
+				});
+				proc.on('error', function (err) {
+					reject({
+						headers: {},
+						statusCode: 500,
+						response: "runCGI: error event" + err.toString()
+					});
+				});
+				proc.on('exit', function () {
+					proc.stdin.end();
+					let lines = tmp_result.split('\r\n');
+					let CGIObj = {};
+					if (lines.length) {
+						if (req.type == "php") {
+							CGIObj = getPHPHtml(lines);
+						} else {
+							CGIObj = getCGIHtml(lines);
+						}
+					} else {
+						CGIObj["response"] = tmp_result;
+					}
+					if (!CGIObj.statusCode) {
+						CGIObj.statusCode = 200;
+					}
+					if (!CGIObj.headers) {
+						CGIObj.headers = 200;
+					}
+					resolve(CGIObj);
+				});
+			} else {
+				if (!!exeOptions.sendFile) {
+					reject({
+						headers: {},
+						statusCode: 200,
+						response: req.file
+					});
 				}
-				return res.end();
-			});
-		} else {
-			if (!!exeOptions.sendFile) {
-				return res.sendFile(file);
+				reject({
+					headers: {},
+					statusCode: 400,
+					response: "Access denied or file could not be processed"
+				});
 			}
-			return res.send(400, "Access denied or file could not be processed");
-		}
+		})
+		return promise;
 	}
-
 	/**
 	 *
 	 * @param {string} type
+	 * @param {Object} request
 	 * @param {Object} exeOptions
 	 * @returns
 	 */
-	function serve(type, exeOptions) {
-		type = getType(type);
-		let pattern = getPattern(type);
-		let gvars = getVars(exeOptions);
-		exeOptions = gvars.exeOptions;
-		if (!LANG_OPTS[type].which) {
-			let exe = setCGI(type, LANG_OPTS[type].cgi, exeOptions);
-		}
-		return function (req, res, next) {
+	function serve(type, request, exeOptions) {
+		let promise = new Promise(function (resolve, reject) {
+			let pattern, gvars, exe;
 			try {
-				req.pause();
-				var req_url = URL.parse(req.originalUrl);
-				fileExists(type, exeOptions).then(function (file) {
-					if (!!file) {
-						runCGI(req, res, next, req_url, type, file, pattern, exeOptions);
-					} else {
-						res.end("serve: File serve exists error: 1");
-					}
-				}).catch(function (e) {
-					res.end("serve: File serve promise error: 2" + e.toString());
-				});
-			} catch (e) {
-				res.end("serve: File serve promise error: 3", e.toString());
+				type = getType(type);
+				pattern = getPattern(type);
+				gvars = getVars(exeOptions);
+				exeOptions = gvars.exeOptions;
 			}
-		};
+			catch (e) {
+				reject({
+					headers: {},
+					response: e.toString() || "Error in Environments or Path",
+					statusCode: 500
+				});
+			}
+			if (!LANG_OPTS[type].which) {
+				exe = setCGI(type, LANG_OPTS[type].cgi, exeOptions);
+			}
+			fileExists(type, exeOptions).then(function (f) {
+				if (!f) {
+					reject({
+						headers: {},
+						response: "serve: File serve promise error: 1 ",
+						statusCode: 500
+					});
+				}
+				runCGI({
+					type: type,
+					file: f,
+					pattern_chk: pattern,
+					url: request.url,
+					originalUrl: request.originalUrl,
+					query: request.query,
+					method: request.method,
+					body: request.body,
+					ip: request.ip,
+					headers: request.headers
+				}, exeOptions).then(function (r) {
+					resolve(r);
+				}).catch(function (e) {
+					reject(e);
+				});
+			}).catch(function (e) {
+				reject({
+					headers: {},
+					response: "serve: File serve promise error: 2 " + e.toString(),
+					statusCode: 500
+				});
+			});
+		})
+		return promise;
 	}
-
 	return {
 		setter: {
 			which: setCGI,
@@ -488,5 +505,4 @@ function cgiServe() {
 		serve: serve
 	}
 }
-
 exports.serve = cgiServe;
