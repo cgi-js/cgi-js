@@ -5,9 +5,10 @@ module.exports = () => {
         try {
             const fs = require('fs');
             const express = require('express');
-            const cgijs = require("../src/index");
             const path = require("path");
-
+            const cgijs = require("../src");
+            // const cgijs = require("cgijs");
+            
             var cgi = cgijs.init();
             var app = express();
 

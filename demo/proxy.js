@@ -5,11 +5,12 @@
 // 
 
 const fs = require('fs');
-var express = require('express');
-var cgijs = require("../src");
-var cgi = cgijs.init();
+const express = require('express');
+const path = require("path");
+const cgijs = require("../src");
+// const cgijs = require("cgijs");
 
-var path = require("path");
+var cgi = cgijs.init();
 var app = express();
 
 let conf = fs.readFileSync('./demo/config.json');

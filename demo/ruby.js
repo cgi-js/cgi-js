@@ -5,13 +5,13 @@
 // 
 
 const fs = require('fs');
-var express = require('express');
+const express = require('express');
 const URL = require('url');
-var cgijs = require("../src");
-var cgi = cgijs.init();
+const path = require("path");
+const cgijs = require("../src");
+// const cgijs = require("cgijs");
 
-// var cgi = require("cgijs");
-var path = require("path");
+var cgi = cgijs.init();
 var app = express();
 
 let conf = fs.readFileSync('./demo/config.json');
@@ -20,6 +20,7 @@ let ruby_bin = configuration.rb.embed.bin
 let ruby_www = configuration.rb.script.path
 
 function response(type, exeOptions) {
+    var cgi = cgijs.init();
     return function (req, res, next) {
         let requestObject = {
             url: URL.parse(req.originalUrl),
@@ -34,8 +35,8 @@ function response(type, exeOptions) {
             result.statusCode = (!result.statusCode) ? 200 : result.statusCode;
             res.status(result.statusCode).send(result.response);
         }.bind(res)).catch(function (e) {
-            result.statusCode = (!result.statusCode) ? 500 : result.statusCode;
-            res.status(result.statusCode).send(result.response);
+            e.statusCode = (!e.statusCode) ? 500 : e.statusCode;
+            res.status(e.statusCode).send(e.response);
         });
     };
 }
