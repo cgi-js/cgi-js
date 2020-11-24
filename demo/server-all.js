@@ -25,22 +25,11 @@ let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
 let config = {
-    proxy_host: 'http://127.0.0.1',
-    proxy_port: 8000,
-    remote_host: 'http://127.0.0.1',
-    remote_port: 80,
-    remote_url: '/*',
-    https: {
-        key: null,
-        cert: null
-    }
+    
 };
 
 function proxyHandler(cgijs, config) {
-    let h = cgijs.handler();
-    const conn = h.proxy.start({}, config);
-    // h.setter.connection({config.cbase + config.cport.toString(): conn});
-    return h.proxy.setup(h, config, h.proxy.serve);
+    
 }
 
 // Subsystem for proxyHandler

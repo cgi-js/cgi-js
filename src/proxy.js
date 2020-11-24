@@ -370,8 +370,6 @@ function handler() {
     function setupProxy(name, config, handlerFunctions) {
         // validate config {options, listenPort, runtime, modify, stream} object
 
-
-        // validate options.port inside range
         let validPort = [];
         for (let i = 0; i < serverPortRanges.length; i++) {
             if (!(config.options.port >= serverPortRanges[i][0] && config.options.port <= serverPortRanges[i][1])) {
@@ -380,7 +378,6 @@ function handler() {
         }
         if (false in validPort) { return false; }
 
-        // validate handlerFunction object
         let hKeys = Object.keys(handlerFunctions);
         for (let i = 0; i < hKeys.length; i++) {
             if (!(hKeys[i] in validProxyHandlers)) { return false; }
