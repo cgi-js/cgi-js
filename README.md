@@ -22,14 +22,14 @@ npm install cgijs --save
 
 * [x] Run any scripts that support cgi based serving
 * [x] Run any host that serves a web app using proxy 
-    - [x] In App / Local / Remote proxy support
+    - [x] In App / Local / Remote proxy + websocket support
     - [] Allows Embedding Servers, which can run through proxies [TODO]
     - [] Allows running and closing processes
         * [] Runs unsupported proxies/ processes/ services [TODO]
         * [] Work with Embedded Database servers, Language embedded servers [TODO]
 * [x] Allows
     - [x] running multiple interpreters in one app
-    - [x] running multiple proxies in one app
+    - [x] running multiple proxies + websockets in one app
     - [x] multiple embedded servers in one app
     - [x] multiple embedded databases in one app
 * [x] Nodejs framework independent / agnostic for app development
