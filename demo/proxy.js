@@ -68,7 +68,7 @@ function proxyHandler(handler, config) {
 }
 
 // Subsystem for proxyHandler
-app.use("/sub", proxyHandler(cgijs.handler(), config));
+app.use("/proxyone", proxyHandler(cgijs.handler(), config));
 app.use("*", (req, res) => res.send("Testing Server"));
 
 module.exports = {

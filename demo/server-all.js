@@ -24,16 +24,25 @@ let pl = path.join("www/perl");
 let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
-let config = {
-    
-};
+let conf = fs.readFileSync('./demo/config.json');
+let configuration = JSON.parse(conf);
+let config = configuration.proxies["proxyone"];
 
-function proxyHandler(cgijs, config) {
-    
+var remoteproxy = express();
+remoteproxy.use("/sub", function (req, res, next) { res.status(200).send("Path //sub"); });
+remoteproxy.use("/", function (req, res, next) { res.status(200).send("Path //"); });
+remoteproxy.listen(config.options.target.port);
+
+function proxyHandler(handler, config) {
+    handler.proxy.setup("proxyone", config, {})
+    let proxy = handler.proxy.serve("proxyone");
+    return function (req, res, next) {
+        proxy.proxy.web(req, res)
+    }
 }
 
 // Subsystem for proxyHandler
-app.use("/sub", proxyHandler(cgijs, config));
+app.use("/proxyone", proxyHandler(cgijs.handler(), config));
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();

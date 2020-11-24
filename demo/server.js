@@ -21,7 +21,7 @@ app.use(py)
 let pl = require("./pl")
 app.use(pl)
 let proxy = require("./proxy")
-app.use(proxy)
+app.use(proxy.app)
 
 app.use("*", function (req, res) {
     res.send(`
