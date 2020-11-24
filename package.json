@@ -20,7 +20,6 @@
   "main": "index.js",
   "dependencies": {
     "express": "4.17.1",
-    "fast-proxy": "1.7.0",
     "http-proxy": "1.18.1",
     "request": "2.88.2",
     "shelljs": "0.6.1"
