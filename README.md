@@ -20,13 +20,13 @@ npm install cgijs --save
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
-* [x] Run any scripts that support cgi based serving
+* [x] Run any scripts that support CGI based serving/execution
 * [x] Run any host that serves a web app using proxy 
     - [x] In App / Local / Remote proxy + websocket support
     - [] Allows Embedding Servers, which can run through proxies [TODO]
-    - [] Allows running and closing processes
-        * [] Runs unsupported proxy servers/ processes/ services [TODO]
-        * [] Work with Embedded Database servers, Language embedded servers [TODO]
+    - [] Allows running and closing process Executables
+        * [] Runs Unsupported proxy servers/ processes/ services [TODO]
+        * [] Work with Embedded database servers, Language embedded servers [TODO]
 * [x] Allows
     - [x] running multiple interpreters in one app
     - [x] running multiple proxies + websockets in one app
