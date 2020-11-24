@@ -61,10 +61,8 @@ let config = {
     "runtime": false
 };
 
-var remoteproxy = express();
-remoteproxy.use("/sub", function (req, res, next) { res.status(200).send("Path //sub"); });
-remoteproxy.use("/", function (req, res, next) { res.status(200).send("Path //"); });
-remoteproxy.listen(config.options.target.port);
+// Sample Proxy Server (You have the option to avoid this all together)
+var remoteProxy = require("./recursive/remoteproxy")(config.options.target.port);
 
 function proxyHandler(handler, config) {
     handler.proxy.setup("proxyone", config, {})

@@ -8,7 +8,7 @@ const fs = require('fs');
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 var cgi = cgijs.init();
@@ -16,8 +16,8 @@ var app = express();
 
 let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
-let ruby_bin = configuration.rb.embed.bin
-let ruby_www = configuration.rb.script.path
+let php_bin = configuration.php.embed.bin
+let php_www = configuration.php.script.path
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -41,9 +41,12 @@ function response(type, exeOptions) {
     };
 }
 
-// RB File
-app.use("/rb", response('rb', { web_root_folder: ruby_www, bin: ruby_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// RB File
-app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PHP File: Use bin as string
+app.use("/php", response('php', { web_root_folder: php_www, bin: php_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PHP File: Use bin as object definition
+app.use("/phpud", response('php', { web_root_folder: php_www, bin: { bin_path: '', useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PHP File: Use bin as Object definition with useDefault false
+app.use("/phpnud", response('php', { web_root_folder: php_www, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;
+

@@ -3,7 +3,7 @@
 const fs = require('fs');
 const express = require('express');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 module.exports = () => {
@@ -16,10 +16,7 @@ module.exports = () => {
     try {
         for (let i = 0; i < confLen; i++) {
             // Sample Proxy Servers (You have the option to avoid this all together)
-            let remoteProxy = express();
-            remoteProxy.use("/sub", function (req, res, next) { res.status(200).send("Path //sub"); });
-            remoteProxy.use("/", function (req, res, next) { res.status(200).send("Path //"); });
-            remoteProxy.listen(configs[configKeys[i]].options.target.port);
+            let remoteProxy = require("./remoteproxy")(configs[configKeys[i]].options.target.port);
             proxyServers[configKeys[i]] = {
                 remote: remoteProxy
             };

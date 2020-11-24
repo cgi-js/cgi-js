@@ -1,18 +1,23 @@
-'use strict';
+// License: MIT
+// Dynamic CGI serving using dynamic path imports for 
+//      CGI supporting executable for Interpreted languages Embedded Distribution
+// Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+// 
 
 const fs = require('fs');
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 var cgi = cgijs.init();
 var app = express();
+
 let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
-let cgifiles = Object.keys(configuration.cgifiles);
-
+let ruby_bin = configuration.rb.embed.bin
+let ruby_www = configuration.rb.script.path
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -36,21 +41,9 @@ function response(type, exeOptions) {
     };
 }
 
-// TODO:
-//      Write Tests
-for (let i = 0; i < cgifiles.length; i++) {
-    let inst = configuration.cgifiles[cgifiles[i]];
-    app.use(
-        inst.path,
-        response(inst.lang_type, {
-            web_root_folder: inst.web_root_folder,
-            bin: inst.bin,
-            config_path: inst.config_path,
-            host: inst.host,
-            port: inst.port,
-            cmd_options: inst.cmd_options
-        })
-    );
-}
+// RB File
+app.use("/rb", response('rb', { web_root_folder: ruby_www, bin: ruby_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// RB File
+app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;

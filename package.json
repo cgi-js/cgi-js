@@ -11,10 +11,10 @@
     "url": "https://github.com/ganeshkbhat/cgi-js.git"
   },
   "scripts": {
-    "split": "node ./demo/server.js",
-    "all": "node ./demo/server-all.js",
-    "recursive": "node ./demo/server-recursive.js",
-    "process": "node ./demo/process.js",
+    "split": "node ./demo/demo-split.js",
+    "all": "node ./demo/demo-all.js",
+    "recursive": "node ./demo/demo-recursive.js",
+    "process": "node ./demo/cgi-proxy/process.js",
     "test": "mocha ./test/src ./www/php/test"
   },
   "main": "index.js",

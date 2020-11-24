@@ -1,23 +1,18 @@
-// License: MIT
-// Dynamic CGI serving using dynamic path imports for 
-//      CGI supporting executable for Interpreted languages Embedded Distribution
-// Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
-// 
+'use strict';
 
 const fs = require('fs');
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 var cgi = cgijs.init();
 var app = express();
-
 let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
-let py_bin = configuration.py.embed.bin
-let py_www = configuration.py.script.path
+let cgifiles = Object.keys(configuration.cgifiles);
+
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -41,9 +36,21 @@ function response(type, exeOptions) {
     };
 }
 
-// PYTHON File
-app.use("/py", response('py', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// PYTHON3 File
-app.use("/py3", response('py3', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// TODO:
+//      Write Tests
+for (let i = 0; i < cgifiles.length; i++) {
+    let inst = configuration.cgifiles[cgifiles[i]];
+    app.use(
+        inst.path,
+        response(inst.lang_type, {
+            web_root_folder: inst.web_root_folder,
+            bin: inst.bin,
+            config_path: inst.config_path,
+            host: inst.host,
+            port: inst.port,
+            cmd_options: inst.cmd_options
+        })
+    );
+}
 
 module.exports = app;

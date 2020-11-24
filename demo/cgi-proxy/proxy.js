@@ -7,7 +7,7 @@
 const fs = require('fs');
 const express = require('express');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 let configuration = JSON.parse(fs.readFileSync('./demo/config.json'));

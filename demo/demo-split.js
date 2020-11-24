@@ -11,15 +11,15 @@ var configuration = JSON.parse(fs.readFileSync('./demo/config.json'));
 var { host, port } = configuration.server;
 var app = express();
 
-let php = require("./php");
+let php = require("./cgi-proxy/php");
 app.use(php);
-let rb = require("./ruby");
+let rb = require("./cgi-proxy/ruby");
 app.use(rb);
-let py = require("./py");
+let py = require("./cgi-proxy/py");
 app.use(py);
-let pl = require("./pl");
+let pl = require("./cgi-proxy/pl");
 app.use(pl);
-let proxy = require("./proxy");
+let proxy = require("./cgi-proxy/proxy");
 app.use(proxy.app);
 
 app.use("*", function (req, res) {

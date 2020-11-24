@@ -8,7 +8,7 @@ const fs = require('fs');
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 var cgi = cgijs.init();
@@ -16,8 +16,8 @@ var app = express();
 
 let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
-let php_bin = configuration.php.embed.bin
-let php_www = configuration.php.script.path
+let pl_bin = configuration.pl.embed.bin
+let pl_www = configuration.pl.script.path
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -41,12 +41,11 @@ function response(type, exeOptions) {
     };
 }
 
-// PHP File: Use bin as string
-app.use("/php", response('php', { web_root_folder: php_www, bin: php_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// PHP File: Use bin as object definition
-app.use("/phpud", response('php', { web_root_folder: php_www, bin: { bin_path: '', useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// PHP File: Use bin as Object definition with useDefault false
-app.use("/phpnud", response('php', { web_root_folder: php_www, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PLC File
+app.use("/plc", response('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PLD File
+app.use("/pld", response('pld', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PL File
+app.use("/pl", response('pl', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;
-

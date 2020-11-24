@@ -7,8 +7,8 @@ const cgijs = require("../src");
 
 var app = express();
 
-var cgiapps = require("./cgifiles_recursive");
-var proxyapps = require("./proxy_recursive")();
+var cgiapps = require("./recursive/cgifiles_recursive");
+var proxyapps = require("./recursive/proxy_recursive")();
 
 app.use(proxyapps.app);
 app.use(cgiapps);
@@ -17,6 +17,6 @@ app.use("*", function (req, res) {
     res.send(`"Testing my server recursive"`);
 });
 
-app.listen(3001, '127.0.0.1', function () {
-    console.log(`Server listening at 3001`);
+app.listen(9090, '127.0.0.1', function () {
+    console.log(`Server listening at 9090`);
 });

@@ -1,4 +1,4 @@
-var cgijs = require("../src");
+var cgijs = require("../../src");
 let handler = cgijs.handler()
 
 let procId = handler.startProcess('top', [], {}, './');

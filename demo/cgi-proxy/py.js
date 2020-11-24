@@ -8,7 +8,7 @@ const fs = require('fs');
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../src");
+const cgijs = require("../../src");
 // const cgijs = require("cgijs");
 
 var cgi = cgijs.init();
@@ -16,8 +16,8 @@ var app = express();
 
 let conf = fs.readFileSync('./demo/config.json');
 let configuration = JSON.parse(conf);
-let pl_bin = configuration.pl.embed.bin
-let pl_www = configuration.pl.script.path
+let py_bin = configuration.py.embed.bin
+let py_www = configuration.py.script.path
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -41,11 +41,9 @@ function response(type, exeOptions) {
     };
 }
 
-// PLC File
-app.use("/plc", response('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// PLD File
-app.use("/pld", response('pld', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
-// PL File
-app.use("/pl", response('pl', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PYTHON File
+app.use("/py", response('py', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PYTHON3 File
+app.use("/py3", response('py3', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;
