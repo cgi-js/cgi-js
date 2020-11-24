@@ -1,7 +1,7 @@
 {
   "name": "cgijs",
   "description": "Node JS modules for running any script that support CGI mode",
-  "version": "1.0.0-beta-01",
+  "version": "1.0.0-beta-02",
   "author": {
     "name": "Ganesh",
     "email": "ganeshsurfs@gmail.com"
@@ -21,16 +21,16 @@
   "dependencies": {
     "express": "4.17.1",
     "fast-proxy": "1.7.0",
+    "http-proxy": "1.18.1",
     "request": "2.88.2",
-    "shelljs": "0.6.1",
-    "express-session": "1.17.1"
+    "shelljs": "0.6.1"
   },
   "devDependencies": {
     "chai": "4.2.0",
     "eslint": "7.13.0",
     "mocha": "8.2.1",
-    "supertest": "6.0.1",
-    "sinon": "9.2.1"
+    "sinon": "9.2.1",
+    "supertest": "6.0.1"
   },
   "private": false,
   "license": "MIT",

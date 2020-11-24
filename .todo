@@ -5,7 +5,7 @@ Add:
 - [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
 - [] Work with any executables/processes [Partially done]
 - [] Add support for websockets [TODO]
-- [] Consider support for gRPC [TODO]
+- [] Consider support for gRPC, UDP/Other Protocols [TODO]
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
 Modify:
@@ -13,6 +13,6 @@ Modify:
 - [] Check Authentication for proxy connections for VLAN proxies [TODO]
 - [*] Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [Done]
     - IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
-
+- Tests for Beta-02 [TODO]
 Low Priority, High Effort:
     - Putty SSH tunneling (Check usage with Process and Create Proxy)

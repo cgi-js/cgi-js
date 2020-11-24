@@ -144,7 +144,6 @@ function cgiServe() {
 	}
 	/**
 	 *
-	 * @param {string} type
 	 * @param {Object} exeOptions
 	 * @returns {Object} {LANG_OPTS, exeOptions}
 	 */

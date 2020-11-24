@@ -355,11 +355,13 @@ function handler() {
      */
     function serveProxy(handler, options) {
         const { proxy_host, proxy_port, proxy_url, req, res, remote_host, remote_url, remote_port } = options;
+        console.error(proxy_host, proxy_port, proxy_url,  remote_host, remote_url, remote_port);
         request(proxy_host + ":" + proxy_port + proxy_url, function (error, response, body) {
             // console.error('error: ', error);
             // console.log('statusCode: ', response && response.statusCode);
             // console.log('body: ', body);
-            if (!!error) { res.send(body.body) } else { res.status(body.statusCode).send(body.body) }
+            console.log(response);
+            if (!!error) { res.send(error) } else { res.status(response.statusCode).send(response.body) }
         }.bind(req, res));
     }
 
