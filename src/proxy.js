@@ -347,11 +347,12 @@ function handler() {
      * @param {*} options
      */
     function serveProxy(name) {
-        let proxy = startProxy(servers[name].config);
+        let proxy = startProxy(instanceServers[name].config);
         instanceServers[name].proxy = proxy;
-        instanceServers[name].listen(instanceServers[name].config.listenPort);
+        instanceServers[name].proxy.listen(instanceServers[name].config.listenPort);
 
-        let hKeys = instanceServers[name].handlers.keys, hKeysLen = hKeys.length;
+        let hKeys = Object.keys(instanceServers[name].handlers);
+        let hKeysLen = hKeys.length;
         for (let i = 0; i < hKeysLen; i++) {
             instanceServers[name].proxy.on(hKeys[i], instanceServers[name].handlers[hKeys[i]]);
         }
@@ -373,7 +374,7 @@ function handler() {
         let validPort = [];
         for (let i = 0; i < serverPortRanges.length; i++) {
             if (!(config.options.port >= serverPortRanges[i][0] && config.options.port <= serverPortRanges[i][1])) {
-                validatedPort.push(false);
+                validPort.push(false);
             }
         }
         if (false in validPort) { return false; }
