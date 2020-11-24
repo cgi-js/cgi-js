@@ -19,12 +19,11 @@
   },
   "main": "index.js",
   "dependencies": {
-    "express": "4.17.1",
     "http-proxy": "1.18.1",
-    "request": "2.88.2",
     "shelljs": "0.6.1"
   },
   "devDependencies": {
+    "express": "4.17.1",
     "chai": "4.2.0",
     "eslint": "7.13.0",
     "mocha": "8.2.1",
