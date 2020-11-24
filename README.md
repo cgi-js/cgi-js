@@ -112,6 +112,7 @@ This project contains example that demonstrates working with ExpressJS. To run C
 * Getting started
     - Quick demo - CGI files
     - Quick demo - proxying to proxies/servers
+    - Quick demo - proxying to proxy's websocket
 * Run CGI files
     - PHP (.php)
     - Perl (Perl any versions - .plc, .pld, .pl)
@@ -119,17 +120,17 @@ This project contains example that demonstrates working with ExpressJS. To run C
     - Ruby (.rb)
     - Node.js (.js)
 * Run Proxy servers to connect to:
-    - Any Local http/https Servers
-    - Any Remote http/https  Servers
-    - Embedded Apache httpd (http/https)
-    - Embedded Apache tomcat (http/https)
-    - Embedded Mongoose http server (http/https)
-    - Embedded Nginx (http/https)
+    - Any Local http/https/websocket Servers
+    - Any Remote http/https/websocket Servers
+    - Embedded Apache httpd (http/https/websocket)
+    - Embedded Apache tomcat (http/https/websocket)
+    - Embedded Mongoose http server (http/https/websocket)
+    - Embedded Nginx (http/https/websocket)
 * Manage Embedded Servers (for desktop-cgi use case):
-    - Embedded Apache httpd (http/https)
-    - Embedded Apache tomcat (http/https)
-    - Embedded Mongoose http server (http/https)
-    - Embedded Nginx (http/https)
+    - Embedded Apache httpd (http/https/websocket)
+    - Embedded Apache tomcat (http/https/websocket)
+    - Embedded Mongoose http server (http/https/websocket)
+    - Embedded Nginx (http/https/websocket)
 * Manage Embedded Database Servers (for desktop-cgi use case):
     - Embedded Mysql
     - Embedded PgSQL
