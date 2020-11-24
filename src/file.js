@@ -1,3 +1,10 @@
+/*
+License: MIT
+Dynamic CGI serving using dynamic path imports for 
+     CGI supporting executable for Interpreted languages Embedded Distribution
+Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+*/
+
 /* eslint no-console: 0 */
 const process = require('process');
 const child = require('child_process');
@@ -7,6 +14,7 @@ const shell = require('shelljs');
 const { request } = require('http');
 const { json } = require('express');
 const utils = require('./utils')();
+
 /**
  *
  * @returns {Object}
@@ -25,6 +33,7 @@ function cgiServe() {
 		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
 		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ }
 	}
+
 	/**
 	 *
 	 * @param {string} msg
@@ -35,6 +44,7 @@ function cgiServe() {
 		// process.exit(msg);
 		throw new Error(msg);
 	}
+
 	/**
 	 *
 	 * @param {string} action
@@ -54,6 +64,7 @@ function cgiServe() {
 			}
 		}
 	}
+
 	/**
 	 * 
 	 * @param  {Object} obj
@@ -68,6 +79,7 @@ function cgiServe() {
 		}
 		return true;
 	}
+
 	/**
 	 * 
 	 * @param {string} cgiExecutable
@@ -88,6 +100,7 @@ function cgiServe() {
 			return error("setCGI: CGI Executable fetch error");
 		}
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -104,6 +117,7 @@ function cgiServe() {
 			return error("getCGI: CGI Executable fetch error " + e.toString());
 		}
 	}
+
 	/**
 	 *
 	 * @param {string} cgiLang
@@ -125,6 +139,7 @@ function cgiServe() {
 		}
 		return error("setCGITypes: Incorrect Type provided");
 	}
+
 	/**
 	 *
 	 * @param {string, array} cgiLang
@@ -142,6 +157,7 @@ function cgiServe() {
 		}
 		return LANG_OPTS;
 	}
+
 	/**
 	 *
 	 * @param {Object} exeOptions
@@ -154,6 +170,7 @@ function cgiServe() {
 			exeOptions: exeOptions
 		};
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -163,6 +180,7 @@ function cgiServe() {
 	function getVars(exeOptions) {
 		return pathClean(exeOptions);
 	}
+
 	/**
 	 *
 	 * @param {Object} req
@@ -216,6 +234,7 @@ function cgiServe() {
 		};
 		return env;
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -228,6 +247,7 @@ function cgiServe() {
 		}
 		return error("getPattern: Pattern does not exist ", pattern);
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -240,6 +260,7 @@ function cgiServe() {
 		}
 		return error("getType: Type does not exist ", type);
 	}
+
 	/**
 	 *
 	 * @param {array} lines
@@ -265,6 +286,7 @@ function cgiServe() {
 			statusCode: statusCode
 		};
 	}
+
 	/**
 	 *
 	 * @param {string} lines
@@ -296,6 +318,7 @@ function cgiServe() {
 			statusCode: statusCode
 		};
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -334,6 +357,7 @@ function cgiServe() {
 		});
 		return promise;
 	}
+
 	/**
 	 *
 	 * @param {Object req} req
@@ -429,6 +453,7 @@ function cgiServe() {
 		})
 		return promise;
 	}
+
 	/**
 	 *
 	 * @param {string} type
@@ -489,6 +514,7 @@ function cgiServe() {
 		})
 		return promise;
 	}
+
 	return {
 		setter: {
 			which: setCGI,
@@ -504,4 +530,5 @@ function cgiServe() {
 		serve: serve
 	}
 }
+
 exports.serve = cgiServe;

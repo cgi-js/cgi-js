@@ -56,3 +56,6 @@ xml parser
 // https://www.npmjs.com/package/start-proxy-server
 // https://www.npmjs.com/package/bfn-proxy
 
+// GOOD
+// https://www.npmjs.com/package/electron-json-storage
+// https://www.npmjs.com/package/smart-fs

@@ -1,11 +1,11 @@
-// License: MIT
-// Dynamic CGI serving using dynamic path imports for 
-//      CGI supporting executable for Interpreted languages Embedded Distribution
-// Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
-// 
+/*
+License: MIT
+Dynamic CGI serving using dynamic path imports for 
+     CGI supporting executable for Interpreted languages Embedded Distribution
+Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+*/
 
 /* eslint no-console: 0 */
-
 const https = require('https');
 const request = require('request');
 const fs = require('fs');
@@ -18,13 +18,9 @@ const httpProxy = require('http-proxy');
  * @returns
  */
 function handler() {
-
-    // List of Configurations (config), Conections (connections), Processes (processes), ServerCommands (server commands)
     let config = {}, connections = {}, processes = {}, serverCommands = {};
-
-    // List of servers maintained per handler instance
-    let instanceServers = {}, servers = {};
-    let serverPortRanges = [[8000, 9000], [10000, 15000]]
+    let instanceServers = {};
+    let serverPortRanges = [[8000, 9000], [10000, 15000]];
     let validProxyHandlers = ["error", "proxyRes", "open", "data", "end", "close", "upgrade"];
     let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
     let serverList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql"];
@@ -65,17 +61,11 @@ function handler() {
             }
         }
     };
-
     function setOS(obj) { }
-
     function getOS(name) { }
-
     function setServers(obj) { }
-
     function getServers(name) { }
-
     function setProcesses(obj) { }
-
     function getProcesses(name) { }
 
     /**
@@ -237,46 +227,31 @@ function handler() {
      * 
      */
     function startProcess(procObject, file) {
-
         let procSpawn = require('child_process').spawn;
         let { exe, args, options, other } = procObject;
-        // options["stdio"] = 'inherit';
-
         args.conf = !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) : args.conf;
-
         exe = other.osPaths.exe + exe;
-
         if (!!other.serverType && !!other.command && !!file) {
             error("Server definition or process definition allowed, not both");
         }
-
         let e = args.entries().flat(Infinity);
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
-
         let prc = procSpawn(exe, [...e], options);
-        // console.log(prc.pid);
-
-        // CLEAN UP ON PROCESS EXIT
         process.stdin.resume();
-
         prc.on('data', function (data) {
             console.log(data);
         });
-
         function cleanUpServer(options, exitCode) {
-            // TODO: Not getting triggered. Check error
             console.log("Event Type", eventType);
             if (options.cleanup) console.log('clean');
             if (exitCode || exitCode === 0) console.log(exitCode);
             if (options.exit) process.exit();
         }
-
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
             prc.on(eventType, cleanUpServer.bind(null, eventType));
         }.bind(prc, cleanUpServer));
-
         processes[prc.pid] = prc;
         return { pid: prc.pid, srv: procObject };
     }
@@ -288,9 +263,6 @@ function handler() {
      * @param {*} prc
      */
     function stopProcess(prc, signal) {
-        // Ending the process through proc closure
-        // Test the same
-        // proc[prc].kill();
         process.kill(prc, signal);
         console.log('Killed process ' + processes[prc].pid);
         processes[prc] = null;
@@ -350,7 +322,6 @@ function handler() {
         let proxy = startProxy(instanceServers[name].config);
         instanceServers[name].proxy = proxy;
         instanceServers[name].proxy.listen(instanceServers[name].config.listenPort);
-
         let hKeys = Object.keys(instanceServers[name].handlers);
         let hKeysLen = hKeys.length;
         for (let i = 0; i < hKeysLen; i++) {
@@ -369,8 +340,6 @@ function handler() {
      * @returns {bool} options and handlers validated and saved to servers object
      */
     function setupProxy(name, config, handlerFunctions) {
-        // validate config {options, listenPort, runtime, modify, stream} object
-
         let validPort = [];
         for (let i = 0; i < serverPortRanges.length; i++) {
             if (!(config.options.port >= serverPortRanges[i][0] && config.options.port <= serverPortRanges[i][1])) {
@@ -378,12 +347,10 @@ function handler() {
             }
         }
         if (false in validPort) { return false; }
-
         let hKeys = Object.keys(handlerFunctions);
         for (let i = 0; i < hKeys.length; i++) {
             if (!(hKeys[i] in validProxyHandlers)) { return false; }
         }
-
         instanceServers[name] = {
             proxy: null,
             config: config,

@@ -1,9 +1,9 @@
-// License: MIT
-// Dynamic CGI serving using dynamic path imports for 
-//      CGI supporting executable for Interpreted languages Embedded Distribution
-// Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
-// 
-
+/*
+License: MIT
+Dynamic CGI serving using dynamic path imports for 
+     CGI supporting executable for Interpreted languages Embedded Distribution
+Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+*/
 
 /**
  *
@@ -11,11 +11,9 @@
  * @returns
  */
 function utils() {
-
     function createString(options) {
         if (typeof options === "object") {
             let keys = options.keys(), str = " ";
-
             for (let i = 0; i < keys.length; i++) {
                 str += " " + keys[i] + " " + options[keys[i]];
             }
@@ -42,8 +40,7 @@ function utils() {
     }
 
     function validate(baseObject, validateObj) { }
-
-    function allowedListItem(baseArray, name) {} 
+    function allowedListItem(baseArray, name) {}
 
     return {
         convert: {
