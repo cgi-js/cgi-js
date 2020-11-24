@@ -79,7 +79,6 @@ npm install cgijs --save
 
 * Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - request,
     - shelljs,
     - fast-proxy
 
