@@ -7,7 +7,6 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 
 /* eslint no-console: 0 */
 const https = require('https');
-const request = require('request');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
 
