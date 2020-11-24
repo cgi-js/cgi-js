@@ -99,23 +99,23 @@
             "options": ""
         }
     },
-    "proxy": {
-        "proxy_host": "http://127.0.0.1",
-        "proxy_port": 8004,
-        "remote_host": "http://127.0.0.1",
-        "remote_port": 9090,
-        "remote_url": "\/*",
-        "https": {
-            "key": "",
-            "cert": ""
-        }
-    },
+    ,
     "server": {
         "host": "127.0.0.1",
         "port": 9090
     },
     "proxies": {
-        
+        "proxyone": {
+            "proxy_host": "http://127.0.0.1",
+            "proxy_port": 8004,
+            "remote_host": "http://127.0.0.1",
+            "remote_port": 9090,
+            "remote_url": "\/*",
+            "https": {
+                "key": "",
+                "cert": ""
+            }
+        }
     },
     "cgifiles": {
         "phpappone": {

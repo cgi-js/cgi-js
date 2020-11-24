@@ -8,7 +8,8 @@
 
 const https = require('https');
 const request = require('request');
-
+const fs = require('fs');
+const httpProxy = require('http-proxy');
 
 /**
  * 
@@ -22,8 +23,9 @@ function handler() {
     let config = {}, connections = {}, processes = {}, serverCommands = {};
 
     // List of servers maintained per handler instance
-    let instanceServers = {}, instancePortRanges = [];
-    let servers = {}, serverPortRanges = ['8000-9000', '10000-15000'];
+    let instanceServers = {}, servers = {};
+    let serverPortRanges = [[8000, 9000], [10000, 15000]]
+    let validProxyHandlers = ["error", "proxyRes", "open", "data", "end", "close", "upgrade"];
     let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
     let serverList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql"];
     let processList = [];
@@ -300,93 +302,107 @@ function handler() {
      * 
      * startProxy
      *
-     * @param {*} conn
-     * @param {*} options
+     * @param {*} config
      */
-    function startProxy(conn, options) {
-
-        const { proxy, close } = require('fast-proxy')({
-            base: options.remote_host + ":" + options.remote_port
-        });
-
-        // try express instead of restana
-        // app.all(path, callback [, callback ...])
-        // app.all('*', loadUser)
-
-        let gateway;
-        if (!!options.https.key && options.https.cert) {
-            gateway = require('express')({
-                server: https.createServer({
-                    key: options.https.key,
-                    cert: options.https.cert
-                })
-            });
-        } else {
-            gateway = require('express')();
+    function startProxy(config) {
+        let proxy;
+        try {
+            if (!!config.stream || !!config.modify || !!config.runtime) {
+                proxy = new httpProxy();
+            } else {
+                proxy = httpProxy.createProxyServer(config.options);
+            }
+            return proxy;
+        } catch (e) {
+            return false;
         }
-
-        gateway.all(options.remote_url, function (req, res) {
-            proxy(req, res, req.url, {});
-        });
-
-        gateway.listen(options.proxy_port ? options.proxy_port : 0);
-        return gateway;
     }
 
     /**
      * 
      * stopProxy
      *
-     * @param {*} conn
-     * @param {*} prxy
+     * @param {string, Object} proxy
      */
-    function stopProxy(gateway) {
-        gateway.close().then(() => {
+    function stopProxy(proxy) {
+        if (!proxy) {
+            return false;
+        }
+        if (!!proxy && typeof proxy === "string") {
+            proxy = instanceServers[proxy].proxy;
+        }
+        try {
+            proxy.close();
             return true;
-        });
+        } catch (e) {
+            return false;
+        }
     }
 
     /**
      *
-     * serve
+     * serveProxy
      *
-     * @param {*} handler
+     * @param {*} name
      * @param {*} options
      */
-    function serveProxy(handler, options) {
-        const { proxy_host, proxy_port, proxy_url, req, res, remote_host, remote_url, remote_port } = options;
-        console.error(proxy_host, proxy_port, proxy_url,  remote_host, remote_url, remote_port);
-        request(proxy_host + ":" + proxy_port + proxy_url, function (error, response, body) {
-            // console.error('error: ', error);
-            // console.log('statusCode: ', response && response.statusCode);
-            // console.log('body: ', body);
-            console.log(response);
-            if (!!error) { res.send(error) } else { res.status(response.statusCode).send(response.body) }
-        }.bind(req, res));
+    function serveProxy(name) {
+        let proxy = startProxy(servers[name].config);
+        instanceServers[name].proxy = proxy;
+        instanceServers[name].listen(instanceServers[name].config.listenPort);
+
+        let hKeys = instanceServers[name].handlers.keys, hKeysLen = hKeys.length;
+        for (let i = 0; i < hKeysLen; i++) {
+            instanceServers[name].proxy.on(hKeys[i], instanceServers[name].handlers[hKeys[i]]);
+        }
+        return instanceServers[name];
     }
 
     /**
      *
-     * setup
+     * setupProxy
      *
-     * @param {*} handler
-     * @param {*} conf
-     * @returns
+     * @param {*} name
+     * @param {*} config
+     * @param {*} handlerFunctions
+     * @returns {bool} options and handlers validated and saved to servers object
      */
-    function setupProxy(handler, conf, serve) {
-        let { proxy_host, proxy_port, remote_host, remote_url, remote_port } = conf;
-        return function proxyHandler(req, res) {
-            return serve(handler, {
-                proxy_host: proxy_host,
-                proxy_port: proxy_port,
-                proxy_url: req.url,
-                req: req,
-                res: res,
-                remote_host: remote_host,
-                remote_url: remote_url,
-                remote_port: remote_port
-            });
+    function setupProxy(name, config, handlerFunctions) {
+        // validate config {options, listenPort, runtime, modify, stream} object
+
+
+        // validate options.port inside range
+        let validPort = [];
+        for (let i = 0; i < serverPortRanges.length; i++) {
+            if (!(config.options.port >= serverPortRanges[i][0] && config.options.port <= serverPortRanges[i][1])) {
+                validatedPort.push(false);
+            }
         }
+        if (false in validPort) { return false; }
+
+        // validate handlerFunction object
+        let hKeys = Object.keys(handlerFunctions);
+        for (let i = 0; i < hKeys.length; i++) {
+            if (!(hKeys[i] in validProxyHandlers)) { return false; }
+        }
+
+        instanceServers[name] = {
+            proxy: null,
+            config: config,
+            handlers: handlerFunctions
+        };
+        return true;
+    }
+
+    /**
+     * @param  {} name
+     */
+    function getProxy(name) {
+        let proxy = instanceServers[name];
+        if (!proxy) {
+            return false;
+        }
+        return proxy;
     }
 
     /**
@@ -394,7 +410,7 @@ function handler() {
      * startServer
      * 
      *
-     * @param {*} srvObject
+     * @param {*} server
      * Expected Structure: { exe, args, options, other }
      *      exe: executable for process, 
      *      args: arguments for process, 
@@ -420,42 +436,41 @@ function handler() {
      * @returns
      * 
      */
-    function startServer(srvObject) {
+    function startServer(server) {
         let srv;
-        if (srvObject.hasOwnProperty("useDefault") && srvObject.useDefault !== true) {
-            srv = srvObject;
+        if (server.hasOwnProperty("useDefault") && server.useDefault !== true) {
+            srv = server;
         } else {
-            srv = serverCommands[srvObject.server];
-            let keys = srvObject.keys();
+            srv = serverCommands[server.server];
+            let keys = server.keys();
             for (let i = 0; i < keys.length; i++) {
-                srv = (!!serverCommands[keys[i]]) ? srvObject[keys[i]] : serverCommands[keys[i]];
+                srv = (!!serverCommands[keys[i]]) ? server[keys[i]] : serverCommands[keys[i]];
             }
         }
         return startProcess(srv);
     }
 
-    function stopServer(prc) {
-        if (!!prc.other && !!prc.other.serverType) {
-            prc = startProcess(prc.srv);
-            if (!prc.pid) { return true; }
+    /**
+     * @param  {} server
+     */
+    function stopServer(server) {
+        if (!!server.other && !!server.other.serverType) {
+            server = startProcess(server.srv);
+            if (!server.pid) { return true; }
             return false;
         } else {
-            if (!!stopProcess(prc.pid, 'EXIT')) { return true; }
+            if (!!stopProcess(server.pid, 'EXIT')) { return true; }
             return false;
         }
     }
-
-    function setupWebsocket() { }
-    function startWebsocket() { }
-    function stopWebsocket() { }
 
     return {
         setter: {
             config: setConfig,
             connection: setConnection,
-            process: setProcess,
             os: setOS,
             servers: setServers,
+            process: setProcess,
             processes: setProcesses
         },
         getter: {
@@ -464,26 +479,27 @@ function handler() {
             process: getProcess,
             os: getOS,
             servers: getServers,
-            processes: getProcesses
+            processes: getProcesses,
+            proxy: getProxy
         },
         process: {
             start: startProcess,
-            stop: stopProcess
+            stop: stopProcess,
+            get: getProcesses,
+            set: setProcesses
         },
         proxy: {
             start: startProxy,
             stop: stopProxy,
             serve: serveProxy,
-            setup: setupProxy
+            setup: setupProxy,
+            get: getProxy
         },
         server: {
             start: startServer,
-            stop: stopServer
-        },
-        websocket: {
-            start: startWebsocket,
-            stop: stopWebsocket,
-            setup: setupWebsocket
+            stop: stopServer,
+            set: setServers,
+            get: getServers
         }
     }
 }
