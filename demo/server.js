@@ -7,21 +7,20 @@
 const fs = require('fs');
 const express = require('express');
 
-const conf = fs.readFileSync('./demo/config.json');
-var configuration = JSON.parse(conf);
+var configuration = JSON.parse(fs.readFileSync('./demo/config.json'));
 var { host, port } = configuration.server;
 var app = express();
 
-let php = require("./php")
-app.use(php)
-let rb = require("./ruby")
-app.use(rb)
-let py = require("./py")
-app.use(py)
-let pl = require("./pl")
-app.use(pl)
-let proxy = require("./proxy")
-app.use(proxy.app)
+let php = require("./php");
+app.use(php);
+let rb = require("./ruby");
+app.use(rb);
+let py = require("./py");
+app.use(py);
+let pl = require("./pl");
+app.use(pl);
+let proxy = require("./proxy");
+app.use(proxy.app);
 
 app.use("*", function (req, res) {
     res.send(`

@@ -5,17 +5,16 @@ const path = require("path");
 const cgijs = require("../src");
 // const cgijs = require("cgijs");
 
-var cgi = cgijs.init();
 var app = express();
 
 var cgiapps = require("./cgifiles_recursive");
-var proxyapps = require("./proxy_recursive");
+var proxyapps = require("./proxy_recursive")();
 
+app.use(proxyapps.app);
 app.use(cgiapps);
 
-
 app.use("*", function (req, res) {
-    res.send(`"Testing my server"`);
+    res.send(`"Testing my server recursive"`);
 });
 
 app.listen(3001, '127.0.0.1', function () {

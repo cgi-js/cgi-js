@@ -1,29 +1,40 @@
 'use strict';
 
-
-let options = fs.readFileSync(confPath);
-let optsKeys = Object.keys(options.proxies);
-let optsLen = optsKeys.length;
-for (let i = 0; i < optsLen; i++) {
-    servers[optsKeys[i]] = {
-        config: options.proxies[optsKeys[i]],
-        server: null
-    }
-}
+const fs = require('fs');
+const express = require('express');
+const path = require("path");
+const cgijs = require("../src");
+// const cgijs = require("cgijs");
 
 module.exports = () => {
-    let pr = new Promise(function (resolve, reject) {
-        try {
-            const fs = require('fs');
-            const express = require('express');
-            const path = require("path");
-            const cgijs = require("../src");
-            // const cgijs = require("cgijs");
+    let proxyServers = {};
+    let config = JSON.parse(fs.readFileSync('./demo/config.json'));
+    let configs = config.proxies;
+    let configKeys = Object.keys(configs);
+    let confLen = configKeys.length;
+    let app = express();
+    try {
+        for (let i = 0; i < confLen; i++) {
+            // Sample Proxy Servers (You have the option to avoid this all together)
+            let remoteProxy = express();
+            remoteProxy.use("/sub", function (req, res, next) { res.status(200).send("Path //sub"); });
+            remoteProxy.use("/", function (req, res, next) { res.status(200).send("Path //"); });
+            remoteProxy.listen(configs[configKeys[i]].options.target.port);
+            proxyServers[configKeys[i]] = {
+                remote: remoteProxy
+            };
 
-            resolve(app);
-        } catch (e) {
-            reject(e);
+            function proxyHandler(name, handler, config) {
+                handler.proxy.setup(name, config, {})
+                let proxy = handler.proxy.serve(configKeys[i]);
+                return function (req, res, next) {
+                    proxy.proxy.web(req, res);
+                }
+            }
+            app.use("/" + configKeys[i], proxyHandler(configKeys[i], cgijs.handler(), configs[configKeys[i]]));
         }
-    });
-    return pr;
+        return { servers: proxyServers, app: app }
+    } catch (e) {
+        return e;
+    }
 }

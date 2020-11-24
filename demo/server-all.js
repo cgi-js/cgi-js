@@ -9,7 +9,6 @@ const URL = require('url');
 const path = require("path");
 const cgijs = require("../src");
 // const cgijs = require("cgijs");
-// var cgi = cgijs.init();
 
 var app = express();
 
@@ -24,9 +23,43 @@ let pl = path.join("www/perl");
 let py = path.join("www/py");
 let sport = 9090, shost = '127.0.0.1';
 
-let conf = fs.readFileSync('./demo/config.json');
-let configuration = JSON.parse(conf);
-let config = configuration.proxies["proxyone"];
+let config = {
+    "options": {
+        "target": {
+            "protocol": "http:",
+            "host": "127.0.0.1",
+            "port": 9001,
+            "pfx": null,
+            "passphrase": ""
+        },
+        "ws": false,
+        "secure": false,
+        "xfwd": true,
+        "toProxy": true,
+        "prependPath": true,
+        "ignorePath": false,
+        "changeOrigin": false,
+        "preserveHeaderKeyCase": true,
+        "auth": ":",
+        "hostRewrite": true,
+        "protocolRewrite": null,
+        "cookieDomainRewrite": false,
+        "cookiePathRewrite": false,
+        "headers": {},
+        "proxyTimeout": 10000,
+        "timeout": 10000,
+        "selfHandleResponse": false,
+        "buffer": null,
+        "ssl": {
+            "key": null,
+            "cert": null
+        }
+    },
+    "listenPort": 8001,
+    "stream": false,
+    "modify": false,
+    "runtime": false
+};
 
 var remoteproxy = express();
 remoteproxy.use("/sub", function (req, res, next) { res.status(200).send("Path //sub"); });
@@ -40,9 +73,8 @@ function proxyHandler(handler, config) {
         proxy.proxy.web(req, res)
     }
 }
-
-// Subsystem for proxyHandler
 app.use("/proxyone", proxyHandler(cgijs.handler(), config));
+
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -98,6 +130,3 @@ app.use("*", function (req, res) {
 
 app.listen(sport, shost);
 console.log(`Server listening at ${sport}!`);
-
-// // Run flask application
-// FLASK_APP=./www/py/main.py FLASK_ENV=development flask run

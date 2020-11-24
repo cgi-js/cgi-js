@@ -10,8 +10,7 @@ const path = require("path");
 const cgijs = require("../src");
 // const cgijs = require("cgijs");
 
-let conf = fs.readFileSync('./demo/config.json');
-let configuration = JSON.parse(conf);
+let configuration = JSON.parse(fs.readFileSync('./demo/config.json'));
 let config = configuration.proxies["proxyone"];
 
 var remoteproxy = express();
@@ -20,44 +19,6 @@ remoteproxy.use("/", function (req, res, next) { res.status(200).send("Path //")
 remoteproxy.listen(config.options.target.port);
 
 var app = express();
-
-// "proxyone": {
-//     "options": {
-//         "target": {
-//             "protocol": "https:",
-//             "host": "127.0.0.1",
-//             "port": 9001,
-//             "pfx": null,
-//             "passphrase": ""
-//         },
-//         "ws": false,
-//         "secure": false,
-//         "xfwd": true,
-//         "toProxy": true,
-//         "prependPath": true,
-//         "ignorePath": false,
-//         "changeOrigin": false,
-//         "preserveHeaderKeyCase": true,
-//         "auth": ":",
-//         "hostRewrite": true,
-//         "protocolRewrite": null,
-//         "cookieDomainRewrite": false,
-//         "cookiePathRewrite": false,
-//         "headers": {},
-//         "proxyTimeout": 10000,
-//         "timeout": 10000,
-//         "selfHandleResponse": false,
-//         "buffer": null,
-//         "ssl": {
-//             "key": null,
-//             "cert": null
-//         }
-//     },
-//     "listenPort": 8001,
-//     "stream": false,
-//     "modify": false,
-//     "runtime": false
-// }
 
 function proxyHandler(handler, config) {
     handler.proxy.setup("proxyone", config, {})
