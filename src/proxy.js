@@ -483,6 +483,7 @@ function handler() {
             start: startProcess,
             stop: stopProcess,
             get: getProcesses,
+            getProcess: getProcess,
             set: setProcesses
         },
         proxy: {
