@@ -121,10 +121,8 @@ This project contains example that demonstrates working with ExpressJS. To run C
 * Run Proxy servers to connect to:
     - Any Local http/https/websocket Servers
     - Any Remote http/https/websocket Servers
-    - Embedded Apache httpd (http/https/websocket)
-    - Embedded Apache tomcat (http/https/websocket)
+    - Embedded Apache httpd, Apache tomcat, Nginx (http/https/websocket)
     - Embedded Mongoose http server (http/https)
-    - Embedded Nginx (http/https/websocket)
 * Manage Embedded Servers (for desktop-cgi use case):
     - Embedded Apache httpd (http/https/websocket)
     - Embedded Apache tomcat (http/https/websocket)
