@@ -16,7 +16,7 @@ module.exports = () => {
     try {
         for (let i = 0; i < confLen; i++) {
             // Sample Proxy Servers (You have the option to avoid this all together)
-            let remoteProxy = require("./remote-proxy")(configs[configKeys[i]].options.target.port);
+            let remoteProxy = require("./remote/remote-proxy")(configs[configKeys[i]].options.target.port);
             proxyServers[configKeys[i]] = {
                 remote: remoteProxy
             };

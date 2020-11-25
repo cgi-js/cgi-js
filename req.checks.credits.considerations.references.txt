@@ -59,3 +59,8 @@ xml parser
 // GOOD
 // https://www.npmjs.com/package/electron-json-storage
 // https://www.npmjs.com/package/smart-fs
+
+// https://www.npmjs.com/package/express-ws
+// https://medium.com/factory-mind/websocket-node-js-express-step-by-step-using-typescript-725114ad5fe4
+// https://masteringjs.io/tutorials/express/websockets
+

@@ -23,12 +23,14 @@
     "shelljs": "0.6.1"
   },
   "devDependencies": {
-    "express": "4.17.1",
     "chai": "4.2.0",
     "eslint": "7.13.0",
+    "express": "4.17.1",
     "mocha": "8.2.1",
     "sinon": "9.2.1",
-    "supertest": "6.0.1"
+    "socket.io": "^3.0.3",
+    "supertest": "6.0.1",
+    "ws": "^7.4.0"
   },
   "private": false,
   "license": "MIT",

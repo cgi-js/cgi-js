@@ -13,7 +13,7 @@ const cgijs = require("../../src");
 let configuration = JSON.parse(fs.readFileSync('./demo/config.json'));
 let config = configuration.proxies["proxyone"];
 
-var remoteProxy = require("../recursive/remote-proxy")(config.options.target.port);
+var remoteProxy = require("../remote/remote-proxy")(config.options.target.port);
 
 var app = express();
 

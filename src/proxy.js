@@ -27,34 +27,38 @@ function handler() {
     let commandObject = {
         generic: {
             executable: {
-                exe: '', args: {}, options: {}, commands: {
-                    start: 'start', stop: 'stop', restart: 'restart', envVars: {
-                        bin: "", runtime: ""
-                    }
+                name: "", exe: '', env: { bin: "", runtime: "" },
+                commands: {
+                    start: { usage: "start", args: {} },
+                    stop: { usage: "stop", args: {} },
+                    restart: { usage: "restart", args: {} }
                 }
             },
             service: {
-                name: "", exe: '', args: {}, options: {}, commands: {
-                    start: 'start', stop: 'stop', restart: 'restart', envVars: {
-                        bin: "", runtime: ""
-                    }
+                name: "", exe: '', env: { bin: "", runtime: "" },
+                commands: {
+                    start: { usage: "start", args: {} },
+                    stop: { usage: "stop", args: {} },
+                    restart: { usage: "restart", args: {} }
                 }
             }
         },
         os: {
             "osname": {
                 executable: {
-                    exe: '', args: {}, options: {}, commands: {
-                        start: 'start', stop: 'stop', restart: 'restart', envVars: {
-                            bin: "", runtime: ""
-                        }
+                    name: "", exe: '', env: { bin: "", runtime: "" },
+                    commands: {
+                        start: { usage: "start", args: {} },
+                        stop: { usage: "stop", args: {} },
+                        restart: { usage: "restart", args: {} }
                     }
                 },
                 service: {
-                    name: "", exe: '', args: {}, options: {}, commands: {
-                        start: 'start', stop: 'stop', restart: 'restart', envVars: {
-                            bin: "", runtime: ""
-                        }
+                    name: "", exe: '', env: { bin: "", runtime: "" },
+                    commands: {
+                        start: { usage: "start", args: {} },
+                        stop: { usage: "stop", args: {} },
+                        restart: { usage: "restart", args: {} }
                     }
                 }
             }
@@ -71,48 +75,49 @@ function handler() {
      * 
      * setter
      *
-     * @param {*} obj
-     * 
+     * @param {*} setterObject
      * @param {*} values
      * 
      * @returns
      * 
      */
-    function setter(obj, values) {
-        if (!!options) {
-            keys = values.keys();
-            for (let i = 0; i < keys.length; i++) {
-                obj[keys[i]] = values[key[i]];
-            }
+    function setter(setterObject, values) {
+        if (!values) {
+            return false;
         }
+        keys = values.keys();
+        for (let i = 0; i < keys.length; i++) {
+            setterObject[keys[i]] = values[key[i]];
+        }
+        return true;
     }
 
     /**
      * 
      * getter
      *
-     * @param {*} obj
+     * @param {*} getterObject
      * 
      * @param {*} args
      * 
      * @returns
      * 
      */
-    function getter(obj, args) {
+    function getter(getterObject, args) {
         if (!!args) {
-            if (typeof args === String) {
-                return obj[args];
-            } else if (typeof args === Array) {
+            if (typeof args === "string" || typeof args === "number") {
+                return getterObject[args];
+            } else if (Array.isArray(args)) {
                 let tmp = {};
                 for (let i = 0; i < args.length; i++) {
-                    if (!!obj[args[i]]) {
-                        tmp[args[i]] = obj[args[i]];
+                    if (!!getterObject[args[i]]) {
+                        tmp[args[i]] = getterObject[args[i]];
                     }
                 }
                 return tmp;
             }
         }
-        return obj;
+        return {};
     }
 
     /**
@@ -139,11 +144,11 @@ function handler() {
      *
      * @param {undefined, Object} options
      * options is the an object of configuration with names of config as keys
-     * @returns undefined
+     * @returns {bool} 
      * 
      */
     function setConfig(options) {
-        setter(config, options);
+        return setter(config, options);
     }
 
     /**
@@ -152,15 +157,15 @@ function handler() {
      * Returns the connections requested
      * can be single key, or array of keys or complete connections object for fetch
      *
-     * @param {undefined, String, Array} connNames
-     * conns : single name of connection or array of connections to be fetched
+     * @param {undefined, String, Array} connectionNames
+     * connectionNames : single name of connection or array of connections to be fetched
      * 
      * @returns {*} connections
      * connections: connections object
      * 
      */
-    function getConnection(connNames) {
-        return getter(connections, connNames);
+    function getConnection(connectionNames) {
+        return getter(connections, connectionNames);
     }
 
     /**
@@ -169,42 +174,43 @@ function handler() {
      * Sets the connection of the connection key name provided
      * can be single or multiple keys or complete connection object for setting connections
      *
-     * @param {undefined, Object} connObject
-     * connObject is an object of connections with names of connection as keys
-     * @returns undefined
+     * @param {undefined, Object} connectionObject
+     * connectionObject is an object of connections with single or 
+     *      multiple connections object (name as key and connectionObject as value) to be set
+     * @returns {bool}
      * 
      */
-    function setConnection(connObject) {
-        setter(connections, connObject);
+    function setConnection(connectionObject) {
+        return setter(connections, connectionObject);
     }
 
     /**
      * 
      * getProcess
      * Returns the processes requested
-     * can be single key, or array of keys or complete process object for fetch
+     *      can be single key, or array of keys or complete process object for fetch
      *
-     * @param {undefined, String, Array} procIds
-     * prcObject is single or Array of ids
-     * @returns {*} processes
+     * @param {undefined, String, Array} processIds
+     * processIds is single or Array of ids
+     * @returns {Object} processes
      * processes: processes list object
      * 
      */
-    function getProcess(procIds) {
-        return getter(processes, procIds);
+    function getProcess(processIds) {
+        return getter(processes, processIds);
     }
 
     /**
      * 
      * setProcess
      * Sets the process of the connection key procId provided
-     * can be single or multiple keys or complete process object for setting processes
+     *      can be single or multiple keys or complete process object for setting processes
      *
-     * @param {undefined, object} procObj
+     * @param {undefined, object} processObject
      * 
      */
-    function setProcess(procObj) {
-        setter(processes, procObj);
+    function setProcess(processObject) {
+        return setter(processes, processObject);
     }
 
     /**
@@ -212,22 +218,24 @@ function handler() {
      * startProcess
      * 
      *
-     * @param {*} procObject
+     * @param {Object} processObject
      * Defines the process Object needed to start the process
-     * Expected Structure: { exe, args, options, other }
-     *      exe: executable for process, 
-     *      args: arguments for process, 
-     *      options: options for process,
-     *      other: optional-more-for-server-processes
+     * Expected Structure: { generic, os }
+     * 
+     * process/server/database = {generic: {executable: defobject, service: defobject}, os: { "osname": {executable: defobject, os: defobject} }}
+     *      defobject = {name: value, exe: value, env: {}, commands: {start: usageobject, stop: usageobject, restart: usageobject }}
+     *      usageobject = {usage: value, args: {value / {key:value}}, options: {value / {key:value}}}
      * 
      * @param {*} file
      * 
      * @returns
      * 
      */
-    function startProcess(procObject, file) {
-        let procSpawn = require('child_process').spawn;
-        let { exe, args, options, other } = procObject;
+    function startProcess(processObject, file) {
+        // {name: {commands, instances: {pid: instance}}}
+        // REDO THIS
+        let processSpawn = require('child_process').spawn;
+        let { exe, args, options, other } = processObject;
         args.conf = !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) : args.conf;
         exe = other.osPaths.exe + exe;
@@ -237,9 +245,9 @@ function handler() {
         let e = args.entries().flat(Infinity);
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
-        let prc = procSpawn(exe, [...e], options);
+        let proc = processSpawn(exe, [...e], options);
         process.stdin.resume();
-        prc.on('data', function (data) {
+        proc.on('data', function (data) {
             console.log(data);
         });
         function cleanUpServer(options, exitCode) {
@@ -249,22 +257,22 @@ function handler() {
             if (options.exit) process.exit();
         }
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
-            prc.on(eventType, cleanUpServer.bind(null, eventType));
-        }.bind(prc, cleanUpServer));
-        processes[prc.pid] = prc;
-        return { pid: prc.pid, srv: procObject };
+            proc.on(eventType, cleanUpServer.bind(null, eventType));
+        }.bind(proc, cleanUpServer));
+        processes[proc.pid] = proc;
+        return { pid: proc.pid, srv: processObject };
     }
 
     /**
      * 
      * stopProcess
      *
-     * @param {*} prc
+     * @param {*} proc
      */
-    function stopProcess(prc, signal) {
-        process.kill(prc, signal);
-        console.log('Killed process ' + processes[prc].pid);
-        processes[prc] = null;
+    function stopProcess(proc, signal) {
+        process.kill(proc, signal);
+        console.log('Killed/Stopped process ' + processes[proc].pid);
+        processes[proc] = null;
         process.stdin.end();
         return true;
     }
@@ -299,7 +307,7 @@ function handler() {
         if (!proxy) {
             return false;
         }
-        if (!!proxy && typeof proxy === "string") {
+        if (!!proxy && (typeof proxy === "string" || typeof args === "number")) {
             proxy = instanceServers[proxy].proxy;
         }
         try {
@@ -315,7 +323,6 @@ function handler() {
      * serveProxy
      *
      * @param {*} name
-     * @param {*} options
      */
     function serveProxy(name) {
         let proxy = startProxy(instanceServers[name].config);
@@ -382,18 +389,6 @@ function handler() {
      *      useDefault: key provided if system defaults should be used and not to use embedded executable
      *      other: optional-more-for-server-processes
      *          Expected Structure: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } }
-     *          serverType: 
-     *          host: 
-     *          port: 
-     *          command: 
-     *          conf: 
-     *          starter: 'start'
-     *          stopper: 'stop'
-     *          restarter: 'restart'
-     *          osPaths: optional-more-for-server-processes
-     *              Expected Structure: { conf: {}, exe: {} }
-     *              conf:
-     *              exe:
      * Example:
      * { exe, args, options, other: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } } }
      * 
