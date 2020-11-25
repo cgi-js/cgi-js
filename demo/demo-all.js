@@ -62,7 +62,7 @@ let config = {
 };
 
 // Sample Proxy Server (You have the option to avoid this all together)
-var remoteProxy = require("./recursive/remoteproxy")(config.options.target.port);
+var remoteProxy = require("./recursive/remote-proxy")(config.options.target.port);
 
 function proxyHandler(handler, config) {
     handler.proxy.setup("proxyone", config, {})
