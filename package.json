@@ -14,7 +14,7 @@
     "split": "node ./demo/demo-split.js",
     "all": "node ./demo/demo-all.js",
     "recursive": "node ./demo/demo-recursive.js",
-    "process": "node ./demo/processes.js",
+    "process": "node ./demo/demo-processes.js",
     "test": "mocha ./test/src ./www/php/test"
   },
   "main": "index.js",
