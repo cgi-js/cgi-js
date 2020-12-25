@@ -8,19 +8,19 @@ const cgijs = require("../../src");
 
 module.exports = () => {
     let proxyServers = {};
-    let config = JSON.parse(fs.readFileSync('./demo/config.json'));
-    let configs = config.proxies;
+    let configurations = JSON.parse(fs.readFileSync('./demo/config.json'));
+    let configs = configurations.proxies;
     let configKeys = Object.keys(configs);
     let confLen = configKeys.length;
     let app = express();
     try {
         for (let i = 0; i < confLen; i++) {
             // Sample Proxy Servers (You have the option to avoid this all together)
-            let remoteProxy = require("./remote/remote-proxy")(configs[configKeys[i]].options.target.port);
+            let remoteProxy = require("../remote/remote-proxy")(configs[configKeys[i]].options.target.port);
             proxyServers[configKeys[i]] = {
                 remote: remoteProxy
             };
-
+            
             function proxyHandler(name, handler, config) {
                 handler.proxy.setup(name, config, {})
                 let proxy = handler.proxy.serve(configKeys[i]);
@@ -32,6 +32,7 @@ module.exports = () => {
         }
         return { servers: proxyServers, app: app }
     } catch (e) {
-        return e;
+        console.log("Error occured in proxy recursive ", e.toString())
+        return {servers: null, app: null, error: e};
     }
 }

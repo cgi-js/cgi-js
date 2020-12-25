@@ -64,8 +64,8 @@ let config = {
 // Sample Proxy Server (You have the option to avoid this all together)
 var remoteProxy = require("./remote/remote-proxy")(config.options.target.port);
 
-function proxyHandler(handler, config) {
-    handler.proxy.setup("proxyone", config, {})
+function proxyHandler(handler, configuration) {
+    handler.proxy.setup("proxyone", configuration, {})
     let proxy = handler.proxy.serve("proxyone");
     return function (req, res, next) {
         proxy.proxy.web(req, res)

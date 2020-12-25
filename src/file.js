@@ -1,7 +1,7 @@
 /*
 License: MIT
 Dynamic CGI serving using dynamic path imports for 
-     CGI supporting executable for Interpreted languages Embedded Distribution
+	 CGI supporting executable for Interpreted languages Embedded Distribution
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 */
 
@@ -36,8 +36,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} msg
+	 * error
+	 * 
+	 * @param {String} msg
+	 * 
 	 * @return {throw error}
+	 * 
 	 */
 	function error(msg) {
 		console.error(msg);
@@ -47,9 +51,14 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} action
+	 * cleanBinPath
+	 * 
+	 * @param {String} action
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns {string} bin_path / {throw error} 
+	 * 
 	 */
 	function cleanBinPath(action, exeOptions) {
 		if (typeof exeOptions.bin === "string") {
@@ -67,8 +76,12 @@ function cgiServe() {
 
 	/**
 	 * 
+	 * validateLangOptionStructure
+	 * 
 	 * @param  {Object} obj
-	 * @returns {bool} validated
+	 * 
+	 * @returns {Boolean} validated
+	 * 
 	 */
 	function validateLangOptionStructure(obj) {
 		let k = Object.keys(obj), l = Object.keys(langOptions);
@@ -82,10 +95,16 @@ function cgiServe() {
 
 	/**
 	 * 
-	 * @param {string} cgiExecutable
+	 * setCGI
+	 * 
+	 * @param {String} cgiExecutable
+	 * 
 	 * @param {Object} exeOptions
-	 * @param {string} type
-	 * @returns {bool} / {throw error}
+	 * 
+	 * @param {String} type
+	 * 
+	 * @returns {Boolean} set? / {throw error}
+	 * 
 	 */
 	function setCGI(type, cgiExecutable, exeOptions) {
 		try {
@@ -103,9 +122,14 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} type
+	 * getCGI
+	 * 
+	 * @param {String} type
+	 * 
 	 * @param {Object} exeOptions
-	 * @returns {string} WHICH_CGI
+	 * 
+	 * @returns {String} WHICH_CGI
+	 * 
 	 */
 	function getCGI(type, exeOptions) {
 		try {
@@ -120,8 +144,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} cgiLang
-	 * @returns {bool} / {throw error}
+	 * setCGITypes
+	 * 
+	 * @param {String} cgiLang
+	 * 
+	 * @returns {Boolean} / {throw error}
+	 * 
 	 */
 	function setCGITypes(cgiLang) {
 		if (Array.isArray(cgiLang)) {
@@ -142,8 +170,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string, array} cgiLang
+	 * getCGITypes
+	 * 
+	 * @param {String, Array} cgiLang
+	 * 
 	 * @returns {Object} LANG_OPTS / {string} LANG_OPTS[type]
+	 * 
 	 */
 	function getCGITypes(cgiLang) {
 		if (typeof (cgiLang) === 'string') {
@@ -160,8 +192,12 @@ function cgiServe() {
 
 	/**
 	 *
+	 * pathClean
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns {Object} {LANG_OPTS, exeOptions}
+	 * 
 	 */
 	function pathClean(exeOptions) {
 		exeOptions.bin = { bin_path: cleanBinPath("getCGI", exeOptions) };
@@ -173,9 +209,14 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} type
+	 * getVars
+	 * 
+	 * @param {String} type
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns {Object} {LANG_OPTS, exeOptions}
+	 * 
 	 */
 	function getVars(exeOptions) {
 		return pathClean(exeOptions);
@@ -183,10 +224,16 @@ function cgiServe() {
 
 	/**
 	 *
+	 * getEnv
+	 * 
 	 * @param {Object} req
-	 * @param {string} host
-	 * @param {int} port
+	 * 
+	 * @param {String} host
+	 * 
+	 * @param {Number} port
+	 * 
 	 * @returns {Object} env(environment)
+	 * 
 	 */
 	function getEnv(req, host, port) {
 		var env = {
@@ -237,8 +284,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} type
+	 * getPattern
+	 * 
+	 * @param {String} type
+	 * 
 	 * @returns {^regex pattern} pattern / {throw error}
+	 * 
 	 */
 	function getPattern(type) {
 		let ty = LANG_OPTS[type];
@@ -250,8 +301,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} type
-	 * @returns {string} type / {throw error}
+	 * getType
+	 * 
+	 * @param {String} type
+	 * 
+	 * @returns {String} type / {throw error}
+	 * 
 	 */
 	function getType(type) {
 		let ty = LANG_OPTS[type];
@@ -263,8 +318,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {array} lines
+	 * getPHPHtml
+	 * 
+	 * @param {Array} lines
+	 * 
 	 * @returns {Object} {html}
+	 * 
 	 */
 	function getPHPHtml(lines) {
 		var line = 0, headers = {}, statusCode;
@@ -289,8 +348,12 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} lines
+	 * getCGIHtml
+	 * 
+	 * @param {String} lines
+	 * 
 	 * @returns {Object} {html, res}
+	 * 
 	 */
 	function getCGIHtml(lines) {
 		var line = 0, headers = {}, statusCode;
@@ -321,9 +384,14 @@ function cgiServe() {
 
 	/**
 	 *
-	 * @param {string} type
+	 * fileExists
+	 * 
+	 * @param {String} type
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns {Object promise} resolve(file/bool)
+	 * 
 	 */
 	function fileExists(type, exeOptions) {
 		let promise = new Promise(function (resolve, reject) {
@@ -360,9 +428,14 @@ function cgiServe() {
 
 	/**
 	 *
+	 * runCGI
+	 * 
 	 * @param {Object req} req
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns
+	 * 
 	 */
 	function runCGI(req, exeOptions) {
 		let promise = new Promise(function (resolve, reject) {
@@ -455,11 +528,17 @@ function cgiServe() {
 	}
 
 	/**
-	 *
-	 * @param {string} type
+	 * 
+	 * serve
+	 * 
+	 * @param {String} type
+	 * 
 	 * @param {Object} request
+	 * 
 	 * @param {Object} exeOptions
+	 * 
 	 * @returns
+	 * 
 	 */
 	function serve(type, request, exeOptions) {
 		let promise = new Promise(function (resolve, reject) {

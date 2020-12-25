@@ -9,6 +9,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 const https = require('https');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
+const utils = require("./utils")();
 
 /**
  * 
@@ -17,77 +18,142 @@ const httpProxy = require('http-proxy');
  * @returns
  */
 function handler() {
-    let config = {}, connections = {}, processes = {}, serverCommands = {};
-    let instanceServers = {};
-    let serverPortRanges = [[8000, 9000], [10000, 15000]];
-    let validProxyHandlers = ["error", "proxyRes", "open", "data", "end", "close", "upgrade"];
+    let configurations = {}, processes = {}, processCommands = {}, instanceProxyServers = {};
+
+    let proxyPortRanges = [[8000, 9500], [10000, 15000]];
+    let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
     let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
-    let serverList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql"];
-    let processList = [];
-    let commandObject = {
-        generic: {
-            executable: {
-                name: "", exe: '', env: { bin: "", runtime: "" },
-                commands: {
-                    start: { usage: "start", args: {} },
-                    stop: { usage: "stop", args: {} },
-                    restart: { usage: "restart", args: {} }
-                }
+    let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
+
+    let configurationObject = {
+        "options": {
+            "target": {
+                "protocol": "http:",
+                "host": "127.0.0.1",
+                "port": 9001,
+                "pfx": null,
+                "passphrase": ""
             },
-            service: {
-                name: "", exe: '', env: { bin: "", runtime: "" },
-                commands: {
-                    start: { usage: "start", args: {} },
-                    stop: { usage: "stop", args: {} },
-                    restart: { usage: "restart", args: {} }
-                }
+            "ws": false,
+            "secure": false,
+            "xfwd": true,
+            "toProxy": true,
+            "prependPath": true,
+            "ignorePath": false,
+            "changeOrigin": false,
+            "preserveHeaderKeyCase": true,
+            "auth": ":",
+            "hostRewrite": true,
+            "protocolRewrite": null,
+            "cookieDomainRewrite": false,
+            "cookiePathRewrite": false,
+            "headers": {},
+            "proxyTimeout": 10000,
+            "timeout": 10000,
+            "selfHandleResponse": false,
+            "buffer": null,
+            "ssl": {
+                "key": null,
+                "cert": null
             }
         },
-        os: {
-            "osname": {
-                executable: {
-                    name: "", exe: '', env: { bin: "", runtime: "" },
-                    commands: {
-                        start: { usage: "start", args: {} },
-                        stop: { usage: "stop", args: {} },
-                        restart: { usage: "restart", args: {} }
-                    }
-                },
-                service: {
-                    name: "", exe: '', env: { bin: "", runtime: "" },
-                    commands: {
-                        start: { usage: "start", args: {} },
-                        stop: { usage: "stop", args: {} },
-                        restart: { usage: "restart", args: {} }
-                    }
-                }
-            }
+        "listenPort": 8001,
+        "stream": false,
+        "modify": false,
+        "runtime": false
+    };
+
+    let commandObject = {
+        name: "", type: "executable", env: { os: { "name": { bin: "", runtime: "", exe: '' } } },
+        cmds: {
+            start: { usage: "start", args: {} },
+            stop: { usage: "stop", args: {} },
+            restart: { usage: "restart", args: {} }
         }
     };
+
+    function setupHandler(name, optionsObject) {
+        if (!name || !optionsObject) {
+            return false;
+        }
+        switch (name) {
+            case "proxyPortRanges":
+                if (Array.isArray(optionsObject)) {
+                    for (let i = 0; i < optionsObject.length; i++) {
+                        if (optionsObject[i] in proxyPortRanges) {
+                            proxyPortRanges.push(optionsObject[i]);
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            case "osList":
+                if (Array.isArray(optionsObject)) {
+                    for (let i = 0; i < optionsObject.length; i++) {
+                        if (optionsObject[i] in osList) {
+                            osList.push(optionsObject[i]);
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            case "processList":
+                if (Array.isArray(optionsObject)) {
+                    for (let i = 0; i < optionsObject.length; i++) {
+                        if (optionsObject[i] in processList) {
+                            processList.push(optionsObject[i]);
+                        }
+                    }
+                    return true;
+                }
+                return false;
+            case "processCommands":
+                if (typeof optionsObject === "object") {
+                    let valid = utils.isEqual(commandObject, optionsObject);
+                    if (!valid || !optionsObject.name) {
+                        return false;
+                    }
+                    processCommands[optionsObject.name] = optionsObject;
+                    return true;
+                } else if (Array.isArray(optionsObject)) {
+                    let oKeys = Object.keys(optionsObject);
+                    for (let i = 0; i < optionsObject.length; i++) {
+                        let valid = utils.isEqual(commandObject, optionsObject[i]);
+                        if (!valid || !optionsObject[i].name) {
+                            return false;
+                        }
+                        processCommands[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
+                        return true;
+                    }
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
+
     function setOS(obj) { }
+
     function getOS(name) { }
-    function setServers(obj) { }
-    function getServers(name) { }
-    function setProcesses(obj) { }
-    function getProcesses(name) { }
+
 
     /**
      * 
      * setter
      *
-     * @param {*} setterObject
-     * @param {*} values
+     * @param {Object} setterObject
+     * 
+     * @param {Object} values
      * 
      * @returns
      * 
      */
     function setter(setterObject, values) {
-        if (!values) {
-            return false;
-        }
-        keys = values.keys();
+        if (!values && typeof values !== "object") { return false; }
+        keys = Object.keys(values);
+        if (!keys.length) { return false; }
         for (let i = 0; i < keys.length; i++) {
-            setterObject[keys[i]] = values[key[i]];
+            setterObject[keys[i]] = values[keys[i]];
         }
         return true;
     }
@@ -96,104 +162,70 @@ function handler() {
      * 
      * getter
      *
-     * @param {*} getterObject
+     * @param {Object} getterObject
      * 
-     * @param {*} args
+     * @param {String, Array} args
      * 
-     * @returns
+     * @returns {Boolean}
      * 
      */
     function getter(getterObject, args) {
-        if (!!args) {
-            if (typeof args === "string" || typeof args === "number") {
-                return getterObject[args];
-            } else if (Array.isArray(args)) {
-                let tmp = {};
-                for (let i = 0; i < args.length; i++) {
-                    if (!!getterObject[args[i]]) {
-                        tmp[args[i]] = getterObject[args[i]];
-                    }
+        if (!args) { return false; }
+        if (typeof args === "string" || typeof args === "number") {
+            return (!!getterObject[args]) ? getterObject[args] : false;
+        } else if (Array.isArray(args)) {
+            let tmp = {};
+            for (let i = 0; i < args.length; i++) {
+                if (!!getterObject[args[i]]) {
+                    tmp[args[i]] = getterObject[args[i]];
                 }
-                return tmp;
             }
+            return (!Object.keys(tmp).length) ? false : tmp;
         }
-        return {};
+        return false;
     }
 
     /**
+     * REDO THIS
      * 
      * getConfig
-     * Returns the config of requested args
-     * can be single key, or array of keys or complete config object for fetch
      *
-     * @param {undefined, String, Array} args
-     * args is either single config string key or Array of keys to be fetched
-     * @returns {*} config
-     * config: configurations object
+     * @param {String, Array} args
+     *      args is either single configuration string key or Array of keys to be fetched
+     * 
+     * @returns {Object} configuration
+     *      configurations: configurations object
      * 
      */
     function getConfig(args) {
-        return getter(config, args);
+        return getter(configurations, args);
     }
 
     /**
+     * REDO THIS
      * 
      * setConfig
-     * Sets the key of the config provided
-     * can be single or multiple keys or complete config object for setting config
      *
-     * @param {undefined, Object} options
-     * options is the an object of configuration with names of config as keys
-     * @returns {bool} 
+     * @param {Object} options
+     *      options is the an object of configuration with names of configuration as keys
+     * 
+     * @returns {Boolean} 
      * 
      */
     function setConfig(options) {
-        return setter(config, options);
-    }
-
-    /**
-     * 
-     * getConn
-     * Returns the connections requested
-     * can be single key, or array of keys or complete connections object for fetch
-     *
-     * @param {undefined, String, Array} connectionNames
-     * connectionNames : single name of connection or array of connections to be fetched
-     * 
-     * @returns {*} connections
-     * connections: connections object
-     * 
-     */
-    function getConnection(connectionNames) {
-        return getter(connections, connectionNames);
-    }
-
-    /**
-     * 
-     * setConn
-     * Sets the connection of the connection key name provided
-     * can be single or multiple keys or complete connection object for setting connections
-     *
-     * @param {undefined, Object} connectionObject
-     * connectionObject is an object of connections with single or 
-     *      multiple connections object (name as key and connectionObject as value) to be set
-     * @returns {bool}
-     * 
-     */
-    function setConnection(connectionObject) {
-        return setter(connections, connectionObject);
+        return setter(configurations, options);
     }
 
     /**
      * 
      * getProcess
      * Returns the processes requested
-     *      can be single key, or array of keys or complete process object for fetch
      *
-     * @param {undefined, String, Array} processIds
-     * processIds is single or Array of ids
-     * @returns {Object} processes
-     * processes: processes list object
+     * @param {String, Array} processIds
+     *      processIds is single or Array of ids
+     * 
+     * @returns {Boolean, Object} processes
+     *      processes: processes list object
      * 
      */
     function getProcess(processIds) {
@@ -204,9 +236,10 @@ function handler() {
      * 
      * setProcess
      * Sets the process of the connection key procId provided
-     *      can be single or multiple keys or complete process object for setting processes
      *
-     * @param {undefined, object} processObject
+     * @param {Object} processObject
+     * 
+     * @returns {Boolean}
      * 
      */
     function setProcess(processObject) {
@@ -216,19 +249,16 @@ function handler() {
     /**
      * 
      * startProcess
-     * 
      *
      * @param {Object} processObject
      * Defines the process Object needed to start the process
-     * Expected Structure: { generic, os }
+     * Expected Structure: {  }
      * 
-     * process/server/database = {generic: {executable: defobject, service: defobject}, os: { "osname": {executable: defobject, os: defobject} }}
-     *      defobject = {name: value, exe: value, env: {}, commands: {start: usageobject, stop: usageobject, restart: usageobject }}
-     *      usageobject = {usage: value, args: {value / {key:value}}, options: {value / {key:value}}}
+     * process/server/database = 
      * 
-     * @param {*} file
+     * @param {String} file
      * 
-     * @returns
+     * @returns {Object}
      * 
      */
     function startProcess(processObject, file) {
@@ -267,7 +297,10 @@ function handler() {
      * 
      * stopProcess
      *
-     * @param {*} proc
+     * @param {Number, Object} proc
+     * 
+     * @returns {Boolean}
+     * 
      */
     function stopProcess(proc, signal) {
         process.kill(proc, signal);
@@ -281,7 +314,10 @@ function handler() {
      * 
      * startProxy
      *
-     * @param {*} config
+     * @param {Object} config
+     * 
+     * @returns {Boolean}
+     * 
      */
     function startProxy(config) {
         let proxy;
@@ -301,14 +337,15 @@ function handler() {
      * 
      * stopProxy
      *
-     * @param {string, Object} proxy
+     * @param {String, Object} proxy
+     * 
+     * @returns {Boolean}
+     * 
      */
     function stopProxy(proxy) {
-        if (!proxy) {
-            return false;
-        }
+        if (!proxy) { return false; }
         if (!!proxy && (typeof proxy === "string" || typeof args === "number")) {
-            proxy = instanceServers[proxy].proxy;
+            proxy = instanceProxyServers[proxy].proxy;
         }
         try {
             proxy.close();
@@ -322,131 +359,150 @@ function handler() {
      *
      * serveProxy
      *
-     * @param {*} name
+     * @param {String} name
      */
     function serveProxy(name) {
-        let proxy = startProxy(instanceServers[name].config);
-        instanceServers[name].proxy = proxy;
-        instanceServers[name].proxy.listen(instanceServers[name].config.listenPort);
-        let hKeys = Object.keys(instanceServers[name].handlers);
+        let inst = getter(instanceProxyServers, name);
+
+        let proxy = startProxy(inst.config);
+        inst.proxy = proxy;
+        inst.proxy.listen(inst.config.listenPort);
+
+        let hKeys = Object.keys(inst.handlers);
         let hKeysLen = hKeys.length;
+        if (!hKeysLen) { return false; }
+
         for (let i = 0; i < hKeysLen; i++) {
-            instanceServers[name].proxy.on(hKeys[i], instanceServers[name].handlers[hKeys[i]]);
+            inst.proxy.on(hKeys[i], inst.handlers[hKeys[i]]);
         }
-        return instanceServers[name];
+
+        let proxyObject = {};
+        proxyObject[name] = inst;
+        let setInst = setter(instanceProxyServers, proxyObject);
+        if (!setInst) { return false; }
+        return getter(instanceProxyServers, name);
     }
 
     /**
      *
      * setupProxy
+     * config and handlers validated and saved to servers object
      *
-     * @param {*} name
-     * @param {*} config
-     * @param {*} handlerFunctions
-     * @returns {bool} options and handlers validated and saved to servers object
+     * @param {String} name
+     * 
+     * @param {Object} config
+     * 
+     * @param {Object} handlerFunctions
+     * 
+     * @returns {Boolean} 
+     * 
      */
     function setupProxy(name, config, handlerFunctions) {
+        // let validConfig = utils.isEqual(configurationObject, config, false, false);
         let validPort = [];
-        for (let i = 0; i < serverPortRanges.length; i++) {
-            if (!(config.options.port >= serverPortRanges[i][0] && config.options.port <= serverPortRanges[i][1])) {
-                validPort.push(false);
+        for (let i = 0; i < proxyPortRanges.length; i++) {
+            if ((config.options.target.port >= proxyPortRanges[i][0] && config.options.target.port <= proxyPortRanges[i][1])) {
+                break;
             }
         }
-        if (false in validPort) { return false; }
+        if (validPort.length > 0) { return false; }
         let hKeys = Object.keys(handlerFunctions);
         for (let i = 0; i < hKeys.length; i++) {
-            if (!(hKeys[i] in validProxyHandlers)) { return false; }
+            if (!(validProxyHandlers.includes(hKeys[i]))) {
+                return false;
+            }
         }
-        instanceServers[name] = {
-            proxy: null,
-            config: config,
-            handlers: handlerFunctions
-        };
+
+        let proxyObject = {};
+        proxyObject[name] = { "proxy": null, "config": config, "handlers": handlerFunctions };
+        let proxyset = setter(instanceProxyServers, proxyObject);
+        if (!proxyset) { return false; }
         return true;
     }
 
     /**
-     * @param  {} name
+     * 
+     * getProxy
+     * 
+     * @param  {String, Array} name - name / [name]
+     * 
+     * @returns {Boolean, Object} false / ProxyInstance { proxy, config, handlers }
+     * 
      */
     function getProxy(name) {
-        let proxy = instanceServers[name];
-        if (!proxy) {
-            return false;
-        }
-        return proxy;
+        return getter(instanceProxyServers, name);
     }
+
+    /**
+     * 
+     * setServers
+     * 
+     * @param  {} obj
+     * 
+     * @returns {Boolean}
+     * 
+     */
+    function setServers(obj) { }
+
+    /**
+     * 
+     * getServers
+     * 
+     * @param  {} name
+     * 
+     * @returns {Boolean, Object} false / ServerInstance { process, processCommandsKey }
+     * 
+     */
+    function getServers(name) { }
 
     /**
      * 
      * startServer
      * 
-     *
      * @param {*} server
-     * Expected Structure: { exe, args, options, other }
-     *      exe: executable for process, 
-     *      args: arguments for process, 
-     *      options: options for process,
-     *      useDefault: key provided if system defaults should be used and not to use embedded executable
-     *      other: optional-more-for-server-processes
-     *          Expected Structure: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } }
-     * Example:
-     * { exe, args, options, other: { serverType, host, port, command, conf, starter, stopper, restarter, osPaths: { conf, exe } } }
-     * 
-     * @returns
+     * Expected Structure: { commandObject }
+     *       
+     * @returns {Boolean}
      * 
      */
     function startServer(server) {
-        let srv;
-        if (server.hasOwnProperty("useDefault") && server.useDefault !== true) {
-            srv = server;
-        } else {
-            srv = serverCommands[server.server];
-            let keys = server.keys();
-            for (let i = 0; i < keys.length; i++) {
-                srv = (!!serverCommands[keys[i]]) ? server[keys[i]] : serverCommands[keys[i]];
-            }
-        }
-        return startProcess(srv);
+
     }
 
     /**
+     * 
+     * stopServer
+     * 
      * @param  {} server
+     * 
+     * @returns {Boolean} 
+     * 
      */
     function stopServer(server) {
-        if (!!server.other && !!server.other.serverType) {
-            server = startProcess(server.srv);
-            if (!server.pid) { return true; }
-            return false;
-        } else {
-            if (!!stopProcess(server.pid, 'EXIT')) { return true; }
-            return false;
-        }
+        // if (!!stopProcess(server.pid, 'EXIT')) { return true; }
     }
 
     return {
+        setup: setupHandler,
         setter: {
             config: setConfig,
-            connection: setConnection,
             os: setOS,
             servers: setServers,
-            process: setProcess,
-            processes: setProcesses
+            process: setProcess
         },
         getter: {
             config: getConfig,
-            connection: getConnection,
-            process: getProcess,
             os: getOS,
             servers: getServers,
-            processes: getProcesses,
+            process: getProcess,
             proxy: getProxy
         },
         process: {
             start: startProcess,
             stop: stopProcess,
-            get: getProcesses,
             getProcess: getProcess,
-            set: setProcesses
+            set: setProcess,
+            cmds: getProcess
         },
         proxy: {
             start: startProxy,
@@ -458,8 +514,9 @@ function handler() {
         server: {
             start: startServer,
             stop: stopServer,
+            get: getServers,
             set: setServers,
-            get: getServers
+            cmds: getServers
         }
     }
 }
