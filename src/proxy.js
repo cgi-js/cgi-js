@@ -261,7 +261,7 @@ function handler() {
      * @returns {Object}
      * 
      */
-    function startProcess(processObject, file) {
+    function startProcess(processObject, file, dataFunc, cleanupFunc) {
         // {name: {commands, instances: {pid: instance}}}
         // REDO THIS
         let processSpawn = require('child_process').spawn;
@@ -278,34 +278,35 @@ function handler() {
         let proc = processSpawn(exe, [...e], options);
         process.stdin.resume();
         proc.on('data', function (data) {
-            console.log(data);
-        });
+            dataFunc(data);
+        }.bind(dataFunc));
         function cleanUpServer(options, exitCode) {
             console.log("Event Type", eventType);
+            cleanupFunc(options, exitCode);
             if (options.cleanup) console.log('clean');
             if (exitCode || exitCode === 0) console.log(exitCode);
             if (options.exit) process.exit();
         }
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
-            proc.on(eventType, cleanUpServer.bind(null, eventType));
-        }.bind(proc, cleanUpServer));
+            proc.on(eventType, cleanUpServer.bind(null, eventType, cleanupFunc));
+        }.bind(proc, cleanUpServer, cleanupFunc));
         processes[proc.pid] = proc;
-        return { pid: proc.pid, srv: processObject };
+        return { pid: proc.pid, process: proc, srv: processObject };
     }
 
     /**
      * 
      * stopProcess
      *
-     * @param {Number, Object} proc
+     * @param {Number, Object} pid
      * 
      * @returns {Boolean}
      * 
      */
-    function stopProcess(proc, signal) {
-        process.kill(proc, signal);
-        console.log('Killed/Stopped process ' + processes[proc].pid);
-        processes[proc] = null;
+    function stopProcess(pid, signal) {
+        process.kill(pid, signal);
+        console.log('Killed/Stopped process ' + processes[pid].pid);
+        processes[pid] = null;
         process.stdin.end();
         return true;
     }
