@@ -258,12 +258,15 @@ function handler() {
      * 
      * @param {String} file
      * 
+     * @param {function} dataFunc
+     * 
+     * @param {function} cleanupFunc
+     * 
      * @returns {Object}
      * 
      */
     function startProcess(processObject, file, dataFunc, cleanupFunc) {
         // {name: {commands, instances: {pid: instance}}}
-        // REDO THIS
         let processSpawn = require('child_process').spawn;
         let { exe, args, options, other } = processObject;
         args.conf = !!other.osPaths.conf ?
