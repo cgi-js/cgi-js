@@ -267,7 +267,7 @@ function handler() {
      */
     function startProcess(processObject, file, dataFunc, cleanupFunc) {
         // {name: {commands, instances: {pid: instance}}}
-        let processSpawn = require('child_process').exec;
+        let spExec = require('child_process').exec;
         let { exe, args, options, other } = processObject;
         args.conf == !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) :
@@ -279,7 +279,7 @@ function handler() {
         let e = !!args ? args : [];
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
-        let proc = processSpawn([exe, ...e].join(" "), function (error, stdout, stderr) {
+        let proc = spExec([exe, ...e].join(" "), function (error, stdout, stderr) {
             dataFunc(error, stdout, stderr);
         });
         process.stdin.resume();
