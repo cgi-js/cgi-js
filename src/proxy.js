@@ -294,7 +294,7 @@ function handler() {
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
             proc.on(eventType, cleanUpServer.bind(null, eventType, cleanupFunc));
         }.bind(proc, cleanUpServer, cleanupFunc));
-        processes[proc.pid] = proc;
+        processes[proc.pid] = { process: proc, srv: processObject };
         return { pid: proc.pid, process: proc, srv: processObject };
     }
 
