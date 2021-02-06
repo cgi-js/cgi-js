@@ -280,14 +280,14 @@ function handler() {
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
         let proc = processSpawn([exe, ...e].join(" "), function (error, stdout, stderr) {
-            console.log("STDIO Data");
             dataFunc(error, stdout, stderr);
         });
         process.stdin.resume();
         function cleanUpServer(options, exitCode) {
-            console.log("Event Type", eventType);
-            cleanupFunc(options, exitCode);
-            if (options.cleanup) console.log('clean');
+            if (options.cleanup) {
+                console.log('Clean before Exiting for Event Type', eventType);
+                cleanupFunc(options, exitCode);
+            }
             if (exitCode || exitCode === 0) console.log(exitCode);
             if (options.exit) process.exit();
         }
