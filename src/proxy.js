@@ -237,38 +237,38 @@ function handler() {
      * setProcess
      * Sets the process of the connection key procId provided
      *
-     * @param {Object} processObject
+     * @param {Object} processConf
      * 
      * @returns {Boolean}
      * 
      */
-    function setProcess(processObject) {
-        return setter(processes, processObject);
+    function setProcess(processConf) {
+        return setter(processes, processConf);
     }
 
     /**
      * 
      * startProcess
      *
-     * @param {Object} processObject
+     * @param {Object} processConf
      * Defines the process Object needed to start the process
      * Expected Structure: {  }
      * 
      * process/server/database = 
-     * 
+     *  
      * @param {String} file
      * 
-     * @param {function} dataFunc
+     * @param {function} dataFnc
      * 
-     * @param {function} cleanupFunc
+     * @param {function} cleanupFnc
      * 
      * @returns {Object}
      * 
      */
-    function startProcess(processObject, file, dataFunc, cleanupFunc) {
+    function startProcess(processConf, file, dataFnc, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
         let spExec = require('child_process').exec;
-        let { exe, args, options, other } = processObject;
+        let { exe, args, options, other } = processConf;
         args.conf == !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) :
             (!!args.conf) ? args.conf : "";
@@ -280,22 +280,22 @@ function handler() {
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
         let proc = spExec([exe, ...e].join(" "), function (error, stdout, stderr) {
-            dataFunc(error, stdout, stderr);
+            dataFnc(error, stdout, stderr);
         });
         process.stdin.resume();
-        function cleanUpServer(options, exitCode) {
+        function cleanupSrv(options, exitCode) {
             if (options.cleanup) {
                 console.log('Clean before Exiting for Event Type', eventType);
-                cleanupFunc(options, exitCode);
+                cleanupFnc(options, exitCode);
             }
             if (exitCode || exitCode === 0) console.log(exitCode);
             if (options.exit) process.exit();
         }
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
-            proc.on(eventType, cleanUpServer.bind(null, eventType, cleanupFunc));
-        }.bind(proc, cleanUpServer, cleanupFunc));
-        processes[proc.pid] = { process: proc, srv: processObject };
-        return { pid: proc.pid, process: proc, srv: processObject };
+            proc.on(eventType, cleanupSrv.bind(null, eventType, cleanupFnc));
+        }.bind(proc, cleanupSrv, cleanupFnc));
+        processes[proc.pid] = { process: proc, conf: processConf };
+        return { pid: proc.pid, process: proc, conf: processConf };
     }
 
     /**

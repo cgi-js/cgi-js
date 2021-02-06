@@ -23,7 +23,7 @@ var proc = obj.process.start(
     },
     (options, exitCode) => console.log(options, exitCode)
 );
-// console.log(proc.pid, proc.process, proc.srv);
+// console.log(proc.pid, proc.process, proc.conf);
 setTimeout(function () {
     proc.process.kill(1); // Does not terminate the Node.js process in the shell.
     console.log("Subprocess killed", proc.pid);
