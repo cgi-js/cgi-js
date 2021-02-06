@@ -267,22 +267,23 @@ function handler() {
      */
     function startProcess(processObject, file, dataFunc, cleanupFunc) {
         // {name: {commands, instances: {pid: instance}}}
-        let processSpawn = require('child_process').spawn;
+        let processSpawn = require('child_process').exec;
         let { exe, args, options, other } = processObject;
-        args.conf = !!other.osPaths.conf ?
-            (other.osPaths.conf + args.conf) : args.conf;
+        args.conf == !!other.osPaths.conf ?
+            (other.osPaths.conf + args.conf) :
+            (!!args.conf) ? args.conf : "";
         exe = other.osPaths.exe + exe;
         if (!!other.serverType && !!other.command && !!file) {
-            error("Server definition or process definition allowed, not both");
+            error("Server Definition or Process Definition allowed, not both");
         }
-        let e = args.entries().flat(Infinity);
+        let e = !!args ? args : [];
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
-        let proc = processSpawn(exe, [...e], options);
+        let proc = processSpawn([exe, ...e].join(" "), function (error, stdout, stderr) {
+            console.log("STDIO Data");
+            dataFunc(error, stdout, stderr);
+        });
         process.stdin.resume();
-        proc.on('data', function (data) {
-            dataFunc(data);
-        }.bind(dataFunc));
         function cleanUpServer(options, exitCode) {
             console.log("Event Type", eventType);
             cleanupFunc(options, exitCode);
