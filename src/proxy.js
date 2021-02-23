@@ -298,6 +298,29 @@ function handler() {
         return { pid: proc.pid, process: proc, conf: processConf };
     }
 
+    /**
+     * 
+     * startProcessAsync
+     * All arguments and structure are the same but are async promises
+     *
+     * @param {Object} processConf
+     * Defines the process Object needed to start the process
+     * Expected Structure: {  }
+     * 
+     * process/server/database = 
+     * 
+     * @param {String} file
+     * 
+     * @param {function} dataHandler
+     * 
+     * @param {function} cleanupFnc
+     * 
+     * @returns {Object}
+     * 
+     */
+    function startProcessAsync(processConf, file, dataHandler, cleanupHandler) {
+        
+    }
 
     /**
      * 
