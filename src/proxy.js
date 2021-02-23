@@ -294,7 +294,13 @@ function handler() {
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
             proc.on(eventType, cleanupSrv.bind(null, eventType, cleanupFnc));
         }.bind(proc, cleanupSrv, cleanupFnc));
-        processes[proc.pid] = { process: proc, conf: processConf };
+        // processes[proc.pid] = { process: proc, conf: processConf };
+        let tmp = {};
+        tmp[proc.pid] = { process: proc, conf: processConf };
+        let bln = setter(processes, tmp);
+        if (!!bln) {
+            // Add something here
+        }
         return { pid: proc.pid, process: proc, conf: processConf };
     }
 
