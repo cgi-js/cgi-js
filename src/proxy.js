@@ -258,14 +258,14 @@ function handler() {
      *  
      * @param {String} file
      * 
-     * @param {function} dataFnc
+     * @param {function} dataHandler
      * 
      * @param {function} cleanupFnc
      * 
      * @returns {Object}
      * 
      */
-    function startProcess(processConf, file, dataFnc, cleanupFnc) {
+    function startProcess(processConf, file, dataHandler, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
         let spExec = require('child_process').exec;
         let { exe, args, options, other } = processConf;
@@ -280,16 +280,16 @@ function handler() {
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
         let proc = spExec([exe, ...e].join(" "), function (error, stdout, stderr) {
-            dataFnc(error, stdout, stderr);
+            dataHandler(error, stdout, stderr);
         });
         process.stdin.resume();
         function cleanupSrv(options, exitCode) {
-            if (options.cleanup) {
+            if (!!options.cleanup) {
                 console.log('Clean before Exiting for Event Type', eventType);
                 cleanupFnc(options, exitCode);
             }
-            if (exitCode || exitCode === 0) console.log(exitCode);
-            if (options.exit) process.exit();
+            if (!!exitCode || exitCode === 0) console.log(exitCode);
+            if (!!options.exit) process.exit();
         }
         [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
             proc.on(eventType, cleanupSrv.bind(null, eventType, cleanupFnc));
@@ -298,10 +298,11 @@ function handler() {
         return { pid: proc.pid, process: proc, conf: processConf };
     }
 
+
     /**
      * 
      * stopProcess
-     *
+     * 
      * @param {Number, Object} pid
      * 
      * @returns {Boolean}
@@ -504,6 +505,7 @@ function handler() {
         },
         process: {
             start: startProcess,
+            startAsync: startProcessAsync,
             stop: stopProcess,
             getProcess: getProcess,
             set: setProcess,
