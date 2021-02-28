@@ -1,3 +1,19 @@
+var events = require('events');
+
+var eventEmitter = new events.EventEmitter();
+var myEventHandler = function (prc) {
+    setTimeout(function() {
+        console.log("Closing Process PID: ", prc.pid);
+        prc.kill(1);
+        prc = null;
+        console.log("Process Object: ", prc);
+        console.log("Closing Node Process: ", process.pid);
+        process.exit();
+    }.bind(prc), 10000);
+}
+eventEmitter.on('closeprocess', myEventHandler);
+
+
 // Convert/Write tests for the following code
 var obj = require("../../src/proxy")();
 var proc = obj.process.start(
@@ -19,17 +35,21 @@ var proc = obj.process.start(
     },
     "./www/py/index.py",
     (error, stdout, stderr) => {
-        // console.log(error || "No Error", stdout, stderr || "No STD Error");
         console.log("Callback function");
     },
-    (options, exitCode) => console.log(options, exitCode)
+    (options, prc) => {
+        console.log("options", options);
+        eventEmitter.emit('closeprocess', prc);
+    }
 );
+
 // console.log(proc.pid, proc.process, proc.conf);
-setTimeout(function () {
-    proc.process.kill(1); // Does not terminate the Node.js process in the shell.
-    console.log("Subprocess killed", proc.pid);
-    process.exit(1);
-}.bind(proc), 5000);
+// setTimeout(function () {
+//     // Does not terminate the Node.js process in the shell.
+//     proc.process.kill();
+//     console.log("Subprocess killed", proc.pid);
+//     process.exit(1);
+// }.bind(proc), 10000);
 
 /* Structure for startAsync function for async operation */
 // var procasync = obj.process.startAsync(

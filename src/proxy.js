@@ -283,23 +283,25 @@ function handler() {
             dataHandler(error, stdout, stderr);
         });
         process.stdin.resume();
-        function cleanupSrv(options, exitCode) {
-            if (!!options.cleanup) {
-                console.log('Clean before Exiting for Event Type', eventType);
-                cleanupFnc(options, exitCode);
-            }
-            if (!!exitCode || exitCode === 0) console.log(exitCode);
-            if (!!options.exit) process.exit();
+
+        function cleanupSrv(eventType, exitFunction, proc) {
+            console.log('Cleanup Function before EventType:', eventType);
+            exitFunction(options, proc);
         }
-        [`exit`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`].forEach(function (eventType) {
-            proc.on(eventType, cleanupSrv.bind(null, eventType, cleanupFnc));
-        }.bind(proc, cleanupSrv, cleanupFnc));
-        // processes[proc.pid] = { process: proc, conf: processConf };
+
         let tmp = {};
         tmp[proc.pid] = { process: proc, conf: processConf };
-        let bln = setter(processes, tmp);
+        let bln = setProcess(tmp);
         if (!!bln) {
-            // Add something here
+            // Do something here - callback
+        }
+
+        // Signal Numbers
+        // http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
+        let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`];
+        evtLen = evt.length;
+        for (let i = 0; i < evtLen; i++) {
+            proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
         }
         return { pid: proc.pid, process: proc, conf: processConf };
     }
@@ -325,7 +327,7 @@ function handler() {
      * 
      */
     function startProcessAsync(processConf, file, dataHandler, cleanupHandler) {
-        
+
     }
 
     /**
@@ -338,10 +340,11 @@ function handler() {
      * 
      */
     function stopProcess(pid, signal) {
-        process.kill(pid, signal);
+        let proc = getProcess(pid)['process'];
+        proc.kill(signal);
+        proc.stdin.end();
+        setter(processes, pid) = null;
         console.log('Killed/Stopped process ' + processes[pid].pid);
-        processes[pid] = null;
-        process.stdin.end();
         return true;
     }
 
