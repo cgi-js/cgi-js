@@ -1,12 +1,18 @@
+/*
+ * Simple Usage of Start and Stop Process functions of proxy.js file
+ * Tests pending
+ *
+*/
+
 var events = require('events');
 
 var eventEmitter = new events.EventEmitter();
 var myEventHandler = function (prc) {
     setTimeout(function() {
         console.log("Closing Process PID: ", prc.pid);
+        // console.log("Process Object: ", prc);
         prc.kill(1);
         prc = null;
-        console.log("Process Object: ", prc);
         console.log("Closing Node Process: ", process.pid);
         process.exit();
     }.bind(prc), 10000);
@@ -18,7 +24,7 @@ eventEmitter.on('closeprocess', myEventHandler);
 var obj = require("../../src/proxy")();
 var proc = obj.process.start(
     {
-        exe: "python.exe",
+        exe: "python",
         args: [],
         options: {
             stdio: 'inherit',
@@ -35,10 +41,14 @@ var proc = obj.process.start(
     },
     "./www/py/index.py",
     (error, stdout, stderr) => {
-        console.log("Callback function");
+        console.log("Callback function Invoking");
+        console.log("Stdout: ", stdout);
+        console.log("Stderr: ", stderr);
+        console.log("Error: ", error);
     },
     (options, prc) => {
-        console.log("options", options);
+        console.log("Exit Handler options", options);
+        console.log("Exit Handler process", prc.pid);
         eventEmitter.emit('closeprocess', prc);
     }
 );

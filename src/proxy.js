@@ -286,6 +286,7 @@ function handler() {
 
         function cleanupSrv(eventType, exitFunction, proc) {
             console.log('Cleanup Function before EventType:', eventType);
+            console.log('Cleanup Function before Process PID:', proc.pid);
             exitFunction(options, proc);
         }
 
@@ -298,7 +299,10 @@ function handler() {
 
         // Signal Numbers
         // http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
-        let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`, `SIGTERM`];
+        let evt = [
+            `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`,
+            `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`
+        ];
         evtLen = evt.length;
         for (let i = 0; i < evtLen; i++) {
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
