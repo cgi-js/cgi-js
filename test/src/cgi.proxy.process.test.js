@@ -41,10 +41,10 @@ var proc = obj.process.start(
     },
     "./www/py/index.py",
     (error, stdout, stderr) => {
-        console.log("Callback function Invoking");
-        console.log("Stdout: ", stdout);
-        console.log("Stderr: ", stderr);
-        console.log("Error: ", error);
+        console.log("CB: Callback function Invoking");
+        console.log("CB: Stdout: ", stdout);
+        console.log("CB: Stderr: ", stderr);
+        console.log("CB: Error: ", error);
     },
     (options, prc) => {
         console.log("Exit Handler options", options);

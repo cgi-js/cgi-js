@@ -274,7 +274,7 @@ function handler() {
             (!!args.conf) ? args.conf : "";
         exe = other.osPaths.exe + exe;
         if (!!other.serverType && !!other.command && !!file) {
-            error("Server Definition or Process Definition allowed, not both");
+            error("startProcess: Server Definition or Process Definition allowed, not both");
         }
         let e = !!args ? args : [];
         if (!!other.command && !file) { e.push(other[other.command]); }
@@ -285,17 +285,15 @@ function handler() {
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
-            console.log('Cleanup Function before EventType:', eventType);
-            console.log('Cleanup Function before Process PID:', proc.pid);
+            console.log('startProcess: Cleanup Fnc EventType:', eventType);
+            console.log('startProcess: Cleanup Fnc Process PID:', proc.pid);
             exitFunction(options, proc);
         }
 
         let tmp = {};
         tmp[proc.pid] = { process: proc, conf: processConf };
         let bln = setProcess(tmp);
-        if (!!bln) {
-            // Do something here - callback
-        }
+        if (!!bln) { /* Do something here - callback */ }
 
         // Signal Numbers
         // http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
