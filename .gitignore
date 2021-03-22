@@ -107,6 +107,8 @@ dist/*
 
 www/*/__pycache__/
 binaries/db-mysql/src/*
+binaries/db-mongo/src/*
+binaries/db-redis/src/*
 binaries/lang-java/src/*
 binaries/lang-net/src/*
 binaries/lang-perl/src/*
