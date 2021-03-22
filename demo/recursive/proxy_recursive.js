@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require("os");
 const express = require('express');
 const path = require("path");
 const cgijs = require("../../src");
@@ -8,7 +9,18 @@ const cgijs = require("../../src");
 
 module.exports = () => {
     let proxyServers = {};
-    let configurations = JSON.parse(fs.readFileSync('./demo/config.json'));
+        
+    const ostype = os.type();
+    var configurations;
+
+    if (ostype === "Linux") {
+        configurations = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+    } else if (ostype === "Windows_NT") {
+        configurations = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+    } else if (ostype === "Darwin") {
+        configurations = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+    }
+    
     let configs = configurations.proxies;
     let configKeys = Object.keys(configs);
     let confLen = configKeys.length;

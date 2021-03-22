@@ -64,11 +64,12 @@ function cgiServe() {
 		if (typeof exeOptions.bin === "string") {
 			return exeOptions.bin;
 		} else if (typeof exeOptions.bin === "object") {
-			if (!!exeOptions.bin.useDefault && (exeOptions.bin.bin_path === "" || !("bin_path" in exeOptions.bin))) {
+			if (!!exeOptions.bin.useDefault || exeOptions.bin.bin_path === "" || !("bin_path" in exeOptions.bin)) {
 				return "";
 			} else if (!!exeOptions.bin.bin_path) {
 				return exeOptions.bin.bin_path;
 			} else {
+				console.log(exeOptions);
 				return error("cleanBinPath: bin path config type definition error");
 			}
 		}
@@ -200,7 +201,16 @@ function cgiServe() {
 	 * 
 	 */
 	function pathClean(exeOptions) {
-		exeOptions.bin = { bin_path: cleanBinPath("getCGI", exeOptions) };
+		if (typeof (exeOptions.bin) === 'object' && !!exeOptions.bin.useDefault) {
+			exeOptions.bin = {
+				bin_path: cleanBinPath("getCGI", exeOptions),
+				useDefault: exeOptions.bin.useDefault
+			};
+		} else {
+			exeOptions.bin = {
+				bin_path: cleanBinPath("getCGI", exeOptions),
+			};
+		}
 		return {
 			LANG_OPTS: LANG_OPTS,
 			exeOptions: exeOptions
@@ -400,8 +410,8 @@ function cgiServe() {
 			}
 			let file = path.join(exeOptions.web_root_folder);
 			fs.stat(file, function (err, stat) {
-				if (err || stat.isDirectory()) {
-					if (stat && stat.isDirectory()) {
+				if (!!err || stat.isDirectory()) {
+					if (!!stat && stat.isDirectory()) {
 						file = path.join(file, 'index.' + type);
 					}
 					if (file.includes(process.cwd())) {
@@ -485,13 +495,20 @@ function cgiServe() {
 					reject({
 						headers: {},
 						statusCode: 500,
-						response: "runCGI: error event" + err.toString()
+						response: "runCGI: error event " + err.toString()
 					});
 				});
 				proc.on('exit', function () {
 					proc.stdin.end();
-					let lines = tmp_result.split('\r\n');
 					let CGIObj = {};
+					if (!!err) {
+						reject({
+							headers: {},
+							statusCode: 500,
+							response: "runCGI: error in server " + err.toString()
+						});
+					}
+					let lines = tmp_result.split('\r\n');
 					if (lines.length) {
 						if (req.type == "php") {
 							CGIObj = getPHPHtml(lines);

@@ -5,6 +5,7 @@
 // 
 
 const fs = require('fs');
+const os = require("os");
 const express = require('express');
 const URL = require('url');
 const path = require("path");
@@ -14,8 +15,17 @@ const cgijs = require("../../src");
 var cgi = cgijs.init();
 var app = express();
 
-let conf = fs.readFileSync('./demo/config.json');
-let configuration = JSON.parse(conf);
+const ostype = os.type();
+var configuration;
+
+if (ostype === "Linux") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+} else if (ostype === "Windows_NT") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+} else if (ostype === "Darwin") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+}
+
 let ruby_bin = configuration.rb.embed.bin
 let ruby_www = configuration.rb.script.path
 
@@ -44,6 +54,8 @@ function response(type, exeOptions) {
 // RB File
 app.use("/rb", response('rb', { web_root_folder: ruby_www, bin: ruby_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 // RB File
-app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// RB File with useDefault as false
+app.use("/rbnud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;

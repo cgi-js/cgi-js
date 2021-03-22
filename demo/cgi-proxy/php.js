@@ -5,21 +5,30 @@
 // 
 
 const fs = require('fs');
+const os = require("os");
 const express = require('express');
 const URL = require('url');
 const path = require("path");
-const cgijs = require("../../src");
-// const cgijs = require("cgijs");
 
-var cgi = cgijs.init();
 var app = express();
 
-let conf = fs.readFileSync('./demo/config.json');
-let configuration = JSON.parse(conf);
+const ostype = os.type();
+var configuration;
+
+if (ostype === "Linux") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+} else if (ostype === "Windows_NT") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+} else if (ostype === "Darwin") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+}
+
 let php_bin = configuration.php.embed.bin
 let php_www = configuration.php.script.path
 
 function response(type, exeOptions) {
+    const cgijs = require("../../src");
+    // const cgijs = require("cgijs");
     var cgi = cgijs.init();
     return function (req, res, next) {
         let requestObject = {
@@ -45,8 +54,12 @@ function response(type, exeOptions) {
 app.use("/php", response('php', { web_root_folder: php_www, bin: php_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 // PHP File: Use bin as object definition
 app.use("/phpud", response('php', { web_root_folder: php_www, bin: { bin_path: '', useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PHP File: Use bin as object definition with useDefault false
+app.use("/phpnud", response('php', { web_root_folder: php_www, bin: { bin_path: '', useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 // PHP File: Use bin as Object definition with useDefault false
-app.use("/phpnud", response('php', { web_root_folder: php_www, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/phpnudd", response('php', { web_root_folder: php_www, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+// PHP File: Use bin as Object definition with useDefault true
+app.use("/phpudd", response('php', { web_root_folder: php_www, bin: { bin_path: php_bin, useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
 module.exports = app;
 

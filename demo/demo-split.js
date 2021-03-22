@@ -5,9 +5,20 @@
 // 
 
 const fs = require('fs');
+const os = require("os");
 const express = require('express');
 
-var configuration = JSON.parse(fs.readFileSync('./demo/config.json'));
+const ostype = os.type();
+var configuration;
+
+if (ostype == "Linux") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+} else if (ostype == "Windows_NT") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+} else if (ostype == "Darwin") {
+    configuration = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+}
+
 var { host, port } = configuration.server;
 var app = express();
 

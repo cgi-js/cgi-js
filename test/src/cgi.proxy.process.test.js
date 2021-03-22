@@ -1,11 +1,26 @@
 /*
+ * 
+ * TESTS PROCESS FUNCTIONS 
+ * 
+ * Tests for:
+ * 
+ * startprocess
+ * stopprocess
+ * startprocess, stopprocess
+ * startprocess with correct args
+ * startprocess with incorrect args
+ * stopprocess with correct args
+ * stopprocess with incorrect args
+ * setter and getter for process functions 
+ * 
  * Simple Usage of Start and Stop Process functions of proxy.js file
  * Tests pending
  *
 */
 
-var events = require('events');
 
+// Basic usage
+var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var myEventHandler = function (prc) {
     setTimeout(function() {
@@ -126,4 +141,7 @@ var proc = obj.process.start(
 // }, function (err) {
 //     console.log("My error", err);
 // });
+
+
+
 
