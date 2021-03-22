@@ -106,6 +106,7 @@ dist
 dist/*
 
 www/*/__pycache__/
+binaries/*
 binaries/db-mysql/src/*
 binaries/lang-java/src/*
 binaries/lang-net/src/*
