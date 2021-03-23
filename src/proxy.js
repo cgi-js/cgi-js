@@ -318,11 +318,12 @@ function handler() {
      *  
      * @param {String} file
      * 
-     * @param {function} dataHandler
+     * @param {Function} dataHandler
      * 
-     * @param {function} cleanupFnc
+     * @param {Function} cleanupFnc
      * 
      * @returns {Object}
+     * { pid: Number, process: Object, conf: Object }
      * 
      */
     function startProcess(processConf, file, dataHandler, cleanupFnc) {
@@ -383,9 +384,9 @@ function handler() {
      * 
      * @param {String} file
      * 
-     * @param {function} dataHandler
+     * @param {Function} dataHandler
      * 
-     * @param {function} cleanupFnc
+     * @param {Function} cleanupFnc
      * 
      * @returns {Object}
      * 
@@ -399,7 +400,7 @@ function handler() {
      * killProcess
      * 
      * 
-     * @param {Number, Object} pid
+     * @param {Number} pid
      * 
      * @returns {Boolean}
      * 
@@ -420,11 +421,12 @@ function handler() {
      * execProcess
      * 
      * 
-     * @param {Number, Object} conf
+     * @param {Object} conf
      * 
      * @param {Function} dataHandler
      *  
-     * @returns {Boolean}
+     * @returns {Boolean, Object}
+     * false / Process Instance
      * 
      */
     function execProcess(conf, dataHandler) {
@@ -445,7 +447,8 @@ function handler() {
      *
      * @param {Object} config
      * 
-     * @returns {Boolean}
+     * @returns {Boolean, Object}
+     * false / proxyInstance
      * 
      */
     function startProxy(config) {
@@ -491,6 +494,9 @@ function handler() {
      * 
      *
      * @param {String} name
+     * 
+     * @returns {Object}
+     * proxyInstance
      * 
      */
     function serveProxy(name) {
@@ -560,9 +566,11 @@ function handler() {
      * getProxy
      * 
      * 
-     * @param  {String, Array} name - name / [name]
+     * @param  {String, Array} name 
+     * name / [name]
      * 
-     * @returns {Boolean, Object} false / ProxyInstance { proxy, config, handlers }
+     * @returns {Boolean, Object}
+     * false / ProxyInstance { proxy, config, handlers }
      * 
      */
     function getProxy(name) {
@@ -574,7 +582,7 @@ function handler() {
      * setServers
      * 
      * 
-     * @param  {} obj
+     * @param  {Object} obj
      * 
      * @returns {Boolean}
      * 
@@ -586,9 +594,10 @@ function handler() {
      * getServers
      * 
      * 
-     * @param  {} name
+     * @param  {String} name
      * 
-     * @returns {Boolean, Object} false / ServerInstance { process, processCommandsKey }
+     * @returns {Boolean, Object}
+     * false / ServerInstance { process, processCommandsKey }
      * 
      */
     function getServers(name) { }
