@@ -293,7 +293,7 @@ function handler() {
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
-            console.log('startProcess: Cleanup Fnc EventType and Prfocess PID:', eventType, proc.pid);
+            console.log('startProcess: Cleanup Fnc EventType and Process PID: ', eventType, proc.pid);
             exitFunction(options, proc);
         }
 
@@ -363,7 +363,7 @@ function handler() {
 
     /**
      * 
-     * stopProcess
+     * execProcess
      * 
      * @param {Number, Object} conf
      * 
@@ -372,12 +372,15 @@ function handler() {
      * @returns {Boolean}
      * 
      */
-    function stopProcess(conf, dataHandler) {
+    function execProcess(conf, dataHandler) {
         let cmdObj = getter(processCommands, conf.name);
-        // TODO: TEMP: Following two statements to be tested
-        let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
-        let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
-        return execCommand(exe, e, dataHandler);
+        if (!!cmdObj) {
+            // TODO: TEMP: Following two statements to be tested
+            let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
+            let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
+            return execCommand(exe, e, dataHandler);
+        }
+        return false;
     }
 
     /**
@@ -572,10 +575,9 @@ function handler() {
             set: setProcess,
             getProcess: getProcess,
             cmds: getProcess,
-            exec: execCommand,
             start: startProcess,
             startAsync: startProcessAsync,
-            stop: stopProcess,
+            exec: execProcess,
             kill: killProcess
         },
         proxy: {
