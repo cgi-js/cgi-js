@@ -65,9 +65,9 @@ function handler() {
     let commandObject = {
         name: "", type: "executable", env: { os: { "name": { bin: "", runtime: "", exe: '' } } },
         cmds: {
-            start: { usage: "start", args: {} },
-            stop: { usage: "stop", args: {} },
-            restart: { usage: "restart", args: {} }
+            start: { usage: "start", args: [] },
+            stop: { usage: "stop", args: [] },
+            restart: { usage: "restart", args: [] }
         }
     };
 
@@ -245,6 +245,14 @@ function handler() {
         return setter(processes, processConf);
     }
 
+
+    function execCommand(exe, e, dataHandler) {
+        let ex = require('child_process').exec;
+        return ex([exe, ...e].join(" "), function (error, stdout, stderr) {
+            dataHandler(error, stdout, stderr);
+        });
+    }
+
     /**
      * 
      * startProcess
@@ -266,7 +274,7 @@ function handler() {
      */
     function startProcess(processConf, file, dataHandler, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
-        let spExec = require('child_process').exec;
+        // let spExec = require('child_process').exec;
         let { exe, args, options, other } = processConf;
 
         args.conf == !!other.osPaths.conf ?
@@ -281,9 +289,7 @@ function handler() {
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
 
-        let proc = spExec([exe, ...e].join(" "), function (error, stdout, stderr) {
-            dataHandler(error, stdout, stderr);
-        });
+        let proc = execCommand(exe, e, dataHandler);
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
@@ -359,16 +365,19 @@ function handler() {
      * 
      * stopProcess
      * 
-     * @param {Number, Object} pid
+     * @param {Number, Object} conf
      * 
-     * @param {Number, Object} cmd
-     * 
+     * @param {Function} dataHandler
+     *  
      * @returns {Boolean}
      * 
      */
-    function stopProcess(pid, cmd) {
-
-        return true;
+    function stopProcess(conf, dataHandler) {
+        let cmdObj = getter(processCommands, conf.name);
+        // TODO: TEMP: Following two statements to be tested
+        let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
+        let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
+        return execCommand(exe, e, dataHandler);
     }
 
     /**
@@ -560,26 +569,27 @@ function handler() {
             proxy: getProxy
         },
         process: {
+            set: setProcess,
+            getProcess: getProcess,
+            cmds: getProcess,
+            exec: execCommand,
             start: startProcess,
             startAsync: startProcessAsync,
             stop: stopProcess,
-            kill: killProcess,
-            getProcess: getProcess,
-            set: setProcess,
-            cmds: getProcess
+            kill: killProcess
         },
         proxy: {
+            setup: setupProxy,
+            get: getProxy,
             start: startProxy,
             stop: stopProxy,
-            serve: serveProxy,
-            setup: setupProxy,
-            get: getProxy
+            serve: serveProxy
         },
         server: {
+            set: setServers,
+            get: getServers,
             start: startServer,
             stop: stopServer,
-            get: getServers,
-            set: setServers,
             cmds: getServers
         }
     }
