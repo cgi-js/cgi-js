@@ -71,6 +71,16 @@ function handler() {
         }
     };
 
+    /**
+     * 
+     * setupHandler
+     * 
+     * 
+     * @param {*} name 
+     * 
+     * @param {*} optionsObject 
+     * 
+     */
     function setupHandler(name, optionsObject) {
         if (!name || !optionsObject) {
             return false;
@@ -139,6 +149,7 @@ function handler() {
     /**
      * 
      * setter
+     * 
      *
      * @param {Object} setterObject
      * 
@@ -160,6 +171,7 @@ function handler() {
     /**
      * 
      * getter
+     * 
      *
      * @param {Object} getterObject
      * 
@@ -188,6 +200,7 @@ function handler() {
      * REDO THIS
      * 
      * getConfig
+     * 
      *
      * @param {String, Array} args
      *      args is either single configuration string key or Array of keys to be fetched
@@ -204,6 +217,7 @@ function handler() {
      * REDO THIS
      * 
      * setConfig
+     * 
      *
      * @param {Object} options
      *      options is the an object of configuration with names of configuration as keys
@@ -245,7 +259,18 @@ function handler() {
         return setter(processes, processConf);
     }
 
-
+    /**
+     * 
+     * execCommand
+     * 
+     * 
+     * @param {String} exe
+     * 
+     * @param {Array Object} e
+     * 
+     * @param {Function} proc
+     *
+     */
     function execCommand(exe, e, dataHandler) {
         let ex = require('child_process').exec;
         return ex([exe, ...e].join(" "), function (error, stdout, stderr) {
@@ -256,6 +281,7 @@ function handler() {
     /**
      * 
      * registerEventHandlers
+     * 
      * 
      * @param {Object} proc
      * 
@@ -282,6 +308,7 @@ function handler() {
     /**
      * 
      * startProcess
+     * 
      *
      * @param {Object} processConf
      * Defines the process Object needed to start the process
@@ -371,6 +398,7 @@ function handler() {
      * 
      * killProcess
      * 
+     * 
      * @param {Number, Object} pid
      * 
      * @returns {Boolean}
@@ -390,6 +418,7 @@ function handler() {
     /**
      * 
      * execProcess
+     * 
      * 
      * @param {Number, Object} conf
      * 
@@ -412,6 +441,7 @@ function handler() {
     /**
      * 
      * startProxy
+     * 
      *
      * @param {Object} config
      * 
@@ -435,6 +465,7 @@ function handler() {
     /**
      * 
      * stopProxy
+     * 
      *
      * @param {String, Object} proxy
      * 
@@ -457,8 +488,10 @@ function handler() {
     /**
      *
      * serveProxy
+     * 
      *
      * @param {String} name
+     * 
      */
     function serveProxy(name) {
         let inst = getter(instanceProxyServers, name);
@@ -526,6 +559,7 @@ function handler() {
      * 
      * getProxy
      * 
+     * 
      * @param  {String, Array} name - name / [name]
      * 
      * @returns {Boolean, Object} false / ProxyInstance { proxy, config, handlers }
@@ -539,6 +573,7 @@ function handler() {
      * 
      * setServers
      * 
+     * 
      * @param  {} obj
      * 
      * @returns {Boolean}
@@ -549,6 +584,7 @@ function handler() {
     /**
      * 
      * getServers
+     * 
      * 
      * @param  {} name
      * 
@@ -561,6 +597,7 @@ function handler() {
      * 
      * startServer
      * 
+     * 
      * @param {*} server
      * Expected Structure: { commandObject }
      *       
@@ -572,6 +609,7 @@ function handler() {
     /**
      * 
      * stopServer
+     * 
      * 
      * @param  {} server
      * 
