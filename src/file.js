@@ -43,10 +43,13 @@ function cgiServe() {
 	 * @return {throw error}
 	 * 
 	 */
-	function error(msg) {
+	function error(msg, allowExit) {
 		console.error(msg);
-		// process.exit(msg);
-		throw new Error(msg);
+		if (!!allowExit) {
+			process.exit(msg);
+		} else {
+			throw new Error(msg);
+		}
 	}
 
 	/**
@@ -70,7 +73,7 @@ function cgiServe() {
 				}
 				return "";
 			} else {
-				return error("getBinPath: bin path config type definition error");
+				return error("getBinPath: bin path config type definition error", false);
 			}
 		}
 	}
@@ -114,10 +117,10 @@ function cgiServe() {
 				LANG_OPTS[type].which = WHICH_CGI;
 				return true;
 			} else {
-				return error("setCGI: CGI Executable type apply error");
+				return error("setCGI: CGI Executable type apply error", false);
 			}
 		} catch (e) {
-			return error("setCGI: CGI Executable fetch error");
+			return error("setCGI: CGI Executable fetch error", false);
 		}
 	}
 
@@ -139,7 +142,7 @@ function cgiServe() {
 			}
 			return LANG_OPTS[type].which;
 		} catch (e) {
-			return error("getCGI: CGI Executable fetch error " + e.toString());
+			return error("getCGI: CGI Executable fetch error " + e.toString(), false);
 		}
 	}
 
@@ -166,7 +169,7 @@ function cgiServe() {
 			langOptions.push(cgiLang);
 			return true;
 		}
-		return error("setCGITypes: Incorrect Type provided");
+		return error("setCGITypes: Incorrect Type provided", false);
 	}
 
 	/**
@@ -306,7 +309,7 @@ function cgiServe() {
 		if (!!ty && !!ty.pattern && ty.pattern !== "") {
 			return ty.pattern;
 		}
-		return error("getPattern: Pattern does not exist ", pattern);
+		return error("getPattern: Pattern does not exist " + pattern.toString(), false);
 	}
 
 	/**
@@ -323,7 +326,7 @@ function cgiServe() {
 		if (!!ty && !!ty.type && ty.type !== "") {
 			return ty.type;
 		}
-		return error("getType: Type does not exist ", type);
+		return error("getType: Type does not exist " + type.toString(), false);
 	}
 
 	/**
@@ -380,7 +383,7 @@ function cgiServe() {
 					}
 				} catch (err) {
 					console.error("getCGIHtml: ", err)
-					return error(err.toString());
+					return error(err.toString(), false);
 				}
 			}
 		}
@@ -458,7 +461,7 @@ function cgiServe() {
 				} else {
 					if (!LANG_OPTS[req.type]["which"]) {
 						try {
-							error('"runCGI: cgi executable" cannot be found, "which" Error ')
+							error('"runCGI: cgi executable" cannot be found, "which" Error ', false)
 						} catch (e) {
 							reject({
 								headers: {},
