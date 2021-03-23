@@ -260,7 +260,7 @@ function handler() {
      * @param {Object} proc
      * 
      * @param {Object} eventHandlers
-     * { event : { data: dataObj, handler: eventHandlerFunction } }
+     * { event : { data: dataObject, handler: eventHandlerFunction } }
      * 
      */
     function registerEventHandlers(proc, eventHandlers) {
