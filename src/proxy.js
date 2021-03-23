@@ -19,7 +19,6 @@ const utils = require("./utils")();
  */
 function handler() {
     let configurations = {}, processes = {}, processCommands = {}, instanceProxyServers = {};
-
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
     let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
@@ -269,6 +268,7 @@ function handler() {
         // {name: {commands, instances: {pid: instance}}}
         let spExec = require('child_process').exec;
         let { exe, args, options, other } = processConf;
+        
         args.conf == !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) :
             (!!args.conf) ? args.conf : "";
@@ -276,22 +276,24 @@ function handler() {
         if (!!other.serverType && !!other.command && !!file) {
             error("startProcess: Server Definition or Process Definition allowed, not both");
         }
+
         let e = !!args ? args : [];
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
+
         let proc = spExec([exe, ...e].join(" "), function (error, stdout, stderr) {
             dataHandler(error, stdout, stderr);
         });
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
-            console.log('startProcess: Cleanup Fnc EventType:', eventType);
-            console.log('startProcess: Cleanup Fnc Process PID:', proc.pid);
+            console.log('startProcess: Cleanup Fnc EventType and Prfocess PID:', eventType, proc.pid);
             exitFunction(options, proc);
         }
 
         let tmp = {};
         tmp[proc.pid] = { process: proc, conf: processConf };
+        
         let bln = setProcess(tmp);
         if (!!bln) { /* Do something here - callback */ }
 
@@ -302,6 +304,7 @@ function handler() {
             `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`
         ];
         evtLen = evt.length;
+        
         for (let i = 0; i < evtLen; i++) {
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
         }
@@ -403,7 +406,6 @@ function handler() {
      */
     function serveProxy(name) {
         let inst = getter(instanceProxyServers, name);
-
         let proxy = startProxy(inst.config);
         inst.proxy = proxy;
         inst.proxy.listen(inst.config.listenPort);
@@ -411,15 +413,16 @@ function handler() {
         let hKeys = Object.keys(inst.handlers);
         let hKeysLen = hKeys.length;
         if (!hKeysLen) { return false; }
-
         for (let i = 0; i < hKeysLen; i++) {
             inst.proxy.on(hKeys[i], inst.handlers[hKeys[i]]);
         }
 
         let proxyObject = {};
         proxyObject[name] = inst;
+
         let setInst = setter(instanceProxyServers, proxyObject);
         if (!setInst) { return false; }
+        
         return getter(instanceProxyServers, name);
     }
 
@@ -446,6 +449,7 @@ function handler() {
             }
         }
         if (validPort.length > 0) { return false; }
+
         let hKeys = Object.keys(handlerFunctions);
         for (let i = 0; i < hKeys.length; i++) {
             if (!(validProxyHandlers.includes(hKeys[i]))) {
@@ -455,8 +459,10 @@ function handler() {
 
         let proxyObject = {};
         proxyObject[name] = { "proxy": null, "config": config, "handlers": handlerFunctions };
+
         let proxyset = setter(instanceProxyServers, proxyObject);
         if (!proxyset) { return false; }
+
         return true;
     }
 
@@ -505,9 +511,7 @@ function handler() {
      * @returns {Boolean}
      * 
      */
-    function startServer(server) {
-
-    }
+    function startServer(server) { }
 
     /**
      * 
