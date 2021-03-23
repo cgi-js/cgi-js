@@ -51,7 +51,7 @@ function cgiServe() {
 
 	/**
 	 *
-	 * cleanBinPath
+	 * getBinPath
 	 * 
 	 * @param {String} action
 	 * 
@@ -60,17 +60,17 @@ function cgiServe() {
 	 * @returns {string} bin_path / {throw error} 
 	 * 
 	 */
-	function cleanBinPath(action, exeOptions) {
+	function getBinPath(action, exeOptions) {
 		if (typeof exeOptions.bin === "string") {
 			return exeOptions.bin;
 		} else if (typeof exeOptions.bin === "object") {
-			if (!!exeOptions.bin.useDefault || exeOptions.bin.bin_path === "" || !("bin_path" in exeOptions.bin)) {
+			if (!!exeOptions.bin.useDefault || !!exeOptions.bin.bin_path) {
+				if (exeOptions.bin.bin_path.trim() !== "") {
+					return exeOptions.bin.bin_path;
+				}
 				return "";
-			} else if (!!exeOptions.bin.bin_path) {
-				return exeOptions.bin.bin_path;
 			} else {
-				console.log(exeOptions);
-				return error("cleanBinPath: bin path config type definition error");
+				return error("getBinPath: bin path config type definition error");
 			}
 		}
 	}
@@ -193,22 +193,22 @@ function cgiServe() {
 
 	/**
 	 *
-	 * pathClean
+	 * cleanPath
 	 * 
 	 * @param {Object} exeOptions
 	 * 
 	 * @returns {Object} {LANG_OPTS, exeOptions}
 	 * 
 	 */
-	function pathClean(exeOptions) {
+	function cleanPath(exeOptions) {
 		if (typeof (exeOptions.bin) === 'object' && !!exeOptions.bin.useDefault) {
 			exeOptions.bin = {
-				bin_path: cleanBinPath("getCGI", exeOptions),
+				bin_path: getBinPath("getCGI", exeOptions),
 				useDefault: exeOptions.bin.useDefault
 			};
 		} else {
 			exeOptions.bin = {
-				bin_path: cleanBinPath("getCGI", exeOptions),
+				bin_path: getBinPath("getCGI", exeOptions),
 			};
 		}
 		return {
@@ -229,7 +229,7 @@ function cgiServe() {
 	 * 
 	 */
 	function getVars(exeOptions) {
-		return pathClean(exeOptions);
+		return cleanPath(exeOptions);
 	}
 
 	/**
@@ -416,15 +416,11 @@ function cgiServe() {
 					}
 					if (file.includes(process.cwd())) {
 						fs.exists(file, function (exists) {
-							if (!!exists) {
-								feFn(file);
-							}
+							if (!!exists) { feFn(file); }
 						});
 					} else {
 						fs.exists(path.join(process.cwd(), file), function (exists) {
-							if (!!exists) {
-								feFn(file);
-							}
+							if (!!exists) { feFn(file); }
 						});
 					}
 				}
@@ -482,7 +478,7 @@ function cgiServe() {
 					reject({
 						headers: {},
 						statusCode: 500,
-						response: "runCGI: error in server " + err.toString()
+						response: "runCGI: error in server during stdin " + err.toString()
 					});
 				});
 				proc.stdout.on('data', function (data) {
@@ -505,7 +501,7 @@ function cgiServe() {
 						reject({
 							headers: {},
 							statusCode: 500,
-							response: "runCGI: error in server " + err.toString()
+							response: "runCGI: error in server during exit " + err.toString()
 						});
 					}
 					let lines = tmp_result.split('\r\n');
