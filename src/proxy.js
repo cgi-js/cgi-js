@@ -255,6 +255,32 @@ function handler() {
 
     /**
      * 
+     * registerEventHandlers
+     * 
+     * @param {Object} proc
+     * 
+     * @param {Object} eventHandlers
+     * { event : { data: dataObj, handler: eventHandlerFunction } }
+     * 
+     */
+    function registerEventHandlers(proc, eventHandlers) {
+        let eKeys = eventHandlers.keys();
+        let eKeysLen = eKeys.length;
+
+        function cleanup(eventType, exitFunction, data, proc) {
+            console.log('registerEventHandlers: Cleanup Fnc EventType and Process PID: ', eventType, proc.pid);
+            exitFunction(data, proc);
+        }
+
+        for (let e = 0; e < eKeysLen; e++) {
+            let { data, handler } = eventHandlers[eKeys[e]];
+            proc.on(eKeys[e], cleanup.bind(null, eKeys[e], handler, data, proc));
+        }
+        return proc;
+    }
+
+    /**
+     * 
      * startProcess
      *
      * @param {Object} processConf
@@ -578,6 +604,7 @@ function handler() {
             start: startProcess,
             startAsync: startProcessAsync,
             exec: execProcess,
+            registerHandlers: registerEventHandlers,
             kill: killProcess
         },
         proxy: {
