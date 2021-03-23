@@ -36,11 +36,11 @@ module.exports = () => {
             function proxyHandler(name, handler, config) {
                 handler.proxy.setup(name, config, {})
                 let proxy = handler.proxy.serve(configKeys[i]);
-                return function (req, res, next) {
+                return function (req, res) {
                     proxy.proxy.web(req, res);
                 }
             }
-            app.use("/" + configKeys[i], proxyHandler(configKeys[i], cgijs.handler(), configs[configKeys[i]]));
+            app.use("/" + configKeys[i], proxyHandler(configKeys[i], cgijs.proxy(), configs[configKeys[i]]));
         }
         return { servers: proxyServers, app: app }
     } catch (e) {

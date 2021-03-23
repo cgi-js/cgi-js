@@ -32,13 +32,13 @@ var app = express();
 function proxyHandler(handler, config) {
     handler.proxy.setup("proxyone", config, {})
     let proxy = handler.proxy.serve("proxyone");
-    return function (req, res, next) {
-        proxy.proxy.web(req, res)
+    return function (req, res) {
+        proxy.proxy.web(req, res);
     }
 }
 
 // Subsystem for proxyHandler
-app.use("/proxyone", proxyHandler(cgijs.handler(), config));
+app.use("/proxyone", proxyHandler(cgijs.proxy(), config));
 app.use("*", (req, res) => res.send("Testing Server"));
 
 module.exports = {

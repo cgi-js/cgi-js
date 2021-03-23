@@ -1,7 +1,7 @@
 
 
 // Basic usage
-var obj = require("../../src/proxy")();
+var obj = require("../../src/process")();
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var myEventHandler = function (prc) {

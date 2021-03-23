@@ -7,8 +7,10 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 let file = require("./file");
 let proxy = require("./proxy");
+let process = require("./process");
 
 module.exports = {
     "init": file.serve,
-    "handler": proxy
+    "proxy": proxy,
+    "process": process
 };

@@ -85,7 +85,7 @@ function proxyHandler(handler, configuration) {
         proxy.proxy.web(req, res)
     }
 }
-app.use("/proxyone", proxyHandler(cgijs.handler(), config));
+app.use("/proxyone", proxyHandler(cgijs.proxy(), config));
 
 
 function response(type, exeOptions) {
