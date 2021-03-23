@@ -268,7 +268,7 @@ function handler() {
         // {name: {commands, instances: {pid: instance}}}
         let spExec = require('child_process').exec;
         let { exe, args, options, other } = processConf;
-        
+
         args.conf == !!other.osPaths.conf ?
             (other.osPaths.conf + args.conf) :
             (!!args.conf) ? args.conf : "";
@@ -293,7 +293,7 @@ function handler() {
 
         let tmp = {};
         tmp[proc.pid] = { process: proc, conf: processConf };
-        
+
         let bln = setProcess(tmp);
         if (!!bln) { /* Do something here - callback */ }
 
@@ -304,7 +304,7 @@ function handler() {
             `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`
         ];
         evtLen = evt.length;
-        
+
         for (let i = 0; i < evtLen; i++) {
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
         }
@@ -337,19 +337,37 @@ function handler() {
 
     /**
      * 
-     * stopProcess
+     * killProcess
      * 
      * @param {Number, Object} pid
      * 
      * @returns {Boolean}
      * 
      */
-    function stopProcess(pid, signal) {
+    function killProcess(pid, signal) {
         let proc = getProcess(pid)['process'];
         proc.kill(signal);
         proc.stdin.end();
-        setter(processes, pid) = null;
-        console.log('Killed/Stopped process ' + processes[pid].pid);
+        let ob = {};
+        ob[pid] = null;
+        setter(processes, ob);
+        console.log('Killed/Stopped process ' + pid, "Object is ", processes[pid]);
+        return true;
+    }
+
+    /**
+     * 
+     * stopProcess
+     * 
+     * @param {Number, Object} pid
+     * 
+     * @param {Number, Object} cmd
+     * 
+     * @returns {Boolean}
+     * 
+     */
+    function stopProcess(pid, cmd) {
+
         return true;
     }
 
@@ -422,7 +440,7 @@ function handler() {
 
         let setInst = setter(instanceProxyServers, proxyObject);
         if (!setInst) { return false; }
-        
+
         return getter(instanceProxyServers, name);
     }
 
@@ -545,6 +563,7 @@ function handler() {
             start: startProcess,
             startAsync: startProcessAsync,
             stop: stopProcess,
+            kill: killProcess,
             getProcess: getProcess,
             set: setProcess,
             cmds: getProcess
