@@ -1,18 +1,18 @@
 /*
 License: MIT
 Dynamic CGI serving using dynamic path imports for 
-	 CGI supporting executable for Interpreted languages Embedded Distribution
+     CGI supporting executable for Interpreted languages Embedded Distribution
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 
 Example for HTTPD process start stop
 */
- 
+
 // Basic usage
 var obj = require("../../../src/process")();
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var killEventHandler = function (prc) {
-    setTimeout(function() {
+    setTimeout(function () {
         console.log("Closing using kill function for Process PID: ", prc.pid);
         // console.log("Process Object: ", prc);
         if (obj.process.kill(prc.pid, 1)) {
@@ -24,10 +24,13 @@ var killEventHandler = function (prc) {
 }
 
 var closeEventHandler = function (prc) {
-    setTimeout(function() {
+    setTimeout(function () {
         console.log("Closing using stop function for Process PID: ", prc.pid);
         // console.log("Process Object: ", prc);
-        if (obj.process.stop(prc.pid, 1)) {
+        if (
+            !!obj.process.cExec({ name: prc.pid, cmds: prc.config.exe + " stop" },
+                () => { console.log("Testing close function") }
+            )) {
             prc = null;
         }
         console.log("Closing Node Process: ", process.pid);
@@ -75,7 +78,7 @@ let mconfig = {
 }
 
 let wconfig = {
-    exe: "../binaries/server-httpd/win/httpd.exe",
+    exe: "httpd.exe",
     args: [],
     options: {
         stdio: 'inherit',
@@ -84,7 +87,7 @@ let wconfig = {
     other: {
         osPaths: {
             conf: "../binaries/server-httpd/win/httpd.conf",
-            exe: "../binaries/server-httpd/win/httpd.exe"
+            exe: "../binaries/server-httpd/win/"
         },
         command: "",
         serverType: ""
@@ -126,11 +129,12 @@ var closeproc = obj.process.start(
         console.log("CB: Stderr: ", stderr);
         console.log("CB: Error: ", error);
     },
-    (options, prc) => {
+    function (options, prc) {
         console.log("Exit Handler options", options);
         console.log("Exit Handler process", prc.pid);
+        prc["config"] = configuration;
         eventEmitter.emit('closeprocess', prc);
-    }
+    }.bind(configuration)
 );
 
 var stopproc = obj.process.start(
