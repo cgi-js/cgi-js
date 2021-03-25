@@ -122,6 +122,8 @@ binaries/server-mongoose/src/*
 binaries/server-nginx/src/*
 binaries/server-putty/src/*
 binaries/server-tomcat/src/*
+binaries/server-jetty/src/*
+binaries/server-iis-net/src/*
 */*/__pycache__/
 
 tmp/*

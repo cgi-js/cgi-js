@@ -1,0 +1,4 @@
+
+Through Nginx Proxy
+https://www.nginx.com/resources/wiki/start/topics/examples/javaservers/
+
