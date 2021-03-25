@@ -116,6 +116,7 @@ binaries/lang-php/src/*
 binaries/lang-python/src/*
 binaries/lang-python3/src/*
 binaries/lang-ruby/src/*
+binaries/lang-node/src/*
 binaries/server-httpd/src/*
 binaries/server-mongoose/src/*
 binaries/server-nginx/src/*
