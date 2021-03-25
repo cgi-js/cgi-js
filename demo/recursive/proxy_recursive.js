@@ -32,7 +32,6 @@ module.exports = () => {
             proxyServers[configKeys[i]] = {
                 remote: remoteProxy
             };
-            
             function proxyHandler(name, handler, config) {
                 handler.proxy.setup(name, config, {})
                 let proxy = handler.proxy.serve(configKeys[i]);
@@ -42,9 +41,9 @@ module.exports = () => {
             }
             app.use("/" + configKeys[i], proxyHandler(configKeys[i], cgijs.proxy(), configs[configKeys[i]]));
         }
-        return { servers: proxyServers, app: app }
+        return { servers: proxyServers, app: app, error: null }
     } catch (e) {
         console.log("Error occured in proxy recursive ", e.toString())
-        return {servers: null, app: null, error: e};
+        return { servers: null, app: null, error: e };
     }
 }

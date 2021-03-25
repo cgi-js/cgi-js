@@ -17,6 +17,22 @@ app.use("*", function (req, res) {
     res.send(`"Testing my server recursive"`);
 });
 
-app.listen(9090, '127.0.0.1', function () {
+let server = app.listen(9090, '127.0.0.1', function () {
     console.log(`Server listening at 9090`);
 });
+
+let s = proxyapps.servers;
+
+process.on("SIGINT", function() {
+    let k = Object.keys(s);
+    let l = k.length;
+    for (let i = 0; i < l; i++) {
+        s[k[i]]["remote"]["server"].close(function() {
+            console.log("Closing remote proxy server: ", k[i]);
+        });
+    }
+    server.close(function() {
+        console.log("Closing server");
+        process.exit(1);
+    });
+}.bind(server, s))

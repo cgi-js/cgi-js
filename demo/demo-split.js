@@ -32,6 +32,7 @@ let pl = require("./cgi-proxy/pl");
 app.use(pl);
 let proxy = require("./cgi-proxy/proxy");
 app.use(proxy.app);
+console.log(proxy.remoteProxy)
 
 app.use("*", function (req, res) {
     res.send(`
@@ -39,5 +40,16 @@ app.use("*", function (req, res) {
     `);
 });
 
-app.listen(port, host);
-console.log(`Server listening at ${port}!`);
+let server = app.listen(port, host, function() {
+    console.log(`Server listening at ${port}!`);
+});
+
+process.on("SIGINT", function() {
+    proxy.remoteProxy.server.close(function() {
+        console.log("Closing remote proxy server");
+        server.close(function() {
+            console.log("Closing server");
+            process.exit(1)
+        });
+    });
+}.bind(server, proxy));

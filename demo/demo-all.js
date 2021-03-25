@@ -85,7 +85,8 @@ function proxyHandler(handler, configuration) {
         proxy.proxy.web(req, res)
     }
 }
-app.use("/proxyone", proxyHandler(cgijs.proxy(), config));
+let h = cgijs.proxy();
+app.use("/proxyone", proxyHandler(h, config));
 
 
 function response(type, exeOptions) {
@@ -155,5 +156,16 @@ app.use("*", function (req, res) {
     `);
 });
 
-app.listen(sport, shost);
-console.log(`Server listening at ${sport}!`);
+let server = app.listen(sport, shost, function() {
+    console.log(`Server listening at ${sport}!`);
+});
+
+process.on("SIGINT", function() {
+    remoteProxy.close(function() {
+        console.log("Closing remote proxy server");
+        server.close(function() {
+            console.log("Closing server");
+            process.exit(1);
+        });
+    }.bind(server));
+}.bind(server, remoteProxy));
