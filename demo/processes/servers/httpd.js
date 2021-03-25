@@ -75,7 +75,7 @@ let mconfig = {
 }
 
 let wconfig = {
-    exe: "G:\workspace\cgi-js\binaries\server-httpd\win\httpd.exe",
+    exe: "../binaries/server-httpd/win/httpd.exe",
     args: [],
     options: {
         stdio: 'inherit',
@@ -83,8 +83,8 @@ let wconfig = {
     },
     other: {
         osPaths: {
-            conf: "G:\workspace\cgi-js\binaries\server-httpd\win\httpd.conf",
-            exe: "G:\workspace\cgi-js\binaries\server-httpd\win\httpd.exe"
+            conf: "../binaries/server-httpd/win/httpd.conf",
+            exe: "../binaries/server-httpd/win/httpd.exe"
         },
         command: "",
         serverType: ""
@@ -133,7 +133,7 @@ var closeproc = obj.process.start(
     }
 );
 
-var stopserver = obj.process.start(
+var stopproc = obj.process.start(
     configuration, "",
     (error, stdout, stderr) => {
         console.log("CB: Callback function Invoking");
