@@ -245,7 +245,6 @@ function handler() {
      */
     function startProcess(processConf, file, dataHandler, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
-        // let spExec = require('child_process').exec;
         let { exe, args, options, other } = processConf;
 
         args.conf == !!other.osPaths.conf ?
