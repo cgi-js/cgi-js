@@ -97,57 +97,6 @@ function handler() {
     function getOS(name) { }
 
 
-    // /**
-    //  * 
-    //  * setter
-    //  * 
-    //  *
-    //  * @param {Object} setterObject
-    //  * 
-    //  * @param {Object} values
-    //  * 
-    //  * @returns
-    //  * 
-    //  */
-    // function setter(setterObject, values) {
-    //     if (!values && typeof values !== "object") { return false; }
-    //     keys = Object.keys(values);
-    //     if (!keys.length) { return false; }
-    //     for (let i = 0; i < keys.length; i++) {
-    //         setterObject[keys[i]] = values[keys[i]];
-    //     }
-    //     return true;
-    // }
-
-    // /**
-    //  * 
-    //  * getter
-    //  * 
-    //  *
-    //  * @param {Object} getterObject
-    //  * 
-    //  * @param {String, Array} args
-    //  * 
-    //  * @returns {Boolean}
-    //  * 
-    //  */
-    // function getter(getterObject, args) {
-    //     if (!args) { return false; }
-    //     if (typeof args === "string" || typeof args === "number") {
-    //         return (!!getterObject[args]) ? getterObject[args] : false;
-    //     } else if (Array.isArray(args)) {
-    //         let tmp = {};
-    //         for (let i = 0; i < args.length; i++) {
-    //             if (!!getterObject[args[i]]) {
-    //                 tmp[args[i]] = getterObject[args[i]];
-    //             }
-    //         }
-    //         return (!Object.keys(tmp).length) ? false : tmp;
-    //     }
-    //     return false;
-    // }
-
-
     /**
      * 
      * getProcess
