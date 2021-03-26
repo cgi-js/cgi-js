@@ -370,6 +370,7 @@ function handler() {
      * 
      * 
      * @param  {Object} obj
+     * Expected Structure: { commandObject }
      * 
      * @returns {Boolean}
      * 
@@ -394,25 +395,24 @@ function handler() {
      * startServer
      * 
      * 
-     * @param {*} server
-     * Expected Structure: { commandObject }
+     * @param {String} name
      *       
      * @returns {Boolean}
      * 
      */
-    function startServer(server) { }
+    function startServer(name) { }
 
     /**
      * 
      * stopServer
      * 
      * 
-     * @param  {} server
+     * @param  {String} name
      * 
      * @returns {Boolean} 
      * 
      */
-    function stopServer(server) {
+    function stopServer(name) {
         // if (!!stopProcess(server.pid, 'EXIT')) { return true; }
     }
 
