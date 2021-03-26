@@ -331,14 +331,13 @@ function handler() {
 
     return {
         setup: setupHandler,
-        setter: {
-            config: setConfig,
-            os: setOS
+        config: {
+            set: setConfig,
+            get: getConfig
         },
-        getter: {
-            config: getConfig,
-            os: getOS,
-            proxy: getProxy
+        os: {
+            set: setOS,
+            get: getOS
         },
         proxy: {
             setup: setupProxy,

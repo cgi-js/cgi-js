@@ -419,15 +419,9 @@ function handler() {
 
     return {
         setup: setupHandler,
-        setter: {
-            os: setOS,
-            servers: setServers,
-            process: setProcess
-        },
-        getter: {
-            os: getOS,
-            servers: getServers,
-            process: getProcess
+        os: {
+            set: setOS,
+            get: getOS
         },
         process: {
             set: setProcess,

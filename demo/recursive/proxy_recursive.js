@@ -20,7 +20,7 @@ module.exports = () => {
     } else if (ostype === "Darwin") {
         configurations = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
     }
-    
+
     let configs = configurations.proxies;
     let configKeys = Object.keys(configs);
     let confLen = configKeys.length;
