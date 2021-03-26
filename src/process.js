@@ -428,7 +428,7 @@ function handler() {
      * 
      */
     function restartServer(server) {
-        
+
     }
 
     return {
