@@ -9,6 +9,8 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 const https = require('https');
 const fs = require('fs');
 const utils = require("./utils")();
+const setter = utils.setter;
+const getter = utils.getter;
 
 /**
  * 
@@ -95,55 +97,55 @@ function handler() {
     function getOS(name) { }
 
 
-    /**
-     * 
-     * setter
-     * 
-     *
-     * @param {Object} setterObject
-     * 
-     * @param {Object} values
-     * 
-     * @returns
-     * 
-     */
-    function setter(setterObject, values) {
-        if (!values && typeof values !== "object") { return false; }
-        keys = Object.keys(values);
-        if (!keys.length) { return false; }
-        for (let i = 0; i < keys.length; i++) {
-            setterObject[keys[i]] = values[keys[i]];
-        }
-        return true;
-    }
+    // /**
+    //  * 
+    //  * setter
+    //  * 
+    //  *
+    //  * @param {Object} setterObject
+    //  * 
+    //  * @param {Object} values
+    //  * 
+    //  * @returns
+    //  * 
+    //  */
+    // function setter(setterObject, values) {
+    //     if (!values && typeof values !== "object") { return false; }
+    //     keys = Object.keys(values);
+    //     if (!keys.length) { return false; }
+    //     for (let i = 0; i < keys.length; i++) {
+    //         setterObject[keys[i]] = values[keys[i]];
+    //     }
+    //     return true;
+    // }
 
-    /**
-     * 
-     * getter
-     * 
-     *
-     * @param {Object} getterObject
-     * 
-     * @param {String, Array} args
-     * 
-     * @returns {Boolean}
-     * 
-     */
-    function getter(getterObject, args) {
-        if (!args) { return false; }
-        if (typeof args === "string" || typeof args === "number") {
-            return (!!getterObject[args]) ? getterObject[args] : false;
-        } else if (Array.isArray(args)) {
-            let tmp = {};
-            for (let i = 0; i < args.length; i++) {
-                if (!!getterObject[args[i]]) {
-                    tmp[args[i]] = getterObject[args[i]];
-                }
-            }
-            return (!Object.keys(tmp).length) ? false : tmp;
-        }
-        return false;
-    }
+    // /**
+    //  * 
+    //  * getter
+    //  * 
+    //  *
+    //  * @param {Object} getterObject
+    //  * 
+    //  * @param {String, Array} args
+    //  * 
+    //  * @returns {Boolean}
+    //  * 
+    //  */
+    // function getter(getterObject, args) {
+    //     if (!args) { return false; }
+    //     if (typeof args === "string" || typeof args === "number") {
+    //         return (!!getterObject[args]) ? getterObject[args] : false;
+    //     } else if (Array.isArray(args)) {
+    //         let tmp = {};
+    //         for (let i = 0; i < args.length; i++) {
+    //             if (!!getterObject[args[i]]) {
+    //                 tmp[args[i]] = getterObject[args[i]];
+    //             }
+    //         }
+    //         return (!Object.keys(tmp).length) ? false : tmp;
+    //     }
+    //     return false;
+    // }
 
 
     /**
@@ -173,7 +175,12 @@ function handler() {
      * 
      */
     function setProcess(processConf) {
-        return setter(processes, processConf);
+        let setterVal = setter(processes, processConf);
+        if (!!setterVal) {
+            processes = setterVal;
+            return processes;
+        }
+        return false;
     }
 
     /**
@@ -327,8 +334,11 @@ function handler() {
         proc.stdin.end();
         let ob = {};
         ob[pid] = null;
-        setter(processes, ob);
-        console.log('Killed/Stopped process ' + pid, "Object is ", processes[pid]);
+        let setterVal = setter(processes, ob);
+        if (!setterVal) {
+            console.error("killProcess: Error during setting null object");
+        }
+        console.log('killProcess: Killed/Stopped process ' + pid, "Object is ", processes[pid]);
         return true;
     }
 

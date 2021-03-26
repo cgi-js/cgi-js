@@ -32,7 +32,6 @@ let pl = require("./cgi-proxy/pl");
 app.use(pl);
 let proxy = require("./cgi-proxy/proxy");
 app.use(proxy.app);
-console.log(proxy.remoteProxy)
 
 app.use("*", function (req, res) {
     res.send(`

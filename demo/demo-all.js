@@ -161,7 +161,7 @@ let server = app.listen(sport, shost, function() {
 });
 
 process.on("SIGINT", function() {
-    remoteProxy.close(function() {
+    remoteProxy.server.close(function() {
         console.log("Closing remote proxy server");
         server.close(function() {
             console.log("Closing server");
