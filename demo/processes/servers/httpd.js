@@ -28,9 +28,10 @@ var closeEventHandler = function (prc) {
         console.log("Closing using stop function for Process PID: ", prc.pid);
         // console.log("Process Object: ", prc);
         if (
-            !!obj.process.cExec({ name: prc.pid, cmds: prc.config.exe + " stop" },
-                () => { console.log("Testing close function") }
-            )) {
+            !!obj.process.cExec(
+                { name: prc.pid, os: "", cmd: "", command: "" },
+                () => { console.log("Testing close function") })
+        ) {
             prc = null;
         }
         console.log("Closing Node Process: ", process.pid);

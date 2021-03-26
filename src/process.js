@@ -366,6 +366,14 @@ function handler() {
      * 
      */
     function execProcess(conf, dataHandler) {
+        if (!!conf.command && typeof conf.command === "string") {
+            try {
+                return execCommand(conf.command, [], dataHandler);
+            } catch (e) {
+                console.log("execProcess: Error occured: ", e.toString());
+                return false;
+            }
+        }
         let cmdObj = getter(processCommands, conf.name);
         if (!!cmdObj) {
             // TODO: TEMP: Following two statements to be tested
