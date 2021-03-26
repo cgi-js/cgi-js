@@ -417,6 +417,20 @@ function handler() {
         // if (!!stopProcess(server.pid, 'EXIT')) { return true; }
     }
 
+    /**
+     * 
+     * restartServer
+     * 
+     * 
+     * @param  {} server
+     * 
+     * @returns {Boolean} 
+     * 
+     */
+    function restartServer(server) {
+        
+    }
+
     return {
         setup: setupHandler,
         os: {
@@ -437,7 +451,7 @@ function handler() {
             get: getServers,
             start: startServer,
             stop: stopServer,
-            cmds: getServers
+            restart: restartServer
         }
     }
 }
