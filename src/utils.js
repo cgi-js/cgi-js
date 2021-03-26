@@ -91,15 +91,15 @@ function utils() {
     }
 
     function isEqual(baseObject, validateObj, exact = false, type = false) {
-        var aProps = Object.getOwnPropertyNames(a);
-        var bProps = Object.getOwnPropertyNames(b);
+        let aProps = Object.getOwnPropertyNames(a);
+        let bProps = Object.getOwnPropertyNames(b);
 
         if (!!exact) {
             if (aProps.length != bProps.length) {
                 return false;
             }
         }
-        for (var i = 0; i < aProps.length; i++) {
+        for (let i = 0; i < aProps.length; i++) {
             if (!(bProps.includes(aProps[i]))) {
                 return false;
             }
