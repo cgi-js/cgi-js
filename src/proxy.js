@@ -107,7 +107,7 @@ function handler() {
 
     function getOS(name) { }
 
-    
+
     /**
      * REDO THIS
      * 
@@ -207,7 +207,7 @@ function handler() {
      */
     function serveProxy(name) {
         let inst = getter(instanceProxyServers, name);
-        let proxy = startProxy(inst.config);
+        let proxy = startProxy(inst.config), proxyObject = {}, setInst = null;
 
         inst.proxy = proxy;
         inst.proxy.listen(inst.config.listenPort);
@@ -220,12 +220,9 @@ function handler() {
             }
         }
 
-        let proxyObject = {};
         proxyObject[name] = inst;
-
-        let setInst = setter(instanceProxyServers, proxyObject);
+        setInst = setter(instanceProxyServers, proxyObject);
         if (!setInst) { return false; }
-
         return getter(instanceProxyServers, name);
     }
 
@@ -244,29 +241,29 @@ function handler() {
      * 
      */
     function setupProxy(name, config, handlerFunctions) {
+        // Validate config
         // let validConfig = utils.isEqual(configurationObject, config, false, false);
-        let validPort = [];
+        let validPort = [], hKeys = Object.keys(handlerFunctions), proxyObject = {}, proxyset = null;
+        let hKeysLen = hKeys.length;
+
         for (let i = 0; i < proxyPortRanges.length; i++) {
             if ((config.options.target.port >= proxyPortRanges[i][0] && config.options.target.port <= proxyPortRanges[i][1])) {
                 break;
             }
         }
+
         if (validPort.length > 0) { return false; }
 
-        let hKeys = Object.keys(handlerFunctions);
-        for (let i = 0; i < hKeys.length; i++) {
+        for (let i = 0; i < hKeysLen; i++) {
             if (!(validProxyHandlers.includes(hKeys[i]))) {
+                console.error("setupProxy: One of the handlers are not part of validProxyHandlers");
                 return false;
             }
         }
 
-        let proxyObject = {};
         proxyObject[name] = { "proxy": null, "config": config, "handlers": handlerFunctions };
-
-        let proxyset = setter(instanceProxyServers, proxyObject);
-        // console.log("proxyset", proxyset, instanceProxyServers);
+        proxyset = setter(instanceProxyServers, proxyObject);
         if (!proxyset) { return false; }
-
         return true;
     }
 

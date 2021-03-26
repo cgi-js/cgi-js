@@ -201,21 +201,25 @@ function handler() {
      */
     function startProcess(processConf, file, dataHandler, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
-        let { exe, args, options, other } = processConf;
+        let e, proc, bln;
+        let { exe, args, options, other } = processConf, tmp = {};
+
+        // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
+        let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
+        evtLen = evt.length;
 
         args.conf == !!other.osPaths.conf ?
-            (other.osPaths.conf + args.conf) :
-            (!!args.conf) ? args.conf : "";
+            (other.osPaths.conf + args.conf) : (!!args.conf) ? args.conf : "";
         exe = other.osPaths.exe + exe;
         if (!!other.serverType && !!other.command && !!file) {
             error("startProcess: Server Definition or Process Definition allowed, not both");
         }
 
-        let e = !!args ? args : [];
+        e = !!args ? args : [];
         if (!!other.command && !file) { e.push(other[other.command]); }
         if (!!file && !other.serverType) { e.push(file); }
 
-        let proc = execCommand(exe, e, dataHandler);
+        proc = execCommand(exe, e, dataHandler);
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
@@ -223,19 +227,10 @@ function handler() {
             exitFunction(options, proc);
         }
 
-        let tmp = {};
         tmp[proc.pid] = { process: proc, conf: processConf };
 
-        let bln = setProcess(tmp);
+        bln = setProcess(tmp);
         if (!!bln) { /* Do something here - callback */ }
-
-        // Signal Numbers
-        // http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
-        let evt = [
-            `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`,
-            `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`
-        ];
-        evtLen = evt.length;
 
         for (let i = 0; i < evtLen; i++) {
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
@@ -263,9 +258,7 @@ function handler() {
      * @returns {Object}
      * 
      */
-    function startProcessAsync(processConf, file, dataHandler, cleanupHandler) {
-
-    }
+    function startProcessAsync(processConf, file, dataHandler, cleanupHandler) { }
 
     /**
      * 
@@ -278,14 +271,13 @@ function handler() {
      * 
      */
     function killProcess(pid, signal) {
-        let proc = getProcess(pid)['process'];
+        let proc = getProcess(pid)['process'], ob = {}, setterVal = null;
         proc.kill(signal);
         proc.stdin.end();
-        let ob = {};
         ob[pid] = null;
-        let setterVal = setter(processes, ob);
+        setterVal = setter(processes, ob);
         if (!setterVal) {
-            console.error("killProcess: Error during setting null object");
+            console.error("killProcess: Error during setting object to null");
         }
         console.log('killProcess: Killed/Stopped process ' + pid, "Object is ", processes[pid]);
         return true;
