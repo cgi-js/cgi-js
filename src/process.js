@@ -197,25 +197,6 @@ function handler() {
 
     /**
      * 
-     * customExecCommand
-     * 
-     * 
-     * @param {String} exe
-     * 
-     * @param {Array Object} e
-     * 
-     * @param {Function} proc
-     *
-     */
-    function customExecCommand(conf, dataHandler) {
-        let ex = require('child_process').exec;
-        return ex([conf.command], function (error, stdout, stderr) {
-            dataHandler(error, stdout, stderr);
-        });
-    }
-
-    /**
-     * 
      * registerEventHandlers
      * 
      * 
@@ -454,7 +435,6 @@ function handler() {
             start: startProcess,
             startAsync: startProcessAsync,
             exec: execProcess,
-            cExec: customExecCommand,
             registerHandlers: registerEventHandlers,
             kill: killProcess
         },
