@@ -9,8 +9,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 const https = require('https');
 const fs = require('fs');
 const utils = require("./utils")();
-const setter = utils.setter;
-const getter = utils.getter;
+const setter = utils.setter, getter = utils.getter;
 
 /**
  * 

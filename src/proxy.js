@@ -10,8 +10,7 @@ const https = require('https');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
-const setter = utils.setter;
-const getter = utils.getter;
+const setter = utils.setter, getter = utils.getter;
 
 /**
  * 

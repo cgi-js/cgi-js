@@ -18,6 +18,7 @@ const shell = require('shelljs');
 const { request } = require('http');
 const { json } = require('express');
 const utils = require('./utils')();
+const setter = utils.setter, getter = utils.getter;
 
 /**
  *
@@ -114,6 +115,7 @@ function cgiServe() {
 	 * @returns {Boolean} set? / {throw error}
 	 * 
 	 */
+	
 	function setCGI(type, cgiExecutable, exeOptions) {
 		try {
 			let WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
@@ -139,6 +141,7 @@ function cgiServe() {
 	 * @returns {String} WHICH_CGI
 	 * 
 	 */
+	
 	function getCGI(type, exeOptions) {
 		try {
 			if (!LANG_OPTS[type].which) {
@@ -464,9 +467,15 @@ function cgiServe() {
 					executable = exeOptions.bin.bin_path + "/" + LANG_OPTS[req.type].cgi;
 				} else {
 					if (!LANG_OPTS[req.type]["which"]) {
+						// reject({
+						// 	headers: {},
+						// 	statusCode: 500,
+						// 	response: e.toString() + " - Executable not found"
+						// });
 						try {
 							error('"runCGI: cgi executable" cannot be found, "which" Error ', false)
 						} catch (e) {
+							console.log(1)
 							reject({
 								headers: {},
 								statusCode: 500,
