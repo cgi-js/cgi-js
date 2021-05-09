@@ -414,7 +414,7 @@ function cgiServe() {
 	 * 
 	 */
 	function fileExists(type, exeOptions) {
-		let promise = new Promise(function (resolve, reject) {
+		return new Promise(function (resolve, reject) {
 			let feFn = function (f) {
 				(!!f) ? resolve(f) : resolve(false);
 			}
@@ -439,7 +439,6 @@ function cgiServe() {
 				}
 			});
 		});
-		return promise;
 	}
 
 	/**
@@ -454,7 +453,7 @@ function cgiServe() {
 	 * 
 	 */
 	function runCGI(req, exeOptions) {
-		let promise = new Promise(function (resolve, reject) {
+		return new Promise(function (resolve, reject) {
 			let index = req.originalUrl.indexOf('.' + req.type);
 			req["pathinfo"] = (index >= 0) ? req.url.pathname.substring(index + req.type.length + 1) : req.url.pathname;
 			let env = getEnv(req, exeOptions.host, exeOptions.port);
@@ -546,8 +545,7 @@ function cgiServe() {
 					response: "Access denied or file could not be processed"
 				});
 			}
-		})
-		return promise;
+		});
 	}
 
 	/**

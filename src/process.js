@@ -356,7 +356,9 @@ function handler() {
      * 
      */
     function execProcessAsync(conf, dataHandler) {
-        return new Promise((resolve, reject) => { });
+        return new Promise(function (resolve, reject) {
+            
+        });
     }
 
 
