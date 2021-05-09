@@ -4,6 +4,8 @@
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 // 
 
+// Config based Usage - All ways
+
 const express = require('express');
 const URL = require('url');
 const fs = require('fs');
@@ -90,8 +92,10 @@ app.use("/proxyone", proxyHandler(h, config));
 
 
 function response(type, exeOptions) {
-    var cgi = cgijs.init();
-    return function (req, res, next) {
+    
+    return function (req, res) {
+        let cgi = cgijs.init();
+        // console.log("test", req)
         let requestObject = {
             url: URL.parse(req.originalUrl),
             originalUrl: req.originalUrl,
@@ -101,15 +105,19 @@ function response(type, exeOptions) {
             ip: req.ip,
             headers: req.headers
         }
-        cgi.serve(type, requestObject, exeOptions).then(function (result) {
+
+        cgi.serve(type, requestObject, exeOptions).then(function(result) {
+            console.log("Result Fn", result)
             result.statusCode = (!result.statusCode) ? 200 : result.statusCode;
             res.status(result.statusCode).send(result.response);
-        }.bind(res)).catch(function (e) {
-            e.statusCode = (!e.statusCode) ? 500 : e.statusCode;
-            res.status(e.statusCode).send(e.response);
+        }).catch(function(error) {
+            console.log("Error Fn", error)
+            error.statusCode = (!error.statusCode) ? 500 : error.statusCode;
+            res.status(error.statusCode).send(error.response);
         });
     };
 }
+
 
 // PHP File: Use bin as string
 app.use("/php", response('php', { web_root_folder: php, bin: php_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
@@ -119,6 +127,7 @@ app.use("/phpud", response('php', { web_root_folder: php, bin: { bin_path: '', u
 app.use("/phpnud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PHP File: Use bin as Object definition with useDefault true
 app.use("/phpdud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+
 
 // RB File
 app.use("/rb", response('rb', { web_root_folder: rby, bin: rby_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
@@ -141,6 +150,7 @@ app.use("/pldnud", response('pld', { web_root_folder: pl, bin: { bin_path: pl_bi
 // PL File with useDefault as false
 app.use("/plnud", response('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
+
 // PYTHON File
 app.use("/py", response('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
 // PYTHON3 File
@@ -150,11 +160,13 @@ app.use("/pynud", response('py', { web_root_folder: py, bin: { bin_path: py_bin,
 // PYTHON3 File with useDefault as false
 app.use("/pynud3", response('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
 
+
 app.use("*", function (req, res) {
     res.send(`
         "Testing my server"
     `);
 });
+
 
 let server = app.listen(sport, shost, function() {
     console.log(`Server listening at ${sport}!`);

@@ -3,7 +3,7 @@
 var request = require('supertest');
 var assert = require('chai').assert;
 var express = require('express');
-var cgi = require('../../src/').init();
+var cgi = require('../../../src').init();
 
 var app = express();
 

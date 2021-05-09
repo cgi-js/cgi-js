@@ -5,12 +5,13 @@ Dynamic CGI serving using dynamic path imports for
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 */
 /* eslint no-console: 0 */
-let file = require("./file");
+let fileProcess = require("./file");
 let proxy = require("./proxy");
 let process = require("./process");
 
+
 module.exports = {
-    "init": file.serve,
+    "init": fileProcess.serve,
     "proxy": proxy,
     "process": process
 };

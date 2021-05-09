@@ -8,6 +8,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 const https = require('https');
 const fs = require('fs');
+const util = require("util")
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter;
 
@@ -30,6 +31,7 @@ function handler() {
             restart: { usage: "restart", args: [] }
         }
     };
+
 
     /**
      * 
@@ -91,8 +93,12 @@ function handler() {
         }
     }
 
+
     function setOS(obj) { }
 
+    /**
+     * 
+    */
     function getOS(name) { }
 
 
@@ -111,6 +117,7 @@ function handler() {
     function getProcess(processIds) {
         return getter(processes, processIds);
     }
+
 
     /**
      * 
@@ -131,6 +138,7 @@ function handler() {
         return false;
     }
 
+
     /**
      * 
      * execCommand
@@ -138,17 +146,20 @@ function handler() {
      * 
      * @param {String} exe
      * 
-     * @param {Array Object} e
+     * @param {Array Object} args
+     * 
+     * @param {Object} cmdOptions
      * 
      * @param {Function} proc
      *
      */
-    function execCommand(exe, e, dataHandler) {
+    function execCommand(exe, args, cmdOptions, dataHandler) {
         let ex = require('child_process').exec;
-        return ex([exe, ...e].join(" "), function (error, stdout, stderr) {
+        return ex([exe, ...args].join(" "), cmdOptions, function (error, stdout, stderr) {
             dataHandler(error, stdout, stderr);
         });
     }
+
 
     /**
      * 
@@ -177,6 +188,7 @@ function handler() {
         return proc;
     }
 
+
     /**
      * 
      * startProcess
@@ -200,25 +212,29 @@ function handler() {
      */
     function startProcess(processConf, file, dataHandler, cleanupFnc) {
         // {name: {commands, instances: {pid: instance}}}
-        let e, proc, bln;
+        let proc, bln;
         let { exe, args, options, other } = processConf, tmp = {};
 
         // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
         let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
         evtLen = evt.length;
 
-        args.conf == !!other.osPaths.conf ?
-            (other.osPaths.conf + args.conf) : (!!args.conf) ? args.conf : "";
+        // args.conf == !!other.osPaths.conf ?
+        //     (other.osPaths.conf + args.conf) : (!!args.conf) ? args.conf : "";
         exe = other.osPaths.exe + exe;
         if (!!other.serverType && !!other.command && !!file) {
             error("startProcess: Server Definition or Process Definition allowed, not both");
         }
 
-        e = !!args ? args : [];
-        if (!!other.command && !file) { e.push(other[other.command]); }
-        if (!!file && !other.serverType) { e.push(file); }
+        if (!!args && !Array.isArray(args)) {
+            error("startProcess: Arguments passed is incorrect");
+        } else if (!args) {
+            args = [];
+        }
 
-        proc = execCommand(exe, e, dataHandler);
+        if (!!other.command && !file) { args.push(other[other.command]); }
+        if (!!file && !other.serverType) { args.push(file); }
+        proc = execCommand(exe, args, options, dataHandler);
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
@@ -227,7 +243,6 @@ function handler() {
         }
 
         tmp[proc.pid] = { process: proc, conf: processConf };
-
         bln = setProcess(tmp);
         if (!!bln) { /* Do something here - callback */ }
 
@@ -237,8 +252,72 @@ function handler() {
         return { pid: proc.pid, process: proc, conf: processConf };
     }
 
+
     /**
      * 
+     * execProcess
+     * 
+     * 
+     * @param {Object} conf
+     * 
+     * @param {Function} dataHandler
+     *  
+     * @returns {Boolean, Object}
+     * false / Process Instance
+     * 
+     */
+    function execProcess(conf, dataHandler) {
+        if (!!conf.command && typeof conf.command === "string") {
+            try {
+                return execCommand(conf.command, [], conf.options, dataHandler);
+            } catch (e) {
+                console.log("execProcess: Error occured: ", e.toString());
+                return false;
+            }
+        }
+        let cmdObj = getter(processCommands, conf.name);
+        if (!!cmdObj) {
+            // TODO: TEMP: Following two statements to be tested
+            let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
+            let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
+            return execCommand(exe, e, conf.options, dataHandler);
+        }
+        return false;
+    }
+
+
+    /**
+     * 
+     * execCommandAsync
+     * 
+     * 
+     * @param {String} exe
+     * 
+     * @param {Array Object} args
+     * 
+     * @param {Object} cmdOptions
+     * 
+     * @param {Function} proc
+     *
+     */
+    function execCommandAsync(exe, args, cmdOptions, dataHandler) {
+        let ex = require('child_process').exec;
+        return new Promise(function (resolve, reject) {
+            ex([exe, ...args].join(" "), {}, function (err, stdout, stderr) {
+                if (!!err) {
+                    reject({ stdout: stdout, stderr: stderr });
+                }
+                resolve({ stdout: stdout, stderr: stderr });
+            }.bind(args, resolve, reject));
+        });
+        // let ex = util.promisify(require('child_process').exec);
+        // return ex([exe, ...args].join(" "), cmdOptions);
+    }
+
+
+    /**
+     * 
+     * TODO
      * startProcessAsync
      * All arguments and structure are the same but are async promises
      *
@@ -257,7 +336,29 @@ function handler() {
      * @returns {Object}
      * 
      */
-    function startProcessAsync(processConf, file, dataHandler, cleanupHandler) { }
+    function startProcessAsync(processConf, file, dataHandler, cleanupHandler) {
+        return false;
+    }
+
+
+    /**
+     * 
+     * TODO
+     * execProcessAsync
+     * 
+     * 
+     * @param {Object} conf
+     * 
+     * @param {Function} dataHandler
+     *  
+     * @returns {Boolean, Object}
+     * false / Process Instance
+     * 
+     */
+    function execProcessAsync(conf, dataHandler) {
+        return new Promise((resolve, reject) => { });
+    }
+
 
     /**
      * 
@@ -282,37 +383,6 @@ function handler() {
         return true;
     }
 
-    /**
-     * 
-     * execProcess
-     * 
-     * 
-     * @param {Object} conf
-     * 
-     * @param {Function} dataHandler
-     *  
-     * @returns {Boolean, Object}
-     * false / Process Instance
-     * 
-     */
-    function execProcess(conf, dataHandler) {
-        if (!!conf.command && typeof conf.command === "string") {
-            try {
-                return execCommand(conf.command, [], dataHandler);
-            } catch (e) {
-                console.log("execProcess: Error occured: ", e.toString());
-                return false;
-            }
-        }
-        let cmdObj = getter(processCommands, conf.name);
-        if (!!cmdObj) {
-            // TODO: TEMP: Following two statements to be tested
-            let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
-            let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
-            return execCommand(exe, e, dataHandler);
-        }
-        return false;
-    }
 
     /**
      * 
@@ -389,10 +459,13 @@ function handler() {
         process: {
             set: setProcess,
             get: getProcess,
-            start: startProcess,
-            startAsync: startProcessAsync,
-            exec: execProcess,
             registerHandlers: registerEventHandlers,
+            exec: execCommand,
+            start: startProcess,
+            execProcess: execProcess,
+            execAsync: execCommandAsync,
+            startAsync: startProcessAsync,
+            execProcessAsync: execProcessAsync,
             kill: killProcess
         },
         server: {

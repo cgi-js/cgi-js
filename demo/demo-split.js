@@ -4,6 +4,8 @@
 // Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 // 
 
+// Config based Split usage
+
 const fs = require('fs');
 const os = require("os");
 const express = require('express');

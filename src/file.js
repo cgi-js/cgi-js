@@ -115,7 +115,25 @@ function cgiServe() {
 	 * @returns {Boolean} set? / {throw error}
 	 * 
 	 */
-	
+	// function setCGI(type, cgiExecutable, exeOptions) {
+	// 	try {
+	// 		let WHICH_CGI, tmp;
+	// 		if (!!validateLangOptionStructure(exeOptions)) {
+	// 			WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
+	// 		}
+	// 		tmp = getter(LANG_OPTS, type);
+	// 		if (!!tmp) {
+	// 			let lObject = {};
+	// 			exeOptions["which"] = WHICH_CGI;
+	// 			lObject[type] = exeOptions;
+	// 			let setterValue = setter(LANG_OPTS, lObject);
+	// 			if (!!setterValue) { return true; }
+	// 		}
+	// 		return error("setCGI: CGI Executable type apply error", false);
+	// 	} catch (e) {
+	// 		return error("setCGI: CGI Executable fetch error", false);
+	// 	}
+	// }
 	function setCGI(type, cgiExecutable, exeOptions) {
 		try {
 			let WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
@@ -141,7 +159,22 @@ function cgiServe() {
 	 * @returns {String} WHICH_CGI
 	 * 
 	 */
-	
+	// function getCGI(type, exeOptions) {
+	// 	try {
+	// 		let lObject = getter(LANG_OPTS, type);
+	// 		if (!lObject.which) {
+	// 			if (!!validateLangOptionStructure(exeOptions)) {
+	// 				let cgiset = setCGI(type, lObject, exeOptions);
+	// 				if (!cgiset) {
+	// 					return error("getCGI: CGI Executable set error " + e.toString(), false);
+	// 				}
+	// 			}
+	// 		}
+	// 		return lObject.which;
+	// 	} catch (e) {
+	// 		return error("getCGI: CGI Executable fetch error " + e.toString(), false);
+	// 	}
+	// }
 	function getCGI(type, exeOptions) {
 		try {
 			if (!LANG_OPTS[type].which) {
@@ -534,7 +567,7 @@ function cgiServe() {
 						CGIObj.statusCode = 200;
 					}
 					if (!CGIObj.headers) {
-						CGIObj.headers = 200;
+						CGIObj.headers = {}; // 200
 					}
 					resolve(CGIObj);
 				});

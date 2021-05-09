@@ -106,25 +106,46 @@ dist
 dist/*
 
 www/*/__pycache__/
-binaries/db-mysql/src/*
-binaries/db-mongo/src/*
-binaries/db-redis/src/*
-binaries/lang-java/src/*
-binaries/lang-net/src/*
-binaries/lang-perl/src/*
-binaries/lang-php/src/*
-binaries/lang-python/src/*
-binaries/lang-python3/src/*
-binaries/lang-ruby/src/*
-binaries/lang-node/src/*
-binaries/server-httpd/src/*
-binaries/server-mongoose/src/*
-binaries/server-nginx/src/*
-binaries/server-putty/src/*
-binaries/server-tomcat/src/*
-binaries/server-jetty/src/*
-binaries/server-iis-net/src/*
+# binaries/db-mysql/src/*
+# binaries/db-mongo/src/*
+# binaries/db-redis/src/*
+# binaries/lang-java/src/*
+# binaries/lang-net/src/*
+# binaries/lang-perl/src/*
+# binaries/lang-php/src/*
+# binaries/lang-python/src/*
+# binaries/lang-python3/src/*
+# binaries/lang-ruby/src/*
+# binaries/lang-node/src/*
+# binaries/server-httpd/src/*
+# binaries/server-mongoose/src/*
+# binaries/server-nginx/src/*
+# binaries/server-putty/src/*
+# binaries/server-tomcat/src/*
+# binaries/server-jetty/src/*
+# binaries/server-iis-net/src/*
 */*/__pycache__/
+
+
+binaries/db-mysql/*
+binaries/db-mongo/*
+binaries/db-redis/*
+binaries/lang-java/*
+binaries/lang-net/*
+binaries/lang-perl/*
+binaries/lang-php/*
+binaries/lang-python/*
+binaries/lang-python3/*
+binaries/lang-ruby/*
+binaries/lang-node/*
+binaries/server-httpd/*
+binaries/server-mongoose/*
+binaries/server-nginx/*
+binaries/server-putty/*
+binaries/server-tomcat/*
+binaries/server-jetty/*
+binaries/server-iis-net/*
+
 
 tmp/*
 data/app/*
@@ -134,3 +155,7 @@ data/logs/*
 data/recent/*
 data/user/*
 
+docs/request_headers.txt
+docs/response_headers.txt
+src/file-old.js
+src/file-n.js
