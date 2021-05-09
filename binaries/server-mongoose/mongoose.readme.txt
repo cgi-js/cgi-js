@@ -1,0 +1,4 @@
+- Deps: gcc
+Compiling mongoose webserver on linux:
+
+gcc -o executablename server.c mongoose.c -lpthread
