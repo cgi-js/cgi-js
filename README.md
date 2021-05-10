@@ -61,6 +61,8 @@ npm install cgijs --save
 * [] Nginx (Allows Embed & Proxy) [TODO]
 * [] Mongoose (Allows Embed & Proxy) [TODO]
 * [] IIS (Allows Proxy) [TODO]
+* [] Jetty (Allows Embed & Proxy) [PLANNED]
+* [] Putty (Allows Embed & Proxy) [PLANNED]
 * [x] Other Proxy-able local/remote servers
 
 
@@ -68,6 +70,8 @@ npm install cgijs --save
 
 * [] Mysql [TODO]
 * [] PgSQL [TODO]
+* [] MongoDB [TODO]
+* [] Redis [TODO]
 * [] Other Processes for your application support [TODO]
 
 
