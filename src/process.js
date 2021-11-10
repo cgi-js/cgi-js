@@ -8,7 +8,9 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 const https = require('https');
 const fs = require('fs');
-const util = require("util")
+const util = require("util");
+const process = require('process');
+const execPath = process.execPath;
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter;
 
@@ -24,7 +26,11 @@ function handler() {
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
     let commandObject = {
-        name: "", type: "executable", env: { os: { "name": { bin: "", runtime: "", exe: '' } } },
+        name: "",
+        type: "executable",
+        os: "",
+        exe: "",
+        env: "",
         cmds: {
             start: { usage: "start", args: [] },
             stop: { usage: "stop", args: [] },
@@ -94,12 +100,24 @@ function handler() {
     }
 
 
-    function setOS(obj) { }
+    function setOS(obj) {
+        if (typeof obj == "string") {
+            osList.push(obj)
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 
     */
-    function getOS(name) { }
+    function getOS(name) {
+        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
 
 
     /**
@@ -126,7 +144,7 @@ function handler() {
      *
      * @param {Object} processConf
      * 
-     * @returns {Boolean}
+     * @returns {Boolean || Object}
      * 
      */
     function setProcess(processConf) {
@@ -357,7 +375,7 @@ function handler() {
      */
     function execProcessAsync(conf, dataHandler) {
         return new Promise(function (resolve, reject) {
-            
+
         });
     }
 
@@ -397,7 +415,14 @@ function handler() {
      * @returns {Boolean}
      * 
      */
-    function setServers(obj) { }
+    function setServers(obj) {
+        if (utils.isEqual(commandObject, obj, true, true)) {
+            let setterVal = setter(processCommands, obj);
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 
@@ -410,7 +435,35 @@ function handler() {
      * false / ServerInstance { process, processCommandsKey }
      * 
      */
-    function getServers(name) { }
+    function getServers(name) {
+        if (processCommands.keys().indexOf(name) !== -1) {
+            return processCommands[name];
+        }
+        return false;
+    }
+
+
+    /**
+     * 
+     * serverCommands
+     * 
+     * @param {*} action 
+     * 
+     * @param {*} name 
+     * 
+     * @param {*} fnc 
+     * 
+     * @returns {Boolean, Object}
+     * 
+     */
+    function serverCommands(action, name, fnc) {
+        let srv = getServers(name)
+        if (!!srv) {
+            return execCommand(srv["exe"], [srv["cmds"][action]["usage"], ...srv["cmds"][action]["args"]], {}, fnc);
+        }
+        return false;
+    }
+
 
     /**
      * 
@@ -418,11 +471,16 @@ function handler() {
      * 
      * 
      * @param {String} name
+     * 
+     * @param  {Function} fnc
      *       
-     * @returns {Boolean}
+     * @returns {Boolean, Object}
      * 
      */
-    function startServer(name) { }
+    function startServer(name, fnc) {
+        return serverCommands("start", name, fnc);
+    }
+
 
     /**
      * 
@@ -431,26 +489,46 @@ function handler() {
      * 
      * @param  {String} name
      * 
-     * @returns {Boolean} 
+     * @param  {Function} fnc
+     * 
+     * @returns {Boolean, Object} 
      * 
      */
-    function stopServer(name) {
-        // if (!!stopProcess(server.pid, 'EXIT')) { return true; }
+    function stopServer(name, fnc) {
+        try {
+            let s = serverCommands("stop", name, fnc);
+            return s;
+        } catch (error) {
+            try {
+                let s = getServers(name);
+                if (typeof s !== "boolean") {
+                    process.kill(s.pid, "EXIT");
+                    return true;
+                }
+            } catch (err) {
+                return false;
+            }
+        }
+        return false;
     }
+
 
     /**
      * 
      * restartServer
      * 
      * 
-     * @param  {} server
+     * @param  {String} server name
+     * 
+     * @param  {Function} fnc
      * 
      * @returns {Boolean} 
      * 
      */
-    function restartServer(server) {
-
+    function restartServer(name, fnc) {
+        return serverCommands("restart", name, fnc);
     }
+
 
     return {
         setup: setupHandler,

@@ -11,7 +11,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
  * @returns
  */
 function utils() {
-    
+
     /**
      * 
      * setter
@@ -25,9 +25,8 @@ function utils() {
      * 
      */
     function setter(setterObject, values) {
-        if (!values && typeof values !== "object") { return false; }
         keys = Object.keys(values);
-        if (!keys.length) { return false; }
+        if ((!values && typeof values !== "object") || (!keys.length)) { return false; }
         for (let i = 0; i < keys.length; i++) {
             setterObject[keys[i]] = values[keys[i]];
         }
