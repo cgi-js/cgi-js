@@ -496,8 +496,7 @@ function handler() {
      */
     function stopServer(name, fnc) {
         try {
-            let s = serverCommands("stop", name, fnc);
-            return s;
+            return serverCommands("stop", name, fnc);
         } catch (error) {
             try {
                 let s = getServers(name);
