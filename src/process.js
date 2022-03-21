@@ -112,7 +112,12 @@ function handler() {
         }
     }
 
-
+    /**
+     * Set new OS in the list of OS
+     *
+     * @param {*} obj
+     * @return { Boolean } 
+     */
     function setOS(obj) {
         if (typeof obj == "string") {
             osList.push(obj)
@@ -123,8 +128,11 @@ function handler() {
 
 
     /**
-     * 
-    */
+     * Get OS in the list of OS
+     *
+     * @param {*} name
+     * @return {String, Boolean} 
+     */
     function getOS(name) {
         if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
             return name;
@@ -156,8 +164,17 @@ function handler() {
      * Sets the process of the connection key procId provided
      *
      * @param {Object} processConf
+     *      
+     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
      * 
-     * @returns {Boolean || Object}
+     * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
+     * 
+     * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
+     * - <shellOptions>: { stdio: String, shell: Boolean }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <subcommandObject>: { usage: String, args: Array }
+     * 
+     * @returns {Boolean || Object} processes
      * 
      */
     function setProcess(processConf) {
@@ -183,7 +200,7 @@ function handler() {
      * 
      * @param {Object} cmdOptions
      * 
-     * @param {Function} proc
+     * @param {Function} dataHandler
      *
      */
     function execCommand(exe, args, cmdOptions, dataHandler) {
@@ -202,6 +219,7 @@ function handler() {
      * @param {Object} proc
      * 
      * @param {Object} eventHandlers
+     * 
      * { event : { data: dataObject, handler: eventHandlerFunction } }
      * 
      */
@@ -233,14 +251,19 @@ function handler() {
      * 
      * process/server/database = 
      *  
-     * @param {String} file
-     * 
      * @param {Function} dataHandler
      * 
      * @param {Function} cleanupHandler
      * 
      * @returns {Object}
-     * { pid: Number, process: Object, conf: Object }
+     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
+     * 
+     * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
+     * 
+     * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
+     * - <shellOptions>: { stdio: String, shell: Boolean }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <subcommandObject>: { usage: String, args: Array }
      * 
      */
     function executeProcess(processConf, dataHandler, cleanupHandler) {
@@ -362,7 +385,7 @@ function handler() {
      * 
      * @param {Object} cmdOptions
      * 
-     * @param {Function} proc
+     * @param {Function} dataHandler
      *
      */
     function execCommandAsync(exe, args, cmdOptions, dataHandler) {
