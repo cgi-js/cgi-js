@@ -48,7 +48,6 @@ var proc = obj.process.set({
     }
 });
 
-
 function testProcessGetter() {
 
     var prc = obj.process.get("nodefileexecute");
@@ -57,8 +56,8 @@ function testProcessGetter() {
 
     assert(prc.name === "nodefileexecute", "Testing Correct getter for process");
     assert(prc.exe === "node", "Testing Correct object [exe] process");
-    assert(prc.cmds["generic"].usage === "", "Testing Correct object [cmds.generic.usage] process");
-    assert(prc.cmds["generic"].args === args, "Testing Correct object [cmds.generic.args] process");
+    assert(prc.cmds.generic.usage === "", "Testing Correct object [cmds.generic.usage] process");
+    assert(prc.cmds.generic.args === args, "Testing Correct object [cmds.generic.args] process");
     assert(prc.other.command === "generic", "Testing Correct object [other.command] process");
 
     console.log("Ending Tests");

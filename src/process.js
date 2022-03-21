@@ -161,7 +161,9 @@ function handler() {
      * 
      */
     function setProcess(processConf) {
-        let setterVal = setter(processes, processConf);
+        let tmp = {};
+        tmp[processConf.name] = processConf
+        let setterVal = setter(processes, tmp);
         if (!!setterVal) {
             processes = setterVal;
             return processes;
@@ -453,131 +455,6 @@ function handler() {
     }
 
 
-    /**
-     * 
-     * setServers
-     * 
-     * 
-     * @param  {Object} obj
-     * Expected Structure: { commandObject }
-     * 
-     * @returns {Boolean}
-     * 
-     */
-    function setServers(obj) {
-        if (utils.isEqual(commandObject, obj, true, true)) {
-            let setterVal = setter(processCommands, obj);
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * 
-     * getServers
-     * 
-     * 
-     * @param  {String} name
-     * 
-     * @returns {Boolean, Object}
-     * false / ServerInstance { process, processCommandsKey }
-     * 
-     */
-    function getServers(name) {
-        if (processCommands.keys().indexOf(name) !== -1) {
-            return processCommands[name];
-        }
-        return false;
-    }
-
-
-    /**
-     * 
-     * serverCommands
-     * 
-     * @param {*} action 
-     * 
-     * @param {*} name 
-     * 
-     * @param {*} fnc 
-     * 
-     * @returns {Boolean, Object}
-     * 
-     */
-    function serverCommands(action, name, fnc) {
-        let srv = getServers(name)
-        if (!!srv) {
-            return execCommand(srv["exe"], [srv["cmds"][action]["usage"], ...srv["cmds"][action]["args"]], {}, fnc);
-        }
-        return false;
-    }
-
-
-    /**
-     * 
-     * startServer
-     * 
-     * 
-     * @param {String} name
-     * 
-     * @param  {Function} fnc
-     *       
-     * @returns {Boolean, Object}
-     * 
-     */
-    function startServer(name, fnc) {
-        return serverCommands("start", name, fnc);
-    }
-
-
-    /**
-     * 
-     * stopServer
-     * 
-     * 
-     * @param  {String} name
-     * 
-     * @param  {Function} fnc
-     * 
-     * @returns {Boolean, Object} 
-     * 
-     */
-    function stopServer(name, fnc) {
-        try {
-            return serverCommands("stop", name, fnc);
-        } catch (error) {
-            try {
-                let s = getServers(name);
-                if (typeof s !== "boolean") {
-                    process.kill(s.pid, "EXIT");
-                    return true;
-                }
-            } catch (err) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * 
-     * restartServer
-     * 
-     * 
-     * @param  {String} server name
-     * 
-     * @param  {Function} fnc
-     * 
-     * @returns {Boolean} 
-     * 
-     */
-    function restartServer(name, fnc) {
-        return serverCommands("restart", name, fnc);
-    }
-
-
     return {
         setup: setupHandler,
         os: {
@@ -589,15 +466,8 @@ function handler() {
             get: getProcess,
             registerHandlers: registerEventHandlers,
             execute: execCommand,
-            execProcess: executeProcess,
+            executeProcess: executeProcess,
             kill: killProcess
-        },
-        server: {
-            set: setServers,
-            get: getServers,
-            start: startServer,
-            stop: stopServer,
-            restart: restartServer
         }
     }
 }

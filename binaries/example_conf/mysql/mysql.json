@@ -1,5 +1,5 @@
 {
-    "win32": {
+    "mysqlwin32": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -27,7 +27,7 @@
             "env": ""
         }
     },
-    "win64": {
+    "mysqlwin64": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -55,7 +55,7 @@
             "env": ""
         }
     },
-    "darwin": {
+    "mysqldarwin": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -83,7 +83,7 @@
             "env": ""
         }
     },
-    "linux": {
+    "mysqllinux": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -111,7 +111,7 @@
             "env": ""
         }
     },
-    "unix": {
+    "mysqlunix": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -139,7 +139,7 @@
             "env": ""
         }
     },
-    "fedora": {
+    "mysqlfedora": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -167,7 +167,7 @@
             "env": ""
         }
     },
-    "debian": {
+    "mysqldebian": {
         "name": "",
         "type": "executable",
         "os": "",

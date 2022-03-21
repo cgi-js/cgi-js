@@ -33,7 +33,7 @@ function testprocesswithfile() {
         var args = [path.join(__dirname, "./www/py/index.py")];
     }
 
-    var proc = obj.process.start(
+    var proc = obj.process.executeProcess(
         {
             name: "",
             // --> executableOptions

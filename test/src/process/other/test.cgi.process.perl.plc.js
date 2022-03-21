@@ -28,7 +28,7 @@ if (__dirname.toString().includes("process")) {
     var args = [path.join(__dirname, "./www/perl/index.plc")];
 }
 
-var proc = obj.process.start({
+var proc = obj.process.executeProcess({
     name: "",
     // --> executableOptions
     type: "executable",

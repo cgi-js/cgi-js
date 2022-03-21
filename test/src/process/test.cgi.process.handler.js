@@ -48,7 +48,7 @@ if (__dirname.toString().includes("process")) {
     var args = [path.join(__dirname, "./www/node/index.js")];
 }
 
-var proc = obj.process.start({
+var proc = obj.process.executeProcess({
     name: "",
     // --> executableOptions
     type: "executable",

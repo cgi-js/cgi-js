@@ -1,5 +1,5 @@
 {
-    "win32": {
+    "mongowin32": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -27,7 +27,7 @@
             "env": ""
         }
     },
-    "win64": {
+    "mongowin64": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -55,7 +55,7 @@
             "env": ""
         }
     },
-    "darwin": {
+    "mongodarwin": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -83,7 +83,7 @@
             "env": ""
         }
     },
-    "linux": {
+    "mongolinux": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -111,7 +111,7 @@
             "env": ""
         }
     },
-    "unix": {
+    "mongounix": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -139,7 +139,7 @@
             "env": ""
         }
     },
-    "fedora": {
+    "mongofedora": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -167,7 +167,7 @@
             "env": ""
         }
     },
-    "debian": {
+    "mongodebian": {
         "name": "",
         "type": "executable",
         "os": "",

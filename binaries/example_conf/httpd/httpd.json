@@ -1,5 +1,5 @@
 {
-    "win32": {
+    "apache2win32": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -27,7 +27,7 @@
             "env": ""
         }
     },
-    "win64": {
+    "apache2win64": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -55,7 +55,7 @@
             "env": ""
         }
     },
-    "darwin": {
+    "apache2darwin": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -83,7 +83,7 @@
             "env": ""
         }
     },
-    "linux": {
+    "apache2linux": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -111,7 +111,7 @@
             "env": ""
         }
     },
-    "unix": {
+    "apache2unix": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -139,7 +139,7 @@
             "env": ""
         }
     },
-    "fedora": {
+    "apache2fedora": {
         "name": "",
         "type": "executable",
         "os": "",
@@ -167,7 +167,7 @@
             "env": ""
         }
     },
-    "debian": {
+    "apache2debian": {
         "name": "",
         "type": "executable",
         "os": "",
