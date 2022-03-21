@@ -22,7 +22,7 @@ function handler() {
     let configurations = {}, instanceProxyServers = {};
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
-    let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
+    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
 
     let configurationObject = {
         "options": {
@@ -80,7 +80,7 @@ function handler() {
             case "proxyPortRanges":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (optionsObject[i] in proxyPortRanges) {
+                        if (!optionsObject[i] in proxyPortRanges) {
                             proxyPortRanges.push(optionsObject[i]);
                         }
                     }
@@ -90,7 +90,7 @@ function handler() {
             case "osList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (optionsObject[i] in osList) {
+                        if (!optionsObject[i] in osList) {
                             osList.push(optionsObject[i]);
                         }
                     }
@@ -102,9 +102,20 @@ function handler() {
         }
     }
 
-    function setOS(obj) { }
+    function setOS(obj) {
+        if (typeof obj == "string") {
+            osList.push(obj)
+            return true;
+        }
+        return false;
+    }
 
-    function getOS(name) { }
+    function getOS(name) {
+        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
 
 
     /**

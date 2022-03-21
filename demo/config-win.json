@@ -1,8 +1,8 @@
 {
     "php": {
         "embed": {
-            "path": "F:/languages/php",
-            "bin": "F:/languages/php",
+            "path": "",
+            "bin": "",
             "config": {
                 "file": ""
             },
@@ -26,8 +26,8 @@
     },
     "py": {
         "embed": {
-            "path": "F:/languages/py",
-            "bin": "F:/languages/py",
+            "path": "",
+            "bin": "",
             "config": {
                 "file": ""
             },
@@ -51,8 +51,8 @@
     },
     "pl": {
         "embed": {
-            "path": "F:/languages/perl/bin",
-            "bin": "F:/languages/perl/bin",
+            "path": "",
+            "bin": "",
             "config": {
                 "file": ""
             },
@@ -76,8 +76,8 @@
     },
     "rb": {
         "embed": {
-            "path": "F:/languages/Rails/Ruby2.3.3/bin",
-            "bin": "F:/languages/Rails/Ruby2.3.3/bin",
+            "path": "",
+            "bin": "",
             "config": {
                 "file": ""
             },
@@ -140,10 +140,10 @@
     },
     "cgifiles": {
         "phpappone": {
-            "path": "/php",
+            "path": "/phpc",
             "lang_type": "php",
-            "web_root_folder": "G:/workspace/cgi-js/www/php",
-            "bin": "F:/languages/php",
+            "web_root_folder": "./www/php",
+            "bin": "",
             "config_path": "",
             "host": "127.0.0.1",
             "port": "3001",
@@ -152,9 +152,9 @@
         "phpapptwo": {
             "path": "/phpp",
             "lang_type": "php",
-            "web_root_folder": "G:/workspace/cgi-js/www/php",
+            "web_root_folder": "./www/php",
             "bin": {
-                "bin_path": "F:/languages/php",
+                "bin_path": "",
                 "useDefault": false
             },
             "config_path": "",
@@ -165,7 +165,7 @@
         "phpappthree": {
             "path": "/phppp",
             "lang_type": "php",
-            "web_root_folder": "G:/workspace/cgi-js/www/php",
+            "web_root_folder": "./www/php",
             "bin": {
                 "bin_path": "",
                 "useDefault": true

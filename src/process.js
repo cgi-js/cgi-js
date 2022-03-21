@@ -21,9 +21,9 @@ const setter = utils.setter, getter = utils.getter;
  * @returns
  */
 function handler() {
-    let processes = {}, processCommands = {};
+    let processes = {};
 
-    let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
+    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
     let executableOptions = ["executable", "service"];
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
@@ -70,7 +70,7 @@ function handler() {
             case "osList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (optionsObject[i] in osList) {
+                        if (!optionsObject[i] in osList) {
                             osList.push(optionsObject[i]);
                         }
                     }
@@ -80,29 +80,27 @@ function handler() {
             case "processList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (optionsObject[i] in processList) {
+                        if (!optionsObject[i] in processList) {
                             processList.push(optionsObject[i]);
                         }
                     }
                     return true;
                 }
                 return false;
-            case "processCommands":
+            case "processes":
                 if (typeof optionsObject === "object") {
-                    let valid = utils.isEqual(commandObject, optionsObject);
-                    if (!valid || !optionsObject.name) {
+                    if (!optionsObject.name) {
                         return false;
                     }
-                    processCommands[optionsObject.name] = optionsObject;
+                    processes[optionsObject.name] = optionsObject;
                     return true;
                 } else if (Array.isArray(optionsObject)) {
                     let oKeys = Object.keys(optionsObject);
                     for (let i = 0; i < optionsObject.length; i++) {
-                        let valid = utils.isEqual(commandObject, optionsObject[i]);
-                        if (!valid || !optionsObject[i].name) {
+                        if (!optionsObject[i].name) {
                             return false;
                         }
-                        processCommands[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
+                        processes[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
                         return true;
                     }
                 }
@@ -112,6 +110,7 @@ function handler() {
         }
     }
 
+    
     /**
      * Set new OS in the list of OS
      *
@@ -171,7 +170,7 @@ function handler() {
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
      * - <subcommandObject>: { usage: String, args: Array }
      * 
      * @returns {Boolean || Object} processes
@@ -262,7 +261,7 @@ function handler() {
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
      * - <subcommandObject>: { usage: String, args: Array }
      * 
      */
@@ -345,6 +344,9 @@ function handler() {
      * 
      * execProcess
      * 
+     * UNUSED
+     * TODO:
+     * BETTER THIS FOR SERVICE IMPLEMENTATION
      * 
      * @param {Object} conf
      * 
@@ -363,9 +365,9 @@ function handler() {
                 return false;
             }
         }
-        let cmdObj = getter(processCommands, conf.name);
+        let cmdObj = getter(processes, conf.name);
         if (!!cmdObj) {
-            // TODO: TEMP: Following two statements to be tested
+            // TODO: TEMP: Following two statements to be retested for new logic
             let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
             let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
             return execCommand(exe, e, conf.options, dataHandler);
@@ -426,7 +428,7 @@ function handler() {
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
      * - <subcommandObject>: { usage: String, args: Array }
      * 
      * @param {String} file
