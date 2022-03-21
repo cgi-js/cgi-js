@@ -325,10 +325,8 @@ function handler() {
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
-        tmp[name] = processConf;
-
         if (!!other.setprocess) {
-            bln = setProcess(tmp);
+            let bln = setProcess(processConf);
             if (!!bln) { /* Do something here - callback */ }
         }
 
@@ -336,7 +334,7 @@ function handler() {
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, proc));
         }
 
-        return tmp[name];
+        return processConf;
     }
 
 
