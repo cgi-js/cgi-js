@@ -298,7 +298,7 @@ function handler() {
             exitFunction(options, proc);
         }
 
-        tmp[name] = { process: proc, pid: proc.pid, conf: processConf };
+        tmp[name] = { name: processConf.name, process: proc, pid: proc.pid, conf: processConf };
 
         if (!!other.setprocess) {
             bln = setProcess(tmp);

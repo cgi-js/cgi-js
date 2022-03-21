@@ -4,18 +4,6 @@
  * 
 */
 
-/*
- * 
- * TESTS SETTER FUNCTIONS
- * 
-*/
-
-/*
- * 
- * TESTS GETTER FUNCTIONS
- * 
-*/
-
 
 var obj = require("../../../src/process")();
 const cgijs = require("../../../src");
