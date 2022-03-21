@@ -414,6 +414,20 @@ function handler() {
      * Expected Structure: {  }
      * 
      * process/server/database = 
+     *  
+     * @param {Function} dataHandler
+     * 
+     * @param {Function} cleanupHandler
+     * 
+     * @returns {Object}
+     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
+     * 
+     * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
+     * 
+     * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
+     * - <shellOptions>: { stdio: String, shell: Boolean }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String }
+     * - <subcommandObject>: { usage: String, args: Array }
      * 
      * @param {String} file
      * 
