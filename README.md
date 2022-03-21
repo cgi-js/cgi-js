@@ -6,6 +6,9 @@
 Supports running cgi / Interpreted Language scripts running on node.js server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
 
 
+![Desktop CGI](./desktop-cgi.jpeg)
+
+
 # Installation
 
 ```
