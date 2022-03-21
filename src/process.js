@@ -283,14 +283,14 @@ function handler() {
         }
 
         if (!dataHandler && (typeof dataHandler === "function" || dataHandler instanceof Function || Object.prototype.toString().call(dataHandler) == "[object Function]")) {
-            let dataHandler = (error, stdout, stderr) => { };
+            let dataHandler = function (error, stdout, stderr) { };
         }
 
         if (!cleanupHandler && (typeof cleanupHandler === "function" || cleanupHandler instanceof Function || Object.prototype.toString().call(cleanupHandler) == "[object Function]")) {
-            let cleanupHandler = (options, prc) => { };
+            let cleanupHandler = function (options, prc) { };
         }
 
-        proc = execCommand(exe, args, options, dataHandler);
+        proc = execCommand(exe, [usage, ...args], options, dataHandler);
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
@@ -298,7 +298,10 @@ function handler() {
             exitFunction(options, proc);
         }
 
-        tmp[name] = { name: processConf.name, process: proc, pid: proc.pid, conf: processConf };
+        processConf["pid"] = proc.pid;
+        processConf["process"] = proc;
+
+        tmp[name] = processConf;
 
         if (!!other.setprocess) {
             bln = setProcess(tmp);
