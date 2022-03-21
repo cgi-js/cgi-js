@@ -22,19 +22,32 @@ const setter = utils.setter, getter = utils.getter;
  */
 function handler() {
     let processes = {}, processCommands = {};
+
     let osList = ["win32", "win64", "darwin", "unix", "linux", "fedora", "debian"];
+    let executableOptions = ["executable", "service"];
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
     let commandObject = {
         name: "",
+        // --> executableOptions
         type: "executable",
+        // --> osList
         os: "",
+        // --> any executable or systemctl
         exe: "",
-        env: "",
         cmds: {
             start: { usage: "start", args: [] },
             stop: { usage: "stop", args: [] },
-            restart: { usage: "restart", args: [] }
+            restart: { usage: "restart", args: [] },
+            generic: { usage: "", args: [] }
+        },
+        options: {},
+        other: {
+            paths: {
+                "conf": "",
+                "exe": ""
+            },
+            env: ""
         }
     };
 
@@ -125,15 +138,15 @@ function handler() {
      * getProcess
      * Returns the processes requested
      *
-     * @param {String, Array} processIds
-     *      processIds is single or Array of ids
+     * @param {String, Array} processNames
+     *      processNames is single or Array of ids
      * 
      * @returns {Boolean, Object} processes
      *      processes: processes list object
      * 
      */
-    function getProcess(processIds) {
-        return getter(processes, processIds);
+    function getProcess(processNames) {
+        return getter(processes, processNames);
     }
 
 
@@ -209,7 +222,7 @@ function handler() {
 
     /**
      * 
-     * startProcess
+     * executeProcess
      * 
      *
      * @param {Object} processConf
@@ -222,52 +235,81 @@ function handler() {
      * 
      * @param {Function} dataHandler
      * 
-     * @param {Function} cleanupFnc
+     * @param {Function} cleanupHandler
      * 
      * @returns {Object}
      * { pid: Number, process: Object, conf: Object }
      * 
      */
-    function startProcess(processConf, file, dataHandler, cleanupFnc) {
+    function executeProcess(processConf, dataHandler, cleanupHandler) {
         // {name: {commands, instances: {pid: instance}}}
-        let proc, bln;
-        let { exe, args, options, other } = processConf, tmp = {};
+        let proc, usage, args;
+        let tmp = {};
 
         // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
         let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
-        evtLen = evt.length;
+        let evtLen = evt.length;
 
-        // args.conf == !!other.osPaths.conf ?
-        //     (other.osPaths.conf + args.conf) : (!!args.conf) ? args.conf : "";
-        exe = other.osPaths.exe + exe;
-        if (!!other.serverType && !!other.command && !!file) {
-            error("startProcess: Server Definition or Process Definition allowed, not both");
+        let { name, exe, cmds, os, type, options, other } = processConf;
+
+        if (!executableOptions.includes(type)) {
+            utils.error("startProcess: Server Definition or Process Definition does not include type");
         }
 
-        if (!!args && !Array.isArray(args)) {
-            error("startProcess: Arguments passed is incorrect");
-        } else if (!args) {
+        exe = other.paths.exe + exe;
+        if (!!other.command) {
+            if (!cmds[other.command] && (cmds[other.command] != "" || cmds[other.command] != {})) {
+                utils.error("startProcess: Server Definition or Process Definition not allowed");
+            } else {
+                usage = cmds[other.command]["usage"];
+                args = cmds[other.command]["args"];
+            }
+        }
+
+        if (!other.command) {
+            utils.error("startProcess: Server Definition or Process Definition does not have command to execute");
+        }
+
+        if (!usage) {
+            usage = "";
+        } else if (!!usage && usage != "") {
+            utils.error("startProcess: Usage passed is incorrect");
+        }
+
+        if (!args) {
             args = [];
+        } else if (!!args && !Array.isArray(args)) {
+            utils.error("startProcess: Arguments passed is incorrect");
         }
 
-        if (!!other.command && !file) { args.push(other[other.command]); }
-        if (!!file && !other.serverType) { args.push(file); }
+        if (!dataHandler && (typeof dataHandler === "function" || dataHandler instanceof Function || Object.prototype.toString().call(dataHandler) == "[object Function]")) {
+            let dataHandler = (error, stdout, stderr) => { };
+        }
+
+        if (!cleanupHandler && (typeof cleanupHandler === "function" || cleanupHandler instanceof Function || Object.prototype.toString().call(cleanupHandler) == "[object Function]")) {
+            let cleanupHandler = (options, prc) => { };
+        }
+
         proc = execCommand(exe, args, options, dataHandler);
         process.stdin.resume();
 
         function cleanupSrv(eventType, exitFunction, proc) {
-            console.log('startProcess: Cleanup Fnc EventType and Process PID: ', eventType, proc.pid);
+            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, proc.pid);
             exitFunction(options, proc);
         }
 
-        tmp[proc.pid] = { process: proc, conf: processConf };
-        bln = setProcess(tmp);
-        if (!!bln) { /* Do something here - callback */ }
+        tmp[name] = { process: proc, pid: proc.pid, conf: processConf };
+
+        if (!!other.setprocess) {
+            bln = setProcess(tmp);
+            if (!!bln) { /* Do something here - callback */ }
+        }
 
         for (let i = 0; i < evtLen; i++) {
-            proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupFnc, proc));
+            proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, proc));
         }
-        return { pid: proc.pid, process: proc, conf: processConf };
+
+        return tmp[name];
     }
 
 
@@ -349,7 +391,7 @@ function handler() {
      * 
      * @param {Function} dataHandler
      * 
-     * @param {Function} cleanupFnc
+     * @param {Function} cleanupHandler
      * 
      * @returns {Object}
      * 
@@ -391,16 +433,20 @@ function handler() {
      * 
      */
     function killProcess(pid, signal) {
-        let proc = getProcess(pid)['process'], ob = {}, setterVal = null;
-        proc.kill(signal);
-        proc.stdin.end();
-        ob[pid] = null;
-        setterVal = setter(processes, ob);
-        if (!setterVal) {
-            console.error("killProcess: Error during setting object to null");
+        try {
+            let proc = getProcess(pid)['process'], ob = {}, setterVal = null;
+            proc.kill(signal);
+            proc.stdin.end();
+            ob[pid] = null;
+            setterVal = setter(processes, ob);
+            if (!setterVal) {
+                console.error("killProcess: Error during setting object to null");
+            }
+            console.log('killProcess: Killed/Stopped process ' + pid, "Object is ", processes[pid]);
+            return true;
+        } catch (e) {
+            return false;
         }
-        console.log('killProcess: Killed/Stopped process ' + pid, "Object is ", processes[pid]);
-        return true;
     }
 
 
@@ -539,12 +585,8 @@ function handler() {
             set: setProcess,
             get: getProcess,
             registerHandlers: registerEventHandlers,
-            exec: execCommand,
-            start: startProcess,
-            execProcess: execProcess,
-            execAsync: execCommandAsync,
-            startAsync: startProcessAsync,
-            execProcessAsync: execProcessAsync,
+            execute: execCommand,
+            execProcess: executeProcess,
             kill: killProcess
         },
         server: {

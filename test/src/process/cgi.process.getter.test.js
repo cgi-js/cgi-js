@@ -1,7 +1,0 @@
-/*
- * 
- * TESTS GETTER FUNCTIONS
- * 
-*/
-
-

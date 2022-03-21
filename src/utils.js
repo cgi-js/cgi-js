@@ -116,6 +116,25 @@ function utils() {
         return baseArray.includes(name);
     }
 
+    /**
+	 *
+	 * error
+	 * 
+	 * @param {String} msg
+	 * 
+	 * @return {throw error}
+	 * 
+	 */
+	function error(msg, allowExit) {
+		console.error(msg);
+		if (!!allowExit) {
+			process.exit(msg);
+		} else {
+			throw new Error(msg);
+		}
+	}
+
+
     return {
         convert: {
             array: createArray,
@@ -124,7 +143,8 @@ function utils() {
         allowedItem: allowedListItem,
         isEqual: isEqual,
         setter: setter,
-        getter: getter
+        getter: getter,
+        error: error
     }
 }
 

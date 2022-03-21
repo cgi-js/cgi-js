@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS SETTER FUNCTIONS
- * 
-*/
