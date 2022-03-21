@@ -43,9 +43,6 @@ function testprocesswithfile() {
             // --> any executable or systemctl
             exe: "python",
             cmds: {
-                start: { usage: "start", args: [] },
-                stop: { usage: "stop", args: [] },
-                restart: { usage: "restart", args: [] },
                 generic: { usage: "", args: args }
             },
             options: {
