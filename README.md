@@ -61,7 +61,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 # Functionality Details
 
-##### The script will pipe all files of below interpreted languages:
+##### The script should support piping all files of below interpreted languages:
 
 * [x] Python (2.x, 3.x) - `py` (for Python .py extension files. Needed for *nix systems)
 * [x] Perl (Version Independent) - `plc`, `pld`, `pl` (for Perl .pl, .plc, .pld extension files)
@@ -70,7 +70,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Node.js (Version Independent) - `js` (for Node.js .js extension files)
 
 
-##### The script will pipe all proxies of above languages and following:
+##### The script should support piping all proxies of above languages and following:
 
 * [x] Jsp (With Tomcat as proxy)
 * [] Jsp (With Tomcat) [TODO]
