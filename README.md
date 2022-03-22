@@ -7,12 +7,12 @@
 Supports running any `CGI` / `Interpreted Language scripts` in any `OS` that runs `node.js`. Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
 
 
-[![Desktop CGI](./desktop-cgi.jpeg)](https://github.com/ganeshkbhat/desktop-cgi)
-
-
 # History
 
 CGIJS was created with a motivation to allow creation of a `Desktop executable/ application` using `Electron` that can run any `CGI` / `Interpreted language scripted files/ applications` under the hood. 
+
+
+[![Desktop CGI](./desktop-cgi.jpeg)](https://github.com/ganeshkbhat/desktop-cgi)
 
 
 # Installation
@@ -188,8 +188,8 @@ Copyright © 2019 - till library works:
 
 
 #### Please support the development in github repository through 
-    - feature needs reporting, 
-    - testing, 
-    - issue reporting, 
-    - contribution 
+    - feature needs reporting,
+    - testing,
+    - issue reporting,
+    - contribution
 
