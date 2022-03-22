@@ -188,7 +188,7 @@ Copyright © 2019 - till library works:
 
 
 #### Please support the development in github repository through 
-    - need reporting, 
+    - feature needs reporting, 
     - testing, 
     - issue reporting, 
     - contribution 
