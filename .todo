@@ -1,17 +1,20 @@
 Add:
+- [*] CGI File serving [Done]
+- [*] Proxy local and remote web servers [Done]
+- [*] Proxy supporting websockets [Done]
 - [*] Manual commands [Done]
 - [*] Command line options for all interpretors in config [Done]
 - [*] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
 - [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
 - [*] Work with any executables/processes [Done]
 - [*] Add support for websockets [Done]
-- [] Consider support for gRPC, UDP/Other Protocols [TODO]
+- [] Consider support for gRPC, UDP/Other Protocols for proxy [TODO]
 - [*] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
 Modify:
 - [*] Make config and options dynamic based on config file [Done]
 - [] Check Authentication for proxy connections for VLAN proxies [TODO]
-- [*] Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [Done]
+- [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [Done]
     - IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
 - Tests for Beta-02 [TODO]
 Low Priority, High Effort:
