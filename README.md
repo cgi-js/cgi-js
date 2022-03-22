@@ -24,7 +24,7 @@ npm install cgijs --save
 
 # Features
 
-*Light weight, Flexible, Generic implementation*. CGIJS is Nodejs `Framework Independent / agnostic` for application development.
+*Light weight, Flexible, Generic implementation. CGIJS is Nodejs `Framework Independent / agnostic` for application development.*
 
 
 There are three main modules inside CGIJS - `file` for CGI file execution, `proxy` for running proxies, and `process` for managing processes.
