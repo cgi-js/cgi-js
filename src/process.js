@@ -28,26 +28,42 @@ function handler() {
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
     let commandObject = {
+        // name of the object that it should be stored or identifies as 
         name: "",
-        // --> executableOptions
+        // type --> One of the executableOptions options
         type: "executable",
-        // --> osList
+        // os --> Any os in the osList
         os: "",
-        // --> any executable or systemctl
+        // exe --> any executable or systemctl
         exe: "",
+        // cmds will have list of actions/ prestored commands that may be needed for executing the process
+        // cmds action execution will be controlled by and 
+        //        depend on whether `other.command` key is specified during execution
         cmds: {
             start: { usage: "start", args: [] },
             stop: { usage: "stop", args: [] },
             restart: { usage: "restart", args: [] },
             generic: { usage: "", args: [] }
         },
-        options: {},
+        // shell options for nodejs process `exec` function definition
+        //      Will be passed as an arg for `process.exec` function inside implementation under the hood
+        //      Defaults to { stdio: 'inherit', shell: true }
+        options: {
+            stdio: 'inherit',
+            shell: true
+        },
         other: {
+            // Any paths that you want to store. Some common defaults are conf and exe
             paths: {
                 "conf": "",
                 "exe": ""
             },
-            env: ""
+            // Any specific environment that needs to be stored
+            env: "",
+            // `setprocess` will set the config in the processes object in this `process` object
+            setprocess: false,
+            // `command` will be use to execute one of the above cmds action in the cmds key
+            command: ""
         }
     };
 
@@ -110,7 +126,7 @@ function handler() {
         }
     }
 
-    
+
     /**
      * Set new OS in the list of OS
      *
@@ -254,7 +270,8 @@ function handler() {
      * 
      * @param {Function} cleanupHandler
      * 
-     * @returns {Object}
+     * @returns {Object} processConf
+     * 
      * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
      * 
      * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
@@ -326,8 +343,8 @@ function handler() {
         processConf["process"] = proc;
 
         if (!!other.setprocess) {
-            let bln = setProcess(processConf);
-            if (!!bln) { /* Do something here - callback */ }
+            let setprc = setProcess(processConf);
+            if (!!setprc) { /* Do something here - callback */ }
         }
 
         for (let i = 0; i < evtLen; i++) {
@@ -339,36 +356,33 @@ function handler() {
 
 
     /**
+     *
+     * executeAction
+     *
+     * @param { String } name 
      * 
-     * execProcess
+     * @param { String } action
+     * One of many actions in `cmds` key of `processConf`
      * 
-     * UNUSED
-     * TODO:
-     * BETTER THIS FOR SERVICE IMPLEMENTATION
+     * @param { Function } dataHandler
      * 
-     * @param {Object} conf
+     * @param { Function } cleanupHandler
      * 
-     * @param {Function} dataHandler
-     *  
-     * @returns {Boolean, Object}
-     * false / Process Instance
+     * @return { Object } processConf
      * 
      */
-    function execProcess(conf, dataHandler) {
-        if (!!conf.command && typeof conf.command === "string") {
-            try {
-                return execCommand(conf.command, [], conf.options, dataHandler);
-            } catch (e) {
-                console.log("execProcess: Error occured: ", e.toString());
-                return false;
-            }
+    function executeAction(name, action, dataHandler, cleanupHandler) {
+        let prconf = getProcess(name);
+        if (typeof action !== "string" || !prconf) {
+            return false;
         }
-        let cmdObj = getter(processes, conf.name);
-        if (!!cmdObj) {
-            // TODO: TEMP: Following two statements to be retested for new logic
-            let exe = cmdObj.env.os[conf.os]['bin'] + "/" + cmdObj.env.os[conf.os]['exe'];
-            let e = [cmdObj.cmds[conf.cmd]['usage'], ...cmdObj.cmds[conf.cmd]["args"]];
-            return execCommand(exe, e, conf.options, dataHandler);
+        if (!!prconf.cmds[action]) {
+            prconf.other["command"] = action;
+            prconf.other["setprocess"] = true;
+        }
+        let cf = executeProcess(prconf, dataHandler, cleanupHandler);
+        if (!!cf) {
+            return cf;
         }
         return false;
     }
@@ -504,6 +518,7 @@ function handler() {
             registerHandlers: registerEventHandlers,
             execute: execCommand,
             executeProcess: executeProcess,
+            executeAction: executeAction,
             kill: killProcess
         }
     }
