@@ -7,7 +7,7 @@ Add:
 - [*] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
 - [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
 - [*] Work with any executables/processes [Done]
-- [*] Add support for websockets [Done]
+- [*] Config based serving for file, web (proxy) applications
 - [] Consider support for gRPC, UDP/Other Protocols for proxy [TODO]
 - [*] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
