@@ -1,12 +1,18 @@
-# cgi-js
+# cgijs
     
-    Run cgi / interpreted script files, or connect to cgi / other server proxies
+
+*`CGIJS` is a library to run any `CGI` / `Interpreted language script files`, or connect to any web application server proxies, or manage processes in the system.*
 
 
-Supports running cgi / Interpreted Language scripts running on node.js server. Supports both CGI executables as well as proxy to localhost/remote/embedded servers using proxying.
+Supports running any `CGI` / `Interpreted Language scripts` in any `OS` that runs `node.js`. Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
 
 
 [![Desktop CGI](./desktop-cgi.jpeg)](https://github.com/ganeshkbhat/desktop-cgi)
+
+
+# History
+
+CGIJS was created with a motivation to allow creation of a `Desktop executable/ application` using `Electron` that can run any `CGI` / `Interpreted language scripted files/ applications` under the hood. 
 
 
 # Installation
@@ -18,24 +24,39 @@ npm install cgijs --save
 
 # Features
 
-    Light weight, Flexible, Generic implementation
+*Light weight, Flexible, Generic implementation*. CGIJS is Nodejs `Framework Independent / agnostic` for application development.
+
+
+There are three main modules inside CGIJS - `CGI file` execution, running `proxies`, and managing `processes`.
 
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
 
-* [x] Run any scripts that support CGI based serving/execution
-* [x] Run any host that serves a web app using proxy 
-    - [x] In App / Local / Remote proxy + websocket support
-    - [] Allows Embedding Servers, which can run through proxies [TODO]
-    - [] Allows running and closing process Executables
-        * [] Runs Unsupported proxy servers/ processes/ services [TODO]
-        * [] Work with Embedded database servers, Language embedded servers [TODO]
-* [x] Allows
-    - [x] running multiple interpreters in one app
-    - [x] running multiple proxies + websockets in one app
-    - [x] multiple embedded servers in one app
-    - [x] multiple embedded databases in one app
-* [x] Nodejs `Framework Independent / agnostic` for app development
+* [x] CGI file execution
+    - [x] Run any scripts that support CGI based serving/execution
+    - [x] Run multiple CGI executables/ Interpreters in one or multiple applications
+    - [x] Embed your own CGI/ Interpreted Language executables
+
+
+##### Node Web Proxy - run web proxies
+
+* [x] Running Proxies
+    - [x] Run any host that serves a web app, using proxy 
+    - [x] Run proxies for Application (Local / Remote)
+    - [x] Supports websocket implementation in web proxies
+    - [x] Run multiple proxies + websockets in one or multiple applications
+
+
+##### Node Processes - Manage web servers, database processes, or other system processes or services
+
+* [x] Manage Processes or services
+    - [x] Allows running and closing process Executables
+    - [x] Allows managing Embedding Web Servers, which can run web applications through proxies
+    - [x] Allows managing Embedded Database servers
+    - [x] Should smoothly run Unsupported proxy servers/ processes/ services (not widely tested)
+* [x] Embed
+    - [x] Multiple web servers in one or multiple applications
+    - [x] Multiple databases in one or multiple applications
 
 
 # Functionality Details
@@ -57,11 +78,11 @@ npm install cgijs --save
 * [] Aspx (With Nginx, Apache) [TODO]
 
 
-##### The script currently supports (tested) proxying to following web servers:
+##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
-* [] Apache HTTPD (Allows Embed & Proxy) [TODO]
+* [x] Apache HTTPD (Allows Embed & Proxy) [TODO]
 * [] Apache TomCat (Allows Embed & Proxy) [TODO]
-* [] Nginx (Allows Embed & Proxy) [TODO]
+* [x] Nginx (Allows Embed & Proxy) [TODO]
 * [] Mongoose (Allows Embed & Proxy) [TODO]
 * [] IIS (Allows Proxy) [TODO]
 * [] Jetty (Allows Embed & Proxy) [PLANNED]
@@ -69,17 +90,18 @@ npm install cgijs --save
 * [x] Other Proxy-able local/remote servers
 
 
-##### The script currently allows running (starting, stopping, restarting) following databases and processes:
+##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [] Mysql [TODO]
+* [x] Mysql
+* [x] MongoDB
 * [] PgSQL [TODO]
-* [] MongoDB [TODO]
 * [] Redis [TODO]
-* [] Other Processes for your application support [TODO]
+* [x] Other Processes for your application support
 
 
 ##### Note:
-    This library is in active development. Issues, feedback as a github ticket is welcome.
+
+*This library is in active development. Issues, feedback as a github ticket is welcome.*
 
 
 ##### Package Dependencies:
@@ -97,14 +119,14 @@ npm install cgijs --save
 
 ##### Usage Demo:
 
-This project contains example that demonstrates working with ExpressJS. To run CGI/Interpreted scripts with node js and express create the applications like in [demo folder](/demo): 
+This project contains example that demonstrates working with ExpressJS. The demo to run CGI/Interpreted scripts with node.js and express applications can be found in [demo folder](/demo): 
 
 
 ##### Use case:
 
 [cgijs](https://www.npmjs.com/package/cgijs) library has been created to address following use cases:
     
-- working with CGI / interpreted languages from any Node.js app
+- working with CGI / interpreted languages from `any` Node.js app
 - using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
 
 
@@ -137,14 +159,16 @@ This project contains example that demonstrates working with ExpressJS. To run C
     - Embedded Nginx (http/https/websocket)
 * Manage Embedded Database Servers (for desktop-cgi use case):
     - Embedded Mysql
+    - Embedded MongoDB
     - Embedded PgSQL
     - Working with SQLite
 * Run any executable/process based on need for application
 * Working with config.json file for simpler implementation in apps
 
+
 # Status
 
-    In development [for allowing embedded server executables, and embedded databases]
+In development [for allowing embedded server executables, and embedded databases]
 
 
 # Todo
