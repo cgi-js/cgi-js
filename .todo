@@ -1,15 +1,15 @@
 Add:
-- [*] Manual commands [TODO]
+- [*] Manual commands [Done]
 - [*] Command line options for all interpretors in config [Done]
 - [*] Work with embedding Servers (HTTPD, Tomcat, Mongoose, Nginx, other using generic command function) [Partially done]
 - [] Work with embedding Database Servers (MySQL, PgSQL) [Partially done]
-- [*] Work with any executables/processes [Partially done]
-- [*] Add support for websockets [TODO]
+- [*] Work with any executables/processes [Done]
+- [*] Add support for websockets [Done]
 - [] Consider support for gRPC, UDP/Other Protocols [TODO]
 - [*] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
 Modify:
-- [*] Make config and options dynamic based on config file
+- [*] Make config and options dynamic based on config file [Done]
 - [] Check Authentication for proxy connections for VLAN proxies [TODO]
 - [*] Add 'other' or 'custom' CGI executable option for unaccomodated interpreted lang support [Done]
     - IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
