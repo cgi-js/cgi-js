@@ -49,7 +49,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### Node Processes - Manage web servers, database processes, or other system processes or services
 
-* [x] Manage Processes or services
+* [x] Manage Processes or Services
     - [x] Allows running and closing process Executables
     - [x] Allows managing Embedding Web Servers, which can run web applications through proxies [TODO Testing]
     - [x] Allows managing Embedded Database servers [TODO Testing]
