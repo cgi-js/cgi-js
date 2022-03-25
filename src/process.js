@@ -68,7 +68,7 @@ function handler() {
             // Execute type --> spawn ( exe > { file } )
             // Execute type --> fork ( exe > { file } )
             executetype: "exec",
-            // `command` will be use to execute one of the above cmds action in the cmds key
+            // `command` will be use to execute one of the above cmds action in the cmds key by default when the execProcess, spawn, fork, execFile is run
             command: ""
         }
     };
@@ -236,7 +236,7 @@ function handler() {
 
     /**
      * 
-     * execCommand
+     * exec
      * 
      * 
      * @param {String} exe
@@ -251,7 +251,7 @@ function handler() {
      * Executed exec Command process result
      *
      */
-    function execCommand(exe, args, cmdOptions, dataHandler) {
+    function exec(exe, args, cmdOptions, dataHandler) {
         let ex = require('child_process').exec;
         return ex([exe, ...args].join(" "), cmdOptions, function (error, stdout, stderr) {
             dataHandler(error, stdout, stderr);
@@ -261,7 +261,7 @@ function handler() {
 
     /**
      * 
-     * execFileProcess
+     * execFile
      * 
      * 
      * @param {String} file
@@ -277,7 +277,7 @@ function handler() {
      * Executed execFile process result
      *
      */
-    function execFileProcess(file, args, cmdOptions, dataHandler) {
+    function execFile(file, args, cmdOptions, dataHandler) {
         let ex = require('child_process').execFile;
         return ex(file, [...args], cmdOptions, function (error, stdout, stderr) {
             dataHandler(error, stdout, stderr);
@@ -287,7 +287,7 @@ function handler() {
 
     /**
      * 
-     * forkProcess
+     * fork
      * 
      * 
      * @param {String} modulePath
@@ -303,7 +303,7 @@ function handler() {
      * Executed Forked fork process result
      *
      */
-    function forkProcess(modulePath, args, cmdOptions, dataHandler) {
+    function fork(modulePath, args, cmdOptions, dataHandler) {
         let ex = require('child_process').fork;
         return ex(modulePath, [...args], cmdOptions);
     }
@@ -311,7 +311,7 @@ function handler() {
 
     /**
      * 
-     * spawnProcess
+     * spawn
      * 
      * 
      * @param {String} exe
@@ -326,7 +326,7 @@ function handler() {
      * Executed Spawned spawn process result
      *
      */
-    function spawnProcess(exe, args, cmdOptions, dataHandler) {
+    function spawn(exe, args, cmdOptions, dataHandler) {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
         let stdout, stderr;
@@ -411,6 +411,11 @@ function handler() {
             utils.error("startProcess: Server Definition or Process Definition does not include type");
         }
 
+        let executetype = "exec";
+        if (!!other["executetype"]) {
+            executetype = other["executetype"];
+        }
+
         let executable = path.join(other.paths.exe, exe);
         if (!!other.command) {
             if (!cmds[other.command]) {
@@ -447,13 +452,20 @@ function handler() {
         if (!cleanupHandler && (typeof cleanupHandler === "function" || cleanupHandler instanceof Function || Object.prototype.toString().call(cleanupHandler) == "[object Function]")) {
             let cleanupHandler = function (options, prc) { };
         }
-
-        let executetype = "exec";
-        if (!!other["executetype"]) {
-            executetype = other["executetype"];
+        
+        switch (executetype) {
+            case "exec":
+                proc = exec(executable, [usage, ...args], options, dataHandler);
+            case "spawn":
+                proc = spawn(executable, [usage, ...args], options, dataHandler);
+            case "fork":
+                proc = fork(executable, [usage, ...args], options, dataHandler);
+            case "execFile":
+                proc = execFile(executable, [usage, ...args], options, dataHandler);
+            default:
+                proc = exec(executable, [usage, ...args], options, dataHandler);
         }
         
-        proc = execCommand(executable, [usage, ...args], options, dataHandler);
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
@@ -647,10 +659,10 @@ function handler() {
             set: setProcess,
             get: getProcess,
             registerHandlers: registerEventHandlers,
-            exec: execCommand,
-            execFile: execFileProcess,
-            fork: forkProcess,
-            spawn: spawnProcess,
+            exec: exec,
+            execFile: execFile,
+            fork: fork,
+            spawn: spawn,
             executeProcess: executeProcess,
             executeAction: executeAction,
             kill: killProcess
