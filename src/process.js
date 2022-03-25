@@ -330,12 +330,18 @@ function handler() {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
         let stdout, stderr;
-        spw.stdout.on('data', function (data) {
-            stdout = dataHandler(null, data, null);
-        }.bind(stdout));
-        spw.stderr.on('data', function (data) {
-            stderr = dataHandler(null, null, data);
-        }.bind(stderr));
+        // spw.stdout.on('data', function (data) {
+        //     stdout = dataHandler(null, data, null);
+        // }.bind(stdout));
+        // spw.stderr.on('data', function (data) {
+        //     stderr = dataHandler(null, null, data);
+        // }.bind(stderr));
+        spw.on('error', function (err) {
+            console.error('Failed to start subprocess.');
+        });
+        spw.on('close', function (code) {
+            console.log(`child process exited with code ${code}`);
+        });
         return spw;
     }
 
@@ -452,20 +458,17 @@ function handler() {
         if (!cleanupHandler && (typeof cleanupHandler === "function" || cleanupHandler instanceof Function || Object.prototype.toString().call(cleanupHandler) == "[object Function]")) {
             let cleanupHandler = function (options, prc) { };
         }
-        
-        switch (executetype) {
-            case "exec":
-                proc = exec(executable, [usage, ...args], options, dataHandler);
-            case "spawn":
-                proc = spawn(executable, [usage, ...args], options, dataHandler);
-            case "fork":
-                proc = fork(executable, [usage, ...args], options, dataHandler);
-            case "execFile":
-                proc = execFile(executable, [usage, ...args], options, dataHandler);
-            default:
-                proc = exec(executable, [usage, ...args], options, dataHandler);
+
+        if (executetype === "exec") {
+            proc = exec(executable, [usage, ...args], options, dataHandler);
+        } else if (executetype === "spawn") {
+            proc = spawn(executable, [usage, ...args], options, dataHandler);
+        } else if (executetype === "execFile") {
+            proc = execFile(executable, [usage, ...args], options, dataHandler);
+        } else if (executetype === "fork") {
+            proc = fork(executable, [usage, ...args], options, dataHandler);
         }
-        
+    
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
