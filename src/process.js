@@ -8,8 +8,10 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 const https = require('https');
 const fs = require('fs');
+const os = require("os");
 const util = require("util");
 const process = require('process');
+const path = require("path");
 const execPath = process.execPath;
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter;
@@ -18,13 +20,13 @@ const setter = utils.setter, getter = utils.getter;
  * 
  * handler
  * 
- * @returns
+ * @returns {Object} Process module functions
  */
 function handler() {
     let processes = {};
 
     let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
-    let executableOptions = ["executable", "service"];
+    let executableOptions = ["executable", "service", "file"];
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
     let commandObject = {
@@ -62,6 +64,10 @@ function handler() {
             env: "",
             // `setprocess` will set the config in the processes object in this `process` object
             setprocess: false,
+            // Execute type --> exec ( exe > { executable, service } )
+            // Execute type --> spawn ( exe > { file } )
+            // Execute type --> fork ( exe > { file } )
+            executetype: "exec",
             // `command` will be use to execute one of the above cmds action in the cmds key
             command: ""
         }
@@ -74,8 +80,15 @@ function handler() {
      * 
      * 
      * @param {*} name 
+     * Name of the configuration or default that needs to be handled
      * 
-     * @param {*} optionsObject 
+     * @param {String, Array, Object} optionsObject 
+     * name == osList -> {String, Array} optionsObject 
+     * name == processList -> {Array} optionsObject
+     * name == processes -> {Object, Array} optionsObject
+     * 
+     * @return {Boolean}
+     * Returns the boolean is the setupHandler set the value successfully
      * 
      */
     function setupHandler(name, optionsObject) {
@@ -89,6 +102,11 @@ function handler() {
                         if (!optionsObject[i] in osList) {
                             osList.push(optionsObject[i]);
                         }
+                    }
+                    return true;
+                } else if (typeof optionsObject === "string") {
+                    if (!optionsObject in osList) {
+                        osList.push(optionsObject);
                     }
                     return true;
                 }
@@ -108,16 +126,18 @@ function handler() {
                     if (!optionsObject.name) {
                         return false;
                     }
-                    processes[optionsObject.name] = optionsObject;
-                    return true;
+                    let tmp = {};
+                    tmp[optionsObject.name] = optionsObject;
+                    return setter(processes, tmp);
                 } else if (Array.isArray(optionsObject)) {
                     let oKeys = Object.keys(optionsObject);
                     for (let i = 0; i < optionsObject.length; i++) {
                         if (!optionsObject[i].name) {
                             return false;
                         }
-                        processes[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
-                        return true;
+                        let tmp = {};
+                        tmp[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
+                        return setter(processes, tmp);
                     }
                 }
                 return false;
@@ -128,10 +148,10 @@ function handler() {
 
 
     /**
-     * Set new OS in the list of OS
+     * Set/ Add the OS in the list of OS
      *
      * @param {*} obj
-     * @return { Boolean } 
+     * @return {Boolean} 
      */
     function setOS(obj) {
         if (typeof obj == "string") {
@@ -143,16 +163,26 @@ function handler() {
 
 
     /**
-     * Get OS in the list of OS
-     *
-     * @param {*} name
-     * @return {String, Boolean} 
+     * Check if OS in the list of OS
+     * 
+     * @param {String} name
+     * @return {Boolean} 
      */
-    function getOS(name) {
+    function validOS(name) {
         if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
             return name;
         }
         return false;
+    }
+
+
+    /**
+     * Get the OS of the current system
+     * 
+     * @return {String} 
+     */
+    function getOS() {
+        return os.type();
     }
 
 
@@ -216,6 +246,9 @@ function handler() {
      * @param {Object} cmdOptions
      * 
      * @param {Function} dataHandler
+     * 
+     * @return {Object}
+     * Executed exec Command process result
      *
      */
     function execCommand(exe, args, cmdOptions, dataHandler) {
@@ -223,6 +256,87 @@ function handler() {
         return ex([exe, ...args].join(" "), cmdOptions, function (error, stdout, stderr) {
             dataHandler(error, stdout, stderr);
         });
+    }
+
+
+    /**
+     * 
+     * execFileProcess
+     * 
+     * 
+     * @param {String} file
+     * 
+     * @param {Array Object} args
+     * 
+     * @param {Object} cmdOptions
+     * 
+     * @param {Function} dataHandler
+     * 
+     * 
+     * @return {Object}
+     * Executed execFile process result
+     *
+     */
+    function execFileProcess(file, args, cmdOptions, dataHandler) {
+        let ex = require('child_process').execFile;
+        return ex(file, [...args], cmdOptions, function (error, stdout, stderr) {
+            dataHandler(error, stdout, stderr);
+        });
+    }
+
+
+    /**
+     * 
+     * forkProcess
+     * 
+     * 
+     * @param {String} modulePath
+     * 
+     * @param {Array Object} args
+     * 
+     * @param {Object} cmdOptions
+     * 
+     * @param {Function} dataHandler
+     * 
+     * 
+     * @return {Object}
+     * Executed Forked fork process result
+     *
+     */
+    function forkProcess(modulePath, args, cmdOptions, dataHandler) {
+        let ex = require('child_process').fork;
+        return ex(modulePath, [...args], cmdOptions);
+    }
+
+
+    /**
+     * 
+     * spawnProcess
+     * 
+     * 
+     * @param {String} exe
+     * 
+     * @param {Array Object} args
+     * 
+     * @param {Object} cmdOptions
+     * 
+     * @param {Function} dataHandler
+     * 
+     * @return {Object}
+     * Executed Spawned spawn process result
+     *
+     */
+    function spawnProcess(exe, args, cmdOptions, dataHandler) {
+        let ex = require('child_process').spawn;
+        let spw = ex(exe, [...args], cmdOptions);
+        let stdout, stderr;
+        spw.stdout.on('data', function (data) {
+            stdout = dataHandler(null, data, null);
+        }.bind(stdout));
+        spw.stderr.on('data', function (data) {
+            stderr = dataHandler(null, null, data);
+        }.bind(stderr));
+        return spw;
     }
 
 
@@ -274,12 +388,12 @@ function handler() {
      * 
      * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
      * 
-     * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
+     * - [..keyargs..]: Other custom keys (key-value) for use with your datahandler or cleanuphandler provided
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
-     * - <subcommandObject>: { usage: String, args: Array }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, executetype: String, command: String }
+     * - <subcommandObject> [optionals: exe, modulePath, file]: { exe: String, modulePath: String, file: String, usage: String, args: Array }
      * 
      */
     function executeProcess(processConf, dataHandler, cleanupHandler) {
@@ -297,13 +411,16 @@ function handler() {
             utils.error("startProcess: Server Definition or Process Definition does not include type");
         }
 
-        exe = other.paths.exe + exe;
+        let executable = path.join(other.paths.exe, exe);
         if (!!other.command) {
-            if (!cmds[other.command] && (cmds[other.command] != "" || cmds[other.command] != {})) {
+            if (!cmds[other.command]) {
                 utils.error("startProcess: Server Definition or Process Definition not allowed");
             } else {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
+                if (!!cmds[other.command]["exe"]) {
+                    executable = path.join(other.paths.exe, cmds[other.command]["exe"]);
+                }
             }
         }
 
@@ -331,16 +448,22 @@ function handler() {
             let cleanupHandler = function (options, prc) { };
         }
 
-        proc = execCommand(exe, [usage, ...args], options, dataHandler);
-        process.stdin.resume();
+        let executetype = "exec";
+        if (!!other["executetype"]) {
+            executetype = other["executetype"];
+        }
+        
+        proc = execCommand(executable, [usage, ...args], options, dataHandler);
+        processConf["pid"] = proc.pid;
+        processConf["process"] = proc;
+
+        // process.stdin.resume();
+        // proc.unref();
 
         function cleanupSrv(eventType, exitFunction, proc) {
             console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, proc.pid);
             exitFunction(options, proc);
         }
-
-        processConf["pid"] = proc.pid;
-        processConf["process"] = proc;
 
         if (!!other.setprocess) {
             let setprc = setProcess(processConf);
@@ -348,6 +471,7 @@ function handler() {
         }
 
         for (let i = 0; i < evtLen; i++) {
+            console.log("Event Logging: ", evt[i]);
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, proc));
         }
 
@@ -359,16 +483,16 @@ function handler() {
      *
      * executeAction
      *
-     * @param { String } name 
+     * @param {String} name 
      * 
-     * @param { String } action
+     * @param {String} action
      * One of many actions in `cmds` key of `processConf`
      * 
-     * @param { Function } dataHandler
+     * @param {Function} dataHandler
      * 
-     * @param { Function } cleanupHandler
+     * @param {Function} cleanupHandler
      * 
-     * @return { Object } processConf
+     * @return {Object} processConf
      * 
      */
     function executeAction(name, action, dataHandler, cleanupHandler) {
@@ -440,8 +564,8 @@ function handler() {
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
-     * - <subcommandObject>: { usage: String, args: Array }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, executetype: String, command: String }
+     * - <subcommandObject> [optionals: exe, modulePath, file]: { exe: String, modulePath: String, file: String, usage: String, args: Array }
      * 
      * @param {String} file
      * 
@@ -483,22 +607,28 @@ function handler() {
      * killProcess
      * 
      * 
-     * @param {Number} pid
+     * @param {String} name
      * 
      * @returns {Boolean}
      * 
      */
-    function killProcess(pid, signal) {
+    function killProcess(name, signal) {
         try {
-            let proc = getProcess(pid)['process'], ob = {}, setterVal = null;
-            proc.kill(signal);
-            proc.stdin.end();
-            ob[pid] = null;
-            setterVal = setter(processes, ob);
+            let procConf = getProcess(name);
+            let proc = procConf['process'];
+            let setterVal = null;
+            if (!!proc) {
+                proc.kill(signal);
+                proc.stdin.end();
+                procConf['process'] = null;
+            }
+            let tmp = {};
+            tmp[name] = procConf;
+            setterVal = setter(processes, tmp);
             if (!setterVal) {
                 console.error("killProcess: Error during setting object to null");
             }
-            console.log('killProcess: Killed/Stopped process ' + pid, "Object is ", processes[pid]);
+            console.log('killProcess: Killed/Stopped process ' + name, "Object is ", processes[name]);
             return true;
         } catch (e) {
             return false;
@@ -510,13 +640,17 @@ function handler() {
         setup: setupHandler,
         os: {
             set: setOS,
+            validOS: validOS,
             get: getOS
         },
         process: {
             set: setProcess,
             get: getProcess,
             registerHandlers: registerEventHandlers,
-            execute: execCommand,
+            exec: execCommand,
+            execFile: execFileProcess,
+            fork: forkProcess,
+            spawn: spawnProcess,
             executeProcess: executeProcess,
             executeAction: executeAction,
             kill: killProcess

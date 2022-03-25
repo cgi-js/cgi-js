@@ -134,6 +134,15 @@ function utils() {
 		}
 	}
 
+    function is_running(pid) {
+        try {
+            return process.kill(pid,0)
+          }
+          catch (e) {
+            return e.code === 'EPERM'
+          }
+    }
+
 
     return {
         convert: {
@@ -144,7 +153,8 @@ function utils() {
         isEqual: isEqual,
         setter: setter,
         getter: getter,
-        error: error
+        error: error,
+        is_running: is_running
     }
 }
 
