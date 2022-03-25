@@ -68,7 +68,7 @@ function handler() {
             // Execute type --> spawn ( exe > { file } )
             // Execute type --> fork ( exe > { file } )
             executetype: "exec",
-            // `command` will be use to execute one of the above cmds action in the cmds key by default when the execProcess, spawn, fork, execFile is run
+            // `command` will be use to execute one of the above cmds action in the cmds key by default when the execProcess {exec, spawn, fork, execFile} is run
             command: ""
         }
     };

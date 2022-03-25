@@ -35,7 +35,7 @@ var proc = obj.process.executeProcess({
     // --> osList
     os: "win32",
     // --> any executable or systemctl
-    exe: "node",
+    exe: "node", 
     cmds: {
         generic: { usage: "", args: args }
     },
