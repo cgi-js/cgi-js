@@ -45,7 +45,9 @@ function handler() {
             start: { usage: "start", args: [] },
             stop: { usage: "stop", args: [] },
             restart: { usage: "restart", args: [] },
-            generic: { usage: "", args: [] }
+            // exe is optional and can be used if you want to override 
+            //      the commandObject[exe] value for a specific command in commandObject[exe][cmds]
+            generic: { exe: "", usage: "", args: [] }
         },
         // shell options for nodejs process `exec` function definition
         //      Will be passed as an arg for `process.exec` function inside implementation under the hood
@@ -68,7 +70,8 @@ function handler() {
             // Execute type --> spawn ( exe > { file } )
             // Execute type --> fork ( exe > { file } )
             executetype: "exec",
-            // `command` will be use to execute one of the above cmds action in the cmds key by default when the execProcess {exec, spawn, fork, execFile} is run
+            // `command` will be use to execute one of the above cmds action in the cmds key by default 
+            //          when the execProcess {exec, spawn, fork, execFile} is run
             command: ""
         }
     };
