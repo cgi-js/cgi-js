@@ -129,14 +129,14 @@ function handler() {
                     if (!optionsObject.name) {
                         return false;
                     }
-                    return setter(processes, utils.convert.toObject( (optionsObject.name, optionsObject) ) );
+                    return setter(processes, { [optionsObject.name]: optionsObject });
                 } else if (Array.isArray(optionsObject)) {
                     let oKeys = Object.keys(optionsObject);
                     for (let i = 0; i < optionsObject.length; i++) {
                         if (!optionsObject[i].name) {
                             return false;
                         }
-                        return setter( processes, utils.convert.toObject( ( optionsObject[oKeys[i]].name, optionsObject[oKeys[i]] ) ) );
+                        return setter(processes, { [optionsObject[oKeys[i]].name]: optionsObject[oKeys[i]] });
                     }
                 }
                 return false;
@@ -222,7 +222,7 @@ function handler() {
      * 
      */
     function setProcess(processConf) {
-        let setterVal = setter(processes, utils.convert.toObject((processConf.name, procConf)));
+        let setterVal = setter(processes, { [processConf.name]: processConf });
         if (!!setterVal) {
             processes = setterVal;
             return processes;
@@ -646,7 +646,7 @@ function handler() {
                 proc.stdin.end();
                 procConf['process'] = null;
             }
-            setterVal = setter(processes, utils.convert.toObject( (name, procConf) ) );
+            setterVal = setter(processes, { [name]: procConf });
             if (!setterVal) {
                 console.error("killProcess: Error during setting object to null");
             }
