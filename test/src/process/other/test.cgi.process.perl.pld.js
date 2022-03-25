@@ -23,7 +23,7 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 
 if (__dirname.toString().includes("process")) {
-    var args = [path.join(__dirname, "../../../www/perl/index.pld")];
+    var args = [path.join(__dirname, "../../../../www/perl/index.pld")];
 } else {
     var args = [path.join(__dirname, "./www/perl/index.pld")];
 }
@@ -74,8 +74,8 @@ var proc = obj.process.executeProcess({
         console.log("Ending Tests");
 
     },
-    function (options, prc) {
-        console.log("Exit Handler options", options);
+    function (eventType, prc) {
+        console.log("Exit Handler options", eventType);
         console.log("Exit Handler process", prc.pid);
         eventEmitter.emit('closeprocess', prc);
     }

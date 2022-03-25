@@ -219,8 +219,8 @@ function handler() {
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
-     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean }
-     * - <subcommandObject>: { usage: String, args: Array }
+     * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, command: String }
+     * - <subcommandObject>: { exe: [optional overide]String, usage: String, args: Array }
      * 
      * @returns {Boolean || Object} processes
      * 
@@ -332,20 +332,21 @@ function handler() {
     function spawn(exe, args, cmdOptions, dataHandler) {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
-        let stdout, stderr;
+        let stdout, stderr, error;
         if (spw.keys().includes("stdout")) {
             spw.stdout.on('data', function (data) {
                 stdout = dataHandler(null, data, null);
-            }.bind(stdout));
+            }.bind(null, stdout));
         }
         if (spw.keys().includes("stderr")) {
             spw.stderr.on('data', function (data) {
                 stderr = dataHandler(null, null, data);
-            }.bind(stderr));
+            }.bind(null, stderr));
         }
         spw.on('error', function (err) {
             console.error('Failed to start subprocess.');
-        });
+            error = dataHandler(err, null, null);
+        }.bind(null, error));
         spw.on('close', function (code) {
             console.log(`child process exited with code ${code}`);
         });
@@ -365,20 +366,28 @@ function handler() {
      * { event : { data: dataObject, handler: eventHandlerFunction } }
      * 
      */
-    function registerEventHandlers(proc, eventHandlers) {
-        let eKeys = eventHandlers.keys();
-        let eKeysLen = eKeys.length;
+    function registerEventHandlers(processConf, eventHandlers) {
+        let eKeys, eKeysLen;
+        if (Array.isArray(eventHandlers)) {
+            eKeys = eventHandlers;
+            eKeysLen = eKeys.length;
+        } else if (typeof eventHandlers === "function") {
+            eKeys = eventHandlers.keys();
+            eKeysLen = eKeys.length;
+        }
 
-        function cleanup(eventType, exitFunction, data, proc) {
-            console.log('registerEventHandlers: Cleanup Fnc EventType and Process PID: ', eventType, proc.pid);
-            exitFunction(data, proc);
+        function cleanup(eventType, exitFunction, processConf) {
+            console.log('registerEventHandlers: Cleanup Fnc EventType and Process PID: ', eventType, processConf["process"].pid);
+            exitFunction(eventType, processConf);
         }
 
         for (let e = 0; e < eKeysLen; e++) {
-            let { data, handler } = eventHandlers[eKeys[e]];
-            proc.on(eKeys[e], cleanup.bind(null, eKeys[e], handler, data, proc));
+            // let { data, handler } = eventHandlers[eKeys[e]];
+            let handler = eventHandlers[eKeys[e]];
+            processConf["process"].on(eKeys[e], cleanup.bind(null, eKeys[e], handler, processConf));
         }
-        return proc;
+
+        return processConf;
     }
 
 
@@ -482,19 +491,19 @@ function handler() {
         // process.stdin.resume();
         // proc.unref();
 
-        function cleanupSrv(eventType, exitFunction, proc) {
-            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, proc.pid);
-            exitFunction(options, proc);
+        function cleanupSrv(eventType, exitFunction, processConf) {
+            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, processConf["pid"].pid);
+            exitFunction(eventType, processConf);
+        }
+
+        for (let i = 0; i < evtLen; i++) {
+            console.log("Event Logging: ", evt[i]);
+            proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, processConf));
         }
 
         if (!!other.setprocess) {
             let setprc = setProcess(processConf);
             if (!!setprc) { /* Do something here - callback */ }
-        }
-
-        for (let i = 0; i < evtLen; i++) {
-            console.log("Event Logging: ", evt[i]);
-            proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, proc));
         }
 
         return processConf;
