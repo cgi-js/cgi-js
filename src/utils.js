@@ -143,11 +143,21 @@ function utils() {
           }
     }
 
-
+    function convertArrayToObject(array, key) {
+        const initialValue = {};
+        return array.reduce(function (obj, item) {
+          return {
+            ...obj,
+            [item[key]]: item,
+          };
+        }, initialValue);
+      };
+    
     return {
         convert: {
             array: createArray,
-            string: createString
+            string: createString,
+            toObject: convertArrayToObject
         },
         allowedItem: allowedListItem,
         isEqual: isEqual,

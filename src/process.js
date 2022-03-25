@@ -129,18 +129,14 @@ function handler() {
                     if (!optionsObject.name) {
                         return false;
                     }
-                    let tmp = {};
-                    tmp[optionsObject.name] = optionsObject;
-                    return setter(processes, tmp);
+                    return setter(processes, utils.convert.toObject( (optionsObject.name, optionsObject) ) );
                 } else if (Array.isArray(optionsObject)) {
                     let oKeys = Object.keys(optionsObject);
                     for (let i = 0; i < optionsObject.length; i++) {
                         if (!optionsObject[i].name) {
                             return false;
                         }
-                        let tmp = {};
-                        tmp[optionsObject[oKeys[i]].name] = optionsObject[oKeys[i]];
-                        return setter(processes, tmp);
+                        return setter( processes, utils.convert.toObject( ( optionsObject[oKeys[i]].name, optionsObject[oKeys[i]] ) ) );
                     }
                 }
                 return false;
@@ -226,9 +222,7 @@ function handler() {
      * 
      */
     function setProcess(processConf) {
-        let tmp = {};
-        tmp[processConf.name] = processConf
-        let setterVal = setter(processes, tmp);
+        let setterVal = setter(processes, utils.convert.toObject((processConf.name, procConf)));
         if (!!setterVal) {
             processes = setterVal;
             return processes;
@@ -421,7 +415,6 @@ function handler() {
     function executeProcess(processConf, dataHandler, cleanupHandler) {
         // {name: {commands, instances: {pid: instance}}}
         let proc, usage, args;
-        let tmp = {};
 
         // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
         let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
@@ -488,7 +481,7 @@ function handler() {
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
-        // process.stdin.resume();
+        process.stdin.resume();
         // proc.unref();
 
         function cleanupSrv(eventType, exitFunction, processConf) {
@@ -653,9 +646,7 @@ function handler() {
                 proc.stdin.end();
                 procConf['process'] = null;
             }
-            let tmp = {};
-            tmp[name] = procConf;
-            setterVal = setter(processes, tmp);
+            setterVal = setter(processes, utils.convert.toObject( (name, procConf) ) );
             if (!setterVal) {
                 console.error("killProcess: Error during setting object to null");
             }
@@ -671,7 +662,7 @@ function handler() {
         setup: setupHandler,
         os: {
             set: setOS,
-            validOS: validOS,
+            isValid: validOS,
             get: getOS
         },
         process: {
