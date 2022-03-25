@@ -330,12 +330,16 @@ function handler() {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
         let stdout, stderr;
-        // spw.stdout.on('data', function (data) {
-        //     stdout = dataHandler(null, data, null);
-        // }.bind(stdout));
-        // spw.stderr.on('data', function (data) {
-        //     stderr = dataHandler(null, null, data);
-        // }.bind(stderr));
+        if (spw.keys().includes("stdout")) {
+            spw.stdout.on('data', function (data) {
+                stdout = dataHandler(null, data, null);
+            }.bind(stdout));
+        }
+        if (spw.keys().includes("stderr")) {
+            spw.stderr.on('data', function (data) {
+                stderr = dataHandler(null, null, data);
+            }.bind(stderr));
+        }
         spw.on('error', function (err) {
             console.error('Failed to start subprocess.');
         });
@@ -468,7 +472,7 @@ function handler() {
         } else if (executetype === "fork") {
             proc = fork(executable, [usage, ...args], options, dataHandler);
         }
-    
+
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
