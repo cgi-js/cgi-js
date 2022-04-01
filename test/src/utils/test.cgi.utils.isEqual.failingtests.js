@@ -29,9 +29,9 @@ let equalityObjectThree = {
     "tester": "ten"
 }
 
-console.log("Starting Tests: Failing Tests")
+console.log("Starting Failing Tests: isEqual Tests")
 assert(utils.isEqual(equalityObjectTwo, equalityObjectThree) == false) // Equal objects is not true
 assert(utils.isEqual(equalityObjectThree, equalityObjectTwo) == false) // Equal objects is not true
 assert(utils.isEqual(equalityObjectOne, equalityObjectTwo) == false) // Equal objects is not true
-console.log("Ending Tests: Failing Tests")
+console.log("Ending Failing Tests: isEqual Tests")
 

@@ -210,7 +210,7 @@ function utils() {
      *
      * @param {Array} arr
      * @param {boolean} [override=true]
-     * @param {string} [seperator="--*--"]
+     * @param {string} [seperator="-*-"]
      * 
      * @return {Array} 
      * 
@@ -230,7 +230,7 @@ function utils() {
             }
             return {
                 ...obj,
-                [item[0].toString()]: item[1],
+                [item[0].toString() + seperator + count]: item[1],
             };
         }, initialValue);
     };
