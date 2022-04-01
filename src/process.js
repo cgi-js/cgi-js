@@ -703,7 +703,7 @@ function handler() {
             return false;
         }
 
-        return exec(!!cmdExec ? cmdExec: cmdSpawn, [], cmdOptions, dataHandler);
+        return exec(!!cmdExec ? cmdExec : cmdSpawn, [], cmdOptions, dataHandler);
     }
 
 
@@ -793,6 +793,27 @@ function handler() {
 
 
     /**
+     * Generic Process Kill function
+     *
+     * @param {*} pid
+     * @param {*} signal
+     */
+    function kill(pid, signal) {
+        let ostype = getOS();
+        if (ostype === "win32" || ostype === "Windows_NT") {
+            process.kill(pid, signal);
+            return true;
+        } else {
+            exec("Taskkill /F /PID  " + pid + " & exit/b", [], {
+                stdio: 'inherit',
+                shell: true
+            }, (error, stdout, stderr) => { });
+            return true;
+        }
+    }
+
+
+    /**
      * 
      * killProcess
      * 
@@ -843,7 +864,8 @@ function handler() {
             executeAction: executeAction,
             fetchRunning: fetchRunningProcess,
             find: findRunningProcess,
-            kill: killProcess
+            killProcess: killProcess,
+            kill: kill
         }
     }
 }
