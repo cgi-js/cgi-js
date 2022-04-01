@@ -23,6 +23,7 @@ var myEventHandler = function (prc) {
 
     }.bind(prc, obj), 10000);
 }
+
 eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 function testprocesswithfile() {

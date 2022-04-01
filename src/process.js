@@ -249,7 +249,7 @@ function handler() {
      * 
      * @param {Function} dataHandler
      * 
-     * @return {Object}
+     * @return {Object} exec result process object
      * Executed exec Command process result
      *
      */
@@ -275,7 +275,7 @@ function handler() {
      * @param {Function} dataHandler
      * 
      * 
-     * @return {Object}
+     * @return {Object} execFile result process object
      * Executed execFile process result
      *
      */
@@ -301,11 +301,11 @@ function handler() {
      * @param {Function} dataHandler
      * 
      * 
-     * @return {Object}
+     * @return {Object}  fork result process object
      * Executed Forked fork process result
      *
      */
-    function fork(modulePath, args, cmdOptions, dataHandler) {
+    function fork(modulePath, args, cmdOptions, dataHandler, handlers) {
         let ex = require('child_process').fork;
         return ex(modulePath, [...args], cmdOptions);
     }
@@ -324,30 +324,50 @@ function handler() {
      * 
      * @param {Function} dataHandler
      * 
-     * @return {Object}
+     * @return {Object} spawn result process object
      * Executed Spawned spawn process result
      *
      */
-    function spawn(exe, args, cmdOptions, dataHandler) {
+    function spawn(exe, args, cmdOptions, dataHandler, handlers) {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
-        let stdout, stderr, error;
-        if (spw.keys().includes("stdout")) {
-            spw.stdout.on('data', function (data) {
-                stdout = dataHandler(null, data, null);
-            }.bind(null, stdout));
-        }
-        if (spw.keys().includes("stderr")) {
-            spw.stderr.on('data', function (data) {
-                stderr = dataHandler(null, null, data);
-            }.bind(null, stderr));
-        }
+        console.log(spw);
+        // Do not do a bind => emit an event (pref) or make this a promise
+        // if (Object.keys(spw).indexOf("stdout") >= 0) {
+        //     spw.stdout.on('data', function (data) {
+        //         if (!!handlers.onDataHandler) {
+        //             stdout = handlers.onDataHandler(null, data, null);
+        //         }
+        //     }.bind(null, stdout));
+        // }
+
+        // if (Object.keys(spw).indexOf("stdout") >= 0) {
+        //     spw.stderr.on('data', function (data) {
+        //         if (!!handlers.onDataHandler) {
+        //             stderr = handlers.onDataHandler(null, null, data);
+        //         }
+        //     }.bind(null, stderr));
+        // }
+
+        // if (spw.keys().includes("stdin")) {
+        //     spw.stdin.on('data', function (data) {
+        //         if (!!handlers.onDataHandler) {
+        //             stdin = handlers.onDataHandler(null, null, data);
+        //         }
+        //     }.bind(null, stdin));
+        // }
+        let datah, err, closer;
+        spw.on('data', function (data) {
+            console.log("spawn");
+            datah = dataHandler(null, data, null);
+        }.bind(null, datah));
         spw.on('error', function (err) {
             console.error('Failed to start subprocess.');
-            error = dataHandler(err, null, null);
-        }.bind(null, error));
+            err = dataHandler(err, null, null);
+        }.bind(null, err));
         spw.on('close', function (code) {
             console.log(`child process exited with code ${code}`);
+            handlers(null, code);
         });
         return spw;
     }
@@ -405,11 +425,14 @@ function handler() {
      * 
      * @param {Function} cleanupHandler
      * 
+     * @param {Object} handlers
+     * { signal : Function, ... }
+     * 
      * @returns {Object} processConf
      * 
-     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
+     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
-     * - [..keyargs..]: Other custom keys (key-value) for use with your datahandler or cleanuphandler provided
+     * - [... keyargs ...]: Other custom keys (key-value) for use with your datahandler or cleanuphandler provided
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
@@ -417,9 +440,10 @@ function handler() {
      * - <subcommandObject> [optionals: exe, modulePath, file]: { exe: String, modulePath: String, file: String, usage: String, args: Array }
      * 
      */
-    function executeProcess(processConf, dataHandler, cleanupHandler) {
+    function executeProcess(processConf, dataHandler, cleanupHandler, handlers = {}) {
         // {name: {commands, instances: {pid: instance}}}
         let proc, usage, args;
+        let stdout, stderr, err, closeresult;
 
         // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
         let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
@@ -475,16 +499,28 @@ function handler() {
 
         if (executetype === "exec") {
             proc = exec(executable, [usage, ...args], options, dataHandler);
-        } else if (executetype === "spawn") {
-            proc = spawn(executable, [usage, ...args], options, dataHandler);
         } else if (executetype === "execFile") {
             proc = execFile(executable, [usage, ...args], options, dataHandler);
+        } else if (executetype === "spawn") {
+            proc = spawn(executable, [usage, ...args], options, dataHandler, handlers);
         } else if (executetype === "fork") {
-            proc = fork(executable, [usage, ...args], options, dataHandler);
+            proc = fork(executable, [usage, ...args], options, dataHandler, handlers);
         }
 
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
+
+        proc.on("error", function (data) {
+            if (!!handlers.onErrorHandler) {
+                err = onErrorHandler(data, null, null);
+            }
+        }.bind(null, err));
+        proc.on("data", dataHandler);
+        proc.on("close", function (code) {
+            if (!!handlers.closeHandler) {
+                closeresult = closeHandler(code);
+            }
+        }.bind(null, closeresult));
 
         process.stdin.resume();
         // proc.unref();
@@ -587,9 +623,9 @@ function handler() {
      * @param {Function} cleanupHandler
      * 
      * @returns {Object}
-     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
+     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
-     * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
+     * - [... keyargs ...]: Other custom keys for use with datahandler or cleanuphandler
      * 
      * - <commandObject>: { start: { subcommandObject }, stop: { subcommandObject }, restart: { subcommandObject }, generic: { subcommandObject } }
      * - <shellOptions>: { stdio: String, shell: Boolean }
@@ -620,7 +656,7 @@ function handler() {
      * 
      * @param {Function} dataHandler
      *  
-     * @returns {Boolean, Object}
+     * @returns {Boolean, Object} result process object
      * false / Process Instance
      * 
      */
@@ -628,6 +664,131 @@ function handler() {
         return new Promise(function (resolve, reject) {
 
         });
+    }
+
+
+    /**
+     *
+     * fetchRunningProcess
+     *
+     * @param {String} os
+     * OS of the system
+     * @param {Object} cmdOptions
+     * Options for the command process function {exec} object
+     * @param {Function} dataHandler
+     * Function object for callback
+     * 
+     * @returns {Object} result process object
+     * 
+     */
+    function fetchRunningProcess(cmdOptions, dataHandler) {
+        let cmdExec, cmdSpawn;
+        let ostype = getOS();
+        if (!osList.includes(ostype)) {
+            utils.error("OS not in the list");
+        }
+
+        if (ostype === "android") {
+            cmdExec = 'ps';
+        } else if (ostype === "win32" || ostype === "Windows_NT") {
+            // cmdSpawn = 'powershell.exe /c Get-CimInstance -className win32_process | select Name,ProcessId,ParentProcessId,CommandLine,ExecutablePath';
+            cmdSpawn = 'wmic process';
+        } else {
+            // cmdExec = `ps -p ${condition.pid} -ww -o pid,ppid,uid,gid,args`;
+            // cmdExec = 'ps ax -ww -o pid,ppid,uid,gid,args';
+            cmdExec = `ps ax -ww -o euser,ruser,suser,fuser,f,fgroup,pid,ppid,uid,gid,lstart,etime,args,comm,%mem,%cpu`;
+        }
+
+        if (!cmdExec && !cmdSpawn) {
+            return false;
+        }
+
+        return exec(!!cmdExec ? cmdExec: cmdSpawn, [], cmdOptions, dataHandler);
+    }
+
+
+    /**
+     *
+     * findRunningProcess
+     *
+     * @param {String} os
+     * OS of the system
+     * @param {Object} cmdOptions
+     * Options for the command process function {exec} object
+     * @param {Function} dataHandler
+     * Function object for callback
+     * @param {Object} conditions
+     * Conditions that needs to be used to find processes
+     * 
+     * // Available Find Options
+     * // Windows: Name, ProcessId, ParentProcessId, CommandLine, ExecutablePath
+     * // Linux, Mac, Android: pid, ppid (parent processid), command(cmdline - command), bin(binpath - command), executable (executable - command)
+     * 
+     * @return {Object} result process object
+     * 
+     */
+    function findRunningProcess(cmdOptions, dataHandler, conditions) {
+        let processes = fetchRunningProcess(cmdOptions, dataHandler);
+        let ostype = getOS();
+        let pid, ppid, executable, bin, command;
+
+        // Available Find Options
+        // Windows: Name, ProcessId, ParentProcessId, CommandLine, ExecutablePath
+        // Linux, Mac, Android: pid, ppid (parent processid), command(cmdline - command), bin(binpath - command), executable (executable - command)
+
+        if (ostype == "win32" || ostype === "Windows_NT") {
+            pid = "ProcessID"
+            ppid = "ParentProcessId"
+            executable = "Name"
+            bin = "ExecutablePath"
+            command = "CommandLine"
+        } else {
+            pid = "pid"
+            ppid = "ppid"
+            bin = executable = command = "COMMAND"
+        }
+
+        if (!!conditions[pid]) {
+            processes.filter(function (item) {
+                if (item[pid] === conditions[pid]) {
+                    return item;
+                }
+            })
+        }
+
+        if (!!conditions[ppid]) {
+            processes.filter(function (item) {
+                if (item[ppid] === conditions[ppid]) {
+                    return item;
+                }
+            })
+        }
+
+        if (!!conditions[executable]) {
+            processes.filter(function (item) {
+                if (item[executable].includes(conditions[executable].name)) {
+                    return item;
+                }
+            })
+        }
+
+        if (!!conditions[bin]) {
+            processes.filter(function (item) {
+                if (item[bin].includes(conditions[bin].path)) {
+                    return item;
+                }
+            })
+        }
+
+        if (!!conditions[command]) {
+            processes.filter(function (item) {
+                if (item[command].includes(conditions[command])) {
+                    return item;
+                }
+            })
+        }
+
+        return processes;
     }
 
 
@@ -680,6 +841,8 @@ function handler() {
             spawn: spawn,
             executeProcess: executeProcess,
             executeAction: executeAction,
+            fetchRunning: fetchRunningProcess,
+            find: findRunningProcess,
             kill: killProcess
         }
     }

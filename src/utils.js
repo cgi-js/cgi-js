@@ -61,6 +61,12 @@ function utils() {
         return false;
     }
 
+    /**
+     *
+     *
+     * @param {*} options
+     * @return {*} 
+     */
     function createString(options) {
         if (typeof options === "object") {
             let keys = options.keys(), str = " ";
@@ -75,6 +81,12 @@ function utils() {
         }
     }
 
+    /**
+     *
+     *
+     * @param {*} options
+     * @return {*} 
+     */
     function createArray(options) {
         if (typeof options === "object") {
             let keys = Object.keys(options), arr = [];
@@ -89,6 +101,15 @@ function utils() {
         }
     }
 
+    /**
+     *
+     *
+     * @param {*} baseObject
+     * @param {*} validateObj
+     * @param {boolean} [exact=false]
+     * @param {boolean} [type=false]
+     * @return {*} 
+     */
     function isEqual(baseObject, validateObj, exact = false, type = false) {
         let aProps = Object.getOwnPropertyNames(a);
         let bProps = Object.getOwnPropertyNames(b);
@@ -112,52 +133,101 @@ function utils() {
         return true;
     }
 
+    /**
+     *
+     *
+     * @param {*} baseArray
+     * @param {*} name
+     * @return {*} 
+     */
     function allowedListItem(baseArray, name) {
         return baseArray.includes(name);
     }
 
     /**
-	 *
-	 * error
-	 * 
-	 * @param {String} msg
-	 * 
-	 * @return {throw error}
-	 * 
-	 */
-	function error(msg, allowExit) {
-		console.error(msg);
-		if (!!allowExit) {
-			process.exit(msg);
-		} else {
-			throw new Error(msg);
-		}
-	}
-
-    function is_running(pid) {
-        try {
-            return process.kill(pid,0)
-          }
-          catch (e) {
-            return e.code === 'EPERM'
-          }
+     *
+     * error
+     * 
+     * @param {String} msg
+     * 
+     * @return {throw error}
+     * 
+     */
+    function error(msg, allowExit) {
+        console.error(msg);
+        if (!!allowExit) {
+            process.exit(msg);
+        } else {
+            throw new Error(msg);
+        }
     }
 
-    function convertArrayToObject(array, key) {
+    /**
+     *
+     *
+     * @param {*} pid
+     * @return {*} 
+     */
+    function is_running(pid) {
+        try {
+            return process.kill(pid, 0)
+        }
+        catch (e) {
+            return e.code === 'EPERM'
+        }
+    }
+
+    /**
+     *
+     *
+     * @param {*} arr
+     * @param {boolean} [override=true]
+     * @param {string} [seperator="--*--"]
+     * @return {*} 
+     */
+    function convertArrayToObject(arr, override = true, seperator = "--*--") {
         const initialValue = {};
-        return array.reduce(function (obj, item) {
-          return {
-            ...obj,
-            [item[key]]: item,
-          };
+        let count = 0;
+        return arr.reduce(function (obj, item) {
+            if (override === false) {
+                count += 1;
+            }
+            return {
+                ...obj,
+                [item[0].toString() + seperator + count]: item[1],
+            };
         }, initialValue);
-      };
-    
+    };
+
+    /**
+     *
+     *
+     * @param {*} arr
+     * @param {string} [seperator=" "]
+     * @param {string} [linebreak="\r\r\n"]
+     * @return {*} 
+     */
+    function convertCSVArrayToObject(arr, seperator = " ", linebreak = "\r\r\n") {
+        let result = arr.split(linebreak).map((ai) => {
+            return ai.split(seperator).filter((i) => { return !!i })
+        });
+        let headers = result[0], processArray = [];
+        for (let i = 1; i < result.length; i++) {
+            let o = {};
+            for (let j = 0; j < headers.length; j++) {
+                o[headers[j]] = result[i][j];
+            }
+            processArray.push(o)
+        }
+        return processArray;
+    }
+
     return {
         convert: {
             array: createArray,
             string: createString,
-            toObject: convertArrayToObject
+            arrayToObject: convertArrayToObject,
+            csvToObject: convertCSVArrayToObject
         },
         allowedItem: allowedListItem,
         isEqual: isEqual,

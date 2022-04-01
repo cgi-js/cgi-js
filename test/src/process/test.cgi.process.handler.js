@@ -28,6 +28,7 @@ const { json } = require("express");
 var eventEmitter = new events.EventEmitter();
 const os = require("os");
 
+
 var myEventHandler = function (prc) {
     setTimeout(function () {
         console.log("Closing Process PID: ", prc.pid);
@@ -47,6 +48,7 @@ if (__dirname.toString().includes("process")) {
 } else {
     var args = [path.join(__dirname, "./www/node/index.js")];
 }
+
 
 var proc = obj.process.executeProcess({
     name: "",
@@ -84,14 +86,15 @@ var proc = obj.process.executeProcess({
 
         console.log("Starting Tests");
 
-
-
+        
+        
         console.log("Ending Tests");
 
     },
     function (eventType, prc) {
         console.log("Exit Handler options", eventType);
         console.log("Exit Handler process", prc.pid);
+        console.log(prc)
         eventEmitter.emit('closeprocess', prc);
     }
 );
