@@ -67,7 +67,7 @@ function utils() {
      * @param {*} options
      * @return {*} 
      */
-    function createString(options) {
+    function convertObjectToString(options) {
         if (typeof options === "object") {
             let keys = options.keys(), str = " ";
             for (let i = 0; i < keys.length; i++) {
@@ -104,15 +104,39 @@ function utils() {
     /**
      *
      *
-     * @param {*} baseObject
-     * @param {*} validateObj
-     * @param {boolean} [exact=false]
-     * @param {boolean} [type=false]
+     * @param {*} options
      * @return {*} 
      */
+    function convertObjectToArray(options) {
+        let arr = [];
+        if (typeof options === "object") {
+            let keys = Object.keys(options);
+            for (let i = 0; i < keys.length; i++) {
+                arr.push([keys[i], options[keys[i]]]);
+            }
+            return arr;
+        } else if (typeof options === "string") {
+            arr.push(options);
+            return arr;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *
+     *
+     * @param {*} baseObject
+     * @param {Object | Array} validateObj
+     * @param {boolean} [exact=false]
+     * @param {boolean} [type=false]
+     * 
+     * @return {Boolean} 
+     * 
+     */
     function isEqual(baseObject, validateObj, exact = false, type = false) {
-        let aProps = Object.getOwnPropertyNames(a);
-        let bProps = Object.getOwnPropertyNames(b);
+        let aProps = Object.getOwnPropertyNames(baseObject);
+        let bProps = Object.getOwnPropertyNames(validateObj);
 
         if (!!exact) {
             if (aProps.length != bProps.length) {
@@ -123,10 +147,10 @@ function utils() {
             if (!(bProps.includes(aProps[i]))) {
                 return false;
             }
-            if (typeof a[aProps[i]] === "object" && !Array.isArray(a[aProps[i]])) {
-                isEquivalent(a[aProps[i]], b[aProps[i]], exact);
+            if (typeof baseObject[aProps[i]] === "object" && !Array.isArray(baseObject[aProps[i]])) {
+                isEqual(baseObject[aProps[i]], validateObj[aProps[i]], exact);
             }
-            if (typeof a[aProps[i]] === "object" && Array.isArray(a[aProps[i]])) {
+            if (typeof baseObject[aProps[i]] === "object" && Array.isArray(baseObject[aProps[i]])) {
                 // TODO: Do object checks here
             }
         }
@@ -136,9 +160,11 @@ function utils() {
     /**
      *
      *
-     * @param {*} baseArray
-     * @param {*} name
-     * @return {*} 
+     * @param {Array} baseArray
+     * @param {String} name
+     * 
+     * @return {Boolean} 
+     * 
      */
     function allowedListItem(baseArray, name) {
         return baseArray.includes(name);
@@ -150,7 +176,7 @@ function utils() {
      * 
      * @param {String} msg
      * 
-     * @return {throw error}
+     * @return {No Return | throw error}
      * 
      */
     function error(msg, allowExit) {
@@ -166,7 +192,9 @@ function utils() {
      *
      *
      * @param {*} pid
-     * @return {*} 
+     * 
+     * @return {Boolean} 
+     * 
      */
     function is_running(pid) {
         try {
@@ -180,21 +208,29 @@ function utils() {
     /**
      *
      *
-     * @param {*} arr
+     * @param {Array} arr
      * @param {boolean} [override=true]
      * @param {string} [seperator="--*--"]
-     * @return {*} 
+     * 
+     * @return {Array} 
+     * 
      */
-    function convertArrayToObject(arr, override = true, seperator = "--*--") {
+    function convertArrayToObject(arr, override = true, seperator = "-*-") {
         const initialValue = {};
         let count = 0;
         return arr.reduce(function (obj, item) {
             if (override === false) {
                 count += 1;
             }
+            if (!obj[item[0].toString()]) {
+                return {
+                    ...obj,
+                    [item[0].toString()]: item[1],
+                };
+            }
             return {
                 ...obj,
-                [item[0].toString() + seperator + count]: item[1],
+                [item[0].toString()]: item[1],
             };
         }, initialValue);
     };
@@ -202,10 +238,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} arr
+     * @param {Array} arr
      * @param {string} [seperator=" "]
      * @param {string} [linebreak="\r\r\n"]
-     * @return {*} 
+     * 
+     * @return {Array} 
+     * 
      */
     function convertCSVArrayToObject(arr, seperator = " ", linebreak = "\r\r\n") {
         let result = arr.split(linebreak).map((ai) => {
@@ -225,7 +263,8 @@ function utils() {
     return {
         convert: {
             array: createArray,
-            string: createString,
+            string: convertObjectToString,
+            objectToArray: convertObjectToArray,
             arrayToObject: convertArrayToObject,
             csvToObject: convertCSVArrayToObject
         },

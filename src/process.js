@@ -728,7 +728,7 @@ function handler() {
      * 
      */
     function findRunningProcess(cmdOptions, dataHandler, conditions) {
-        let processes = fetchRunningProcess(cmdOptions, dataHandler);
+        let processes = fetchRunningProcess(cmdOptions, dataHandler), result;
         let ostype = getOS();
         let pid, ppid, executable, bin, command;
 
@@ -749,54 +749,55 @@ function handler() {
         }
 
         if (!!conditions[pid]) {
-            processes.filter(function (item) {
+            result = [...processes.filter(function (item) {
                 if (item[pid] === conditions[pid]) {
                     return item;
                 }
-            })
+            })]
         }
 
         if (!!conditions[ppid]) {
-            processes.filter(function (item) {
+            result = [...result, ...processes.filter(function (item) {
                 if (item[ppid] === conditions[ppid]) {
                     return item;
                 }
-            })
+            })]
         }
 
         if (!!conditions[executable]) {
-            processes.filter(function (item) {
+            result = [...result, ...processes.filter(function (item) {
                 if (item[executable].includes(conditions[executable].name)) {
                     return item;
                 }
-            })
+            })]
         }
 
         if (!!conditions[bin]) {
-            processes.filter(function (item) {
+            result = [...result, ...processes.filter(function (item) {
                 if (item[bin].includes(conditions[bin].path)) {
                     return item;
                 }
-            })
+            })]
         }
 
         if (!!conditions[command]) {
-            processes.filter(function (item) {
+            result = [...result, ...processes.filter(function (item) {
                 if (item[command].includes(conditions[command])) {
                     return item;
                 }
-            })
+            })]
         }
 
-        return processes;
+        return result;
     }
 
 
     /**
-     * Generic Process Kill function
+     * Kill function fir Generic Process
      *
      * @param {*} pid
      * @param {*} signal
+     * 
      */
     function kill(pid, signal) {
         let ostype = getOS();
@@ -804,11 +805,12 @@ function handler() {
             process.kill(pid, signal);
             return true;
         } else {
-            exec("Taskkill /F /PID  " + pid + " & exit/b", [], {
+            return exec("Taskkill /F /PID  " + pid + " & exit/b & timeout /t 30", [], {
                 stdio: 'inherit',
                 shell: true
-            }, (error, stdout, stderr) => { });
-            return true;
+            }, (error, stdout, stderr) => {
+                return true;
+            });
         }
     }
 
