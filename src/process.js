@@ -815,7 +815,7 @@ function handler() {
 
     /**
      * 
-     * killProcess
+     * killProcess fir saved instance
      * 
      * 
      * @param {String} name
