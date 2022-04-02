@@ -274,28 +274,41 @@ function utils() {
         }, initialValue);
     };
 
-    function getFile() {
-
+    function getFile(filename, options) {
+        return fs.readFileSync(filename, { "encoding": "utf8", ...options, "flags": "rs" });
     }
 
-    function getJSONFile() {
-
+    function getJSONFile(filename, options) {
+        return JSON.parse(getFile(filename, options));
     }
 
-    function getCSVFile() {
-
+    function getCSVFile(filename, options, seperator = ",", linebreak = "\n") {
+        return convertCSVArrayToObject(getFile(filename, options), seperator, linebreak);
     }
 
-    function setFile() {
-
+    function setFile(filename, data, options) {
+        return fs.writeFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "w+" });
     }
 
-    function setJSONFile() {
-
+    function setJSONFile(filename, data, options) {
+        return setFile(filename, JSON.stringify(data), options);
     }
 
-    function setCSVFile() {
+    function setCSVFile(filename, data, options) {
+        return setFile(filename, data, options);
+    }
 
+    function appendFile(filename, data, options) {
+        return fs.appendFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "a+" });
+    }
+
+    function appendCSV(filename, data, options = { "encoding": "utf8" }) {
+        // return appendFile(filename, data, { ...options, "flags": "a+" })
+        return false;
+    }
+
+    function appendJSON(filename, data, options) {
+        return appendFile(filename, JSON.stringify(data), options)
     }
 
     /**
@@ -330,7 +343,11 @@ function utils() {
                 csv: getCSVFile,
                 json: getJSONFile
             },
-            // TODO
+            append: {
+                file: appendFile,
+                csv: appendCSV,
+                json: appendJSON
+            },
             set: {
                 file: setFile,
                 csv: setCSVFile,
