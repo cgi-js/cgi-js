@@ -132,14 +132,15 @@ function utils() {
      * @return {*} 
      */
     function createArray(options) {
+        let arr = [], keys = Object.keys(options);
         if (typeof options === "object") {
-            let keys = Object.keys(options), arr = [];
             for (let i = 0; i < keys.length; i++) {
                 arr.push("-" + keys[i]).push(options[keys[i]]);
             }
             return arr;
         } else if (typeof options === "string") {
-            return arr.push(options);
+            arr.push(options);
+            return arr;
         } else {
             process.exit();
         }
@@ -285,7 +286,7 @@ function utils() {
         }, initialValue);
     };
 
-    
+
     /**
      *
      *
@@ -320,7 +321,8 @@ function utils() {
      * @return {*} 
      */
     function getCSVFile(filename, options, seperator = ",", linebreak = "\n") {
-        return convertCSVArrayToObject(getFile(filename, options), seperator, linebreak);
+        let str = getFile(filename, options);
+        return convertCSVArrayToObject(str, seperator, linebreak);
     }
 
 
@@ -406,15 +408,15 @@ function utils() {
     /**
      *
      *
-     * @param {Array} arr
+     * @param {String} str
      * @param {string} [seperator=" "]
      * @param {string} [linebreak="\r\r\n"]
      * 
      * @return {Array} 
      * 
      */
-    function convertCSVArrayToObject(arr, seperator = " ", linebreak = "\n") {
-        let result = arr.split(linebreak).map((ai) => {
+    function convertCSVArrayToObject(str, seperator = " ", linebreak = "\n") {
+        let result = str.split(linebreak).map((ai) => {
             return ai.split(seperator).filter((i) => { return !!i })
         });
         let headers = result[0], processArray = [];
@@ -430,21 +432,19 @@ function utils() {
 
     return {
         file: {
-            get: {
-                file: getFile,
-                csv: getCSVFile,
-                json: getJSONFile
-            },
-            append: {
-                file: appendFile,
-                csv: appendCSV,
-                json: appendJSON
-            },
-            set: {
-                file: setFile,
-                csv: setCSVFile,
-                json: setJSONFile
-            }
+            get: getFile,
+            append: appendFile,
+            set: setFile
+        },
+        csv: {
+            get: getCSVFile,
+            append: appendCSV,
+            set: setCSVFile
+        },
+        json: {
+            get: getJSONFile,
+            set: setJSONFile,
+            append: appendJSON
         },
         os: {
             get: getOS,
