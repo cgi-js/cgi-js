@@ -325,7 +325,7 @@ function utils() {
      *
      * @param { String } filename
      * 
-     * @param { String } data
+     * @param { Object } data
      * 
      * @param { Object } options
      * 
@@ -379,7 +379,7 @@ function utils() {
      * 
      * @return {*} 
      */
-    function appendCSV(filename, data, options = { "encoding": "utf8" }) {
+    function appendCSV(filename, data, options) {
         // return appendFile(filename, data, { ...options, "flags": "a+" })
         return false;
     }
@@ -390,14 +390,17 @@ function utils() {
      *
      * @param { String } filename
      * 
-     * @param { String } data
+     * @param { Object } data
      * 
      * @param { Object } options
      * 
      * @return {*} 
      */
     function appendJSON(filename, data, options) {
-        return appendFile(filename, JSON.stringify(data), options)
+        return appendFile(filename, JSON.stringify({
+            ...getJSONFile(filename, {}),
+            ...data
+        }), options)
     }
 
 
