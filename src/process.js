@@ -14,7 +14,8 @@ const process = require('process');
 const path = require("path");
 const execPath = process.execPath;
 const utils = require("./utils")();
-const setter = utils.setter, getter = utils.getter;
+const setter = utils.setter, getter = utils.getter, setOS = utils.setOS, getOS = utils.getOS;
+
 
 /**
  * 
@@ -148,45 +149,6 @@ function handler() {
             default:
                 return false;
         }
-    }
-
-
-    /**
-     * Set/ Add the OS in the list of OS
-     *
-     * @param {*} obj
-     * @return {Boolean} 
-     */
-    function setOS(obj) {
-        if (typeof obj == "string") {
-            osList.push(obj)
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Check if OS in the list of OS
-     * 
-     * @param {String} name
-     * @return {Boolean} 
-     */
-    function validOS(name) {
-        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
-    }
-
-
-    /**
-     * Get the OS of the current system
-     * 
-     * @return {String} 
-     */
-    function getOS() {
-        return os.type();
     }
 
 
@@ -849,11 +811,6 @@ function handler() {
 
     return {
         setup: setupHandler,
-        os: {
-            set: setOS,
-            isValid: validOS,
-            get: getOS
-        },
         process: {
             set: setProcess,
             get: getProcess,

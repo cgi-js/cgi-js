@@ -1,9 +1,10 @@
 
 
 // Basic usage
-var obj = require("../../src/process")();
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+const obj = require("../../src/process")();
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
+
 var myEventHandler = function (prc) {
     setTimeout(function() {
         console.log("Closing Process PID: ", prc.pid);
@@ -20,7 +21,7 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 // Convert/Write tests for the following code
 
-var proc = obj.process.start(
+var proc = obj.process.executeProcess(
     {
         exe: "python",
         args: [],

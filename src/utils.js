@@ -9,6 +9,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
  *
  *
  * @returns
+ * 
  */
 function utils() {
 
@@ -59,6 +60,44 @@ function utils() {
             return (!Object.keys(tmp).length) ? false : tmp;
         }
         return false;
+    }
+
+    /**
+     * Set/ Add the OS in the list of OS
+     *
+     * @param {*} obj
+     * @return {Boolean} 
+     */
+    function setOS(obj) {
+        if (typeof obj == "string") {
+            osList.push(obj)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if OS in the list of OS
+     * 
+     * @param {String} name
+     * @return {Boolean} 
+     */
+    function validOS(name) {
+        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
+
+
+    /**
+     * Get the OS of the current system
+     * 
+     * @return {String} 
+     */
+    function getOS() {
+        return os.type();
     }
 
     /**
@@ -235,6 +274,30 @@ function utils() {
         }, initialValue);
     };
 
+    function getFile() {
+
+    }
+
+    function getJSONFile() {
+
+    }
+
+    function getCSVFile() {
+
+    }
+
+    function setFile() {
+
+    }
+
+    function setJSONFile() {
+
+    }
+
+    function setCSVFile() {
+
+    }
+
     /**
      *
      *
@@ -261,6 +324,24 @@ function utils() {
     }
 
     return {
+        file: {
+            get: {
+                file: getFile,
+                csv: getCSVFile,
+                json: getJSONFile
+            },
+            // TODO
+            set: {
+                file: setFile,
+                csv: setCSVFile,
+                json: setJSONFile
+            }
+        },
+        os: {
+            get: getOS,
+            valid: validOS,
+            set: setOS
+        },
         convert: {
             array: createArray,
             string: convertObjectToString,

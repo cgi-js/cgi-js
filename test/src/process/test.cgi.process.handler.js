@@ -19,14 +19,15 @@
 */
 
 
-var obj = require("../../../src/process")();
+const obj = require("../../../src/process")();
 const cgijs = require("../../../src");
-var events = require('events');
+const events = require('events');
+const os = require("os");
 const path = require("path");
 const { assert } = require("console");
 const { json } = require("express");
-var eventEmitter = new events.EventEmitter();
-const os = require("os");
+const eventEmitter = new events.EventEmitter();
+
 
 
 var myEventHandler = function (prc) {

@@ -7,15 +7,16 @@
 */
 
 
-var obj = require("../../../src/process")();
-var utils = require("../../../src/utils")();
+const obj = require("../../../src/process")();
+const utils = require("../../../src/utils")();
 const cgijs = require("../../../src");
-var events = require('events');
+const events = require('events');
 const path = require("path");
+const os = require("os");
 const { assert } = require("console");
 const { json } = require("express");
-var eventEmitter = new events.EventEmitter();
-const os = require("os");
+const eventEmitter = new events.EventEmitter();
+
 
 function closehandler(dataObject) {
     console.log("Closing Process PID: ", dataObject["process"].pid);

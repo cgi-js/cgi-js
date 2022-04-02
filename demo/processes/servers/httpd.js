@@ -8,9 +8,11 @@ Example for HTTPD process start stop
 */
 
 // Basic usage
-var obj = require("../../../src/process")();
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+const obj = require("../../../src/process")();
+const events = require('events');
+const eventEmitter = new events.EventEmitter();
+
+
 var killEventHandler = function (prc) {
     setTimeout(function () {
         console.log("Closing using kill function for Process PID: ", prc.pid);
@@ -107,7 +109,7 @@ if (ostype === "Linux") {
     configuration = mconfig;
 }
 
-var killproc = obj.process.start(
+var killproc = obj.process.executeProcess(
     configuration, "",
     (error, stdout, stderr) => {
         console.log("CB: Callback function Invoking");
@@ -122,7 +124,7 @@ var killproc = obj.process.start(
     }
 );
 
-var closeproc = obj.process.start(
+var closeproc = obj.process.executeProcess(
     configuration, "",
     (error, stdout, stderr) => {
         console.log("CB: Callback function Invoking");
@@ -138,7 +140,7 @@ var closeproc = obj.process.start(
     }.bind(configuration)
 );
 
-var stopproc = obj.process.start(
+var stopproc = obj.process.executeProcess(
     configuration, "",
     (error, stdout, stderr) => {
         console.log("CB: Callback function Invoking");
