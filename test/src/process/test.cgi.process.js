@@ -21,7 +21,7 @@ const eventEmitter = new events.EventEmitter();
 function closehandler(dataObject) {
     console.log("Closing Process PID: ", dataObject["process"].pid);
     // console.log("Process Object: ", dataObject["process"]);
-    if (obj.process.kill(dataObject["process"].pid, 1)) {
+    if (obj.process.killProcess(dataObject["process"].pid, 1)) {
         prc = null;
     }
     console.log("Closing Node Process ", process.pid);
