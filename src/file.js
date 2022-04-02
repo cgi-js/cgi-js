@@ -18,7 +18,7 @@ const shell = require('shelljs');
 const { request } = require('http');
 const { json } = require('express');
 const utils = require('./utils')();
-const setter = utils.setter, getter = utils.getter, setOS = utils.setOS, getOS = utils.getOS;
+const setter = utils.setter, getter = utils.getter;
 
 
 /**
@@ -99,7 +99,7 @@ function cgiServe() {
 	 * @returns {Boolean} set? / {throw error}
 	 * 
 	 */
-	
+
 	function setCGI(type, cgiExecutable, exeOptions) {
 		try {
 			let WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
@@ -125,7 +125,7 @@ function cgiServe() {
 	 * @returns {String} WHICH_CGI
 	 * 
 	 */
-	
+
 	function getCGI(type, exeOptions) {
 		try {
 			if (!LANG_OPTS[type].which) {

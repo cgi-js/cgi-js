@@ -10,7 +10,7 @@ const https = require('https');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
-const setter = utils.setter, getter = utils.getter, setOS = utils.setOS, getOS = utils.getOS;
+const setter = utils.setter, getter = utils.getter;
 
 
 /**
@@ -22,10 +22,12 @@ const setter = utils.setter, getter = utils.getter, setOS = utils.setOS, getOS =
  */
 function handler() {
     let configurations = {}, instanceProxyServers = {};
+
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
     let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
 
+    
     let configurationObject = {
         "options": {
             "target": {
@@ -107,12 +109,13 @@ function handler() {
 
     
     /**
+     * Set/ Add the OS in the list of OS
      *
-     *
-     * @param {*} obj
-     * @return {*} 
+     * @param { String } obj
+     * 
+     * @return { Boolean } 
      */
-    function setOS(obj) {
+     function setOS(obj) {
         if (typeof obj == "string") {
             osList.push(obj)
             return true;
@@ -122,16 +125,27 @@ function handler() {
 
 
     /**
-     *
-     *
-     * @param {*} name
-     * @return {*} 
+     * Check if OS in the list of OS
+     * 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
      */
-    function getOS(name) {
+    function validOS(name) {
         if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
             return name;
         }
         return false;
+    }
+
+
+    /**
+     * Get the OS of the current system
+     * 
+     * @return { String } 
+     */
+    function getOS() {
+        return os.type();
     }
 
 
@@ -324,8 +338,9 @@ function handler() {
             get: getConfig
         },
         os: {
-            set: setOS,
-            get: getOS
+            get: getOS,
+            valid: validOS,
+            set: setOS
         },
         proxy: {
             setup: setupProxy,

@@ -5,6 +5,7 @@ Dynamic CGI serving using dynamic path imports for
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 */
 
+
 /**
  *
  *
@@ -13,15 +14,14 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
  */
 function utils() {
 
-
     /**
      * 
      * setter
      * 
      *
-     * @param {Object} setterObject
+     * @param { Object } setterObject
      * 
-     * @param {Object} values
+     * @param { Object } values
      * 
      * @returns
      * 
@@ -41,11 +41,11 @@ function utils() {
      * getter
      * 
      *
-     * @param {Object} getterObject
+     * @param { Object } getterObject
      * 
-     * @param {String, Array} args
+     * @param { String, Array } args
      * 
-     * @returns {Boolean}
+     * @returns { Boolean }
      * 
      */
     function getter(getterObject, args) {
@@ -66,49 +66,11 @@ function utils() {
 
 
     /**
-     * Set/ Add the OS in the list of OS
      *
-     * @param {*} obj
-     * @return {Boolean} 
-     */
-    function setOS(obj) {
-        if (typeof obj == "string") {
-            osList.push(obj)
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Check if OS in the list of OS
+     *
+     * @param { Object } options
      * 
-     * @param {String} name
-     * @return {Boolean} 
-     */
-    function validOS(name) {
-        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
-    }
-
-
-    /**
-     * Get the OS of the current system
-     * 
-     * @return {String} 
-     */
-    function getOS() {
-        return os.type();
-    }
-
-
-    /**
-     *
-     *
-     * @param {*} options
-     * @return {*} 
+     * @return { String } 
      */
     function convertObjectToString(options) {
         if (typeof options === "object") {
@@ -128,8 +90,9 @@ function utils() {
     /**
      *
      *
-     * @param {*} options
-     * @return {*} 
+     * @param { Object } options
+     * 
+     * @return { Array } 
      */
     function createArray(options) {
         let arr = [], keys = Object.keys(options);
@@ -150,8 +113,9 @@ function utils() {
     /**
      *
      *
-     * @param {*} options
-     * @return {*} 
+     * @param { Object } options
+     * 
+     * @return { Array } 
      */
     function convertObjectToArray(options) {
         let arr = [];
@@ -173,10 +137,13 @@ function utils() {
     /**
      *
      *
-     * @param {*} baseObject
-     * @param {Object | Array} validateObj
-     * @param {boolean} [exact=false]
-     * @param {boolean} [type=false]
+     * @param { Object } baseObject
+     * 
+     * @param { Object | Array } validateObj
+     * 
+     * @param { Boolean } [exact=false]
+     * 
+     * @param { Boolean } [type=false]
      * 
      * @return {Boolean} 
      * 
@@ -208,10 +175,11 @@ function utils() {
     /**
      *
      *
-     * @param {Array} baseArray
-     * @param {String} name
+     * @param { Array } baseArray
      * 
-     * @return {Boolean} 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
      * 
      */
     function allowedListItem(baseArray, name) {
@@ -223,7 +191,7 @@ function utils() {
      *
      * error
      * 
-     * @param {String} msg
+     * @param { String } msg
      * 
      * @return {No Return | throw error}
      * 
@@ -241,9 +209,9 @@ function utils() {
     /**
      *
      *
-     * @param {*} pid
+     * @param { Number } pid
      * 
-     * @return {Boolean} 
+     * @return { Boolean } 
      * 
      */
     function is_running(pid) {
@@ -259,11 +227,13 @@ function utils() {
     /**
      *
      *
-     * @param {Array} arr
-     * @param {boolean} [override=true]
-     * @param {string} [seperator="-*-"]
+     * @param { Array } arr
      * 
-     * @return {Array} 
+     * @param { Boolean } [override=true]
+     * 
+     * @param { String } [seperator="-*-"]
+     * 
+     * @return { Array } 
      * 
      */
     function convertArrayToObject(arr, override = true, seperator = "-*-") {
@@ -290,8 +260,10 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function getFile(filename, options) {
@@ -302,8 +274,10 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function getJSONFile(filename, options) {
@@ -314,10 +288,14 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} options
-     * @param {string} [seperator=","]
-     * @param {string} [linebreak="\n"]
+     * @param { String } filename
+     * 
+     * @param { Object } options
+     * 
+     * @param { String } [seperator=","]
+     * 
+     * @param { String } [linebreak="\n"]
+     * 
      * @return {*} 
      */
     function getCSVFile(filename, options, seperator = ",", linebreak = "\n") {
@@ -329,9 +307,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function setFile(filename, data, options) {
@@ -342,9 +323,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function setJSONFile(filename, data, options) {
@@ -355,9 +339,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function setCSVFile(filename, data, options) {
@@ -368,9 +355,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function appendFile(filename, data, options) {
@@ -381,9 +371,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {string} [options={ "encoding": "utf8" }]
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { String } [options={ "encoding": "utf8" }]
+     * 
      * @return {*} 
      */
     function appendCSV(filename, data, options = { "encoding": "utf8" }) {
@@ -395,9 +388,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} filename
-     * @param {*} data
-     * @param {*} options
+     * @param { String } filename
+     * 
+     * @param { String } data
+     * 
+     * @param { Object } options
+     * 
      * @return {*} 
      */
     function appendJSON(filename, data, options) {
@@ -408,11 +404,13 @@ function utils() {
     /**
      *
      *
-     * @param {String} str
-     * @param {string} [seperator=" "]
-     * @param {string} [linebreak="\r\r\n"]
+     * @param { String } str
      * 
-     * @return {Array} 
+     * @param { String } [seperator=" "]
+     * 
+     * @param { String } [linebreak="\r\r\n"]
+     * 
+     * @return { Array } 
      * 
      */
     function convertCSVArrayToObject(str, seperator = " ", linebreak = "\n") {
@@ -445,11 +443,6 @@ function utils() {
             get: getJSONFile,
             set: setJSONFile,
             append: appendJSON
-        },
-        os: {
-            get: getOS,
-            valid: validOS,
-            set: setOS
         },
         convert: {
             array: createArray,
