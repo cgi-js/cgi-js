@@ -18,6 +18,7 @@ const setter = utils.setter, getter = utils.getter, setOS = utils.setOS, getOS =
  * handler
  * 
  * @returns
+ * 
  */
 function handler() {
     let configurations = {}, instanceProxyServers = {};
@@ -63,6 +64,7 @@ function handler() {
         "runtime": false
     };
 
+    
     /**
      * 
      * setupHandler
@@ -103,6 +105,13 @@ function handler() {
         }
     }
 
+    
+    /**
+     *
+     *
+     * @param {*} obj
+     * @return {*} 
+     */
     function setOS(obj) {
         if (typeof obj == "string") {
             osList.push(obj)
@@ -111,6 +120,13 @@ function handler() {
         return false;
     }
 
+
+    /**
+     *
+     *
+     * @param {*} name
+     * @return {*} 
+     */
     function getOS(name) {
         if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
             return name;
@@ -136,6 +152,7 @@ function handler() {
         return getter(configurations, args);
     }
 
+
     /**
      * REDO THIS
      * 
@@ -156,6 +173,7 @@ function handler() {
         }
         return false;
     }
+
 
     /**
      * 
@@ -182,6 +200,7 @@ function handler() {
         }
     }
 
+
     /**
      * 
      * stopProxy
@@ -204,6 +223,7 @@ function handler() {
             return false;
         }
     }
+
 
     /**
      *
@@ -236,6 +256,7 @@ function handler() {
         if (!setInst) { return false; }
         return getter(instanceProxyServers, name);
     }
+
 
     /**
      *
@@ -278,6 +299,7 @@ function handler() {
         return true;
     }
 
+
     /**
      * 
      * getProxy
@@ -293,6 +315,7 @@ function handler() {
     function getProxy(name) {
         return getter(instanceProxyServers, name);
     }
+
 
     return {
         setup: setupHandler,

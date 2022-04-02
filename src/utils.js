@@ -13,6 +13,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
  */
 function utils() {
 
+
     /**
      * 
      * setter
@@ -33,6 +34,7 @@ function utils() {
         }
         return setterObject;
     }
+
 
     /**
      * 
@@ -61,6 +63,7 @@ function utils() {
         }
         return false;
     }
+
 
     /**
      * Set/ Add the OS in the list of OS
@@ -100,6 +103,7 @@ function utils() {
         return os.type();
     }
 
+
     /**
      *
      *
@@ -120,6 +124,7 @@ function utils() {
         }
     }
 
+
     /**
      *
      *
@@ -139,6 +144,7 @@ function utils() {
             process.exit();
         }
     }
+
 
     /**
      *
@@ -161,6 +167,7 @@ function utils() {
             return false;
         }
     }
+
 
     /**
      *
@@ -196,6 +203,7 @@ function utils() {
         return true;
     }
 
+
     /**
      *
      *
@@ -208,6 +216,7 @@ function utils() {
     function allowedListItem(baseArray, name) {
         return baseArray.includes(name);
     }
+
 
     /**
      *
@@ -227,6 +236,7 @@ function utils() {
         }
     }
 
+
     /**
      *
      *
@@ -243,6 +253,7 @@ function utils() {
             return e.code === 'EPERM'
         }
     }
+
 
     /**
      *
@@ -274,42 +285,123 @@ function utils() {
         }, initialValue);
     };
 
+    
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} options
+     * @return {*} 
+     */
     function getFile(filename, options) {
         return fs.readFileSync(filename, { "encoding": "utf8", ...options, "flags": "rs" });
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} options
+     * @return {*} 
+     */
     function getJSONFile(filename, options) {
         return JSON.parse(getFile(filename, options));
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} options
+     * @param {string} [seperator=","]
+     * @param {string} [linebreak="\n"]
+     * @return {*} 
+     */
     function getCSVFile(filename, options, seperator = ",", linebreak = "\n") {
         return convertCSVArrayToObject(getFile(filename, options), seperator, linebreak);
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {*} options
+     * @return {*} 
+     */
     function setFile(filename, data, options) {
         return fs.writeFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "w+" });
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {*} options
+     * @return {*} 
+     */
     function setJSONFile(filename, data, options) {
         return setFile(filename, JSON.stringify(data), options);
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {*} options
+     * @return {*} 
+     */
     function setCSVFile(filename, data, options) {
         return setFile(filename, data, options);
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {*} options
+     * @return {*} 
+     */
     function appendFile(filename, data, options) {
         return fs.appendFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "a+" });
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {string} [options={ "encoding": "utf8" }]
+     * @return {*} 
+     */
     function appendCSV(filename, data, options = { "encoding": "utf8" }) {
         // return appendFile(filename, data, { ...options, "flags": "a+" })
         return false;
     }
 
+
+    /**
+     *
+     *
+     * @param {*} filename
+     * @param {*} data
+     * @param {*} options
+     * @return {*} 
+     */
     function appendJSON(filename, data, options) {
         return appendFile(filename, JSON.stringify(data), options)
     }
+
 
     /**
      *
