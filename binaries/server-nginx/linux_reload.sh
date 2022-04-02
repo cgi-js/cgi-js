@@ -1,0 +1,2 @@
+cd /
+nginx -s reload

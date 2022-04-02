@@ -140,7 +140,9 @@ binaries/lang-ruby/*
 binaries/lang-node/*
 binaries/server-httpd/*
 binaries/server-mongoose/*
-binaries/server-nginx/*
+binaries/server-nginx/mac/*
+binaries/server-nginx/win/*
+binaries/server-nginx/linux/*
 binaries/server-putty/*
 binaries/server-tomcat/*
 binaries/server-jetty/*
