@@ -245,7 +245,7 @@ function utils() {
      * @return {Array} 
      * 
      */
-    function convertCSVArrayToObject(arr, seperator = " ", linebreak = "\r\r\n") {
+    function convertCSVArrayToObject(arr, seperator = " ", linebreak = "\n") {
         let result = arr.split(linebreak).map((ai) => {
             return ai.split(seperator).filter((i) => { return !!i })
         });
