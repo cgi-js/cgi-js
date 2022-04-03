@@ -14,6 +14,12 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
  */
 function utils() {
 
+    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
+    let executableOptionList = ["executable", "service", "file"];
+    let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
+    let proxyPortRanges = [[8000, 9500], [10000, 15000]];
+    let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
+
     /**
      * 
      * setter
@@ -86,6 +92,169 @@ function utils() {
         }
     }
 
+
+    /**
+     * Set/ Add the OS in the list of OS
+     *
+     * @param { String } obj
+     * 
+     * @return { Boolean } 
+     */
+    function setOS(obj) {
+        if (typeof obj == "string") {
+            osList.push(obj)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if OS in the list of OS
+     * 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
+     */
+    function validOS(name) {
+        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
+
+
+    /**
+     * Get the OS of the current system
+     * 
+     * @return { String } 
+     */
+    function getOS() {
+        return os.type();
+    }
+
+
+    /**
+     * Set/ Add the executableOption in the list of executableOptions
+     *
+     * @param { String } obj
+     * 
+     * @return { Boolean } 
+     */
+    function setExecutableOptionList(obj) {
+        if (typeof obj == "string") {
+            executableOptionList.push(obj)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if executableOption in the list of executableOptions
+     * 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
+     */
+    function validExecutableOptionList(name) {
+        if ((typeof obj == "string") && (executableOptionList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
+
+    /**
+     * Set/ Add the process in the list of processes
+     *
+     * @param { String } obj
+     * 
+     * @return { Boolean } 
+     */
+    function setProcessList(obj) {
+        if (typeof obj == "string") {
+            processList.push(obj)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if process in the list of processes
+     * 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
+     */
+    function validProcessList(name) {
+        if ((typeof name == "string") && (processList.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
+
+    /**
+     * Set/ Add the validProxyHandler in the list of validProxyHandlers
+     *
+     * @param { String } name
+     * 
+     * @return { Boolean } 
+     */
+    function setValidProxyHandlers(name) {
+        if (typeof name == "string") {
+            validProxyHandlers.push(name)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if validProxyHandler in the list of validProxyHandlers
+     * 
+     * @param { String } name
+     * 
+     * @return { Boolean } 
+     */
+    function validValidProxyHandlers(name) {
+        if ((typeof name == "string") && (validProxyHandlers.indexOf(name) !== -1)) {
+            return name;
+        }
+        return false;
+    }
+
+
+    /**
+     * Set/ Add the validProxyHandler in the list of validProxyHandlers
+     *
+     * @param { String } range
+     * 
+     * @return { Boolean } 
+     * 
+     */
+    function setProxyPortRanges(range) {
+        if (Array.isArray(range) && range.length === 2) {
+            proxyPortRanges.push(range)
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check if proxyPortRange in the list of proxyPortRanges
+     * 
+     * @param { Array } range
+     * range - [start, end]
+     * 
+     * @return { Boolean } 
+     * 
+     */
+    function validProxyPortRanges(range) {
+
+        return false;
+    }
 
     /**
      *
@@ -432,6 +601,27 @@ function utils() {
     }
 
     return {
+        executableOptions: {
+            valid: validExecutableOptionList,
+            set: setExecutableOptionList
+        },
+        os: {
+            get: getOS,
+            valid: validOS,
+            set: setOS
+        },
+        processes: {
+            valid: validProcessList,
+            set: setProcessList
+        },
+        portRanges: {
+            valid: validProxyPortRanges,
+            set: setProxyPortRanges
+        },
+        proxyHandlers: {
+            valid: validValidProxyHandlers,
+            set: setValidProxyHandlers
+        },
         file: {
             get: getFile,
             append: appendFile,
@@ -461,6 +651,7 @@ function utils() {
         error: error,
         is_running: is_running
     }
+
 }
 
 module.exports = utils;

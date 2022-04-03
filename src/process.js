@@ -14,7 +14,7 @@ const process = require('process');
 const path = require("path");
 const execPath = process.execPath;
 const utils = require("./utils")();
-const setter = utils.setter, getter = utils.getter;
+const setter = utils.setter, getter = utils.getter, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
 
 
 /**
@@ -31,9 +31,9 @@ const setter = utils.setter, getter = utils.getter;
 function handler() {
     let processes = {};
 
-    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
-    let executableOptions = ["executable", "service", "file"];
-    let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
+    // let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
+    // let executableOptions = ["executable", "service", "file"];
+    // let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
     let commandObject = {
         // name of the object that it should be stored or identifies as 
@@ -108,14 +108,14 @@ function handler() {
             case "osList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (!validOS(name)) {
-                            setOS(optionsObject[i]);
+                        if (!osList.valid(name)) {
+                            osList.set(optionsObject[i]);
                         }
                     }
                     return true;
                 } else if (typeof optionsObject === "string") {
-                    if (!validOS(name)) {
-                        setOS(optionsObject);
+                    if (!osList.valid(name)) {
+                        osList.set(optionsObject);
                     }
                     return true;
                 }
@@ -123,13 +123,23 @@ function handler() {
             case "processList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (!optionsObject[i] in processList) {
-                            processList.push(optionsObject[i]);
+                        if (!processList.valid(optionsObject[i])) {
+                            processList.set(optionsObject[i]);
                         }
                     }
                     return true;
                 }
                 return false;
+            case "executableOptionList":
+                    if (Array.isArray(optionsObject)) {
+                        for (let i = 0; i < optionsObject.length; i++) {
+                            if (!executableOptionList.valid(optionsObject[i])) {
+                                executableOptionList.set(optionsObject[i]);
+                            }
+                        }
+                        return true;
+                    }
+                    return false;
             case "processes":
                 if (typeof optionsObject === "object") {
                     if (!optionsObject.name) {
@@ -149,47 +159,6 @@ function handler() {
             default:
                 return false;
         }
-    }
-
-    
-    /**
-     * Set/ Add the OS in the list of OS
-     *
-     * @param { String } obj
-     * 
-     * @return { Boolean } 
-     */
-     function setOS(obj) {
-        if (typeof obj == "string") {
-            osList.push(obj)
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Check if OS in the list of OS
-     * 
-     * @param { String } name
-     * 
-     * @return { Boolean } 
-     */
-    function validOS(name) {
-        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
-    }
-
-
-    /**
-     * Get the OS of the current system
-     * 
-     * @return { String } 
-     */
-    function getOS() {
-        return os.type();
     }
 
 
@@ -687,7 +656,7 @@ function handler() {
     function fetchRunningProcess(cmdOptions, dataHandler) {
         let cmdExec, cmdSpawn;
         let ostype = getOS();
-        if (!osList.includes(ostype)) {
+        if (!osList.valid(ostype)) {
             utils.error("OS not in the list");
         }
 

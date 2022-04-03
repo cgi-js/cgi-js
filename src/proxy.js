@@ -10,7 +10,7 @@ const https = require('https');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
-const setter = utils.setter, getter = utils.getter;
+const setter = utils.setter, getter = utils.getter, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
 
 
 /**
@@ -25,7 +25,7 @@ function handler() {
 
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
-    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
+    // let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
 
     
     let configurationObject = {
@@ -95,8 +95,8 @@ function handler() {
             case "osList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (!optionsObject[i] in osList) {
-                            osList.push(optionsObject[i]);
+                        if (!osList.valid(optionsObject[i])) {
+                            osList.set(optionsObject[i]);
                         }
                     }
                     return true;
@@ -105,47 +105,6 @@ function handler() {
             default:
                 return false;
         }
-    }
-
-    
-    /**
-     * Set/ Add the OS in the list of OS
-     *
-     * @param { String } obj
-     * 
-     * @return { Boolean } 
-     */
-     function setOS(obj) {
-        if (typeof obj == "string") {
-            osList.push(obj)
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Check if OS in the list of OS
-     * 
-     * @param { String } name
-     * 
-     * @return { Boolean } 
-     */
-    function validOS(name) {
-        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
-    }
-
-
-    /**
-     * Get the OS of the current system
-     * 
-     * @return { String } 
-     */
-    function getOS() {
-        return os.type();
     }
 
 
