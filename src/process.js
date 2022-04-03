@@ -19,10 +19,26 @@ const setter = utils.setter, getter = utils.getter, osList = utils.os, processLi
  * handler
  * 
  * @returns {Object} Process module functions
- *      Module Object -> { process }
+ *      Module Object ==> { Process Object }
+ * 
  *              setup [function]
- *              os [object]: { set [function], isValid [function], get [function] }
- *              process [object]: { set [function], get [function], registerHandlers [function], exec [function], execFile [function], fork [function], spawn [function], executeProcess [function], executeAction [function], kill [function] }
+ *              os [object]: {
+ *                  set [function],
+ *                  isValid [function],
+ *                  get [function]
+ *              }
+ *              process [object]: { 
+ *                  set [function],
+ *                  get [function],
+ *                  registerHandlers [function],
+ *                  exec [function],
+ *                  execFile [function],
+ *                  fork [function],
+ *                  spawn [function],
+ *                  executeProcess [function],
+ *                  executeAction [function],
+ *                  kill [function]
+ *              }
  * 
  */
 function handler() {

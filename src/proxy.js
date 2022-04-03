@@ -16,7 +16,21 @@ const setter = utils.setter, getter = utils.getter, osList = utils.os, processLi
  * 
  * handler
  * 
- * @returns
+ * @returns {Object} Proxy module functions
+ *      Module Object ==> { Proxy Object }
+ * 
+ *                 setup [function],
+ *                 config [object]: {
+ *                     set [function],
+ *                     get [function]
+ *                 },
+ *                 proxy [object]: {
+ *                     setup [function],
+ *                     get [function],
+ *                     start [function],
+ *                     stop [function],
+ *                     serve [function]
+ *                 }
  * 
  */
 function handler() {

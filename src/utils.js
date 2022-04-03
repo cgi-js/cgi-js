@@ -10,7 +10,58 @@ const os = require("os");
 /**
  *
  *
- * @returns
+ * @returns {Object} Utils module functions
+ *      Module Object ==> { Utils Object }
+ * 
+ *              executableOptions [object]: {
+ *                       valid [function],
+ *                      set [function]
+ *                  },
+ *              os [object]: {
+ *                       get [function],
+ *                       valid [function],
+ *                       set [function]
+ *                  },
+ *              processes [object]: {
+ *                       valid [function],
+ *                       set [function]
+ *                   },
+ *              portRanges [object]: {
+ *                   valid [function],
+ *                   set [function]
+ *                  },
+ *              proxyHandlers [object]: {
+ *                   valid [function],
+ *                   set [function]
+ *                  },
+ *              file [object]: {
+ *                   get [function],
+ *                   append [function],
+ *                   set [function]
+ *                  },
+ *              csv [object]: {
+ *                   get [function],
+ *                   append [function],
+ *                   set [function]
+ *                  },
+ *              json [object]: {
+ *                   get [function],
+ *                   set [function],
+ *                   append [function]
+ *                  },
+ *              convert [object]: {
+ *                  array [function],
+ *                  string [function],
+ *                  objectToArray [function],
+ *                  arrayToObject [function],
+ *                  csvToObject [function]
+ *                 },
+ *              allowedItem [function],
+ *              isEqual [function],
+ *              setter [function],
+ *              getter [function],
+ *              error [function],
+ *              is_running [function]
  * 
  */
 function utils() {
