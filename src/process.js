@@ -6,10 +6,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
-const https = require('https');
-const fs = require('fs');
-const os = require("os");
-const util = require("util");
+
 const process = require('process');
 const path = require("path");
 const execPath = process.execPath;
