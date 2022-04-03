@@ -22,8 +22,26 @@ const setter = utils.setter, getter = utils.getter;
 
 
 /**
- *
- * @returns {Object}
+ * cgiServe
+ * CGI File Handler
+ * 
+ * 
+ * @returns {Object} CGI Serve File module functions
+ * 		Module Object ==> { CGI Serve File handler Object }
+ * 
+ * 			setter [object]: {
+ *				which [function],
+ *				cgiTypes [function]
+ *			},
+ *			getter [object]: {
+ *				which [function],
+ *				cgiTypes [function],
+ *				vars [function],
+ *				env [function]
+ *			},
+ *			runCGI [function],
+ *			serve [function]
+ * 
  */
 function cgiServe() {
 	let ruby = "ruby", perl = "perl", python = "python", php = "php", node = "node";

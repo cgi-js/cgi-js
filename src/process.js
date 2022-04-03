@@ -6,7 +6,6 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
-
 const process = require('process');
 const path = require("path");
 const execPath = process.execPath;
@@ -17,6 +16,8 @@ const setter = utils.setter, getter = utils.getter, osList = utils.os, processLi
 /**
  * 
  * handler
+ * Process Execution and Management handler
+ * 
  * 
  * @returns {Object} Process module functions
  *      Module Object ==> { Process Object }

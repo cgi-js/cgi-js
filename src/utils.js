@@ -5,11 +5,15 @@ Dynamic CGI serving using dynamic path imports for
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 */
 
+/* eslint no-console: 0 */
 const os = require("os");
 
 /**
- *
- *
+ * 
+ * utils
+ * Common Utility Functions
+ * 
+ * 
  * @returns {Object} Utils module functions
  *      Module Object ==> { Utils Object }
  * 
