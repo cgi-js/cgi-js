@@ -7,6 +7,9 @@
 Supports running any `CGI` / `Interpreted Language scripts` in any `OS` that runs `node.js`. Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
 
 
+`[Funding Invited]`
+
+
 # History
 
 CGIJS was created with a motivation to allow creation of a `Desktop executable/ application` using `Electron` that can run any `CGI` / `Interpreted language scripted files/ applications` under the hood. 
