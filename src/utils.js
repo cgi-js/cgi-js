@@ -5,6 +5,7 @@ Dynamic CGI serving using dynamic path imports for
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
 */
 
+const os = require("os");
 
 /**
  *
@@ -599,6 +600,7 @@ function utils() {
         }
         return processArray;
     }
+
 
     return {
         executableOptions: {

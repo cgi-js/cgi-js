@@ -296,11 +296,6 @@ function handler() {
             set: setConfig,
             get: getConfig
         },
-        os: {
-            get: getOS,
-            valid: validOS,
-            set: setOS
-        },
         proxy: {
             setup: setupProxy,
             get: getProxy,

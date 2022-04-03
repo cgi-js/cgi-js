@@ -108,13 +108,13 @@ function handler() {
             case "osList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (!osList.valid(name)) {
+                        if (!!osList.valid(name)) {
                             osList.set(optionsObject[i]);
                         }
                     }
                     return true;
                 } else if (typeof optionsObject === "string") {
-                    if (!osList.valid(name)) {
+                    if (!!osList.valid(name)) {
                         osList.set(optionsObject);
                     }
                     return true;
@@ -123,7 +123,7 @@ function handler() {
             case "processList":
                 if (Array.isArray(optionsObject)) {
                     for (let i = 0; i < optionsObject.length; i++) {
-                        if (!processList.valid(optionsObject[i])) {
+                        if (!!processList.valid(optionsObject[i])) {
                             processList.set(optionsObject[i]);
                         }
                     }
@@ -133,7 +133,7 @@ function handler() {
             case "executableOptionList":
                     if (Array.isArray(optionsObject)) {
                         for (let i = 0; i < optionsObject.length; i++) {
-                            if (!executableOptionList.valid(optionsObject[i])) {
+                            if (!!executableOptionList.valid(optionsObject[i])) {
                                 executableOptionList.set(optionsObject[i]);
                             }
                         }
@@ -422,8 +422,8 @@ function handler() {
         let evtLen = evt.length;
 
         let { name, exe, cmds, os, type, options, other } = processConf;
-
-        if (!executableOptions.includes(type)) {
+        
+        if (!!executableOptionList.valid(type)) {
             utils.error("startProcess: Server Definition or Process Definition does not include type");
         }
 
@@ -655,8 +655,8 @@ function handler() {
      */
     function fetchRunningProcess(cmdOptions, dataHandler) {
         let cmdExec, cmdSpawn;
-        let ostype = getOS();
-        if (!osList.valid(ostype)) {
+        let ostype = osList.get();
+        if (!!osList.valid(ostype)) {
             utils.error("OS not in the list");
         }
 
@@ -701,7 +701,7 @@ function handler() {
      */
     function findRunningProcess(cmdOptions, dataHandler, conditions) {
         let processes = fetchRunningProcess(cmdOptions, dataHandler), result;
-        let ostype = getOS();
+        let ostype = osList.get();
         let pid, ppid, executable, bin, command;
 
         // Available Find Options
@@ -772,7 +772,7 @@ function handler() {
      * 
      */
     function kill(pid, signal) {
-        let ostype = getOS();
+        let ostype = osList.get();
         if (ostype === "win32" || ostype === "Windows_NT") {
             process.kill(pid, signal);
             return true;
