@@ -6,8 +6,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
-const https = require('https');
-const fs = require('fs');
+
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
