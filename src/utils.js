@@ -136,8 +136,8 @@ function utils() {
      */
     function convertObjectToString(options) {
         if (typeof options === "object") {
-            let keys = options.keys(), str = " ";
-            for (let i = 0; i < keys.length; i++) {
+            let keys = Object.keys(options), str = " ", klen = keys.length;
+            for (let i = 0; i < klen; i++) {
                 str += " " + keys[i] + " " + options[keys[i]];
             }
             return str;
