@@ -15,10 +15,8 @@ const child = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
-const { request } = require('http');
-const { json } = require('express');
 const utils = require('./utils')();
-const setter = utils.setter, getter = utils.getter;
+const setter = utils.setter, getter = utils.getter, error = utils.error;
 
 
 // function handler() {
@@ -119,7 +117,7 @@ function cgiServe() {
 				}
 				return "";
 			} else {
-				return utils.error("getBinPath: bin path config type definition error", false);
+				return error("getBinPath: bin path config type definition error", false);
 			}
 		}
 	}
@@ -164,10 +162,10 @@ function cgiServe() {
 				LANG_OPTS[type].which = WHICH_CGI;
 				return true;
 			} else {
-				return utils.error("setCGI: CGI Executable type apply error", false);
+				return error("setCGI: CGI Executable type apply error", false);
 			}
 		} catch (e) {
-			return utils.error("setCGI: CGI Executable fetch error", false);
+			return error("setCGI: CGI Executable fetch error", false);
 		}
 	}
 
@@ -190,7 +188,7 @@ function cgiServe() {
 			}
 			return LANG_OPTS[type].which;
 		} catch (e) {
-			return utils.error("getCGI: CGI Executable fetch error " + e.toString(), false);
+			return error("getCGI: CGI Executable fetch error " + e.toString(), false);
 		}
 	}
 
@@ -217,7 +215,7 @@ function cgiServe() {
 			langOptions.push(cgiLang);
 			return true;
 		}
-		return utils.error("setCGITypes: Incorrect Type provided", false);
+		return error("setCGITypes: Incorrect Type provided", false);
 	}
 
 	/**
@@ -357,7 +355,7 @@ function cgiServe() {
 		if (!!ty && !!ty.pattern && ty.pattern !== "") {
 			return ty.pattern;
 		}
-		return utils.error("getPattern: Pattern does not exist " + pattern.toString(), false);
+		return error("getPattern: Pattern does not exist " + pattern.toString(), false);
 	}
 
 	/**
@@ -374,7 +372,7 @@ function cgiServe() {
 		if (!!ty && !!ty.type && ty.type !== "") {
 			return ty.type;
 		}
-		return utils.error("getType: Type does not exist " + type.toString(), false);
+		return error("getType: Type does not exist " + type.toString(), false);
 	}
 
 	/**
@@ -431,7 +429,7 @@ function cgiServe() {
 					}
 				} catch (err) {
 					console.error("getCGIHtml: ", err)
-					return utils.error(err.toString(), false);
+					return error(err.toString(), false);
 				}
 			}
 		}
@@ -508,7 +506,7 @@ function cgiServe() {
 				} else {
 					if (!LANG_OPTS[req.type]["which"]) {
 						try {
-							utils.error('"runCGI: cgi executable" cannot be found, "which" Error ', false)
+							error('"runCGI: cgi executable" cannot be found, "which" Error ', false)
 						} catch (e) {
 							reject({
 								headers: {},

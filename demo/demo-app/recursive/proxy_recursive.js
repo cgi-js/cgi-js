@@ -14,11 +14,11 @@ module.exports = () => {
     var configurations;
 
     if (ostype === "Linux") {
-        configurations = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+        configurations = JSON.parse(fs.readFileSync('./demo/demo-app/config-linux.json'));
     } else if (ostype === "Windows_NT") {
-        configurations = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+        configurations = JSON.parse(fs.readFileSync('./demo/demo-app/config-win.json'));
     } else if (ostype === "Darwin") {
-        configurations = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+        configurations = JSON.parse(fs.readFileSync('./demo/demo-app/config-mac.json'));
     }
 
     let configs = configurations.proxies;

@@ -8,7 +8,6 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 const process = require('process');
 const path = require("path");
-const execPath = process.execPath;
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter, error = utils.error, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
 
@@ -437,7 +436,7 @@ function handler() {
         let { name, exe, cmds, os, type, options, other } = processConf;
 
         if (!!executableOptionList.valid(type)) {
-            utils.error("startProcess: Server Definition or Process Definition does not include type");
+            error("startProcess: Server Definition or Process Definition does not include type");
         }
 
         let executetype = "exec";
@@ -449,7 +448,7 @@ function handler() {
         
         if (!!other.command) {
             if (!cmds[other.command]) {
-                utils.error("startProcess: Server Definition or Process Definition not allowed");
+                error("startProcess: Server Definition or Process Definition not allowed");
             } else {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
@@ -458,26 +457,28 @@ function handler() {
                 }
             }
         } else if (!other.command) {
-            utils.error("startProcess: Server Definition or Process Definition does not have command to execute");
+            error("startProcess: Server Definition or Process Definition does not have command to execute");
         }
 
         if (!usage) {
             usage = "";
         } else if (!!usage && usage != "") {
-            utils.error("startProcess: Usage passed is incorrect");
+            error("startProcess: Usage passed is incorrect");
         }
 
         if (!args) {
             args = [];
         } else if (!!args && !Array.isArray(args)) {
-            utils.error("startProcess: Arguments passed is incorrect");
+            error("startProcess: Arguments passed is incorrect");
         }
-
-        if (!dataHandler || ( typeof dataHandler !== "function" || !(dataHandler instanceof Function) || (Object.prototype.toString().call(dataHandler) != "[object Function]") ) ) {
+        
+        // (Object.prototype.toString().call(dataHandler) != "[object Function]")
+        if (!dataHandler || ( typeof dataHandler !== "function" || !(dataHandler instanceof Function) ) ) {
             dataHandler = function (error, stdout, stderr) { };
         }
 
-        if (!cleanupHandler || ( (typeof cleanupHandler !== "function") || !(cleanupHandler instanceof Function) || (Object.prototype.toString().call(cleanupHandler) != "[object Function]") ) ) {
+        // (Object.prototype.toString().call(cleanupHandler) != "[object Function]")
+        if (!cleanupHandler || ( (typeof cleanupHandler !== "function") || !(cleanupHandler instanceof Function) ) ) {
             cleanupHandler = function (options, prc) { };
         }
 
@@ -666,7 +667,7 @@ function handler() {
         let cmdExec, cmdSpawn;
         let ostype = osList.get();
         if (!!osList.valid(ostype)) {
-            utils.error("OS not in the list");
+            error("OS not in the list");
         }
 
         if (ostype === "android") {
