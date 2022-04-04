@@ -48,17 +48,20 @@ eventEmitter.on('closeprocess', closeEventHandler.bind(obj));
 // Convert/Write tests for the following code
 let lconfig = {
     exe: "",
-    args: [],
+    exe: "apache2",
+    type: "executable",
     options: {
         stdio: 'inherit',
         shell: true
     },
-    other: {
+    cmds:{ start: {}, stop: {}, reload: {}},
+    other: { 
         osPaths: {
             conf: "",
             exe: ""
         },
         command: "",
+        executetype: "",
         serverType: ""
     }
 }
