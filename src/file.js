@@ -23,6 +23,7 @@ const setter = utils.setter, getter = utils.getter;
 
 // function handler() {
 
+// 	TODO: NEXT VERSION
 // 	Move to exec/spawn/fork/execFile based simpler - easier - smaller implementation
 
 // 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
