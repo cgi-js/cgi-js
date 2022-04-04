@@ -626,9 +626,10 @@ function utils() {
             return ai.split(seperator).filter((i) => { return !!i })
         });
         let headers = result[0], processArray = [];
-        for (let i = 1; i < result.length; i++) {
+        let rlen = result.length, hlen = headers.length;
+        for (let i = 1; i < rlen; i++) {
             let o = {};
-            for (let j = 0; j < headers.length; j++) {
+            for (let j = 0; j < hlen; j++) {
                 o[headers[j]] = result[i][j];
             }
             processArray.push(o)
