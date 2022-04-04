@@ -814,7 +814,7 @@ function handler() {
         try {
             let procConf = getProcess(name);
             if (!procConf) {
-                error("killProcess: Failed Killing/Stopping process " + name + ". No such Process stored in Instance")
+                return error("killProcess: Failed Killing/Stopping process " + name + ". No such Process stored in Instance")
             }
             let proc = procConf['process'];
             let setterVal = null;
@@ -825,12 +825,12 @@ function handler() {
             }
             setterVal = setter(processes, { [name]: procConf });
             if (!setterVal) {
-                console.error("killProcess: Error during setting object to null");
+                return error("killProcess: Error during setting object to null");
             }
             console.log('killProcess: Killed/Stopped process ' + name, "Object is ", processes[name]);
             return true;
         } catch (e) {
-            return false;
+            return error("killProcess: error during execution ", e.toString());
         }
     }
 
