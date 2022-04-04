@@ -555,10 +555,7 @@ function handler() {
             prconf.other["setprocess"] = true;
         }
         let cf = executeProcess(prconf, dataHandler, cleanupHandler);
-        if (!!cf) {
-            return cf;
-        }
-        return false;
+        return (!!cf) ? cf : false;
     }
 
 
