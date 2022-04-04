@@ -21,6 +21,42 @@ const utils = require('./utils')();
 const setter = utils.setter, getter = utils.getter;
 
 
+// function handler() {
+
+// 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
+// 	let LANG_OPTS = {
+// 		"rb": { "name": "ruby", "cgi": "ruby", "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+// 		"pl": { "name": "perl", "cgi": "perl", "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
+// 		"plc": { "name": "perl", "cgi": "perl", "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
+// 		"pld": { "name": "perl", "cgi": "perl", "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
+// 		"py3": { "name": "python3", "cgi": ((process.platform === "win32") ? 'python' : 'python3'), "which": "", "type": "py", "pattern": /.*?\.py$/ },
+// 		"py": { "name": "python", "cgi": "python", "which": "", "type": "py", "pattern": /.*?\.py$/ },
+// 		"php": { "name": "php", "cgi": "php" + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
+// 		"node": { "name": "node", "cgi": "node", "which": "", "type": "node", "pattern": /.*?\.js$/ }
+// 	}
+
+	// function getEnvironment(){}
+	// function getVariables(){}
+	// function getBinPath(){}
+	// function getType(){}
+	// function getFilePattern(){}
+
+	// function getCGIType(){}
+	// function setCGIType(){}
+	// function setCGI(){}
+	// function getCGI(){}
+
+	// function validateObject(){}
+	// function validateCGI(){}
+	// function validFile(){} // fileExists
+
+	// function runCGI(){}
+	// function serve(){}
+
+// 	return {}
+// }
+
+
 /**
  * cgiServe
  * CGI File Handler

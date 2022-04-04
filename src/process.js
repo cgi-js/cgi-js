@@ -10,7 +10,7 @@ const process = require('process');
 const path = require("path");
 const execPath = process.execPath;
 const utils = require("./utils")();
-const setter = utils.setter, getter = utils.getter, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
+const setter = utils.setter, getter = utils.getter, error = utils.error, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
 
 
 /**
@@ -145,15 +145,15 @@ function handler() {
                 }
                 return false;
             case "executableOptionList":
-                    if (Array.isArray(optionsObject)) {
-                        for (let i = 0; i < optionsObject.length; i++) {
-                            if (!!executableOptionList.valid(optionsObject[i])) {
-                                executableOptionList.set(optionsObject[i]);
-                            }
+                if (Array.isArray(optionsObject)) {
+                    for (let i = 0; i < optionsObject.length; i++) {
+                        if (!!executableOptionList.valid(optionsObject[i])) {
+                            executableOptionList.set(optionsObject[i]);
                         }
-                        return true;
                     }
-                    return false;
+                    return true;
+                }
+                return false;
             case "processes":
                 if (typeof optionsObject === "object") {
                     if (!optionsObject.name) {
@@ -317,7 +317,7 @@ function handler() {
     function spawn(exe, args, cmdOptions, dataHandler, handlers) {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
-        console.log(spw);
+        
         // Do not do a bind => emit an event (pref) or make this a promise
         // if (Object.keys(spw).indexOf("stdout") >= 0) {
         //     spw.stdout.on('data', function (data) {
@@ -344,7 +344,7 @@ function handler() {
         // }
         let datah, err, closer;
         spw.on('data', function (data) {
-            console.log("spawn");
+            console.log('Data Event to start subprocess.');
             datah = dataHandler(null, data, null);
         }.bind(null, datah));
         spw.on('error', function (err) {
@@ -352,7 +352,7 @@ function handler() {
             err = dataHandler(err, null, null);
         }.bind(null, err));
         spw.on('close', function (code) {
-            console.log(`child process exited with code ${code}`);
+            console.log(`Child process exited with code ${code}`);
             handlers(null, code);
         });
         return spw;
@@ -436,7 +436,7 @@ function handler() {
         let evtLen = evt.length;
 
         let { name, exe, cmds, os, type, options, other } = processConf;
-        
+
         if (!!executableOptionList.valid(type)) {
             utils.error("startProcess: Server Definition or Process Definition does not include type");
         }
@@ -787,14 +787,18 @@ function handler() {
      */
     function kill(pid, signal) {
         let ostype = osList.get();
-        if (ostype === "win32" || ostype === "Windows_NT") {
+        if (ostype != "win32" && ostype != "Windows_NT") {
             process.kill(pid, signal);
             return true;
         } else {
-            return exec("Taskkill /F /PID  " + pid + " & exit/b & timeout /t 30", [], {
+            return spawn("Taskkill /F /PID " + pid + " & exit/b & timeout /t 30", [], {
                 stdio: 'inherit',
                 shell: true
             }, (error, stdout, stderr) => {
+                console.log("error, stdout, stderr: ", stdout, stderr, error)
+                return true;
+            }, (data, code) => {
+                console.log("data, code: ", data, code)
                 return true;
             });
         }
@@ -814,6 +818,9 @@ function handler() {
     function killProcess(name, signal) {
         try {
             let procConf = getProcess(name);
+            if (!procConf) {
+                error("killProcess: Failed Killing/Stopping process " + name + ". No such Process stored in Instance")
+            }
             let proc = procConf['process'];
             let setterVal = null;
             if (!!proc) {
