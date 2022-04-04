@@ -23,6 +23,8 @@ const setter = utils.setter, getter = utils.getter;
 
 // function handler() {
 
+// 	Move to exec/spawn/fork/execFile based simpler - easier - smaller implementation
+
 // 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
 // 	let LANG_OPTS = {
 // 		"rb": { "name": "ruby", "cgi": "ruby", "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
