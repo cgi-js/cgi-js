@@ -474,12 +474,12 @@ function handler() {
             utils.error("startProcess: Arguments passed is incorrect");
         }
 
-        if (!dataHandler && (typeof dataHandler === "function" || dataHandler instanceof Function || Object.prototype.toString().call(dataHandler) == "[object Function]")) {
-            let dataHandler = function (error, stdout, stderr) { };
+        if (!dataHandler || ( typeof dataHandler !== "function" || !(dataHandler instanceof Function) || (Object.prototype.toString().call(dataHandler) != "[object Function]") ) ) {
+            dataHandler = function (error, stdout, stderr) { };
         }
 
-        if (!cleanupHandler && (typeof cleanupHandler === "function" || cleanupHandler instanceof Function || Object.prototype.toString().call(cleanupHandler) == "[object Function]")) {
-            let cleanupHandler = function (options, prc) { };
+        if (!cleanupHandler || ( (typeof cleanupHandler !== "function") || !(cleanupHandler instanceof Function) || (Object.prototype.toString().call(cleanupHandler) != "[object Function]") ) ) {
+            cleanupHandler = function (options, prc) { };
         }
 
         if (executetype === "exec") {
