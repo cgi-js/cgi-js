@@ -144,7 +144,7 @@ function utils() {
         } else if (typeof options === "string") {
             return options;
         } else {
-            throw new Error("Options type not suitable");
+            return error("Options type not suitable", true);
         }
     }
 
@@ -156,12 +156,8 @@ function utils() {
      * 
      * @return { Boolean } 
      */
-    function setOS(obj) {
-        if (typeof obj == "string") {
-            osList.push(obj)
-            return true;
-        }
-        return false;
+    function setOS(name) {
+        return (typeof name == "string") ? osList.push(name) : false;
     }
 
 
@@ -173,10 +169,7 @@ function utils() {
      * @return { Boolean } 
      */
     function validOS(name) {
-        if ((typeof obj == "string") && (osList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
+        return allowedListItem(osList, name, "string");
     }
 
 
@@ -193,16 +186,12 @@ function utils() {
     /**
      * Set/ Add the executableOption in the list of executableOptions
      *
-     * @param { String } obj
+     * @param { String } name
      * 
      * @return { Boolean } 
      */
-    function setExecutableOptionList(obj) {
-        if (typeof obj == "string") {
-            executableOptionList.push(obj)
-            return true;
-        }
-        return false;
+    function setExecutableOptionList(name) {
+        return (typeof name == "string") ? executableOptionList.push(name) : false;
     }
 
 
@@ -214,25 +203,18 @@ function utils() {
      * @return { Boolean } 
      */
     function validExecutableOptionList(name) {
-        if ((typeof obj == "string") && (executableOptionList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
+        return allowedListItem(executableOptionList, name, "string");
     }
 
     /**
      * Set/ Add the process in the list of processes
      *
-     * @param { String } obj
+     * @param { String } name
      * 
      * @return { Boolean } 
      */
-    function setProcessList(obj) {
-        if (typeof obj == "string") {
-            processList.push(obj)
-            return true;
-        }
-        return false;
+    function setProcessList(name) {
+        return (typeof name == "string") ? processList.push(name) : false;
     }
 
 
@@ -244,25 +226,18 @@ function utils() {
      * @return { Boolean } 
      */
     function validProcessList(name) {
-        if ((typeof name == "string") && (processList.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
+        return allowedListItem(processList, name, "string");
     }
 
     /**
-     * Set/ Add the validProxyHandler in the list of validProxyHandlers
+     * Set/ Add the string name of validProxyHandler in the list of validProxyHandlers
      *
      * @param { String } name
      * 
      * @return { Boolean } 
      */
     function setValidProxyHandlers(name) {
-        if (typeof name == "string") {
-            validProxyHandlers.push(name)
-            return true;
-        }
-        return false;
+        return (typeof name == "string") ? validProxyHandlers.push(name) : false;
     }
 
 
@@ -274,10 +249,7 @@ function utils() {
      * @return { Boolean } 
      */
     function validValidProxyHandlers(name) {
-        if ((typeof name == "string") && (validProxyHandlers.indexOf(name) !== -1)) {
-            return name;
-        }
-        return false;
+        return allowedListItem(validProxyHandlers, name, "string");
     }
 
 
@@ -290,11 +262,7 @@ function utils() {
      * 
      */
     function setProxyPortRanges(range) {
-        if (Array.isArray(range) && range.length === 2) {
-            proxyPortRanges.push(range)
-            return true;
-        }
-        return false;
+        return (Array.isArray(range) && range.length === 2) ? proxyPortRanges.push(range) : error("Range should be an array of length of 2", true);
     }
 
 
@@ -302,16 +270,25 @@ function utils() {
      * Check if proxyPortRange in the list of proxyPortRanges
      * 
      * @param { Array } range
-     * range - [start, end]
+     * range (array length of 2) - [start, end]
      * 
      * @return { Boolean } 
      * 
      */
     function validProxyPortRanges(range) {
-
+        if (range.length !== 2) {
+            return error("Range array length has to be an array of 2", true);
+        }
+        let len = proxyPortRanges.length;
+        for (let i = 0; i < len; i++) {
+            if (range[0] === proxyPortRanges[i][0] && range[1] === proxyPortRanges[i][1]) {
+                return true;
+            }
+        }
         return false;
     }
 
+    
     /**
      *
      *
@@ -330,7 +307,7 @@ function utils() {
             arr.push(options);
             return arr;
         } else {
-            process.exit();
+            return process.exit();
         }
     }
 
@@ -407,8 +384,8 @@ function utils() {
      * @return { Boolean } 
      * 
      */
-    function allowedListItem(baseArray, name) {
-        return baseArray.includes(name);
+    function allowedListItem(baseArray, name, type = "string") {
+        return ((typeof name === type) && (baseArray.includes(name) || (baseArray.indexOf(name) !== -1))) ? name : false;
     }
 
 
