@@ -95,8 +95,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [x] Mysql
-* [x] MongoDB
+* [] Mysql
+* [] MongoDB
 * [] PgSQL [TODO]
 * [] Redis [TODO]
 * [x] Other Processes for your application support
