@@ -388,7 +388,7 @@ function handler() {
 
         for (let e = 0; e < eKeysLen; e++) {
             // let { data, handler } = eventHandlers[eKeys[e]];
-            let handler = eventHandlers[eKeys[e]];
+            let handler = (typeof eventHandlers === "object") ? eventHandlers[eKeys[e]] : (arguments) => {};
             processConf["process"].on(eKeys[e], cleanup.bind(null, eKeys[e], handler, processConf));
         }
 
