@@ -288,7 +288,7 @@ function utils() {
         return false;
     }
 
-    
+
     /**
      *
      *
@@ -380,6 +380,9 @@ function utils() {
      * @param { Array } baseArray
      * 
      * @param { String } name
+     * 
+     * @param { String } type
+     * default = "string"
      * 
      * @return { Boolean } 
      * 
