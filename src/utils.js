@@ -115,8 +115,8 @@ function utils() {
         if (typeof args === "string" || typeof args === "number") {
             return (!!getterObject[args]) ? getterObject[args] : false;
         } else if (Array.isArray(args)) {
-            let tmp = {};
-            for (let i = 0; i < args.length; i++) {
+            let tmp = {}, alen = args.length;
+            for (let i = 0; i < alen; i++) {
                 if (!!getterObject[args[i]]) {
                     tmp[args[i]] = getterObject[args[i]];
                 }
@@ -279,8 +279,8 @@ function utils() {
         if (range.length !== 2) {
             return error("Range array length has to be an array of 2", true);
         }
-        let len = proxyPortRanges.length;
-        for (let i = 0; i < len; i++) {
+        let plen = proxyPortRanges.length;
+        for (let i = 0; i < plen; i++) {
             if (range[0] === proxyPortRanges[i][0] && range[1] === proxyPortRanges[i][1]) {
                 return true;
             }
@@ -297,9 +297,9 @@ function utils() {
      * @return { Array } 
      */
     function createArray(options) {
-        let arr = [], keys = Object.keys(options);
+        let arr = [], keys = Object.keys(options), klen = keys.length;
         if (typeof options === "object") {
-            for (let i = 0; i < keys.length; i++) {
+            for (let i = 0; i < klen; i++) {
                 arr.push("-" + keys[i]).push(options[keys[i]]);
             }
             return arr;
@@ -322,8 +322,8 @@ function utils() {
     function convertObjectToArray(options) {
         let arr = [];
         if (typeof options === "object") {
-            let keys = Object.keys(options);
-            for (let i = 0; i < keys.length; i++) {
+            let keys = Object.keys(options), klen = keys.length;
+            for (let i = 0; i < klen; i++) {
                 arr.push([keys[i], options[keys[i]]]);
             }
             return arr;
