@@ -376,8 +376,8 @@ function handler() {
         if (Array.isArray(eventHandlers)) {
             eKeys = eventHandlers;
             eKeysLen = eKeys.length;
-        } else if (typeof eventHandlers === "function") {
-            eKeys = eventHandlers.keys();
+        } else if (typeof eventHandlers === "object") {
+            eKeys = Object.keys(eventHandlers);
             eKeysLen = eKeys.length;
         }
 
