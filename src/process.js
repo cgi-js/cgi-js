@@ -317,7 +317,7 @@ function handler() {
     function spawn(exe, args, cmdOptions, dataHandler, handlers) {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
-        
+
         // Do not do a bind => emit an event (pref) or make this a promise
         // if (Object.keys(spw).indexOf("stdout") >= 0) {
         //     spw.stdout.on('data', function (data) {
@@ -446,7 +446,8 @@ function handler() {
             executetype = other["executetype"];
         }
 
-        let executable = path.join(other.paths.exe, exe);
+        let executable = path.join(!!other.osPaths["exe"] ? other.osPaths.exe : "", exe);
+        
         if (!!other.command) {
             if (!cmds[other.command]) {
                 utils.error("startProcess: Server Definition or Process Definition not allowed");
@@ -454,12 +455,10 @@ function handler() {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
                 if (!!cmds[other.command]["exe"]) {
-                    executable = path.join(other.paths.exe, cmds[other.command]["exe"]);
+                    executable = path.join(other.osPaths.exe, cmds[other.command]["exe"]);
                 }
             }
-        }
-
-        if (!other.command) {
+        } else if (!other.command) {
             utils.error("startProcess: Server Definition or Process Definition does not have command to execute");
         }
 

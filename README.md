@@ -76,16 +76,16 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 ##### The script should support piping all proxies of above languages and following:
 
 * [x] Jsp (With Tomcat as proxy)
-* [] Jsp (With Tomcat) [TODO]
-* [x] Aspx (With IIS, Apache as proxy)
-* [] Aspx (With Nginx, Apache) [TODO]
+* [x] Aspx (With IIS and Apache as proxy)
+* [] Jsp (With Tomcat embedded) [TODO]
+* [] Aspx (With Nginx and Apache embedded) [TODO]
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
-* [x] Apache HTTPD (Allows Embed & Proxy) [TODO]
+* [] Apache HTTPD (Allows Embed & Proxy) [TODO]
+* [] Nginx (Allows Embed & Proxy) [TODO]
 * [] Apache TomCat (Allows Embed & Proxy) [TODO]
-* [x] Nginx (Allows Embed & Proxy) [TODO]
 * [] Mongoose (Allows Embed & Proxy) [TODO]
 * [] IIS (Allows Proxy) [TODO]
 * [] Jetty (Allows Embed & Proxy) [PLANNED]

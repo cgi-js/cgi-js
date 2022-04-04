@@ -1,12 +1,12 @@
 
 
 // Basic usage
-const obj = require("../../src/process")();
+const obj = require("../../../src/process")();
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
 var myEventHandler = function (prc) {
-    setTimeout(function() {
+    setTimeout(function () {
         console.log("Closing Process PID: ", prc.pid);
         // console.log("Process Object: ", prc);
         if (obj.process.kill(prc.pid, 1)) {
@@ -23,32 +23,38 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 var proc = obj.process.executeProcess(
     {
+        name: "pytest",
         exe: "python",
-        args: [],
+        os: "win32",
         options: {
             stdio: 'inherit',
             shell: true
         },
+        cmds: { "generic": { usage: "", args: ["./www/py/index.py"] } },
         other: {
             osPaths: {
                 conf: "",
                 exe: ""
             },
-            command: "",
+            executetype: "",
+            command: "generic",
             serverType: ""
         }
     },
-    "./www/py/index.py",
     (error, stdout, stderr) => {
-        console.log("CB: Callback function Invoking");
+        console.log("CB: Callback function Invoking for dataHandler");
         console.log("CB: Stdout: ", stdout);
         console.log("CB: Stderr: ", stderr);
         console.log("CB: Error: ", error);
     },
     (options, prc) => {
-        console.log("Exit Handler options", options);
+        console.log("Exit Handler options for cleanup handler", options);
         console.log("Exit Handler process", prc.pid);
         eventEmitter.emit('closeprocess', prc);
+    },
+    (data, code) => {
+        console.log("CB: Callback function Invoking for handler");
+
     }
 );
 

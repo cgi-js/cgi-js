@@ -6,5 +6,5 @@
 
 // Config based Split usage
 
-const x = require("./processes/servers/httpd");
+const x = require("./processes/processes");
 

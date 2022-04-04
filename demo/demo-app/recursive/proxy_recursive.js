@@ -4,7 +4,7 @@ const fs = require('fs');
 const os = require("os");
 const express = require('express');
 const path = require("path");
-const cgijs = require("../../src");
+const cgijs = require("../../../src");
 // const cgijs = require("cgijs");
 
 module.exports = () => {

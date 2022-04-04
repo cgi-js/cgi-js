@@ -1,5 +1,5 @@
 // Basic usage
-var obj = require("../../../src/process")();
+var obj = require("../../../../src/process")();
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 const os = require("os");
@@ -24,7 +24,7 @@ var proc;
 if (ostype === "Linux") {
     proc = obj.process.start(
         {
-            exe: "php",
+            exe: "perl",
             args: [],
             options: {
                 stdio: 'inherit',
@@ -39,7 +39,7 @@ if (ostype === "Linux") {
                 serverType: ""
             }
         },
-        "./www/php/index.php",
+        "./www/perl/index.pl",
         (error, stdout, stderr) => {
             console.log("CB: Callback function Invoking");
             console.log("CB: Stdout: ", stdout);
@@ -55,7 +55,7 @@ if (ostype === "Linux") {
 } else if (ostype === "Windows_NT") {
     proc = obj.process.start(
         {
-            exe: "php.exe",
+            exe: "perl.exe",
             args: [],
             options: {
                 stdio: 'inherit',
@@ -70,7 +70,7 @@ if (ostype === "Linux") {
                 serverType: ""
             }
         },
-        "./www/php/index.php",
+        "./www/perl/index.pl",
         (error, stdout, stderr) => {
             console.log("CB: Callback function Invoking");
             console.log("CB: Stdout: ", stdout);
@@ -86,7 +86,7 @@ if (ostype === "Linux") {
 } else if (ostype === "Darwin") {
     proc = obj.process.start(
         {
-            exe: "php",
+            exe: "perl",
             args: [],
             options: {
                 stdio: 'inherit',
@@ -101,7 +101,7 @@ if (ostype === "Linux") {
                 serverType: ""
             }
         },
-        "./www/php/index.php",
+        "./www/perl/index.pl",
         (error, stdout, stderr) => {
             console.log("CB: Callback function Invoking");
             console.log("CB: Stdout: ", stdout);

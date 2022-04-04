@@ -16,18 +16,18 @@ const ostype = os.type();
 var configuration;
 
 if (ostype === "Linux") {
-    configuration = JSON.parse(fs.readFileSync('./demo/config-linux.json'));
+    configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-linux.json'));
 } else if (ostype === "Windows_NT") {
-    configuration = JSON.parse(fs.readFileSync('./demo/config-win.json'));
+    configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-win.json'));
 } else if (ostype === "Darwin") {
-    configuration = JSON.parse(fs.readFileSync('./demo/config-mac.json'));
+    configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-mac.json'));
 }
 
 let php_bin = configuration.php.embed.bin
 let php_www = configuration.php.script.path
 
 function response(type, exeOptions) {
-    const cgijs = require("../../src");
+    const cgijs = require("../../../src");
     // const cgijs = require("cgijs");
     var cgi = cgijs.init();
     return function (req, res, next) {

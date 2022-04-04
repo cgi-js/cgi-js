@@ -8,7 +8,7 @@ Example for HTTPD process start stop
 */
 
 // Basic usage
-const obj = require("../../../src/process")();
+const obj = require("../../../../src/process")();
 const events = require('events');
 const eventEmitter = new events.EventEmitter();
 
