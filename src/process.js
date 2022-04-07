@@ -422,6 +422,7 @@ function handler() {
             executetype = other["executetype"];
         }
 
+        // Default executable is conf.exe
         let executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", exe);
         
         if (!!other.command) {
@@ -432,9 +433,14 @@ function handler() {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
                 if (!!cmds[other.command]["exe"]) { 
+                    // If cmds[cmd].exe is present, it takes presidence
+                    // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
+                    // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
                     executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
                     usage = "";
                 } else {
+                    // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
+                    // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
                     executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
                     usage = "";
                 }
