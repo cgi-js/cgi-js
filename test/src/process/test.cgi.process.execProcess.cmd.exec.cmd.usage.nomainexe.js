@@ -40,9 +40,9 @@ let proc = obj.process.executeProcess({
     name: "lscommand",
     type: "executable",
     os: "",
-    exe: "node",
+    exe: "",
     cmds: {
-        generic: { exe: "node", usage: "", args: ["./test.cgi.process.exec.js"] }
+        generic: { usage: "ls", args: [] }
     },
     options: {
         stdio: 'inherit',
@@ -55,26 +55,26 @@ let proc = obj.process.executeProcess({
         },
         env: "",
         setprocess: true,
-        executetype: "execFile",
+        executetype: "exec",
         command: "generic"
     }
 }, {
     stdio: 'inherit',
     shell: true
 }, (error, stdout, stderr) => {
-    console.log("Starting Tests for test.cgi.process.execProcess.execFile dataHandlers tests")
+    console.log("Starting Tests for test.cgi.process.executeProcess.exec dataHandlers tests")
     assert(stdout.process.spawnfile.includes("cmd"), 'stdout.process.spawnfile.includes("cmd")')
     assert(stdout.process.spawnargs.indexOf("/d"), 'stdout.process.spawnfile.includes("/d")')
     assert(stdout.process.spawnargs.indexOf("/s"), 'stdout.process.spawnfile.includes("/s")')
     assert(stdout.process.spawnargs.indexOf("/c"), 'stdout.process.spawnfile.includes("/c")')
-    assert(stdout.process.spawnargs.indexOf('"node  ./test.cgi.process.exec.js"'), 'stdout.process.spawnargs.indexOf(\'"node  ./test.cgi.process.exec.js"\')')
-    console.log("Ending Tests: with above failure test.cgi.process.execProcess.execFile dataHandlers tests")
+    assert(stdout.process.spawnargs.indexOf('"ls "') > -1, "stdout.process.spawnargs.indexOf('ls ') > -1")
+    console.log("Ending Tests: with above failure test.cgi.process.executeProcess.exec dataHandlers tests")
     eventEmitter.emit('closeprocess', stdout);
 }, (options, proc) => {
-    console.log("Starting Tests for test.cgi.process.execProcess.execFile close handlers tests")
+    console.log("Starting Tests for test.cgi.process.executeProcess.exec close handlers tests")
     assert(options === null, "Options result for closing handler is null")
     assert(proc === 0, "Options result for closing handler is null")
-    console.log("Ending Tests: with above failure test.cgi.process.execProcess.execFile close handlers tests");
+    console.log("Ending Tests: with above failure test.cgi.process.executeProcess.exec close handlers tests");
 });
 
 
