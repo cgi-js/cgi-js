@@ -429,7 +429,6 @@ function handler() {
             if (!cmds[other.command]) {
                 error("startProcess: Server Definition or Process Definition not allowed");
             } else {
-                
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
                 if (!!cmds[other.command]["exe"]) { 
@@ -458,7 +457,7 @@ function handler() {
         } else if (!!args && !Array.isArray(args)) {
             error("startProcess: Arguments passed is incorrect");
         }
-        
+
         // (Object.prototype.toString().call(dataHandler) != "[object Function]")
         if (!dataHandler || ( typeof dataHandler !== "function" || !(dataHandler instanceof Function) ) ) {
             dataHandler = function (error, stdout, stderr) { };
@@ -479,7 +478,6 @@ function handler() {
             proc = fork(executable, [usage, ...args], options, dataHandler, handlers);
         }
 
-        
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
         
