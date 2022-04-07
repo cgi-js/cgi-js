@@ -434,6 +434,9 @@ function handler() {
                 if (!!cmds[other.command]["exe"]) { 
                     executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
                     usage = "";
+                } else {
+                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
+                    usage = "";
                 }
             }
         } else if (!other.command) {
