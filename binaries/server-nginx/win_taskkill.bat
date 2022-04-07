@@ -20,13 +20,14 @@
 @REM
 
 
-set pathvalue=%1
-echo input: %pathvalue%
+@REM NEEDED - MAKE THIS VALID AND BAT FILE DYNAMIC
+@REM set pathvalue=%1
+@REM echo input: %pathvalue%
 
 @echo off
 :LOOP
 @REM tasklist | find /i "nginx.exe">nul  && Taskkill /F /IM  "nginx.exe" & exit/b
-@REM wmic process | find /i "nginx\\nginx.exe">nul && Taskkill /F /IM  "nginx.exe" & exit/b
-wmic process | find /i %pathvalue%>nul && Taskkill /F /IM  "nginx.exe" & exit/b
+wmic process | find /i "nginx\\nginx.exe">nul && Taskkill /F /IM  "nginx.exe" & exit/b
+@REM wmic process | find /i %pathvalue%>nul && Taskkill /F /IM  "nginx.exe" & exit/b
 timeout /t 30
 goto:LOOP
