@@ -302,6 +302,7 @@ function handler() {
      * 
      * 
      * @param {String} exe
+     * exe will the node js file to spawn
      * 
      * @param {Array Object} args
      * 
@@ -317,31 +318,8 @@ function handler() {
         let ex = require('child_process').spawn;
         let spw = ex(exe, [...args], cmdOptions);
 
-        // Do not do a bind => emit an event (pref) or make this a promise
-        // if (Object.keys(spw).indexOf("stdout") >= 0) {
-        //     spw.stdout.on('data', function (data) {
-        //         if (!!handlers.onDataHandler) {
-        //             stdout = handlers.onDataHandler(null, data, null);
-        //         }
-        //     }.bind(null, stdout));
-        // }
-
-        // if (Object.keys(spw).indexOf("stdout") >= 0) {
-        //     spw.stderr.on('data', function (data) {
-        //         if (!!handlers.onDataHandler) {
-        //             stderr = handlers.onDataHandler(null, null, data);
-        //         }
-        //     }.bind(null, stderr));
-        // }
-
-        // if (spw.keys().includes("stdin")) {
-        //     spw.stdin.on('data', function (data) {
-        //         if (!!handlers.onDataHandler) {
-        //             stdin = handlers.onDataHandler(null, null, data);
-        //         }
-        //     }.bind(null, stdin));
-        // }
-        let datah, err, closer;
+        let datah, datar, err, closer;
+        
         spw.on('data', function (data) {
             console.log('Data Event to start subprocess.');
             datah = dataHandler(null, data, null);
@@ -434,8 +412,8 @@ function handler() {
         let evtLen = evt.length;
 
         let { name, exe, cmds, os, type, options, other } = processConf;
-
-        if (!!executableOptionList.valid(type)) {
+        
+        if (!executableOptionList.valid(type)) {
             error("startProcess: Server Definition or Process Definition does not include type");
         }
 
@@ -444,16 +422,18 @@ function handler() {
             executetype = other["executetype"];
         }
 
-        let executable = path.join(!!other.osPaths["exe"] ? other.osPaths.exe : "", exe);
+        let executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", exe);
         
         if (!!other.command) {
             if (!cmds[other.command]) {
                 error("startProcess: Server Definition or Process Definition not allowed");
             } else {
+                
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
                 if (!!cmds[other.command]["exe"]) {
-                    executable = path.join(other.osPaths.exe, cmds[other.command]["exe"]);
+                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : (!!cmds[other.command]["exe"])? cmds[other.command]["exe"]: exe );
+                    usage = "";
                 }
             }
         } else if (!other.command) {
@@ -462,8 +442,6 @@ function handler() {
 
         if (!usage) {
             usage = "";
-        } else if (!!usage && usage != "") {
-            error("startProcess: Usage passed is incorrect");
         }
 
         if (!args) {
@@ -492,9 +470,10 @@ function handler() {
             proc = fork(executable, [usage, ...args], options, dataHandler, handlers);
         }
 
+        
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
-
+        
         proc.on("error", function (data) {
             if (!!handlers.onErrorHandler) {
                 err = onErrorHandler(data, null, null);
@@ -511,7 +490,7 @@ function handler() {
         // proc.unref();
 
         function cleanupSrv(eventType, exitFunction, processConf) {
-            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, processConf["pid"].pid);
+            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, processConf.pid);
             exitFunction(eventType, processConf);
         }
 
