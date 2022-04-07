@@ -27,7 +27,7 @@
 @echo off
 :LOOP
 @REM tasklist | find /i "nginx.exe">nul  && Taskkill /F /IM  "nginx.exe" & exit/b
-wmic process | find /i "nginx\\nginx.exe">nul && Taskkill /F /IM  "nginx.exe" & exit/b
+wmic process | find /i "binaries\\server-nginx\\win\\nginx.exe">nul && Taskkill /F /IM  "nginx.exe" & exit/b
 @REM wmic process | find /i %pathvalue%>nul && Taskkill /F /IM  "nginx.exe" & exit/b
 timeout /t 30
 goto:LOOP
