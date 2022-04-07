@@ -432,7 +432,7 @@ function handler() {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
                 if (!!cmds[other.command]["exe"]) {
-                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : (!!cmds[other.command]["exe"])? cmds[other.command]["exe"]: exe );
+                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
                     usage = "";
                 }
             }
