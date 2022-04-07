@@ -67,12 +67,12 @@ let proc = obj.process.executeProcess({
 }, (error, stdout, stderr) => {
     console.log(stdout);
     console.log("Starting Tests for test.cgi.process.executeProcess.exec dataHandlers tests")
-    
+
     console.log("Ending Tests: with above failure test.cgi.process.executeProcess.exec dataHandlers tests")
     eventEmitter.emit('closeprocess', stdout);
 }, (options, proc) => {
     console.log("Starting Tests for test.cgi.process.executeProcess.exec close handlers tests")
-    
+
     console.log("Ending Tests: with above failure test.cgi.process.executeProcess.exec close handlers tests");
 });
 
