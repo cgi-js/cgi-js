@@ -173,7 +173,7 @@ This project contains example that demonstrates working with ExpressJS.
     - Embedded MongoDB
     - Embedded PgSQL
     - Working with SQLite
-* Run any executable/process based on need for application
+* Run and Manage Embedded or Non-Embedded executables / processes on need for application
 * Working with config.json file for simpler implementation in apps
 
 
