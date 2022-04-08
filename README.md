@@ -174,7 +174,7 @@ This project contains example that demonstrates working with ExpressJS.
 
 # Status
 
-In development [for allowing embedded server executables, and embedded databases]
+In development [for allowing embedded server executables, embedded databases, or any other embedded application binaries]
 
 
 # Todo
