@@ -75,19 +75,19 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### The script should support piping all proxies of above languages and following:
 
-* [x] Jsp (With Tomcat as proxy)
-* [x] Aspx (With IIS and Apache as proxy)
+* [x] Jsp (With Tomcat, or any webserver as proxy)
+* [x] Aspx (With IIS, Apache, or any webserver as proxy)
 * [] Jsp (With Tomcat embedded) [TODO]
 * [] Aspx (With Nginx and Apache embedded) [TODO]
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
+* [x] IIS (Allows Proxy)
+* [x] Nginx (Allows Embed & Proxy) [TODO]
 * [] Apache HTTPD (Allows Embed & Proxy) [TODO]
-* [] Nginx (Allows Embed & Proxy) [TODO]
 * [] Apache TomCat (Allows Embed & Proxy) [TODO]
-* [] Mongoose (Allows Embed & Proxy) [TODO]
-* [] IIS (Allows Proxy) [TODO]
+* [] Mongoose (Allows Embed & Proxy) [PLANNED]
 * [] Jetty (Allows Embed & Proxy) [PLANNED]
 * [] Putty (Allows Embed & Proxy) [PLANNED]
 * [x] Other Proxy-able local/remote servers
@@ -95,8 +95,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [] Mysql
-* [] MongoDB
+* [] Mysql [TODO]
+* [] MongoDB [TODO]
 * [] PgSQL [TODO]
 * [] Redis [TODO]
 * [x] Other Processes for your application support
