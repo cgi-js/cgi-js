@@ -37,7 +37,7 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 
 let proc = obj.process.executeProcess({
-    name: "lscommand",
+    name: "nginxprocess",
     type: "executable",
     os: "",
     exe: "nginx",

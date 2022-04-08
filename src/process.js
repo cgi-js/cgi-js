@@ -319,7 +319,7 @@ function handler() {
         let spw = ex(exe, [...args], cmdOptions);
 
         let datah, datar, err, closer;
-        
+
         spw.on('data', function (data) {
             console.log('Data Event to start subprocess.');
             datah = dataHandler(null, data, null);
@@ -364,7 +364,7 @@ function handler() {
         }
 
         for (let e = 0; e < eKeysLen; e++) {
-            let handler = (typeof eventHandlers === "object") ? eventHandlers[eKeys[e]] : (arguments) => {};
+            let handler = (typeof eventHandlers === "object") ? eventHandlers[eKeys[e]] : (arguments) => { };
             processConf["process"].on(eKeys[e], cleanup.bind(null, eKeys[e], handler, processConf));
         }
 
@@ -412,7 +412,7 @@ function handler() {
         let evtLen = evt.length;
 
         let { name, exe, cmds, os, type, options, other } = processConf;
-        
+
         if (!executableOptionList.valid(type)) {
             error("startProcess: Server Definition or Process Definition does not include type");
         }
@@ -424,23 +424,23 @@ function handler() {
 
         // Default executable is conf.exe
         let executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", exe);
-        
+
         if (!!other.command) {
             if (!cmds[other.command]) {
                 error("startProcess: Server Definition or Process Definition not allowed");
             } else {
                 usage = cmds[other.command]["usage"];
                 args = cmds[other.command]["args"];
-                if (!!cmds[other.command]["exe"]) { 
+                if (!!cmds[other.command]["exe"]) {
                     // If cmds[cmd].exe is present, it takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
-                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
+                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
                     usage = "";
                 } else {
                     // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
-                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"])? cmds[other.command]["usage"]: exe );
+                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
                     usage = "";
                 }
             }
@@ -459,12 +459,12 @@ function handler() {
         }
 
         // (Object.prototype.toString().call(dataHandler) != "[object Function]")
-        if (!dataHandler || ( typeof dataHandler !== "function" || !(dataHandler instanceof Function) ) ) {
+        if (!dataHandler || (typeof dataHandler !== "function" || !(dataHandler instanceof Function))) {
             dataHandler = function (error, stdout, stderr) { };
         }
 
         // (Object.prototype.toString().call(cleanupHandler) != "[object Function]")
-        if (!cleanupHandler || ( (typeof cleanupHandler !== "function") || !(cleanupHandler instanceof Function) ) ) {
+        if (!cleanupHandler || ((typeof cleanupHandler !== "function") || !(cleanupHandler instanceof Function))) {
             cleanupHandler = function (options, prc) { };
         }
 
@@ -480,7 +480,7 @@ function handler() {
 
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
-        
+
         proc.on("error", function (data) {
             if (!!handlers.onErrorHandler) {
                 err = onErrorHandler(data, null, null);
@@ -652,7 +652,7 @@ function handler() {
     function fetchRunningProcess(cmdOptions, dataHandler) {
         let cmdExec, cmdSpawn;
         let ostype = osList.get();
-        if (!!osList.valid(ostype)) {
+        if (!osList.valid(ostype)) {
             error("OS not in the list");
         }
 
@@ -734,7 +734,7 @@ function handler() {
 
         if (!!conditions[executable]) {
             result = [...result, ...processes.filter(function (item) {
-                if (item[executable].includes(conditions[executable].name)) {
+                if (item[executable].includes(conditions[executable])) {
                     return item;
                 }
             })]
