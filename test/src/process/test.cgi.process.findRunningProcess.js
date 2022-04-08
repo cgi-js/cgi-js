@@ -16,7 +16,8 @@ let processes = obj.process.find({
 }, (error, stdout, stderr) => {
     console.log("Starting Tests for test.cgi.process.find dataHandlers tests")
     // console.log("error, stdout, stderr ", error, stdout, stderr)
-    
+    // TODO
+    // Tests for Logic - Logic to be redone
     console.log("Ending Tests: with above failure test.cgi.process.find dataHandlers tests")
 }, {
     "executable": "cmd.exe"
