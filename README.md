@@ -4,7 +4,7 @@
 *`CGIJS` is a library to run any `CGI` / `Interpreted language script files`, or connect to any web application server proxies, or manage processes in the system.*
 
 
-Supports running any `CGI` / `Interpreted Language scripts` in any `OS` that runs `node.js`. Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying. Supports managing processes like embedded servers, embedded databases, or any other embedded executables [todo]
+Supports running any `CGI` / `Interpreted Language scripts` in any `OS` that runs `node.js`. Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying. Supports managing processes like embedded servers, embedded databases, or any other embedded executables *[todo]*
 
 
 `[Funding Invited]`
