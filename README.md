@@ -89,7 +89,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
 * [x] IIS (Allows Proxy)
-* [x] Nginx (Allows Embed & Proxy) [TODO]
+* [] Nginx (Allows Embed & Proxy) [TODO]
 * [] Apache HTTPD (Allows Embed & Proxy) [TODO]
 * [] Apache TomCat (Allows Embed & Proxy) [TODO]
 * [] Mongoose (Allows Embed & Proxy) [PLANNED]
