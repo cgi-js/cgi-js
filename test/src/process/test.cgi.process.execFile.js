@@ -12,7 +12,7 @@ const eventEmitter = new events.EventEmitter();
 
 let proc = obj.process.execFile("node", ["./test.cgi.process.exec.js"], {
     stdio: 'inherit',
-    shell: true
+    shell: true 
 }, (error, stdout, stderr) => {
     console.log("Starting Tests for test.cgi.process.execFile dataHandlers tests")
     assert(stdout.includes("Starting Tests for test.cgi.process.exec"), 'stdout includes Starting Tests for test.cgi.process.exec')
