@@ -132,7 +132,7 @@ This project contains example that demonstrates working with ExpressJS.
 
 [cgijs](https://www.npmjs.com/package/cgijs) library has been created to address following use cases:
     
-- working with CGI / interpreted languages from `any` Node.js app
+- working with CGI / interpreted languages from `any` Node.js app framework
 - using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
 
 
