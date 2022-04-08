@@ -1,6 +1,6 @@
 /*
  * 
- * TESTS GETTER FUNCTIONS
+ * TESTS SETTER FUNCTIONS
  * 
 */
 

@@ -9,7 +9,6 @@ const { assert } = require("console");
 const { json } = require("express");
 const eventEmitter = new events.EventEmitter();
 
-console.log(__dirname)
 
 let proc = obj.process.fork(path.join(__dirname, "test.cgi.process.exec.js"), [], {
     stdio: 'inherit',
