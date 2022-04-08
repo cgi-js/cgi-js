@@ -104,7 +104,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### Note:
 
-*This library is in active development. Issues, feedback as a github ticket is welcome.*
+*This library is in active development. Issues, and feedbacks as github ticket are welcome.*
 
 
 ##### Package Dependencies:
