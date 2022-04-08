@@ -19,13 +19,13 @@
 
 * [x] Manage Processes or Services
     - [x] Allows running and closing process Executables
-    - [x] Allows managing Embedding Web Servers, which can run web applications through proxies [TODO Testing]
-    - [x] Allows managing Embedded Database servers [TODO Testing]
+    - [x] Allows managing Embedding Web Servers, which can run web applications through proxies [Partially done]
+    - [x] Allows managing Embedded Database servers [Partially done]
     - [x] Should run smoothly with Unsupported proxy servers/ processes/ services (not widely tested)
 * [x] Embedding
-    - [x] Multiple web servers in one or multiple applications
-    - [x] Multiple databases in one or multiple applications
-    - [x] Multiple processes and executables managed in one or multiple applications
+    - [x] Multiple web servers in one or multiple applications [Partially done]
+    - [x] Multiple databases in one or multiple applications [Partially done]
+    - [x] Multiple processes and executables managed in one or multiple applications [Partially done]
 
 
 # Functionality Details
@@ -50,12 +50,18 @@
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
 * [x] IIS (Allows Proxy)
-* [] Nginx (Allows Embed & Proxy) [TODO]
-* [] Apache HTTPD (Allows Embed & Proxy) [TODO]
-* [] Apache TomCat (Allows Embed & Proxy) [TODO]
-* [] Mongoose (Allows Embed & Proxy) [PLANNED]
-* [] Jetty (Allows Embed & Proxy) [PLANNED]
-* [] Putty (Allows Embed & Proxy) [PLANNED]
+* [] Nginx (Allows Proxy)
+* [] Nginx (Allows Embed) [TODO]
+* [] Apache HTTPD (Allows Proxy)
+* [] Apache HTTPD (Allows Embed) [TODO]
+* [] Apache TomCat (Allows Proxy)
+* [] Apache TomCat (Allows Embed) [TODO]
+* [] Mongoose (Allows Proxy) [PLANNED]
+* [] Mongoose (Allows Embed) [PLANNED]
+* [] Jetty (Allows Proxy) [PLANNED]
+* [] Jetty (Allows Embed) [PLANNED]
+* [] Putty (Allows Proxy) [PLANNED]
+* [] Putty (Allows Embed) [PLANNED]
 * [x] Other Proxy-able local/remote servers
 
 
