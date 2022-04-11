@@ -64,15 +64,14 @@ function testProcessSetter() {
 
     let prc = obj.process.executeAction("nodefileexecute", "generic", (error, stdout, stderr) => {
         console.log("Starting Tests: obj.process.executeAction dataHandler");
-        
+        assert(stdout.includes("Testing node CGI server"), 'stdout.includes("Testing node CGI server")');
         console.log("Ending Tests: obj.process.executeAction dataHandler");    
     }, (data, prc) => {
         console.log("Starting Tests: obj.process.executeAction closehandler");
-        
+        assert(!!prc.pid, 'If process pid prc.pid exists');
         console.log("Ending Tests: obj.process.executeAction closehandler");
         eventEmitter.emit("closeprocess", prc);
     })
-
 }
 
 testProcessSetter();
