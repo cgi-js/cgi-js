@@ -181,6 +181,11 @@ This project contains example that demonstrates working with ExpressJS.
     - Embedded MongoDB
     - Embedded PgSQL
     - Working with SQLite
+* Manage Processes (for desktop-cgi use case):
+    - PHP inbuilt web development servers
+    - Ruby inbuilt web development servers
+    - Python inbuilt web development servers
+    - Other Processes or executable workings
 * Run and Manage embedded or non-embedded executables / processes on need for application
 * Working with config.json file for simpler implementation in apps
 
