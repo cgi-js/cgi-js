@@ -111,7 +111,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [] Redis [TODO]
 * [] PHP development server using `php -S` [PLANNED] <!-- php -S localhost:8000  -->
 * [] Ruby development server using `rails server` [PLANNED] <!-- bin/rails server -->
-* [] Python development server using `http.server` [PLANNED] <!-- If Python version returned above is 3.X. # On Windows, try "python -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
+* [] Python development server using `py -m http.server` [PLANNED] <!-- If Python version returned above is 3.X. # On Windows, try "python -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [x] Other Processes for your application support
 
 
