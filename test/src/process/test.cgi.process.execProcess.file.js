@@ -17,6 +17,7 @@ var myEventHandler = function (prc) {
         console.log("Closing Process PID: ", prc.pid);
         // console.log("Process Object: ", prc);
         if (obj.process.killProcess(prc.pid, 1)) {
+            console.log("Closed Process PID: ", prc.pid);
             prc = null;
         }
         console.log("Closing Node Process: ", process.pid);

@@ -24,7 +24,9 @@ var myEventHandler = function (prc) {
             catch(e) {
                 assert(false, "obj.process.kill(prc.pid, 0) failed")
             }
+            console.log("Closed Process PID: ", prc.pid);
             prc = null;
+            
         }
         console.log("Ending process kill tests for executeAction: Above are the test failures");
         console.log("Closing Node Process: ", process.pid);
