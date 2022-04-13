@@ -105,7 +105,7 @@ function utils() {
      *
      * @param { Object } getterObject
      * 
-     * @param { String, Array } args
+     * @param { String | Number, Array[String | Number] } args
      * 
      * @returns { Boolean }
      * 
