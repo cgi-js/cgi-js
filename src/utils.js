@@ -89,7 +89,7 @@ function utils() {
      * 
      */
     function setter(setterObject, values) {
-        keys = Object.keys(values);
+        let keys = Object.keys(values);
         if ((!values && typeof values !== "object") || (!keys.length)) { return false; }
         for (let i = 0; i < keys.length; i++) {
             setterObject[keys[i]] = values[keys[i]];
@@ -157,7 +157,7 @@ function utils() {
      * @return { Boolean } 
      */
     function setOS(name) {
-        return (typeof name == "string") ? osList.push(name) : false;
+        return (typeof name === "string") ? osList.push(name) : false;
     }
 
 
@@ -191,7 +191,7 @@ function utils() {
      * @return { Boolean } 
      */
     function setExecutableOptionList(name) {
-        return (typeof name == "string") ? executableOptionList.push(name) : false;
+        return (typeof name === "string") ? executableOptionList.push(name) : false;
     }
 
 
@@ -214,7 +214,7 @@ function utils() {
      * @return { Boolean } 
      */
     function setProcessList(name) {
-        return (typeof name == "string") ? processList.push(name) : false;
+        return (typeof name === "string") ? processList.push(name) : false;
     }
 
 
@@ -237,7 +237,7 @@ function utils() {
      * @return { Boolean } 
      */
     function setValidProxyHandlers(name) {
-        return (typeof name == "string") ? validProxyHandlers.push(name) : false;
+        return (typeof name === "string") ? validProxyHandlers.push(name) : false;
     }
 
 

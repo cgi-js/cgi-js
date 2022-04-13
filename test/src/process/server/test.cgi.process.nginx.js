@@ -71,12 +71,16 @@ var setter = obj.process.set({
     }
 });
 
-obj.process.executeAction("nginxprocess", "startbat", (error, stdout, stderr) => {
+var proc = obj.process.executeAction("nginxprocess", "startbat", (error, stdout, stderr) => {
     console.log("nginxprocess error, stdout, stderr", error, stdout, stderr);
     eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
 }, (signal, anydata) => {
     // console.log("executeAction signal, anydata ", signal, anydata);
     eventEmitter.emit("testhttp", { data: anydata });
-})
+});
 
+
+setTimeout(()=>{
+    eventEmitter.emit("testhttp", { process: proc });
+}, 10000)
 

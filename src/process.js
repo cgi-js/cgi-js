@@ -212,12 +212,8 @@ function handler() {
      * 
      */
     function setProcess(processConf) {
-        let setterVal = setter(processes, { [processConf.name]: processConf });
-        if (!!setterVal) {
-            processes = setterVal;
-            return processes;
-        }
-        return false;
+        processes = setter(processes, { [processConf.name]: processConf });
+        return processes;
     }
 
 

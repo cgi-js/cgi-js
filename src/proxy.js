@@ -153,12 +153,8 @@ function handler() {
      * 
      */
     function setConfig(options) {
-        let setterVal = setter(configurations, options);
-        if (!!setterVal) {
-            configurations = setterVal;
-            return setterVal;
-        }
-        return false;
+        configurations = setter(configurations, options);
+        return configurations;
     }
 
 
