@@ -1,2 +1,1 @@
-cd C:/Users/gb/Documents/projects/github/cgi-js/binaries/server-httpd/win/bin/
-httpd.exe
+cd C:/Users/gb/Documents/projects/github/cgi-js/binaries/db-pgsql/win/

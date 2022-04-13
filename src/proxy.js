@@ -41,7 +41,7 @@ function handler() {
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
     // let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
 
-    
+
     let configurationObject = {
         "options": {
             "target": {
@@ -80,7 +80,7 @@ function handler() {
         "runtime": false
     };
 
-    
+
     /**
      * 
      * setupHandler
@@ -258,7 +258,7 @@ function handler() {
     function setupProxy(name, config, handlerFunctions) {
         // Validate config
         // let validConfig = utils.isEqual(configurationObject, config, false, false);
-        let validPort = [], hKeys = Object.keys(handlerFunctions), proxyObject = {}, proxyset = null;
+        let validPort = [], hKeys = Object.keys(handlerFunctions), proxyObject = {};
         let hKeysLen = hKeys.length;
 
         for (let i = 0; i < proxyPortRanges.length; i++) {
@@ -277,9 +277,7 @@ function handler() {
         }
 
         proxyObject[name] = { "proxy": null, "config": config, "handlers": handlerFunctions };
-        proxyset = setter(instanceProxyServers, proxyObject);
-        if (!proxyset) { return false; }
-        return true;
+        return !!setter(instanceProxyServers, proxyObject);
     }
 
 
