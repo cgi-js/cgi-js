@@ -402,9 +402,13 @@ function handler() {
         // {name: {commands, instances: {pid: instance}}}
         let proc, usage, args;
         let stdout, stderr, err, closeresult;
+        const generalHandler = function (data, event) {
+            console.log("Event:  ", event, " General Handler: ", data);
+            return data;
+        };
 
         // Signal Numbers - http://people.cs.pitt.edu/~alanjawi/cs449/code/shell/UnixSignals.htm
-        let evt = [`exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
+        let evt = [`close`, `end`, `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
         let evtLen = evt.length;
 
         let { name, exe, cmds, os, type, options, other } = processConf;
@@ -477,17 +481,15 @@ function handler() {
         processConf["pid"] = proc.pid;
         processConf["process"] = proc;
 
-        proc.on("error", function (data) {
-            if (!!handlers.onErrorHandler) {
-                err = onErrorHandler(data, null, null);
-            }
-        }.bind(null, err));
+        // proc.on("error", function (data) {
+        //     if (!!handlers.onErrorHandler) {
+        //         err = handlers.onErrorHandler(data, "error");
+        //     } else {
+        //         err = generalHandler(data, "error");
+        //     }
+        // }.bind(null, err));
+
         proc.on("data", dataHandler);
-        proc.on("close", function (code) {
-            if (!!handlers.closeHandler) {
-                closeresult = closeHandler(code);
-            }
-        }.bind(null, closeresult));
 
         process.stdin.resume();
         // proc.unref();

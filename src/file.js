@@ -518,6 +518,12 @@ function cgiServe() {
 					let p = exeOptions.bin.bin_path.split('/')[1];
 					executable = ((!!p) ? p + "/" : "") + LANG_OPTS[req.type].cgi;
 				}
+
+				// Quiet mode avoids powered by and content type output
+				// if (LANG_OPTS[req.type].cgi === "php-cgi") {
+				// 	executable = executable + " -q ";
+				// }
+
 				proc = child.spawn(executable, [...utils.convert.array(exeOptions.cmd_options), req.file], {
 					cwd: process.cwd(),
 					env: env
