@@ -39,18 +39,18 @@ var httpdstarthandler = function (prc) {
 }
 
 eventEmitter.on('testredis', httpdstarthandler.bind(obj));
-
+ 
 var setter = obj.process.set({
     name: "redisprocess",
     type: "executable",
     os: "win32",
-    exe: "redis",
+    exe: "redis-server",
     cmds: {
-        start: { exe: "redis", usage: "", args: ["-k start"] },
-        stop: { exe: "redis", usage: "", args: ["-k stop"] },
-        reload: { exe: "redis", usage: "", args: ["-k restart"] },
-        startbat: { exe: "../../../../binaries/db-redis/win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "../../../../binaries/db-redis/win_taskkill.bat", usage: "", args: [] }
+        start: { exe: "redis-server", usage: "", args: ["-k start"] },
+        stop: { exe: "redis-server", usage: "", args: ["-k stop"] },
+        reload: { exe: "redis-server", usage: "", args: ["-k restart"] },
+        startbat: { exe: "..\\..\\..\\..\\binaries\\db-redis\\win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "..\\..\\..\\..\\binaries\\db-redis\\win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',
