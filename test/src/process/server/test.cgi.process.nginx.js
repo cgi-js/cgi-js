@@ -37,7 +37,7 @@ var closehandler = function (prc) {
             process.exit();
         });
 
-    }, 20000);
+    }, 25000);
 }
 
 eventEmitter.on('closeprocess', closehandler.bind(obj));
@@ -73,10 +73,10 @@ var setter = obj.process.set({
 
 var proc = obj.process.executeAction("nginxprocess", "startbat", (error, stdout, stderr) => {
     console.log("nginxprocess error, stdout, stderr", error, stdout, stderr);
-    eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
+    // eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
 }, (signal, anydata) => {
     // console.log("executeAction signal, anydata ", signal, anydata);
-    eventEmitter.emit("testhttp", { data: anydata });
+    // eventEmitter.emit("testhttp", { data: anydata });
 });
 
 

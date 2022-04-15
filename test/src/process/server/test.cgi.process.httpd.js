@@ -163,7 +163,7 @@ var setter = obj.process.set({
     },
     options: {
         stdio: 'inherit',
-        shell: false
+        shell: true
     },
     other: {
         paths: {
@@ -180,10 +180,10 @@ var setter = obj.process.set({
 var proc = obj.process.executeAction("apache2process", "startbat", (error, stdout, stderr) => {
     console.log("apache2process executeAction error ", error, " stdout ", stdout, " stderr ",stderr);
     // eventEmitter.emit("closeprocess", { error: error, stdout: stdout, stderr: stderr });
-    eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
+    // eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
 }, (signal, anydata) => {
     // console.log("apache2process executeAction signal, anydata ", signal, anydata);
-    eventEmitter.emit("testhttp", { data: anydata });
+    // eventEmitter.emit("testhttp", { data: anydata });
 });
 
 setTimeout(()=>{
