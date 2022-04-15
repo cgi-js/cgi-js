@@ -80,7 +80,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### The script should support piping all proxies of above languages and following:
 
-* [x] Jsp (With Tomcat, or any webserver as proxy)
+* [x] Jsp (With Tomcat, or any webserver as proxy) 
 * [x] Aspx (With IIS, Apache, or any webserver as proxy)
 * [] Jsp (With Tomcat embedded) [TODO]
 * [] Aspx (With Nginx and Apache embedded) [TODO]
