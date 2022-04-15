@@ -1,2 +1,2 @@
-cd C:/Users/gb/Documents/projects/github/cgi-js/binaries/server-tomcat/win/
-tomcat.exe
+cd C:/Users/gb/Documents/projects/github/cgi-js/binaries/server-tomcat/win/bin/
+startup
