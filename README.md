@@ -95,7 +95,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Jetty (Allows Proxy) [TODO - Testing]
 * [x] Nginx (Allows Embed) [Done]
 * [x] Apache HTTPD (Allows Embed) [Done]
-* [] Apache TomCat (Allows Embed) [TODO]
+* [] Apache TomCat (Allows Embed) [TODO - Testing]
 * [] Mongoose (Allows Embed) [PLANNED]
 * [] Jetty (Allows Embed) [PLANNED]
 * [] Putty (Allows Embed) [PLANNED]
