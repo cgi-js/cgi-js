@@ -10,6 +10,8 @@ const { json } = require("express");
 const { sign } = require("crypto");
 const eventEmitter = new events.EventEmitter();
 
+// Tomcat
+// https://crunchify.com/how-to-start-stop-apache-tomcat-server-via-command-line-setup-as-windows-service/
 
 var closehandler = function (prc) {
     setTimeout(() => {
