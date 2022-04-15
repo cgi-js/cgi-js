@@ -54,8 +54,8 @@
 * [x] Nginx (Allows Embed)
 * [x] Apache HTTPD (Allows Proxy)
 * [x] Apache HTTPD (Allows Embed)
-* [] Apache TomCat (Allows Proxy)
-* [] Apache TomCat (Allows Embed) [TODO]
+* [x] Apache TomCat (Allows Proxy)
+* [x] Apache TomCat (Allows Embed)
 * [] Mongoose (Allows Proxy) [PLANNED]
 * [] Mongoose (Allows Embed) [PLANNED]
 * [] Jetty (Allows Proxy) [PLANNED]
