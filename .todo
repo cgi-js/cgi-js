@@ -51,9 +51,9 @@
 
 * [x] IIS (Allows Proxy)
 * [x] Nginx (Allows Proxy)
-* [x] Nginx (Allows Embed) [TODO]
+* [x] Nginx (Allows Embed)
 * [x] Apache HTTPD (Allows Proxy)
-* [x] Apache HTTPD (Allows Embed) [TODO]
+* [x] Apache HTTPD (Allows Embed)
 * [] Apache TomCat (Allows Proxy)
 * [] Apache TomCat (Allows Embed) [TODO]
 * [] Mongoose (Allows Proxy) [PLANNED]
@@ -67,8 +67,8 @@
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [x] Mysql [TODO]
-* [x] MongoDB [TODO]
+* [x] Mysql
+* [x] MongoDB
 * [] PgSQL [TODO]
 * [] Redis [TODO]
 * [x] Other Processes for your application support
