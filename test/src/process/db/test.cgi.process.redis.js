@@ -33,13 +33,13 @@ var httpdstarthandler = function (prc) {
         shell: true
     }, (error, stdout, stderr) => {
         console.log("redisprocess starthandler error, stdout, stderr", error, stdout, stderr);
-        console.log("redisprocess tasklist stdout.includes('redis.exe')", stdout.includes("redis.exe"))
+        console.log("redisprocess tasklist stdout.includes('redis-server.exe')", stdout.includes("redis-server.exe"))
         eventEmitter.emit("closeprocess", { error: error, stdout: stdout, stderr: stderr });
     });
 }
 
 eventEmitter.on('testredis', httpdstarthandler.bind(obj));
- 
+
 var setter = obj.process.set({
     name: "redisprocess",
     type: "executable",
@@ -77,6 +77,6 @@ var proc = obj.process.executeAction("redisprocess", "startbat", (error, stdout,
     eventEmitter.emit("testredis", { data: anydata });
 });
 
-setTimeout(()=>{
+setTimeout(() => {
     eventEmitter.emit("testredis", { process: proc });
 }, 10000);
