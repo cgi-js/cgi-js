@@ -91,10 +91,10 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Nginx (Allows Proxy) [Done]
 * [x] Apache HTTPD (Allows Proxy) [Done]
 * [x] Apache TomCat (Allows Proxy) [Done]
+* [x] Nginx (Allows Embed) [Done]
+* [x] Apache HTTPD (Allows Embed) [Done]
 * [x] Mongoose (Allows Proxy) [TODO]
 * [x] Jetty (Allows Proxy) [TODO]
-* [] Nginx (Allows Embed) [TODO]
-* [] Apache HTTPD (Allows Embed) [TODO]
 * [] Apache TomCat (Allows Embed) [TODO]
 * [] Mongoose (Allows Embed) [PLANNED]
 * [] Jetty (Allows Embed) [PLANNED]
@@ -107,8 +107,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [] Mysql [TODO]
-* [] MongoDB [TODO]
+* [x] Mysql [Done]
+* [x] MongoDB [Done]
 * [] PgSQL [TODO]
 * [] Redis [TODO]
 * [x] Other Processes for your application support
