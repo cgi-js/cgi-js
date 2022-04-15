@@ -95,8 +95,8 @@ Modify:
 - [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [Done]
     - [*] IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
 - [] Tests for Beta-02, Production release version 1.0.0 - file module [Partially done]
-- [] Tests for Beta-02, Production release version 1.0.0 - process module [Partially done]
-- [] Tests for Beta-02, Production release version 1.0.0 - proxy module [Partially done]
+- [*] Tests for Beta-02, Production release version 1.0.0 - process module [Partially done]
+- [*] Tests for Beta-02, Production release version 1.0.0 - proxy module [Partially done]
 - [] Tests for Beta-02, Production release version 1.0.0 - utils module [Partially done]
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
 
