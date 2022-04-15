@@ -91,14 +91,15 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Nginx (Allows Proxy) [Done]
 * [x] Apache HTTPD (Allows Proxy) [Done]
 * [x] Apache TomCat (Allows Proxy) [Done]
-* [x] Mongoose (Allows Proxy) [TODO - Testing]
-* [x] Jetty (Allows Proxy) [TODO - Testing]
 * [x] Nginx (Allows Embed) [Done]
 * [x] Apache HTTPD (Allows Embed) [Done]
-* [] Apache TomCat (Allows Embed) [TODO - Testing]
-* [] Mongoose (Allows Embed) [PLANNED]
-* [] Jetty (Allows Embed) [PLANNED]
-* [] Putty (Allows Embed) [PLANNED]
+* [x] Apache TomCat (Allows Embed) [TODO - Testing]
+* [x] Mongoose (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
+* [] Mongoose (Allows Embed) [TODO]
+* [x] Jetty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
+* [] Jetty (Allows Embed) [TODO]
+* [x] Putty (Allows Proxy) [TODO]
+* [] Putty (Allows Embed) [TODO]
 * [] PHP development server using `php -S` [PLANNED] <!-- php -S localhost:8000  -->
 * [] Ruby development server using `rails server` [PLANNED] <!-- bin/rails server -->
 * [] Python development server using `py -m http.server` [PLANNED] <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
