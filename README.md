@@ -93,13 +93,13 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat (Allows Proxy) [Done]
 * [x] Nginx (Allows Embed) [Done]
 * [x] Apache HTTPD (Allows Embed) [Done]
-* [x] Apache TomCat (Allows Embed) [TODO - Testing]
+* [x] Apache TomCat (Allows Embed) [Done]
 * [x] Mongoose (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
 * [x] Jetty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
 * [x] Putty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
-* [] Mongoose (Allows Embed) [TODO]
-* [] Jetty (Allows Embed) [TODO]
-* [] Putty (Allows Embed) [TODO]
+* [] Mongoose (Allows Embed) [TODO - Testing]
+* [] Jetty (Allows Embed) [TODO - Testing]
+* [] Putty (Allows Embed) [TODO - Testing]
 * [] PHP development server using `php -S` [TODO] <!-- php -S localhost:8000  -->
 * [] Ruby development server using `rails server` [TODO] <!-- bin/rails server -->
 * [] Python development server using `py -m http.server` [TODO] <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
