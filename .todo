@@ -50,10 +50,10 @@
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
 * [x] IIS (Allows Proxy)
-* [] Nginx (Allows Proxy)
-* [] Nginx (Allows Embed) [TODO]
-* [] Apache HTTPD (Allows Proxy)
-* [] Apache HTTPD (Allows Embed) [TODO]
+* [x] Nginx (Allows Proxy)
+* [x] Nginx (Allows Embed) [TODO]
+* [x] Apache HTTPD (Allows Proxy)
+* [x] Apache HTTPD (Allows Embed) [TODO]
 * [] Apache TomCat (Allows Proxy)
 * [] Apache TomCat (Allows Embed) [TODO]
 * [] Mongoose (Allows Proxy) [PLANNED]
@@ -67,8 +67,8 @@
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [] Mysql [TODO]
-* [] MongoDB [TODO]
+* [x] Mysql [TODO]
+* [x] MongoDB [TODO]
 * [] PgSQL [TODO]
 * [] Redis [TODO]
 * [x] Other Processes for your application support
@@ -84,8 +84,8 @@ Add:
 - [*] Command line options for all interpretors in config object [Done]
 - [*] Work with any executables/processes [Done]
 - [*] Work with embedding Servers (HTTPD, Tomcat, Nginx) [Partially done]
-- [] Work with embedding Database Servers (MySQL, PgSQL, MongoDB) [Partially done]
-- [] Work with other using generic command process functions and executables [Partially done]
+- [*] Work with embedding Database Servers (MySQL, PgSQL, MongoDB) [Partially done]
+- [*] Work with other using generic command process functions and executables [Partially done]
 - [] Consider support for gRPC, UDP/Other Protocols for proxy [TODO]
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 
