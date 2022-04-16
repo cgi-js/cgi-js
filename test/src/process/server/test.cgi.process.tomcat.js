@@ -36,7 +36,7 @@ var tomcatstarthandler = function (prc) {
         shell: true
     }, (error, stdout, stderr) => {
         console.log("tomcatprocess starthandler error, stdout, stderr", error, stdout, stderr);
-        console.log("tomcatprocess tasklist stdout.includes('tomcat.exe')", stdout.includes("tomcat.exe"))
+        console.log("tomcatprocess tasklist stdout.includes('tomcat10.exe')", stdout.includes("tomcat10.exe"))
         eventEmitter.emit("closeprocess", { error: error, stdout: stdout, stderr: stderr });
     });
 }
