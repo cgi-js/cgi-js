@@ -54,8 +54,8 @@ var setter = obj.process.set({
         start: { exe: "mysqld", usage: "", args: ["-k start"] },
         stop: { exe: "mysqld", usage: "", args: ["-k stop"] },
         reload: { exe: "mysqld", usage: "", args: ["-k restart"] },
-        startbat: { exe: "..\\..\\..\\..\\binaries\\db-mysql\\win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "..\\..\\..\\..\\binaries\\db-mysql\\win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\db-mysql\\win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\db-mysql\\win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',

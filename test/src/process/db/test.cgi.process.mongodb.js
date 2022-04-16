@@ -52,8 +52,8 @@ var setter = obj.process.set({
         start: { exe: "mongod", usage: "", args: ["-k start"] },
         stop: { exe: "mongod", usage: "", args: ["-k stop"] },
         reload: { exe: "mongod", usage: "", args: ["-k restart"] },
-        startbat: { exe: "../../../../binaries/db-mongo/win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "../../../../binaries/db-mongo/win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "../../../../binaries/binscripts/db-mongo/win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "../../../../binaries/binscripts/db-mongo/win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',

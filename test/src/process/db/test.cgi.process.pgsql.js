@@ -51,8 +51,8 @@ var setter = obj.process.set({
         start: { exe: "pg_ctl", usage: "", args: ["-k start"] },
         stop: { exe: "pg_ctl", usage: "", args: ["-k stop"] },
         reload: { exe: "pg_ctl", usage: "", args: ["-k restart"] },
-        startbat: { exe: "..\\..\\..\\..\\binaries\\db-mysql\\win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "..\\..\\..\\..\\binaries\\db-mysql\\win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\db-mysql\\win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\db-mysql\\win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',

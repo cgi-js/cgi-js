@@ -158,8 +158,8 @@ var setter = obj.process.set({
         start: { exe: "httpd", usage: "", args: ["-k start"] },
         stop: { exe: "httpd", usage: "", args: ["-k stop"] },
         reload: { exe: "httpd", usage: "", args: ["-k restart"] },
-        startbat: { exe: "..\\..\\..\\..\\binaries\\server-httpd\\win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "..\\..\\..\\..\\binaries\\server-httpd\\win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',

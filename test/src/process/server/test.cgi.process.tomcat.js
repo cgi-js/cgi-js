@@ -52,8 +52,8 @@ var setter = obj.process.set({
         start: { exe: "tomcat", usage: "", args: ["-k start"] },
         stop: { exe: "tomcat", usage: "", args: ["-k stop"] },
         reload: { exe: "tomcat", usage: "", args: ["-k restart"] },
-        startbat: { exe: "../../../../binaries/server-tomcat/win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "../../../../binaries/server-tomcat/win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "../../../../binaries/binscripts/server-tomcat/win_start.bat", usage: "", args: [] },
+        stopbat: { exe: "../../../../binaries/binscripts/server-tomcat/win_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',
