@@ -1,2 +1,0 @@
-cd /
-nginx -s quit
