@@ -1,0 +1,198 @@
+{
+    "nginxwin32": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxwin64": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxdarwin": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxlinux": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxunix": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxfedora": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "nginxdebian": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    }
+}

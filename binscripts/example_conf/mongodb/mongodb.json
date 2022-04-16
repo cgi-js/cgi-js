@@ -1,0 +1,198 @@
+{
+    "mongowin32": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongowin64": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongodarwin": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongolinux": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongounix": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongofedora": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mongodebian": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+    "mysqlwin32": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqlwin64": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqldarwin": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqllinux": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqlunix": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqlfedora": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "mysqldebian": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+    "apache2win32": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2win64": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2darwin": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2linux": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2unix": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2fedora": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    },
+    "apache2debian": {
+        "name": "",
+        "type": "executable",
+        "os": "",
+        "exe": "",
+        "cmds": {
+            "start": {
+                "usage": "start",
+                "args": []
+            },
+            "stop": {
+                "usage": "stop",
+                "args": []
+            },
+            "restart": {
+                "usage": "restart",
+                "args": []
+            }
+        },
+        "options": {},
+        "other": {
+            "paths": {
+                "conf": "",
+                "exe": ""
+            },
+            "env": ""
+        }
+    }
+}
