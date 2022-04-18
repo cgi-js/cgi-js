@@ -7,6 +7,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 
 /* eslint no-console: 0 */
 const os = require("os");
+const fs = require("fs");
 
 /**
  * 
