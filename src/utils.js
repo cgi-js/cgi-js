@@ -446,15 +446,13 @@ function utils() {
         const initialValue = {};
         let count = 0;
         return arr.reduce(function (obj, item) {
-            if (override === false) {
-                count += 1;
-            }
-            if (!obj[item[0].toString()]) {
+            if (override === true) {
                 return {
                     ...obj,
                     [item[0].toString()]: item[1],
                 };
             }
+            count += 1;
             return {
                 ...obj,
                 [item[0].toString() + seperator + count]: item[1],
