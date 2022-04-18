@@ -55,7 +55,7 @@
 * [x] Apache HTTPD (Allows Proxy)
 * [x] Apache HTTPD (Allows Embed)
 * [x] Apache TomCat (Allows Proxy)
-* [x] Apache TomCat (Allows Embed)
+* [] Apache TomCat (Allows Embed) [TODO]
 * [] Mongoose (Allows Proxy) [PLANNED]
 * [] Mongoose (Allows Embed) [PLANNED]
 * [] Jetty (Allows Proxy) [PLANNED]
@@ -94,10 +94,10 @@ Modify:
 - [*] Config based serving for file, web (proxy) applications [Done]
 - [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [Done]
     - [*] IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
-- [] Tests for Beta-02, Production release version 1.0.0 - file module [Partially done]
-- [*] Tests for Beta-02, Production release version 1.0.0 - process module [Partially done]
-- [*] Tests for Beta-02, Production release version 1.0.0 - proxy module [Partially done]
-- [] Tests for Beta-02, Production release version 1.0.0 - utils module [Partially done]
+- [] Tests for Production release version 1.0.0 - file module [Partially done]
+- [*] Tests for Production release version 1.0.0 - process module [Partially done]
+- [*] Tests for Production release version 1.0.0 - proxy module [Partially done]
+- [] Tests for Production release version 1.0.0 - utils module [Partially done]
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
 
 Low Priority, High Effort:
