@@ -13,7 +13,7 @@ let utils = require("../../../src/utils")();
 const { assert } = require("console");
 
 
-console.log("Starting Passing Tests: get.file Tests")
+console.log("Starting Passing Tests: set.file Tests")
 
 
 const jsonfile = JSON.parse(utils.file.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json"));
@@ -30,6 +30,6 @@ assert(keys.includes("server"), "keys.includes('rb') contains server is true")
 assert(keys.includes("proxies"), "keys.includes('proxies') contains proxies is true")
 
 
-console.log("Ending Passing Tests: get.file Tests")
+console.log("Ending Passing Tests: set.file Tests")
 
 
