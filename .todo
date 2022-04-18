@@ -97,7 +97,7 @@ Modify:
 - [] Tests for Production release version 1.0.0 - file module [Partially done]
 - [*] Tests for Production release version 1.0.0 - process module [Partially done]
 - [*] Tests for Production release version 1.0.0 - proxy module [Partially done]
-- [] Tests for Production release version 1.0.0 - utils module [Partially done]
+- [*] Tests for Production release version 1.0.0 - utils module [Partially done]
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
 
 Low Priority, High Effort:
