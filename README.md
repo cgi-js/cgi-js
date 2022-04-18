@@ -206,7 +206,7 @@ Check [.todo](https://github.com/ganeshkbhat/cgi-js/blob/main/.todo) file for la
 
 # License
 
-The MIT License (MIT) - See [LICENSE](./LICENSE) for further details
+The MIT License (MIT) - See [LICENSE](https://github.com/ganeshkbhat/cgi-js/blob/main/LICENSE) for further details
 
 
 Copyright © 2019 - till library works:
