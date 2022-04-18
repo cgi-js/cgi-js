@@ -504,9 +504,9 @@ function utils() {
      * 
      * @return {*} 
      */
-    function getCSVFile(filename, options, seperator = ",", linebreak = "\n") {
+    function getCSVFile(filename, options, seperator = ",", linebreak = "\n", resulttype="array") {
         let str = getFile(filename, options);
-        return convertCSVArrayToObject(str, seperator, linebreak);
+        return convertCSVArrayToObject(str, seperator, linebreak, resulttype);
     }
 
 
@@ -539,6 +539,21 @@ function utils() {
      */
     function setJSONFile(filename, data, options) {
         return setFile(filename, JSON.stringify(data), options);
+    }
+
+
+    /**
+     *
+     *
+     * @param {*} csvarray
+     * Array of csv file items [ [head, head] , [item, item], ... ]
+     * Header is the file line item
+     * Rest are all items (Generally should be of same size)
+     * 
+     * @return {*} 
+     */
+    function validateCSVStructure(csvarray) {
+        return csvarray;
     }
 
 
@@ -619,13 +634,25 @@ function utils() {
      * 
      * @param { String } [linebreak="\r\r\n"]
      * 
+     * @param { String } Array, Object
+     * What type the result should be:
+     *  Array of Arrays = [ [head, head], [value, value] ]
+     *  Array of Objects = [ {head: value, head: value} ]
+     * 
      * @return { Array } 
      * 
      */
-    function convertCSVArrayToObject(str, seperator = " ", linebreak = "\n") {
+    function convertCSVArrayToObject(str, seperator = " ", linebreak = "\n", resulttype = "array") {
         let result = str.split(linebreak).map((ai) => {
-            return ai.split(seperator).filter((i) => { return !!i })
+            let csvitems = ai.split(seperator);
+            return csvitems.map((csvitem) => {
+                csvitem = (csvitem.charAt(csvitem.length - 1) == "\r") ? csvitem.slice(0, -1) : csvitem;
+                return csvitem;
+            });
         });
+        if (resulttype === "array") {
+            return result;
+        }
         let headers = result[0], processArray = [];
         let rlen = result.length, hlen = headers.length;
         for (let i = 1; i < rlen; i++) {
@@ -668,7 +695,7 @@ function utils() {
         },
         csv: {
             get: getCSVFile,
-            append: appendCSV,
+            // append: appendCSV,
             set: setCSVFile
         },
         json: {
