@@ -199,7 +199,7 @@ In development [Testing for language based development server]
 
 # Todo
 
-Check [.todo](./.todo) file for latest TODO list
+Check [.todo](https://github.com/ganeshkbhat/cgi-js/blob/main/.todo) file for latest TODO list
 
 <!-- # References -->
 
