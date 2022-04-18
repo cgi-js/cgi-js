@@ -15,11 +15,8 @@ const { assert } = require("console");
 
 console.log("Starting Passing Tests: get.json Tests")
 
-const jsonfile = utils.file.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json");
-
-const tmpjson = utils.file.set("./jsonfile.json", jsonfile);
-const js = JSON.parse(tmpjson);
-const keys = Object.keys(js);
+const jsonfile = utils.json.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json");
+const keys = Object.keys(jsonfile);
 
 
 assert(keys.includes("php"), "keys.includes('php') contains php is true")
