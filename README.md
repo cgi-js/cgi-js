@@ -192,7 +192,8 @@ This project contains example that demonstrates working with ExpressJS.
 
 # Status
 
-In development [for allowing embedded server executables, embedded databases, or any other embedded application binaries]
+In development [Testing for Desktop-CGI use case]
+In development [Testing for language based development server]
 
 
 # Todo
