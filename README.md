@@ -157,7 +157,7 @@ This project contains example that demonstrates working with ExpressJS.
 ### Wiki
 
 * Getting started
-    - Quick demo - CGI files
+    - Quick demo - CGI mode executable files
     - Quick demo - proxying to proxies/servers
     - Quick demo - proxying to proxy's websocket
 * Run CGI files
