@@ -91,7 +91,7 @@ Add:
 - [] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [TODO]
 - [] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [TODO]
 - [] Deprecate phpcgijs in favour of cgijs [TODO]
-- [] Consider adding serving js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]
+- [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]
 - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
 - [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
 
