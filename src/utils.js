@@ -8,6 +8,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 /* eslint no-console: 0 */
 const os = require("os");
 const fs = require("fs");
+const shellMod = require('shelljs');
 
 /**
  * 
@@ -77,6 +78,7 @@ function utils() {
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
     // Removed data and end handlers from proxy handlers
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "proxyReqWs", "open", "close", "upgrade"];
+    let cgiExecutables = ["ruby", "python", "python3", "java", "perl", "php", "node", "php-cgi"];
 
     /**
      * 
@@ -380,6 +382,7 @@ function utils() {
      *
      *
      * @param { Array } baseArray
+     * Array Constants stored
      * 
      * @param { String } name
      * 
@@ -541,6 +544,11 @@ function utils() {
     }
 
 
+    function fileExists(filename, pathname) {
+
+    }
+
+
     /**
      *
      *
@@ -666,6 +674,7 @@ function utils() {
 
 
     return {
+        shell: shellMod,
         executableOptions: {
             valid: validExecutableOptionList,
             set: setExecutableOptionList
@@ -690,7 +699,8 @@ function utils() {
         file: {
             get: getFile,
             append: appendFile,
-            set: setFile
+            set: setFile,
+            exists: fileExists
         },
         csv: {
             get: getCSVFile,

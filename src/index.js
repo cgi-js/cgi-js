@@ -6,13 +6,16 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
-let fileProcess = require("./file");
-let proxy = require("./proxy");
-let process = require("./process");
+const fileMod = require("./file");
+const proxyMod = require("./proxy");
+const processMod = require("./process");
+const utilsMod = require('./utils');
 
 
 module.exports = {
-    "init": fileProcess.serve,
-    "proxy": proxy,
-    "process": process
+    "init": fileMod.serve, // Backward compatibility [Remove in next version]
+    "file": fileMod,
+    "proxy": proxyMod,
+    "process": processMod,
+    "utils": utilsMod
 };

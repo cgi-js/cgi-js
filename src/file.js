@@ -19,43 +19,60 @@ const utils = require('./utils')();
 const setter = utils.setter, getter = utils.getter, error = utils.error;
 
 
-// function handler() {
+function handler() {
 
-// 	TODO: NEXT VERSION
-// 	Move to exec/spawn/fork/execFile based simpler - easier - smaller implementation
+	let langOptionsObject = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
+	let LANG_OPTS = {
+		"rb": { "name": "ruby", "cgi": "ruby", "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+		"pl": { "name": "perl", "cgi": "perl", "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
+		"plc": { "name": "perl", "cgi": "perl", "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
+		"pld": { "name": "perl", "cgi": "perl", "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
+		"py3": { "name": "python3", "cgi": ((process.platform === "win32") ? 'python' : 'python3'), "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"py": { "name": "python", "cgi": "python", "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"php": { "name": "php", "cgi": "php" + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"node": { "name": "node", "cgi": "node", "which": "", "type": "node", "pattern": /.*?\.js$/ }
+	}
 
-// 	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
-// 	let LANG_OPTS = {
-// 		"rb": { "name": "ruby", "cgi": "ruby", "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
-// 		"pl": { "name": "perl", "cgi": "perl", "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
-// 		"plc": { "name": "perl", "cgi": "perl", "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
-// 		"pld": { "name": "perl", "cgi": "perl", "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
-// 		"py3": { "name": "python3", "cgi": ((process.platform === "win32") ? 'python' : 'python3'), "which": "", "type": "py", "pattern": /.*?\.py$/ },
-// 		"py": { "name": "python", "cgi": "python", "which": "", "type": "py", "pattern": /.*?\.py$/ },
-// 		"php": { "name": "php", "cgi": "php" + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
-// 		"node": { "name": "node", "cgi": "node", "which": "", "type": "node", "pattern": /.*?\.js$/ }
-// 	}
+	function getEnvironment() {} // backward compatibility [remove/modify in next version]
+	function getVariables() {} // backward compatibility [remove/modify in next version]
+	function getBinPath(){}
+	function setBinPath(){}
+	
+	function setCGIType() {}
+	function getCGIType() {}
+	function setCGI(){}
+	function getCGI(){}
 
-	// function getEnvironment(){}
-	// function getVariables(){}
-	// function getBinPath(){}
-	// function getType(){}
-	// function getFilePattern(){}
+	function cleanPath(exeOptions) {} // backward compatibility [remove in next version]
+	function getPHPHtml(lines) {} // backward compatibility [remove/modify in next version]
+	function getCGIHtml(lines) {} // backward compatibility [remove/modify in next version]
 
-	// function getCGIType(){}
-	// function setCGIType(){}
-	// function setCGI(){}
-	// function getCGI(){}
+	function validateObject(){}
+	
+	function executeCGI(){}
+	function runCGI(){}
+	function serve(){}
 
-	// function validateObject(){}
-	// function validateCGI(){}
-	// function validFile(){} // fileExists
-
-	// function runCGI(){}
-	// function serve(){}
-
-// 	return {}
-// }
+	return {
+		setter: {
+			cgi: setCGI,
+			which: setCGI, // backward compatibility [remove in next version]
+			type: setCGIType,
+			bin: setBinPath
+		},
+		getter: {
+			cgi: getCGI,
+			which: getCGI, // backward compatibility [remove in next version]
+			type: getCGIType,
+			bin: getBinPath,
+			vars: getEnvironment, // backward compatibility [remove in next version]
+			env: getVariables, // backward compatibility [remove in next version]
+		},
+		execute: executeCGI,
+		runCGI: runCGI, // backward compatibility [remove in next version]
+		serve: serve
+	}
+}
 
 
 /**
