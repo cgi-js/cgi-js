@@ -75,7 +75,8 @@ function utils() {
     let executableOptionList = ["executable", "service", "file"];
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
-    let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
+    // Removed data and end handlers from proxy handlers
+    let validProxyHandlers = ["error", "proxyReq", "proxyRes", "proxyReqWs", "open", "close", "upgrade"];
 
     /**
      * 

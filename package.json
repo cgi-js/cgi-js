@@ -1,6 +1,6 @@
 {
   "name": "cgijs",
-  "description": "Node JS modules for running any script that support CGI mode",
+  "description": "`CGIJS` is a Nodejs Module/library to run any `CGI` mode/`Interpreted language script` files, or connect to any web application server proxies, or manage processes in the system.",
   "version": "1.0.0",
   "author": {
     "name": "Ganesh",
@@ -59,6 +59,6 @@
     "run cgi scripts using javascript",
     "run cgi scripts using js",
     "run proxy to third party servers",
-    "run proxy to thrid party cgi based servers"
+    "run proxy to third party cgi based servers"
   ]
 }

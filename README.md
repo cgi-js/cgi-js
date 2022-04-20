@@ -1,7 +1,7 @@
 # cgijs
     
 
-*`CGIJS` is a library to run any `CGI` / `Interpreted language script files`, or connect to any web application server proxies, or manage processes in the system.*
+*`CGIJS` is a library to run any `CGI` mode / `Interpreted language script` files, or connect to any web application server proxies, or manage processes in the system.*
 
 
 

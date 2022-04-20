@@ -86,8 +86,13 @@ Add:
 - [*] Work with embedding Servers (HTTPD, Tomcat[todo], Nginx) [Partially done]
 - [*] Work with embedding Database Servers (MySQL, PgSQL[todo], MongoDB) [Partially done]
 - [*] Work with other using generic command process functions and executables [Partially done]
-- [] Consider support for gRPC, UDP/Other Protocols for proxy [TODO]
+- [] Consider support for gRPC, UDP/Other Protocols for proxy. Consider adding socket's module [TODO]
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
+- [] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [TODO]
+- [] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [TODO]
+- [] Deprecate phpcgijs in favour of cgijs [TODO]
+- [] Consider adding serving js file as CGI executable like PHP, an option
+- [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [Done]
@@ -99,6 +104,10 @@ Modify:
 - [*] Tests for Production release version 1.0.0 - proxy module [Partially done]
 - [*] Tests for Production release version 1.0.0 - utils module [Partially done]
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
+- [] Consider adding inbuilt development server management (testing needed) for CGI executables like PHP, Ruby, Python, others [Testing]
+
+High Priority, Low Effort:
+    - [] Inbuilt development server management (CGI executables like PHP, Ruby, Python, others) [Testing]
 
 Low Priority, High Effort:
     - [] Putty SSH tunneling (Check usage with Process and Create Proxy) [TODO]
