@@ -39,8 +39,6 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 let proc = obj.process.executeProcess({
     name: "lscommand",
-    type: "executable",
-    os: "",
     exe: "node",
     cmds: {
         generic: { exe: "node", usage: "", args: ["./test.cgi.process.exec.js"] }

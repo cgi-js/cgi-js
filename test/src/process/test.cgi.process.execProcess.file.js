@@ -39,10 +39,6 @@ function testprocesswithfile() {
     var proc = obj.process.executeProcess(
         {
             name: "",
-            // --> executableOptions
-            type: "executable",
-            // --> osList
-            os: "win32",
             // --> any executable or systemctl
             exe: "python",
             cmds: {

@@ -44,8 +44,6 @@ eventEmitter.on('closeprocess', closehandler.bind(obj));
 
 var setter = obj.process.set({
     name: "nginxprocess",
-    type: "executable",
-    os: "",
     exe: "nginx",
     cmds: {
         start: { exe: "start nginx", usage: "", args: [] },

@@ -25,10 +25,6 @@ if (__dirname.toString().includes("src/process")) {
 
 var proc = obj.process.set({
     name: "nodefileexecute",
-    // --> executableOptions
-    type: "executable",
-    // --> osList
-    os: "win32",
     // --> any executable or systemctl
     exe: "node",
     cmds: {

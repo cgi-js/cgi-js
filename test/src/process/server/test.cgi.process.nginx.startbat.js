@@ -36,8 +36,6 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 let proc = obj.process.executeProcess({
     name: "nginxprocess",
-    type: "executable",
-    os: "",
     exe: "nginx",
     cmds: {
         start: { exe: "start nginx", usage: "", args: [] },

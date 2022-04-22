@@ -45,8 +45,6 @@ eventEmitter.on('testtomcat', tomcatstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "tomcatprocess",
-    type: "executable",
-    os: "win32",
     exe: "tomcat",
     cmds: {
         start: { exe: "tomcat", usage: "", args: ["-k start"] },

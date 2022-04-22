@@ -23,8 +23,6 @@ const eventEmitter = new events.EventEmitter();
 
 {
     name: "apache2process",
-    type: "executable",
-    os: "linux",
     exe: "apache2",
     cmds: {
         start: { exe: "apache2", usage: "start", args: [] },
@@ -57,8 +55,6 @@ const eventEmitter = new events.EventEmitter();
 
 {
     name: "apache2process",
-    type: "executable",
-    os: "linux",
     exe: "apache2",
     cmds: {
     start: { exe: "apache2", usage: "start", args: [] },
@@ -91,8 +87,6 @@ const eventEmitter = new events.EventEmitter();
 
 {
     name: "apache2process",
-    type: "executable",
-    os: "linux",
     exe: "apache2",
     cmds: {
         start: { exe: "/etc/init.d/apache2", usage: "start", args: [] },
@@ -151,8 +145,6 @@ eventEmitter.on('testhttp', httpdstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "apache2process",
-    type: "executable",
-    os: "win32",
     exe: "httpd",
     cmds: {
         start: { exe: "httpd", usage: "", args: ["-k start"] },

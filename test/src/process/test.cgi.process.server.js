@@ -40,8 +40,6 @@ function testProcessSetter() {
 
     var proc = obj.process.set({
         name: "nodefileexecute",
-        type: "executable",
-        os: "win32",
         exe: "node",
         cmds: {
             generic: { usage: "", args: args }

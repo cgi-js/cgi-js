@@ -40,8 +40,6 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 let processes = obj.process.set(
     {
         name: "lscommand",
-        type: "executable",
-        os: "",
         exe: "ls",
         cmds: {
             generic: { exe: "ls", usage: "ls", args: [] }

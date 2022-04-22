@@ -51,15 +51,20 @@ function handler() {
     let commandObject = {
         // name of the object that it should be stored or identifies as 
         name: "",
-        // type --> One of the executableOptions options
-        type: "executable",
-        // os --> Any os in the osList
-        os: "",
+        // // // Removing and deprecating type and os in favour of generic implementation
+        // // // os and type may be replaced in favour of cmds key name (cmds[cmdsnamewithOSandTYPE])
+        // // // Add as many variations / patterns needed in the cmds[key] naming
+        // 
+        // // type --> One of the executableOptions options
+        // type: "executable",
+        // // os for which this configuration is about
+        // os: "win32",
         // exe --> any executable or systemctl
         exe: "",
         // cmds will have list of actions/ prestored commands that may be needed for executing the process
         // cmds action execution will be controlled by and 
         //        depend on whether `other.command` key is specified during execution
+        // cmds: { usage, exe, args, os }
         cmds: {
             start: { usage: "start", args: [] },
             stop: { usage: "stop", args: [] },
@@ -199,7 +204,7 @@ function handler() {
      *
      * @param {Object} processConf
      *      
-     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
+     * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
      * 
      * - [..keyargs..]: Other custom keys for use with datahandler or cleanuphandler
      * 
@@ -388,7 +393,7 @@ function handler() {
      * 
      * @returns {Object} processConf
      * 
-     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
+     * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
      * - [... keyargs ...]: Other custom keys (key-value) for use with your datahandler or cleanuphandler provided
      * 
@@ -411,11 +416,7 @@ function handler() {
         let evt = [`close`, `end`, `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
         let evtLen = evt.length;
 
-        let { name, exe, cmds, os, type, options, other } = processConf;
-
-        if (!executableOptionList.valid(type)) {
-            error("startProcess: Server Definition or Process Definition does not include type");
-        }
+        let { name, exe, cmds, options, other } = processConf;
 
         let executetype = "exec";
         if (!!other["executetype"]) {
@@ -589,7 +590,7 @@ function handler() {
      * @param {Function} cleanupHandler
      * 
      * @returns {Object}
-     * { name: String, type: String, os: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
+     * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
      * - [... keyargs ...]: Other custom keys for use with datahandler or cleanuphandler
      * 
@@ -637,8 +638,6 @@ function handler() {
      *
      * fetchRunningProcess
      *
-     * @param {String} os
-     * OS of the system
      * @param {Object} cmdOptions
      * Options for the command process function {exec} object
      * @param {Function} dataHandler
@@ -677,8 +676,6 @@ function handler() {
      *
      * findRunningProcess
      *
-     * @param {String} os
-     * OS of the system
      * @param {Object} cmdOptions
      * Options for the command process function {exec} object
      * @param {Function} dataHandler
