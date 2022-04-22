@@ -31,10 +31,6 @@ if (__dirname.toString().includes("process")) {
 
 var proc = obj.process.executeProcess({
     name: "",
-    // --> executableOptions
-    type: "executable",
-    // --> osList
-    os: "win32",
     // --> any executable or systemctl
     exe: "ruby",
     cmds: {

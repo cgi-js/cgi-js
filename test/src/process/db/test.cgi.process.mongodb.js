@@ -45,8 +45,6 @@ eventEmitter.on('testmongod', httpdstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "mongodprocess",
-    type: "executable",
-    os: "win32",
     exe: "mongod",
     cmds: {
         start: { exe: "mongod", usage: "", args: ["-k start"] },

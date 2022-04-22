@@ -44,8 +44,6 @@ eventEmitter.on('testpgsql', httpdstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "pgsqlprocess",
-    type: "executable",
-    os: "win32",
     exe: "pg_ctl",
     cmds: {
         start: { exe: "pg_ctl", usage: "", args: ["-k start"] },

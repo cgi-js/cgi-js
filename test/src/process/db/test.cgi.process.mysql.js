@@ -47,8 +47,6 @@ eventEmitter.on('testmysql', mysqldstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "mysqlprocess",
-    type: "executable",
-    os: "win32",
     exe: "mysqld",
     cmds: {
         start: { exe: "mysqld", usage: "", args: ["-k start"] },

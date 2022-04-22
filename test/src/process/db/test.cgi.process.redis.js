@@ -42,8 +42,6 @@ eventEmitter.on('testredis', httpdstarthandler.bind(obj));
 
 var setter = obj.process.set({
     name: "redisprocess",
-    type: "executable",
-    os: "win32",
     exe: "redis-server",
     cmds: {
         start: { exe: "redis-server", usage: "", args: ["-k start"] },
