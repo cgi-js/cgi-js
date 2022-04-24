@@ -86,7 +86,6 @@ Add:
 - [*] Work with embedding Servers (HTTPD, Tomcat[todo], Nginx) [Partially done]
 - [*] Work with embedding Database Servers (MySQL, PgSQL[todo], MongoDB) [Partially done]
 - [*] Work with other using generic command process functions and executables [Partially done]
-- [] Consider support for gRPC, UDP/Other Protocols for proxy. Consider adding socket's module [TODO]
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 - [] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [TODO]
 - [] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [TODO]
@@ -107,6 +106,11 @@ Modify:
 - [*] Tests for Production release version 1.0.0 - utils module [Partially done]
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
 - [] Consider adding inbuilt development server management (testing needed) for CGI executables like PHP, Ruby, Python, others [Testing]
+- [] Consider support for gRPC for proxy. Consider adding socket's module [TODO]
+- [] Consider support for UDP for proxy. Consider adding socket's module [TODO] [Packages considered - udp-proxy*, node-udp-forwarder]
+- [] Consider adding support for Socks proxy. Plus support for Socks to http proxy (Packages Considered: socks*, http-proxy-to-socks)
+- [] Consider support for Other Protocols for proxy. Consider adding socket's module [TODO]
+
 
 High Priority, Low Effort:
     - [] Inbuilt development server management (CGI executables like PHP, Ruby, Python, others) [Testing]
