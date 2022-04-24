@@ -108,7 +108,7 @@ Modify:
 - [] Consider adding inbuilt development server management (testing needed) for CGI executables like PHP, Ruby, Python, others [Testing]
 - [] Consider support for gRPC for proxy. Consider adding socket's module [TODO]
 - [] Consider support for UDP for proxy. Consider adding socket's module [TODO] [Packages considered - udp-proxy*, node-udp-forwarder]
-- [] Consider adding support for Socks proxy. Plus support for Socks to http proxy (Packages Considered: socks*, http-proxy-to-socks)
+- [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [TODO] (Packages Considered: socks*, http-proxy-to-socks)
 - [] Consider support for Other Protocols for proxy. Consider adding socket's module [TODO]
 
 
