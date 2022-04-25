@@ -80,7 +80,7 @@ function handler() {
  * CGI File Handler
  * 
  * 
- * @returns {Object} CGI Serve File module functions
+ * @returns { Object } CGI Serve File module functions
  * 		Module Object ==> { CGI Serve File handler Object }
  * 
  * 			setter [object]: {
@@ -117,11 +117,11 @@ function cgiServe() {
 	 *
 	 * getBinPath
 	 * 
-	 * @param {String} action
+	 * @param { String } action
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns {string} bin_path / {throw error} 
+	 * @returns { String } bin_path / {throw error} 
 	 * 
 	 */
 	function getBinPath(action, exeOptions) {
@@ -143,9 +143,9 @@ function cgiServe() {
 	 * 
 	 * validateLangOptionStructure
 	 * 
-	 * @param  {Object} obj
+	 * @param  { Object } obj
 	 * 
-	 * @returns {Boolean} validated
+	 * @returns { Boolean } validated
 	 * 
 	 */
 	function validateLangOptionStructure(obj) {
@@ -162,13 +162,13 @@ function cgiServe() {
 	 * 
 	 * setCGI
 	 * 
-	 * @param {String} cgiExecutable
+	 * @param { String } cgiExecutable
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @returns {Boolean} set? / {throw error}
+	 * @returns { Boolean  | throw error } set?
 	 * 
 	 */
 
@@ -190,11 +190,11 @@ function cgiServe() {
 	 *
 	 * getCGI
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns {String} WHICH_CGI
+	 * @returns { String } WHICH_CGI
 	 * 
 	 */
 
@@ -213,9 +213,9 @@ function cgiServe() {
 	 *
 	 * setCGITypes
 	 * 
-	 * @param {String} cgiLang
+	 * @param { String } cgiLang
 	 * 
-	 * @returns {Boolean} / {throw error}
+	 * @returns { Boolean } / {throw error}
 	 * 
 	 */
 	function setCGITypes(cgiLang) {
@@ -239,9 +239,9 @@ function cgiServe() {
 	 *
 	 * getCGITypes
 	 * 
-	 * @param {String, Array} cgiLang
+	 * @param { String | Array } cgiLang
 	 * 
-	 * @returns {Object} LANG_OPTS / {string} LANG_OPTS[type]
+	 * @returns { Object LANG_OPTS | String LANG_OPTS[type] } Reconsider sending back all LangOpts
 	 * 
 	 */
 	function getCGITypes(cgiLang) {
@@ -261,9 +261,9 @@ function cgiServe() {
 	 *
 	 * cleanPath
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns {Object} {LANG_OPTS, exeOptions}
+	 * @returns { Object } {LANG_OPTS, exeOptions}
 	 * 
 	 */
 	function cleanPath(exeOptions) {
@@ -287,11 +287,11 @@ function cgiServe() {
 	 *
 	 * getVars
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns {Object} {LANG_OPTS, exeOptions}
+	 * @returns { Object } {LANG_OPTS, exeOptions}
 	 * 
 	 */
 	function getVars(exeOptions) {
@@ -302,13 +302,13 @@ function cgiServe() {
 	 *
 	 * getEnv
 	 * 
-	 * @param {Object} req
+	 * @param { Object } req
 	 * 
-	 * @param {String} host
+	 * @param { String } host
 	 * 
-	 * @param {Number} port
+	 * @param { Number } port
 	 * 
-	 * @returns {Object} env(environment)
+	 * @returns { Object } env(environment)
 	 * 
 	 */
 	function getEnv(req, host, port) {
@@ -362,9 +362,9 @@ function cgiServe() {
 	 *
 	 * getPattern
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @returns {^regex pattern} pattern / {throw error}
+	 * @returns { ^regex pattern } pattern / {throw error}
 	 * 
 	 */
 	function getPattern(type) {
@@ -379,9 +379,9 @@ function cgiServe() {
 	 *
 	 * getType
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @returns {String} type / {throw error}
+	 * @returns { String } type / {throw error}
 	 * 
 	 */
 	function getType(type) {
@@ -396,9 +396,9 @@ function cgiServe() {
 	 *
 	 * getPHPHtml
 	 * 
-	 * @param {Array} lines
+	 * @param { Array } lines
 	 * 
-	 * @returns {Object} {html}
+	 * @returns { Object } {html}
 	 * 
 	 */
 	function getPHPHtml(lines) {
@@ -426,9 +426,9 @@ function cgiServe() {
 	 *
 	 * getCGIHtml
 	 * 
-	 * @param {String} lines
+	 * @param { String } lines
 	 * 
-	 * @returns {Object} {html, res}
+	 * @returns { Object } {html, res}
 	 * 
 	 */
 	function getCGIHtml(lines) {
@@ -462,11 +462,11 @@ function cgiServe() {
 	 *
 	 * fileExists
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns {Object promise} resolve(file/bool)
+	 * @returns { Object promise } resolve(file/bool)
 	 * 
 	 */
 	function fileExists(type, exeOptions) {
@@ -501,11 +501,11 @@ function cgiServe() {
 	 *
 	 * runCGI
 	 * 
-	 * @param {Object req} req
+	 * @param { Object req } req
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns
+	 * @returns { Promise }
 	 * 
 	 */
 	function runCGI(req, exeOptions) {
@@ -619,13 +619,13 @@ function cgiServe() {
 	 * 
 	 * serve
 	 * 
-	 * @param {String} type
+	 * @param { String } type
 	 * 
-	 * @param {Object} request
+	 * @param { Object } request
 	 * 
-	 * @param {Object} exeOptions
+	 * @param { Object } exeOptions
 	 * 
-	 * @returns
+	 * @returns { Promise }
 	 * 
 	 */
 	function serve(type, request, exeOptions) {

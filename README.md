@@ -124,8 +124,13 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - shelljs,
-    - fast-proxy 
+    - shelljs, 
+    - http-proxy,
+    - socks,
+    - udp-proxy,
+    - socket-proxy,
+    - http-proxy-to-socks
+    
 
 * Application Dependencies:
     - Your app, you decide

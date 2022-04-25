@@ -16,7 +16,7 @@ const shellMod = require('shelljs');
  * Common Utility Functions
  * 
  * 
- * @returns {Object} Utils module functions
+ * @returns { Object } Utils module functions
  *      Module Object ==> { Utils Object }
  * 
  *              executableOptions [object]: {
@@ -89,7 +89,7 @@ function utils() {
      * 
      * @param { Object } values
      * 
-     * @returns
+     * @returns { }
      * 
      */
     function setter(setterObject, values) {
@@ -109,7 +109,7 @@ function utils() {
      *
      * @param { Object } getterObject
      * 
-     * @param { String | Number, Array[String | Number] } args
+     * @param { String | Number | Array[String | Number] } args
      * 
      * @returns { Boolean }
      * 
@@ -351,7 +351,7 @@ function utils() {
      * 
      * @param { Boolean } [type=false]
      * 
-     * @return {Boolean} 
+     * @return { Boolean } 
      * 
      */
     function isEqual(baseObject, validateObj, exact = false, type = false) {
@@ -403,7 +403,7 @@ function utils() {
      * 
      * @param { String } msg
      * 
-     * @return {No Return | throw error}
+     * @return { No Return | throw error }
      * 
      */
     function error(msg, allowExit) {
@@ -472,7 +472,7 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { Object } file object
      */
     function getFile(filename, options) {
         return fs.readFileSync(filename, { "encoding": "utf8", ...options, "flags": "rs" });
@@ -486,7 +486,7 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { Object } json object
      */
     function getJSONFile(filename, options) {
         return JSON.parse(getFile(filename, options));
@@ -504,7 +504,7 @@ function utils() {
      * 
      * @param { String } [linebreak="\n"]
      * 
-     * @return {*} 
+     * @return { Object } 
      */
     function getCSVFile(filename, options, seperator = ",", linebreak = "\n", resulttype="array") {
         let str = getFile(filename, options);
@@ -521,7 +521,8 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { Object } file object
+     *  
      */
     function setFile(filename, data, options) {
         return fs.writeFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "w+" });
@@ -537,7 +538,8 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return {  } 
+     * 
      */
     function setJSONFile(filename, data, options) {
         return setFile(filename, JSON.stringify(data), options);
@@ -552,12 +554,12 @@ function utils() {
     /**
      *
      *
-     * @param {*} csvarray
+     * @param { Array } csvarray
      * Array of csv file items [ [head, head] , [item, item], ... ]
      * Header is the file line item
      * Rest are all items (Generally should be of same size)
      * 
-     * @return {*} 
+     * @return { Boolean } 
      */
     function validateCSVStructure(csvarray) {
         return csvarray;
@@ -573,7 +575,7 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { } 
      */
     function setCSVFile(filename, data, options) {
         return setFile(filename, data, options);
@@ -589,7 +591,7 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { } 
      */
     function appendFile(filename, data, options) {
         return fs.appendFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "a+" });
@@ -605,7 +607,7 @@ function utils() {
      * 
      * @param { String } [options={ "encoding": "utf8" }]
      * 
-     * @return {*} 
+     * @return { } 
      */
     function appendCSV(filename, data, options) {
         // return appendFile(filename, data, { ...options, "flags": "a+" })
@@ -622,7 +624,7 @@ function utils() {
      * 
      * @param { Object } options
      * 
-     * @return {*} 
+     * @return { } 
      */
     function appendJSON(filename, data, options) {
         return appendFile(filename, JSON.stringify({

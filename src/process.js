@@ -18,7 +18,7 @@ const setter = utils.setter, getter = utils.getter, error = utils.error, osList 
  * Process Execution and Management handler
  * 
  * 
- * @returns {Object} Process module functions
+ * @returns { Object } Process module functions
  *      Module Object ==> { Process Object }
  * 
  *              setup [function]
@@ -107,15 +107,15 @@ function handler() {
      * setupHandler
      * 
      * 
-     * @param {*} name 
+     * @param { * } name 
      * Name of the configuration or default that needs to be handled
      * 
-     * @param {String, Array, Object} optionsObject 
+     * @param { String | Array | Object } optionsObject 
      * name == osList -> {String, Array} optionsObject 
      * name == processList -> {Array} optionsObject
      * name == processes -> {Object, Array} optionsObject
      * 
-     * @return {Boolean}
+     * @return { Boolean }
      * Returns the boolean is the setupHandler set the value successfully
      * 
      */
@@ -186,10 +186,10 @@ function handler() {
      * getProcess
      * Returns the processes requested
      *
-     * @param {String, Array} processNames
+     * @param { String | Array } processNames
      *      processNames is single or Array of ids
      * 
-     * @returns {Boolean, Object} processes
+     * @returns { Boolean | Object } processes
      *      processes: processes list object
      * 
      */
@@ -203,7 +203,7 @@ function handler() {
      * setProcess
      * Sets the process of the connection key procId provided
      *
-     * @param {Object} processConf
+     * @param { Object } processConf
      *      
      * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [..keyargs..] }
      * 
@@ -214,7 +214,7 @@ function handler() {
      * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, command: String }
      * - <subcommandObject>: { exe: [optional overide]String, usage: String, args: Array }
      * 
-     * @returns {Boolean || Object} processes
+     * @returns { Boolean | Object } processes
      * 
      */
     function setProcess(processConf) {
@@ -228,15 +228,15 @@ function handler() {
      * exec
      * 
      * 
-     * @param {String} exe
+     * @param { String } exe
      * 
-     * @param {Array Object} args
+     * @param { Array } args
      * 
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @return {Object} exec result process object
+     * @return { Object } exec result process object
      * Executed exec Command process result
      *
      */
@@ -253,16 +253,16 @@ function handler() {
      * execFile
      * 
      * 
-     * @param {String} file
+     * @param { String } file
      * 
-     * @param {Array Object} args
+     * @param { Array } args
      * 
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
      * 
-     * @return {Object} execFile result process object
+     * @return { Object } execFile result process object
      * Executed execFile process result
      *
      */
@@ -279,16 +279,16 @@ function handler() {
      * fork
      * 
      * 
-     * @param {String} modulePath
+     * @param { String } modulePath
      * 
-     * @param {Array Object} args
+     * @param { Array } args
      * 
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
      * 
-     * @return {Object}  fork result process object
+     * @return { Object }  fork result process object
      * Executed Forked fork process result
      *
      */
@@ -303,16 +303,16 @@ function handler() {
      * spawn
      * 
      * 
-     * @param {String} exe
+     * @param { String } exe
      * exe will the node js file to spawn
      * 
-     * @param {Array Object} args
+     * @param { Array } args
      * 
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @return {Object} spawn result process object
+     * @return { Object } spawn result process object
      * Executed Spawned spawn process result
      *
      */
@@ -343,9 +343,9 @@ function handler() {
      * registerEventHandlers
      * 
      * 
-     * @param {Object} proc
+     * @param { Object } proc
      * 
-     * @param {Object} eventHandlers
+     * @param { Object } eventHandlers
      * 
      * { event : { data: dataObject, handler: eventHandlerFunction } }
      * 
@@ -379,20 +379,20 @@ function handler() {
      * executeProcess
      * 
      *
-     * @param {Object} processConf
+     * @param { Object } processConf
      * Defines the process Object needed to start the process
      * Expected Structure: {  }
      * 
      * process/server/database = 
      *  
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @param {Function} cleanupHandler
+     * @param { Function } cleanupHandler
      * 
-     * @param {Object} handlers
+     * @param { Object } handlers
      * { signal : Function, ... }
      * 
-     * @returns {Object} processConf
+     * @returns { Object } processConf
      * 
      * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
@@ -519,16 +519,16 @@ function handler() {
      *
      * executeAction
      *
-     * @param {String} name 
+     * @param { String } name 
      * 
-     * @param {String} action
+     * @param { String } action
      * One of many actions in `cmds` key of `processConf`
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @param {Function} cleanupHandler
+     * @param { Function } cleanupHandler
      * 
-     * @return {Object} processConf
+     * @return { Object } processConf
      * 
      */
     function executeAction(name, action, dataHandler, cleanupHandler) {
@@ -550,13 +550,15 @@ function handler() {
      * execCommandAsync
      * 
      * 
-     * @param {String} exe
+     * @param { String } exe
      * 
-     * @param {Array Object} args
+     * @param { Array } args
      * 
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
+     * 
+     * @returns { Promise }
      *
      */
     function execCommandAsync(exe, args, cmdOptions, dataHandler) {
@@ -580,17 +582,17 @@ function handler() {
      * startProcessAsync
      * All arguments and structure are the same but are async promises
      *
-     * @param {Object} processConf
+     * @param { Object } processConf
      * Defines the process Object needed to start the process
      * Expected Structure: {  }
      * 
      * process/server/database = 
      *  
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @param {Function} cleanupHandler
+     * @param { Function } cleanupHandler
      * 
-     * @returns {Object}
+     * @returns { Object }
      * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
      * - [... keyargs ...]: Other custom keys for use with datahandler or cleanuphandler
@@ -600,13 +602,13 @@ function handler() {
      * - <otherOptions>: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, executetype: String, command: String }
      * - <subcommandObject> [optionals: exe, modulePath, file]: { exe: String, modulePath: String, file: String, usage: String, args: Array }
      * 
-     * @param {String} file
+     * @param { String } file
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * 
-     * @param {Function} cleanupHandler
+     * @param { Function } cleanupHandler
      * 
-     * @returns {Object}
+     * @returns {  }
      * 
      */
     function startProcessAsync(processConf, file, dataHandler, cleanupHandler) {
@@ -620,11 +622,11 @@ function handler() {
      * execProcessAsync
      * 
      * 
-     * @param {Object} conf
+     * @param { Object } conf
      * 
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      *  
-     * @returns {Boolean, Object} result process object
+     * @returns {  } result process object
      * false / Process Instance
      * 
      */
@@ -639,12 +641,12 @@ function handler() {
      *
      * fetchRunningProcess
      *
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * Options for the command process function {exec} object
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * Function object for callback
      * 
-     * @returns {Object} result process object
+     * @returns { Object } result process object
      * 
      */
     function fetchRunningProcess(cmdOptions, dataHandler) {
@@ -677,18 +679,18 @@ function handler() {
      *
      * findRunningProcess
      *
-     * @param {Object} cmdOptions
+     * @param { Object } cmdOptions
      * Options for the command process function {exec} object
-     * @param {Function} dataHandler
+     * @param { Function } dataHandler
      * Function object for callback
-     * @param {Object} conditions
+     * @param { Object } conditions
      * Conditions that needs to be used to find processes
      * 
      * // Available Find Options
      * // Windows: Name, ProcessId, ParentProcessId, CommandLine, ExecutablePath
      * // Linux, Mac, Android: pid, ppid (parent processid), command(cmdline - command), bin(binpath - command), executable (executable - command)
      * 
-     * @return {Object} result process object
+     * @return { Object } result process object
      * 
      */
     function findRunningProcess(cmdOptions, dataHandler, conditions) {
@@ -759,8 +761,8 @@ function handler() {
     /**
      * Kill function fir Generic Process
      *
-     * @param {*} pid
-     * @param {*} signal
+     * @param { Number } pid
+     * @param { * } signal
      * 
      */
     function kill(pid, signal) {
@@ -788,9 +790,9 @@ function handler() {
      * killProcess fir saved instance
      * 
      * 
-     * @param {String} name
+     * @param { String } name
      * 
-     * @returns {Boolean}
+     * @returns { Boolean }
      * 
      */
     function killProcess(name, signal) {

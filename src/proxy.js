@@ -18,7 +18,7 @@ const setter = utils.setter, getter = utils.getter, error = utils.error, osList 
  * Proxy Management handler
  * 
  * 
- * @returns {Object} Proxy module functions
+ * @returns { Object } Proxy module functions
  *      Module Object ==> { Proxy Object }
  * 
  *                 setup [function],
@@ -87,9 +87,9 @@ function handler() {
      * setupHandler
      * 
      * 
-     * @param {*} name 
+     * @param { String } name 
      * 
-     * @param {*} optionsObject 
+     * @param { Array } optionsObject 
      * 
      */
     function setupHandler(name, optionsObject) {
@@ -129,10 +129,10 @@ function handler() {
      * getConfig
      * 
      *
-     * @param {String, Array} args
+     * @param { String | Array } args
      *      args is either single configuration string key or Array of keys to be fetched
      * 
-     * @returns {Object} configuration
+     * @returns { Object } configuration
      *      configurations: configurations object
      * 
      */
@@ -147,10 +147,10 @@ function handler() {
      * setConfig
      * 
      *
-     * @param {Object} options
+     * @param { Object } options
      *      options is the an object of configuration with names of configuration as keys
      * 
-     * @returns {Boolean} 
+     * @returns { Boolean } 
      * 
      */
     function setConfig(options) {
@@ -164,9 +164,9 @@ function handler() {
      * startProxy
      * 
      *
-     * @param {Object} config
+     * @param { Object } config
      * 
-     * @returns {Boolean, Object}
+     * @returns { Boolean | Object }
      * false / proxyInstance
      * 
      */
@@ -190,9 +190,9 @@ function handler() {
      * stopProxy
      * 
      *
-     * @param {String, Object} proxy
+     * @param { String | Object } proxy
      * 
-     * @returns {Boolean}
+     * @returns { Boolean }
      * 
      */
     function stopProxy(proxy) {
@@ -214,9 +214,9 @@ function handler() {
      * serveProxy
      * 
      *
-     * @param {String} name
+     * @param { String } name
      * 
-     * @returns {Object}
+     * @returns { Object }
      * proxyInstance
      * 
      */
@@ -247,13 +247,13 @@ function handler() {
      * setupProxy
      * config and handlers validated and saved to servers object
      *
-     * @param {String} name
+     * @param { String } name
      * 
-     * @param {Object} config
+     * @param { Object } config
      * 
-     * @param {Object} handlerFunctions
+     * @param { Object } handlerFunctions
      * 
-     * @returns {Boolean} 
+     * @returns { Boolean } 
      * 
      */
     function setupProxy(name, config, handlerFunctions) {
@@ -287,10 +287,10 @@ function handler() {
      * getProxy
      * 
      * 
-     * @param  {String, Array} name 
+     * @param  { String | Array } name 
      * name / [name]
      * 
-     * @returns {Boolean, Object}
+     * @returns { Boolean | Object }
      * false / ProxyInstance { proxy, config, handlers }
      * 
      */
