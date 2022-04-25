@@ -52,7 +52,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [x] Run any host that serves a web app, using proxy 
     - [x] Run proxies for Application (Local / Remote)
     - [x] Supports websocket implementation in web proxies
-    - [x] Run multiple proxies (HTTP, UDP, TCP, Websockets, Socks) in one or multiple applications
+    - [x] Run multiple proxies (HTTP, UDP, TCP, Websockets, Socks) and multiple instances in one or multiple applications
     - [x] Run multiple proxy instances in one or multiple applications
 
 
