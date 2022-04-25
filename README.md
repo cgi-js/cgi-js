@@ -9,7 +9,7 @@
 
 - Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
 - Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
-- *[todo]* Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
+- Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 
 
 `[Funding Invited]`
@@ -53,6 +53,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [x] Run proxies for Application (Local / Remote)
     - [x] Supports websocket implementation in web proxies
     - [x] Run multiple proxies + websockets in one or multiple applications
+    - [x] Run multiple protocol proxies using external packages. Protocols supported http, udp, socks, http to socks.
 
 
 ##### Node Processes - Manage web servers, database processes, or other system processes or services
