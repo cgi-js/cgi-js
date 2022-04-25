@@ -90,7 +90,8 @@ function handler() {
             env: "",
             // `setprocess` will set the config in the processes object in this `process` object
             setprocess: false,
-            // Execute type --> exec ( exe > { executable, service } )
+            // Execute type --> exec ( exe > { executable, service, executable file } )
+            // Execute type --> execFile ( exe > { file } )
             // Execute type --> spawn ( exe > { file } )
             // Execute type --> fork ( exe > { file } )
             executetype: "exec",
