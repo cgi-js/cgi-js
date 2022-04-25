@@ -6,6 +6,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
+const net = require("net");
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter, error = utils.error, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
@@ -309,7 +310,9 @@ function handler() {
             udp: require("udp-proxy"),
             http: require("http-proxy"),
             tcp: require("socket-proxy"),
-            http2socks: require("http-proxy-to-socks"),
+            redirect: {
+                http2socks: require("http-proxy-to-socks")
+            },
             setup: setupProxy,
             get: getProxy,
             start: startProxy,
