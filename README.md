@@ -9,6 +9,7 @@
 
 - Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
 - Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
+- Supports UDP, Socks, http to Socks proxy using external libraries currently.
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 
 
@@ -161,6 +162,7 @@ This project contains example that demonstrates working with ExpressJS.
     - Quick demo - CGI mode executable files
     - Quick demo - proxying to proxies/servers
     - Quick demo - proxying to proxy's websocket
+    - Quick demo - proxying to udp, socks, http to socks proxy's websocket
 * Run CGI files
     - PHP (.php)
     - Perl (Perl any versions - .plc, .pld, .pl)
