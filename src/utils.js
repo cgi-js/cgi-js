@@ -674,7 +674,7 @@ function utils() {
 
 
     return {
-        shell: shellMod,
+        shell: require('shelljs'),
         executableOptions: {
             valid: validExecutableOptionList,
             set: setExecutableOptionList

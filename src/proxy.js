@@ -305,6 +305,10 @@ function handler() {
             get: getConfig
         },
         proxy: {
+            socks: require("socks"),
+            udp: require("udp-proxy"),
+            http: require("http-proxy"),
+            http2socks: require("http-proxy-to-socks"),
             setup: setupProxy,
             get: getProxy,
             start: startProxy,
