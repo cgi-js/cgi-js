@@ -117,7 +117,7 @@ var closehandler = function (prc) {
     setTimeout(() => {
         // console.log("prc", prc);
 
-        obj.process.executeAction("apache2process", "stopbat", (error, stdout, stderr) => {
+        obj.process.executeAction("apache2process", "stopbatwin32", (error, stdout, stderr) => {
             console.log("apache2process closehandler error ", error, " stdout ", stdout, " stderr ", stderr);
         }, (anydata, signal) => {
             // console.log("closehandler anydata, signal", anydata, signal);
@@ -150,8 +150,8 @@ var setter = obj.process.set({
         start: { exe: "httpd", usage: "", args: ["-k start"] },
         stop: { exe: "httpd", usage: "", args: ["-k stop"] },
         reload: { exe: "httpd", usage: "", args: ["-k restart"] },
-        startbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win_taskkill.bat", usage: "", args: [] }
+        startbatwin32: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win32_start.bat", usage: "", args: [] },
+        stopbatwin32: { exe: "..\\..\\..\\..\\binaries\\binscripts\\server-httpd\\win32_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',
@@ -169,7 +169,7 @@ var setter = obj.process.set({
     }
 });
 
-var proc = obj.process.executeAction("apache2process", "startbat", (error, stdout, stderr) => {
+var proc = obj.process.executeAction("apache2process", "startbatwin32", (error, stdout, stderr) => {
     console.log("apache2process executeAction error ", error, " stdout ", stdout, " stderr ",stderr);
     // eventEmitter.emit("closeprocess", { error: error, stdout: stdout, stderr: stderr });
     // eventEmitter.emit("testhttp", { error: error, stdout: stdout, stderr: stderr });
