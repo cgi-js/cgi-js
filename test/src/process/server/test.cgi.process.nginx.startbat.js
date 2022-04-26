@@ -42,8 +42,8 @@ let proc = obj.process.executeProcess({
         stop: { exe: "nginx -s stop", usage: "", args: [] },
         reload: { exe: "nginx -s reload", usage: "", args: [] },
         quit: { exe: "nginx -s quit", usage: "", args: [] },
-        startbat: { exe: "../../../../binaries/binscripts/server-nginx/win_start.bat", usage: "", args: [] },
-        stopbat: { exe: "../../../../binaries/binscripts/server-nginx/win_taskkill.bat", usage: "", args: [] }
+        startbat: { exe: "../../../../binaries/binscripts/server-nginx/win32_start.bat", usage: "", args: [] },
+        stopbat: { exe: "../../../../binaries/binscripts/server-nginx/win32_taskkill.bat", usage: "", args: [] }
     },
     options: {
         stdio: 'inherit',
