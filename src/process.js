@@ -497,12 +497,12 @@ function handler() {
         // proc.unref();
 
         function cleanupSrv(eventType, exitFunction, processConf) {
-            console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, processConf.pid);
+            // console.log('startProcess: Cleanup Function, EventType, and Process PID: ', eventType, processConf.pid);
             exitFunction(eventType, processConf);
         }
 
         for (let i = 0; i < evtLen; i++) {
-            console.log("Event Logging: ", evt[i]);
+            // console.log("Event Logging: ", evt[i]);
             proc.on(evt[i], cleanupSrv.bind(null, evt[i], cleanupHandler, processConf));
         }
 

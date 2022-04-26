@@ -8,7 +8,7 @@
 `CGIJS` library:
 
 - Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
-- Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying.
+- Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (http, websockets, tcp, udp, socks, ssh, ftp).
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 
 
@@ -52,7 +52,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [x] Run any host that serves a web app, using proxy 
     - [x] Run proxies for Application (Local / Remote)
     - [x] Supports websocket implementation in web proxies
-    - [x] Run multiple proxies (HTTP, UDP, TCP, Websockets, Socks) and multiple instances in one or multiple applications
+    - [x] Run multiple protocol proxies (HTTP, UDP, TCP, Websockets, Socks) and multiple instances in one or multiple applications
 
 
 ##### Node Processes - Manage web servers, database processes, or other system processes or services
@@ -124,12 +124,12 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - shelljs, 
-    - http-proxy,
-    - socks,
-    - udp-proxy,
-    - socket-proxy,
-    - http-proxy-to-socks
+    - [shelljs](https://www.npmjs.com/package/shelljs), 
+    - [http-proxy](https://www.npmjs.com/package/http-proxy),
+    - [socks](https://www.npmjs.com/package/socks),
+    - [udp-proxy](https://www.npmjs.com/package/udp-proxy),
+    - [socket-proxy](https://www.npmjs.com/package/socket-proxy),
+    - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks)
     
 
 * Application Dependencies:
