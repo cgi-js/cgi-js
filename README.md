@@ -8,7 +8,7 @@
 `CGIJS` library:
 
 - Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
-- Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (http, websockets, tcp, udp, socks, ssh, ftp).
+- Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (`http`, `websockets`, `tcp`, `udp`, `socks`, `ssh`, `ftp`).
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 
 
