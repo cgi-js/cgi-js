@@ -93,8 +93,7 @@ Add:
 - [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]
 - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
 - [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
-- [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [TODO]
-- [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
+
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [Done]
@@ -111,6 +110,8 @@ Modify:
 - [] Consider support for UDP for proxy. Consider adding socket's module [TODO] [Packages considered - udp-proxy**, http2udp, node-udp-forwarder, udp-messaging]
 - [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [TODO] (Packages Considered: socks**, http-proxy-to-socks)
 - [] Consider support for Other Protocols for proxy. Consider adding socket's module [TODO]
+- [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
+- [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [TODO]
 
 
 Prioritization and Version Consideration
@@ -120,6 +121,7 @@ High Priority, High Effort:
 
 High Priority, Low Effort:
     - [] Inbuilt development server management (CGI executables like PHP, Ruby, Python, others) [Testing] (Version 1.1.1)
+    - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
     - [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [Testing]  (Version 1.2.0)
 
 Low Priority, High Effort:
