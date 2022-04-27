@@ -15,6 +15,9 @@
 `[Funding Invited]`
 
 
+* General Note: The library is production ready. However, please be cautious of processes/executables permissions/security in your project using CGIJS *
+
+
 # History
 
 CGIJS was created with a motivation to allow creation of a `Desktop executable/ application` using `Electron` that can run any `CGI` / `Interpreted language scripted files/ applications` under the hood. 
