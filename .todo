@@ -122,7 +122,7 @@ High Priority, High Effort:
 
 High Priority, Low Effort:
     - [] Inbuilt development server management (CGI executables like PHP, Ruby, Python, others) [Testing] (Version 1.1.1)
-    - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
+    - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO] (Version 1.1.1)
     - [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [Testing]  (Version 1.2.0)
 
 Low Priority, High Effort:
