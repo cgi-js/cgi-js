@@ -15,7 +15,7 @@
 `[Funding Invited]`
 
 
-* General Note: The library is production ready. However, please be cautious of processes/executables permissions/security in your project using CGIJS *
+*General Note: The library is production ready. However, please be cautious of processes/executables permissions/security in your project using CGIJS*
 
 
 # History
