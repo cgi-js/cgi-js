@@ -109,7 +109,8 @@ Modify:
 - [] Consider support for gRPC for proxy. Consider adding socket's module [TODO] 
 - [] Consider support for UDP for proxy. Consider adding socket's module [TODO] [Packages considered - udp-proxy**, http2udp, node-udp-forwarder, udp-messaging]
 - [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [TODO] (Packages Considered: socks**, http-proxy-to-socks)
-- [] Consider support for Other Protocols for proxy. Consider adding socket's module [TODO]
+- [*] Consider support for Other Protocols for proxy. Consider adding socket's module [Done]
+- [] Consider support for Other Protocols for proxy within package [TODO]
 - [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
 - [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [TODO]
 
@@ -128,4 +129,4 @@ Low Priority, High Effort:
     - [] Putty SSH tunneling (Check usage with Process and Create Proxy) [TODO] (Version 1.2.0)
     - [] Mongoose web server (Check usage with Process and Create Proxy) [TODO]  (Version 1.2.0)
     - [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]  (Version 2.0.0)
-
+    - [] Consider support for Other Protocols for proxy within package [TODO] (Version 2.0.0)
