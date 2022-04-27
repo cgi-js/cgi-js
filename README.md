@@ -199,11 +199,10 @@ This project contains example that demonstrates working with ExpressJS.
 * Working with config.json file for simpler implementation in apps
 
 
-# Status
+# CURRENT Status
 
-In development [Testing for Desktop-CGI use case]
-
-In development [Testing for language based development server]
+* In development [Testing for Desktop-CGI use case]
+* In development [Testing for language based development server]
 
 
 # Todo
