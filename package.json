@@ -97,6 +97,15 @@
     "socket",
     "websocket",
     "socks",
-    "ssl"
+    "ssl",
+    "node php bridge",
+    "node php-cgi bridge",
+    "node python bridge",
+    "node cgi bridge",
+    "node ruby bridge",
+    "node perl bridge",
+    "node jsp bridge",
+    "node aspx bridge",
+    "node asp bridge"
   ]
 }
