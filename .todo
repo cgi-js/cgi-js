@@ -13,6 +13,8 @@
     - [x] Run proxies for Application (Local / Remote)
     - [x] Supports websocket implementation in web proxies
     - [x] Run multiple proxies + websockets in one or multiple applications
+    - [x] Run multiple protocols for proxies using external libraries
+    - [] Run multiple protocols for proxies inbuilt
 
 
 ##### Node Processes - Manage web servers, database processes, or other system processes or services
@@ -93,6 +95,7 @@ Add:
 - [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]
 - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
 - [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
+- [] Consider adding inbuilt PHP, Python, Ruby, Perl custom config based development server proxy to package api [TODO]
 
 
 Modify:

@@ -163,6 +163,10 @@ function handler() {
      * 
      * startProxy
      * 
+     * TODO:
+     * Adding TCP, UDP, Socks Protocols for proxy.
+     * Avoid breaking change and add differentiator in config
+     * 
      *
      * @param { Object } config
      * 
@@ -189,6 +193,10 @@ function handler() {
      * 
      * stopProxy
      * 
+     * TODO:
+     * Adding TCP, UDP, Socks Protocols for proxy.
+     * Avoid breaking change and add differentiator in config
+     * 
      *
      * @param { String | Object } proxy
      * 
@@ -212,6 +220,10 @@ function handler() {
     /**
      *
      * serveProxy
+     * 
+     * TODO:
+     * Adding TCP, UDP, Socks Protocols for proxy.
+     * Avoid breaking change and add differentiator in config
      * 
      *
      * @param { String } name
@@ -246,6 +258,10 @@ function handler() {
      *
      * setupProxy
      * config and handlers validated and saved to servers object
+     * 
+     * TODO:
+     * Adding TCP, UDP, Socks Protocols for proxy.
+     * Avoid breaking change and add differentiator in config
      *
      * @param { String } name
      * 
