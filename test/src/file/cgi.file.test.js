@@ -2,6 +2,8 @@
 
 var request = require('supertest');
 var assert = require('chai').assert;
+var describe = require('chai').describe;
+var it = require('chai').it;
 var express = require('express');
 var cgi = require('../../../src').init();
 
