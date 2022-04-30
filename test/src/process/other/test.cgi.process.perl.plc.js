@@ -24,9 +24,9 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 
 if (__dirname.toString().includes("process")) {
-    var args = [path.join(__dirname, "../../../../www/perl/index.plc")];
+    var args = [path.join(__dirname, "../../../../www/files/perl/index.plc")];
 } else {
-    var args = [path.join(__dirname, "./www/perl/index.plc")];
+    var args = [path.join(__dirname, "./www/files/perl/index.plc")];
 }
 
 var proc = obj.process.executeProcess({

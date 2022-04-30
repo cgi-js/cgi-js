@@ -23,9 +23,9 @@ var myEventHandler = function (prc) {
 eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 if (__dirname.toString().includes("process")) {
-    var args = [path.join(__dirname, "../../../../www/node/index.js")];
+    var args = [path.join(__dirname, "../../../../www/files/node/index.js")];
 } else {
-    var args = [path.join(__dirname, "./www/node/index.js")];
+    var args = [path.join(__dirname, "./www/files/node/index.js")];
 }
 
 var proc = obj.process.executeProcess({

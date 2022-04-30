@@ -24,9 +24,9 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
 
 if (__dirname.toString().includes("process")) {
-    var args = [path.join(__dirname, "../../../../www/ruby/index.rb")];
+    var args = [path.join(__dirname, "../../../../www/files/ruby/index.rb")];
 } else {
-    var args = [path.join(__dirname, "./www/ruby/index.rb")];
+    var args = [path.join(__dirname, "./www/files/ruby/index.rb")];
 }
 
 var proc = obj.process.executeProcess({
