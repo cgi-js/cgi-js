@@ -62,8 +62,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * [x] Manage Processes or Services
     - [x] Allows running and closing process Executables
-    - [x] Allows managing Embedding Web Servers, which can run web applications through proxies [TODO Testing]
-    - [x] Allows managing Embedded Database servers [TODO Testing]
+    - [x] Allows managing Embedding Web Servers, which can run web applications through proxies [TODO Testing for some embeddable servers]
+    - [x] Allows managing Embedded Database servers [TODO Testing for some embeddable databases]
     - [x] Should run smoothly with Unsupported proxy servers/ processes/ services (not widely tested)
 * [x] Embedding
     - [x] Multiple web servers in one or multiple applications

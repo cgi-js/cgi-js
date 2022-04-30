@@ -6,3 +6,4 @@
 
 require 'pp'
 pp ENV
+pp 'Ruby Version of the page'

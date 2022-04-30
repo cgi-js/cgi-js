@@ -14,7 +14,3 @@ def index():
 
 if __name__ == '__main__':
     app.run()
-
-
-// // Run flask application
-// FLASK_APP=./www/py/main.py FLASK_ENV=development flask run

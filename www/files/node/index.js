@@ -1,3 +1,3 @@
 
-var testnode = "Testing nodejs CGI server";
+var testnode = "Testing node CGI server";
 console.log(testnode);
