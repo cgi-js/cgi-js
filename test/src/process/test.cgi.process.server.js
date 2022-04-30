@@ -32,7 +32,7 @@ var myEventHandler = function (prc) {
 
 eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 
-var args = [path.join("../../../www/node/index.js")];
+var args = [path.join("../../../www/files/node/index.js")];
 
 function testProcessSetter() {
 

@@ -31,9 +31,9 @@ eventEmitter.on('closeprocess', myEventHandler.bind(obj));
 function testprocesswithfile() {
 
     if (__dirname.toString().includes("process")) {
-        var args = [path.join(__dirname, "../../../www/py/index.py")];
+        var args = [path.join(__dirname, "../../../www/files/py/index.py")];
     } else {
-        var args = [path.join(__dirname, "./www/py/index.py")];
+        var args = [path.join(__dirname, "./www/files/py/index.py")];
     }
 
     var proc = obj.process.executeProcess(
