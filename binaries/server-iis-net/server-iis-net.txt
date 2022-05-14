@@ -1,4 +1,0 @@
-
-.NET in Linux behind Nginx
-https://www.nginx.com/resources/wiki/start/topics/examples/mono/
-
