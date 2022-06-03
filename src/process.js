@@ -47,7 +47,7 @@ function handler() {
     // let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
     // let executableOptions = ["executable", "service", "file"];
     // let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
-    
+
     let commandObject = {
         // name of the object that it should be stored or identifies as 
         name: "",

@@ -69,9 +69,19 @@ grpc-dynamic-gateway,
 https://grpc.io/,
 https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md,
 https://www.npmjs.com/package/grpc-express
+https://www.npmjs.com/package/grpc-web-proxy  (Refer and check code)
+https://www.npmjs.com/package/@grpc/grpc-js (grpc outdated)
+https://www.npmjs.com/package/@grpc/proto-loader
 
+https://www.npmjs.com/package/grpc-dynamic-gateway (ReConsider This - New)
+
+tRPC Router
+https://trpc.io/docs/
+https://trpc.io/docs/express
 
 TCP Packages considered
 https://www.npmjs.com/package/socket-proxy
 support any tcp protocol! e.g. http https ssh ftp
 
+HTTP, TCP, gRPC, DB (MySQL, MongoDB), interceptor Proxy and Monitor (Refer and check code for monitoring)
+https://www.npmjs.com/package/allproxy
