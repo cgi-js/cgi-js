@@ -19,5 +19,5 @@ module.exports = {
     "proxy": proxyMod,
     "process": processMod,
     "utils": utilsMod,
-    "sampleProcessConfig": sampleProcessConfigMod
+    "processConfigObject": sampleProcessConfigMod
 };
