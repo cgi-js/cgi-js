@@ -72,7 +72,7 @@ const shellMod = require('shelljs');
  */
 function utils() {
 
-    let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
+    let osList = ["win32", "Windows_NT", "darwin", "Darwin", "unix", "linux", "Linux", "fedora", "debian"];
     let executableOptionList = ["executable", "service", "file"];
     let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
     let proxyPortRanges = [[8000, 9500], [10000, 15000]];
@@ -184,6 +184,24 @@ function utils() {
      */
     function getOS() {
         return os.type();
+    }
+
+    /**
+     * Get the OS Platform of the current system
+     * 
+     * @return { String } 
+     */
+    function getPlatform() {
+        return os.platform();
+    }
+
+    /**
+     * Get the OS Architecture of the current system
+     * 
+     * @return { String } 
+     */
+    function getArch() {
+        return os.arch();
     }
 
 
@@ -684,7 +702,10 @@ function utils() {
         os: {
             get: getOS,
             valid: validOS,
-            set: setOS
+            set: setOS,
+            type: getOS,
+            platform: getPlatform,
+            arch: getArch
         },
         processes: {
             valid: validProcessList,
