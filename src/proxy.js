@@ -42,45 +42,7 @@ function handler() {
     let validProxyHandlers = ["error", "proxyReq", "proxyRes", "open", "data", "end", "close", "upgrade"];
     // let osList = ["win32", "win64", "Windows_NT", "darwin", "unix", "linux", "fedora", "debian"];
 
-
-    let configurationObject = {
-        "options": {
-            "target": {
-                "protocol": "http:",
-                "host": "127.0.0.1",
-                "port": 9001,
-                "pfx": null,
-                "passphrase": ""
-            },
-            "ws": false,
-            "secure": false,
-            "xfwd": true,
-            "toProxy": true,
-            "prependPath": true,
-            "ignorePath": false,
-            "changeOrigin": false,
-            "preserveHeaderKeyCase": true,
-            "auth": ":",
-            "hostRewrite": true,
-            "protocolRewrite": null,
-            "cookieDomainRewrite": false,
-            "cookiePathRewrite": false,
-            "headers": {},
-            "proxyTimeout": 10000,
-            "timeout": 10000,
-            "selfHandleResponse": false,
-            "buffer": null,
-            "ssl": {
-                "key": null,
-                "cert": null
-            }
-        },
-        "listenPort": 8001,
-        "stream": false,
-        "modify": false,
-        "runtime": false
-    };
-
+    let configurationObject = require("./configs").proxy;
 
     /**
      * 

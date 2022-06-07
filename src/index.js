@@ -10,7 +10,7 @@ const fileMod = require("./file");
 const proxyMod = require("./proxy");
 const processMod = require("./process");
 const utilsMod = require('./utils');
-const sampleProcessConfigMod = require('./process.config');
+const { proxy, process } = require('./configs');
 
 
 module.exports = {
@@ -19,5 +19,8 @@ module.exports = {
     "proxy": proxyMod,
     "process": processMod,
     "utils": utilsMod,
-    "processConfigObject": sampleProcessConfigMod
+    "default-configs": {
+        "proxy": proxy,
+        "process": process
+    }
 };

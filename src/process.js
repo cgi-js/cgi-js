@@ -48,7 +48,7 @@ function handler() {
     // let executableOptions = ["executable", "service", "file"];
     // let processList = ["httpd", "tomcat", "mongoose", "putty", "nginx", "mysql", "pgsql", "top", "mysql", "mongodb", "pgsql"];
 
-    let commandObject = require("./process.config");
+    let commandObject = require("./configs").process;
 
     /**
      * 
