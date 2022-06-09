@@ -96,6 +96,15 @@ Add:
 - [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
 - [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
 - [] Consider adding inbuilt PHP, Python, Ruby, Perl custom config based development server proxy to package api [TODO]
+- [] Add middlewares for use with different frameworks for CGIJS CGI Files for all interpreted languages [TODO]
+        ** Consider function name require('cgijs').middlewares.frameworkname(...arguments...) [TODO]
+        ** Concept Credit - npm:http-php
+- [] Add common function for creation of proxies (HTTP+WS, UDP, TCP, Socks, gRPC, Sockets) [TODO]
+        ** Consider function name require('proxy').init(protocol, config, handlers)
+- [] Consider Adding and Differentiating MessagePattern with EventPattern in the next major version [TODO]
+        ** Concept Credit - https://docs.nestjs.com/microservices/nats as an example for Pattern differentiator
+        ** Check inline docs for .proxy.redirect section after line `redirect: {`
+        ** Current proxy file does not differentiate Patterns. The file currently differentiates communication based on just protocols
 
 
 Modify:

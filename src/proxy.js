@@ -279,6 +279,8 @@ function handler() {
 
     return {
         setup: setupHandler,
+        // Serve any proxy using the commong .init function - HTTP/WS, UDP, TCP, Socks, Sockets, gRPC.
+        init: undefined,
         config: {
             set: setConfig,
             get: getConfig
@@ -289,6 +291,9 @@ function handler() {
             http: require("http-proxy"),
             tcp: require("socket-proxy"),
             redirect: {
+                // wsevents2events: eventPatternfncs,
+                // http2events: eventPatternfncs
+                // http2messageProtocol: messagePatternfncs
                 http2socks: require("http-proxy-to-socks")
             },
             setup: setupProxy,

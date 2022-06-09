@@ -11,10 +11,11 @@ const proxyMod = require("./proxy");
 const processMod = require("./process");
 const utilsMod = require('./utils');
 const { proxy, process } = require('./configs');
-
+const middlewaresMod = require("./middlewares");
 
 module.exports = {
-    "init": fileMod.serve, // Backward compatibility [Remove in next version]
+    // .init - Backward compatibility [Remove in next version]
+    "init": fileMod.serve,
     "file": fileMod,
     "proxy": proxyMod,
     "process": processMod,
@@ -22,5 +23,7 @@ module.exports = {
     "default-configs": {
         "proxy": proxy,
         "process": process
-    }
+    },
+    // .middlewares - [Add in next major version]
+    "middlewares": middlewaresMod
 };
