@@ -12,36 +12,36 @@ Add a middleware for
 
 const fileMod = require("./file");
 
-let express = function (req, res, next) {
+let md_express = function (req, res, next) {
 
     next();
 }
 
-let koa = function (ctx, next) {
+let md_koa = function (ctx, next) {
 
     next();
 }
 
-let nest = function (req, res, next) {
+let md_nest = function (req, res, next) {
 
     next();
 }
 
-let loopback = function (ctx, next) {
+let md_loopback = function (ctx, next) {
 
     next();
 }
 
-let _meteor = function () {
+let _md_meteor = function () {
 
 }
 
-let sails = function (req, res, next) {
+let md_sails = function (req, res, next) {
 
     next();
 }
 
-let totaljs = function ($) {
+let md_totaljs = function ($) {
     // https://docs.totaljs.com/total4/407ff001jy51c/#49a79001cp51c
     // NEWMIDDLEWARE(name, fn, [assign], [first]);
     // @name {String} The middleware name.
@@ -52,25 +52,25 @@ let totaljs = function ($) {
     $.next();
 }
 
-let hapi = function (req, h) {
+let md_hapi = function (req, h) {
     // https://stackoverflow.com/questions/31331606/how-can-i-add-a-middleware-in-my-route
     // server.ext('onRequest', function);
     return h.continue;
 }
 
-let feather = function (ctx) {
+let md_feather = function (ctx) {
     // https://docs.feathersjs.com/guides/basics/hooks.html
 
     return ctx;
 }
 
-let adonis = function (ctx, next) {
+let md_adonis = function (ctx, next) {
     // https://docs.adonisjs.com/guides/middleware
 
     next();
 }
 
 module.exports = {
-    "file": { express, koa, nest, loopback, sails, totaljs, hapi, feather, adonis },
+    "file": { express: md_express, koa: md_koa, nest: md_nest, loopback: md_loopback, sails: md_sails, totaljs: md_totaljs, hapi: md_hapi, feather: md_feather, adonis: md_adonis },
     "proxy": {}
 }
