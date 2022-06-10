@@ -16,58 +16,65 @@ const shellMod = require('shelljs');
  * Common Utility Functions
  * 
  * 
- * @returns { Object } Utils module functions
+ * @returns { UtilsObject<{ 
+ *                  shell: shellMod, 
+ *                  executableOptions: { 
+ *                      valid: validExecutableOptionList, 
+ *                      set: setExecutableOptionList 
+ *                  }, 
+ *                  os: { 
+ *                      get: getOS, 
+ *                      valid: validOS, 
+ *                      set: setOS, 
+ *                      type: getOS, 
+ *                      platform: getPlatform, 
+ *                      arch: getArch 
+ *                  }, 
+ *                  processes: { 
+ *                      valid: validProcessList, 
+ *                      set: setProcessList 
+ *                  }, 
+ *                  portRanges: { 
+ *                      valid: validProxyPortRanges, 
+ *                      set: setProxyPortRanges 
+ *                  }, 
+ *                  proxyHandlers: { 
+ *                      valid: validValidProxyHandlers, 
+ *                      set: setValidProxyHandlers 
+ *                  }, 
+ *                  file: { 
+ *                      get: getFile, 
+ *                      append: appendFile, 
+ *                      set: setFile, 
+ *                      exists: fileExists 
+ *                  }, 
+ *                  csv: { 
+ *                      get: getCSVFile, 
+ *                      append: appendCSV, 
+ *                      set: setCSVFile 
+ *                  }, 
+ *                  json: { 
+ *                      get: getJSONFile, 
+ *                      set: setJSONFile, 
+ *                      append: appendJSON 
+ *                  }, 
+ *                  convert: { 
+ *                      array: createArray, 
+ *                      string: convertObjectToString, 
+ *                      objectToArray: convertObjectToArray, 
+ *                      arrayToObject: convertArrayToObject, 
+ *                      csvToObject: convertCSVArrayToObject 
+ *                  }, 
+ *                  allowedItem: allowedListItem, 
+ *                  isEqual: isEqual, 
+ *                  setter: setter, 
+ *                  getter: getter, 
+ *                  error: error, 
+ *                  is_running: is_running
+ *          }> } 
+ *      
+ *      Utils module functions. 
  *      Module Object ==> { Utils Object }
- * 
- *              executableOptions [object]: {
- *                       valid [function],
- *                      set [function]
- *                  },
- *              os [object]: {
- *                       get [function],
- *                       valid [function],
- *                       set [function]
- *                  },
- *              processes [object]: {
- *                       valid [function],
- *                       set [function]
- *                   },
- *              portRanges [object]: {
- *                   valid [function],
- *                   set [function]
- *                  },
- *              proxyHandlers [object]: {
- *                   valid [function],
- *                   set [function]
- *                  },
- *              file [object]: {
- *                   get [function],
- *                   append [function],
- *                   set [function]
- *                  },
- *              csv [object]: {
- *                   get [function],
- *                   append [function],
- *                   set [function]
- *                  },
- *              json [object]: {
- *                   get [function],
- *                   set [function],
- *                   append [function]
- *                  },
- *              convert [object]: {
- *                  array [function],
- *                  string [function],
- *                  objectToArray [function],
- *                  arrayToObject [function],
- *                  csvToObject [function]
- *                 },
- *              allowedItem [function],
- *              isEqual [function],
- *              setter [function],
- *              getter [function],
- *              error [function],
- *              is_running [function]
  * 
  */
 function utils() {
@@ -85,11 +92,11 @@ function utils() {
      * setter
      * 
      *
-     * @param { Object } setterObject
+     * @param { Object } [setterObject]
      * 
-     * @param { Object } values
+     * @param { Object } [values]
      * 
-     * @returns { }
+     * @returns { Object }
      * 
      */
     function setter(setterObject, values) {
@@ -107,9 +114,9 @@ function utils() {
      * getter
      * 
      *
-     * @param { Object } getterObject
+     * @param { Object } [getterObject]
      * 
-     * @param { String | Number | Array[String | Number] } args
+     * @param { String | Number | Array[String | Number] } [args]
      * 
      * @returns { Boolean }
      * 
@@ -134,9 +141,10 @@ function utils() {
     /**
      *
      *
-     * @param { Object } options
+     * @param { Object } [options]
      * 
      * @return { String } 
+     * 
      */
     function convertObjectToString(options) {
         if (typeof options === "object") {
@@ -156,9 +164,10 @@ function utils() {
     /**
      * Set/ Add the OS in the list of OS
      *
-     * @param { String } obj
+     * @param { String } [obj]
      * 
      * @return { Boolean } 
+     * 
      */
     function setOS(name) {
         return (typeof name === "string") ? osList.push(name) : false;
@@ -168,9 +177,10 @@ function utils() {
     /**
      * Check if OS in the list of OS
      * 
-     * @param { String } name
+     * @param { String } [name]
      * 
      * @return { Boolean } 
+     * 
      */
     function validOS(name) {
         return allowedListItem(osList, name, "string");
@@ -181,6 +191,7 @@ function utils() {
      * Get the OS of the current system
      * 
      * @return { String } 
+     * 
      */
     function getOS() {
         return os.type();
@@ -190,6 +201,7 @@ function utils() {
      * Get the OS Platform of the current system
      * 
      * @return { String } 
+     * 
      */
     function getPlatform() {
         return os.platform();
@@ -199,6 +211,7 @@ function utils() {
      * Get the OS Architecture of the current system
      * 
      * @return { String } 
+     * 
      */
     function getArch() {
         return os.arch();
@@ -211,6 +224,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function setExecutableOptionList(name) {
         return (typeof name === "string") ? executableOptionList.push(name) : false;
@@ -223,6 +237,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function validExecutableOptionList(name) {
         return allowedListItem(executableOptionList, name, "string");
@@ -234,6 +249,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function setProcessList(name) {
         return (typeof name === "string") ? processList.push(name) : false;
@@ -246,6 +262,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function validProcessList(name) {
         return allowedListItem(processList, name, "string");
@@ -257,6 +274,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function setValidProxyHandlers(name) {
         return (typeof name === "string") ? validProxyHandlers.push(name) : false;
@@ -269,6 +287,7 @@ function utils() {
      * @param { String } name
      * 
      * @return { Boolean } 
+     * 
      */
     function validValidProxyHandlers(name) {
         return allowedListItem(validProxyHandlers, name, "string");
@@ -317,6 +336,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { Array } 
+     * 
      */
     function createArray(options) {
         let arr = [], keys = Object.keys(options), klen = keys.length;
@@ -340,6 +360,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { Array } 
+     * 
      */
     function convertObjectToArray(options) {
         let arr = [];
@@ -491,6 +512,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { Object } file object
+     * 
      */
     function getFile(filename, options) {
         return fs.readFileSync(filename, { "encoding": "utf8", ...options, "flags": "rs" });
@@ -505,6 +527,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { Object } json object
+     * 
      */
     function getJSONFile(filename, options) {
         return JSON.parse(getFile(filename, options));
@@ -523,6 +546,7 @@ function utils() {
      * @param { String } [linebreak="\n"]
      * 
      * @return { Object } 
+     * 
      */
     function getCSVFile(filename, options, seperator = ",", linebreak = "\n", resulttype="array") {
         let str = getFile(filename, options);
@@ -563,7 +587,16 @@ function utils() {
         return setFile(filename, JSON.stringify(data), options);
     }
 
-
+    /**
+     *
+     *
+     * @param {*} filename
+     * 
+     * @param {*} pathname
+     * 
+     * @return {} 
+     * 
+     */
     function fileExists(filename, pathname) {
 
     }
@@ -578,6 +611,7 @@ function utils() {
      * Rest are all items (Generally should be of same size)
      * 
      * @return { Boolean } 
+     * 
      */
     function validateCSVStructure(csvarray) {
         return csvarray;
@@ -594,6 +628,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { } 
+     * 
      */
     function setCSVFile(filename, data, options) {
         return setFile(filename, data, options);
@@ -610,6 +645,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { } 
+     * 
      */
     function appendFile(filename, data, options) {
         return fs.appendFileSync(filename, data, { "encoding": "utf8", ...options, "flags": "a+" });
@@ -626,6 +662,7 @@ function utils() {
      * @param { String } [options={ "encoding": "utf8" }]
      * 
      * @return { } 
+     * 
      */
     function appendCSV(filename, data, options) {
         // return appendFile(filename, data, { ...options, "flags": "a+" })
@@ -643,6 +680,7 @@ function utils() {
      * @param { Object } options
      * 
      * @return { } 
+     * 
      */
     function appendJSON(filename, data, options) {
         return appendFile(filename, JSON.stringify({
@@ -694,7 +732,7 @@ function utils() {
 
 
     return {
-        shell: require('shelljs'),
+        shell: shellMod,
         executableOptions: {
             valid: validExecutableOptionList,
             set: setExecutableOptionList
