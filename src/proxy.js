@@ -10,6 +10,11 @@ const net = require("net");
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter, error = utils.error, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
+const socks = require("socks");
+const udpproxy = require("udp-proxy");
+const httpproxy = require("http-proxy");
+const socketproxy = require("socket-proxy");
+const http2socks = require("http-proxy-to-socks");
 
 
 /**
@@ -18,21 +23,28 @@ const setter = utils.setter, getter = utils.getter, error = utils.error, osList 
  * Proxy Management handler
  * 
  * 
- * @returns { Object } Proxy module functions
- *      Module Object ==> { Proxy Object }
+ * @returns { ProxyObject<{ 
+ *                  setup: setupHandler, init: undefined, 
+ *                  config: { 
+ *                      set: setConfig, 
+ *                      get: getConfig 
+ *                  }, 
+ *                  proxy: { 
+ *                      socks: socks, udp: udpproxy, http: httpproxy, 
+ *                      tcp: socketproxy, 
+ *                      redirect: { 
+ *                          http2socks: http2socks 
+ *                      }, 
+ *                      setup: setupProxy, 
+ *                      get: getProxy, 
+ *                      start: startProxy, 
+ *                      stop: stopProxy, 
+ *                      serve: serveProxy 
+ *                  } 
+ *           }> }
  * 
- *                 setup [function],
- *                 config [object]: {
- *                     set [function],
- *                     get [function]
- *                 },
- *                 proxy [object]: {
- *                     setup [function],
- *                     get [function],
- *                     start [function],
- *                     stop [function],
- *                     serve [function]
- *                 }
+ *      Proxy module functions.
+ *      Module Object ==> { ProxyObject }
  * 
  */
 function handler() {
@@ -49,9 +61,12 @@ function handler() {
      * setupHandler
      * 
      * 
-     * @param { String } name 
+     * @param { String } [name] 
      * 
-     * @param { Array } optionsObject 
+     * @param { Array } [optionsObject] 
+     * 
+     * @returns { Boolean } 
+     * Returns Boolean (true/false) based on whether the options have been set or not
      * 
      */
     function setupHandler(name, optionsObject) {
@@ -86,7 +101,6 @@ function handler() {
 
 
     /**
-     * REDO THIS
      * 
      * getConfig
      * 
@@ -94,8 +108,10 @@ function handler() {
      * @param { String | Array } args
      *      args is either single configuration string key or Array of keys to be fetched
      * 
-     * @returns { Object } configuration
-     *      configurations: configurations object
+     * @returns { Boolean | Object } configurationsObject
+     * 
+     *      configurations: configurations object.
+     * Returns all configurations objects based on passed args
      * 
      */
     function getConfig(args) {
@@ -104,20 +120,21 @@ function handler() {
 
 
     /**
-     * REDO THIS
      * 
      * setConfig
      * 
-     *
+     * 
      * @param { Object } options
      *      options is the an object of configuration with names of configuration as keys
      * 
-     * @returns { Boolean } 
+     * @returns { Boolean | Object } configurationsObject
+     * 
+     *      configurations: configurations object.
+     * Returns all configurations objects after the set is done
      * 
      */
     function setConfig(options) {
-        configurations = setter(configurations, options);
-        return configurations;
+        return setter(configurations, options);
     }
 
 
@@ -132,19 +149,19 @@ function handler() {
      *
      * @param { Object } config
      * 
-     * @returns { Boolean | Object }
-     * false / proxyInstance
+     * @returns { Boolean | Object } proxyInstance
+     * 
+     *      proxyInstance: proxy Instance Object.
+     * Returns proxyInstance Object / Boolean (false) based on whether proxy has been created or not
      * 
      */
     function startProxy(config) {
-        let proxy;
         try {
             if (!!config.stream || !!config.modify || !!config.runtime) {
-                proxy = new httpProxy();
+                return new httpProxy();
             } else {
-                proxy = httpProxy.createProxyServer(config.options);
+                return httpProxy.createProxyServer(config.options);
             }
-            return proxy;
         } catch (e) {
             return false;
         }
@@ -162,7 +179,9 @@ function handler() {
      *
      * @param { String | Object } proxy
      * 
-     * @returns { Boolean }
+     * @returns { Boolean } ?stopped
+     * 
+     * Returns if proxy has been stopped or not
      * 
      */
     function stopProxy(proxy) {
@@ -188,10 +207,12 @@ function handler() {
      * Avoid breaking change and add differentiator in config
      * 
      *
-     * @param { String } name
+     * @param { String } [name]
      * 
-     * @returns { Object }
-     * proxyInstance
+     * @returns { Boolean | Object } proxyInstance
+     * 
+     *      proxyInstance: proxy Instance Object.
+     * Returns proxyInstance Object / Boolean (false) based on whether proxy has been started or not
      * 
      */
     function serveProxy(name) {
@@ -225,13 +246,15 @@ function handler() {
      * Adding TCP, UDP, Socks Protocols for proxy.
      * Avoid breaking change and add differentiator in config
      *
-     * @param { String } name
+     * @param { String } [name]
      * 
-     * @param { Object } config
+     * @param { Object } [config]
      * 
-     * @param { Object } handlerFunctions
+     * @param { HandlerFunctions<{ eventname : (data) => any }> } [handlerFunctions]
      * 
-     * @returns { Boolean } 
+     * @returns { Boolean } ?setup
+     * 
+     * Returns Boolean (true/false) based on whether the Proxy has been fetched or not 
      * 
      */
     function setupProxy(name, config, handlerFunctions) {
@@ -265,11 +288,12 @@ function handler() {
      * getProxy
      * 
      * 
-     * @param  { String | Array } name 
-     * name / [name]
+     * @param  { String | Array } [name]
      * 
-     * @returns { Boolean | Object }
-     * false / ProxyInstance { proxy, config, handlers }
+     * @returns { Boolean | Object } proxyInstance
+     * 
+     *      proxyInstance: proxy Instance Object.
+     * Returns instance of proxy - ProxyInstance<{ proxy, config, handlers }> or Boolean (false) based on whether the Proxy has been fetched
      * 
      */
     function getProxy(name) {
@@ -286,15 +310,15 @@ function handler() {
             get: getConfig
         },
         proxy: {
-            socks: require("socks"),
-            udp: require("udp-proxy"),
-            http: require("http-proxy"),
-            tcp: require("socket-proxy"),
+            socks: socks,
+            udp: udpproxy,
+            http: httpproxy,
+            tcp: socketproxy,
             redirect: {
                 // wsevents2events: eventPatternfncs,
                 // http2events: eventPatternfncs
                 // http2messageProtocol: messagePatternfncs
-                http2socks: require("http-proxy-to-socks")
+                http2socks: http2socks
             },
             setup: setupProxy,
             get: getProxy,
