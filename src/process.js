@@ -283,7 +283,7 @@ function handler() {
             console.log(`Child process exited with code ${code}`);
             handlers(null, code);
         });
-        return spw;
+        return spw; 
     }
 
 
