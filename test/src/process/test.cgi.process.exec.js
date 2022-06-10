@@ -17,6 +17,7 @@ if (__dirname.toString().includes("src/process")) {
     var args = [path.join(__dirname, "./www/files/node/index.js")];
 }
 
+
 let proc = obj.process.exec("ls", [], {
     stdio: 'inherit',
     shell: true

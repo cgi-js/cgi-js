@@ -12,36 +12,36 @@ Add a middleware for
 
 const fileMod = require("./file");
 
-let md_express = function (req, res, next) {
+let fmd_express = function (req, res, next) {
 
     next();
 }
 
-let md_koa = function (ctx, next) {
+let fmd_koa = function (ctx, next) {
 
     next();
 }
 
-let md_nest = function (req, res, next) {
+let fmd_nest = function (req, res, next) {
 
     next();
 }
 
-let md_loopback = function (ctx, next) {
+let fmd_loopback = function (ctx, next) {
 
     next();
 }
 
-let _md_meteor = function () {
+let _fmd_meteor = function () {
 
 }
 
-let md_sails = function (req, res, next) {
+let fmd_sails = function (req, res, next) {
 
     next();
 }
 
-let md_totaljs = function ($) {
+let fmd_totaljs = function ($) {
     // https://docs.totaljs.com/total4/407ff001jy51c/#49a79001cp51c
     // NEWMIDDLEWARE(name, fn, [assign], [first]);
     // @name {String} The middleware name.
@@ -52,25 +52,75 @@ let md_totaljs = function ($) {
     $.next();
 }
 
-let md_hapi = function (req, h) {
+let fmd_hapi = function (req, h) {
     // https://stackoverflow.com/questions/31331606/how-can-i-add-a-middleware-in-my-route
     // server.ext('onRequest', function);
     return h.continue;
 }
 
-let md_feather = function (ctx) {
+let fmd_feather = function (ctx) {
     // https://docs.feathersjs.com/guides/basics/hooks.html
 
     return ctx;
 }
 
-let md_adonis = function (ctx, next) {
+let fmd_adonis = function (ctx, next) {
     // https://docs.adonisjs.com/guides/middleware
 
     next();
 }
 
+
+let pmd_express = function (req, res, next) {
+
+    next();
+}
+
+let pmd_koa = function (ctx, next) {
+
+    next();
+}
+
+let pmd_nest = function (req, res, next) {
+
+    next();
+}
+
+let pmd_loopback = function (ctx, next) {
+
+    next();
+}
+
+let _pmd_meteor = function () {
+
+}
+
+let pmd_sails = function (req, res, next) {
+
+    next();
+}
+
+let pmd_totaljs = function ($) {
+    
+    $.next();
+}
+
+let pmd_hapi = function (req, h) {
+    
+    return h.continue;
+}
+
+let pmd_feather = function (ctx) {
+    
+    return ctx;
+}
+
+let pmd_adonis = function (ctx, next) {
+    
+    next();
+}
+
 module.exports = {
-    "file": { express: md_express, koa: md_koa, nest: md_nest, loopback: md_loopback, sails: md_sails, totaljs: md_totaljs, hapi: md_hapi, feather: md_feather, adonis: md_adonis },
-    "proxy": {}
+    "file": { express: fmd_express, koa: fmd_koa, nest: fmd_nest, loopback: fmd_loopback, sails: fmd_sails, totaljs: fmd_totaljs, hapi: fmd_hapi, feather: fmd_feather, adonis: fmd_adonis },
+    "proxy": { express: pmd_express, koa: pmd_koa, nest: pmd_nest, loopback: pmd_loopback, sails: pmd_sails, totaljs: pmd_totaljs, hapi: pmd_hapi, feather: pmd_feather, adonis: pmd_adonis }
 }
