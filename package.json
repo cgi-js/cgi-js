@@ -16,7 +16,7 @@
     "demo-process": "node ./demo/demo-app/demo-processes.js",
     "demo-all": "node ./demo/demo-app/demo-all.js",
     "test": "mocha ./test/src",
-    "build:types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build:types": "npx -p typescript tsc ./index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "build:cgijs": "",
     "publish:cgijs": ""
   },

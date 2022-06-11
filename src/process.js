@@ -11,6 +11,7 @@ const path = require("path");
 const utils = require("./utils")();
 const setter = utils.setter, getter = utils.getter, error = utils.error, osList = utils.os, processList = utils.processes, executableOptionList = utils.executableOptions;
 
+/** @typedef { { name: String, exe: String, cmds: { generic: { exe: String, modulePath: String, file: String, usage: String, args: Array } }, process: Object, options: { stdio: String, shell: Boolean }, other: { paths: { conf: String, exe: String }, env: String, setprocess: Boolean, executetype: String, command: String  }, [keywordargs: string]: (data: any) => any } } ProcessConf  */
 
 /**
  * 
@@ -61,7 +62,8 @@ function handler() {
      * (name == processes) >>> {Object, Array} optionsObject
      * 
      * 
-     * @return { Boolean }
+     * @return { Boolean } ?isSetup
+     * 
      * Returns the boolean is the setupHandler set the value successfully
      * 
      */
@@ -136,6 +138,7 @@ function handler() {
      *      processNames is single or Array of ids
      * 
      * @returns { Boolean | Object } processes
+     * 
      * processes: processes list object
      * 
      */
@@ -161,6 +164,7 @@ function handler() {
      * - <subcommandObject>: { exe: [optional overide]String, usage: String, args: Array }
      * 
      * @returns { Boolean | Object } processes
+     * 
      * processes: processes list object
      * 
      */
@@ -184,6 +188,7 @@ function handler() {
      * @param { DataHandler<{ (error, stdout, stderr) => any }> } [dataHandler]
      * 
      * @return { Object } exec process object
+     * 
      * Executed exec Command process as result
      *
      */
@@ -209,6 +214,7 @@ function handler() {
      * @param { DataHandler<{ (error, stdout, stderr) => any }> } [dataHandler]
      * 
      * @return { Object } execFile process object
+     * 
      * Executed execFile process as result
      *
      */
@@ -236,6 +242,7 @@ function handler() {
      * @param { Handlers<{ (data) => any }> } [handlers]
      * 
      * @return { Object }  forked process object
+     * 
      * Executed Forked fork process as result
      *
      */
@@ -262,6 +269,7 @@ function handler() {
      * @param { Handlers<{ (data) => any }> } [handlers]
      * 
      * @return { Object } spawned process object
+     * 
      * Executed Spawned spawn process as result
      *
      */
@@ -283,7 +291,7 @@ function handler() {
             console.log(`Child process exited with code ${code}`);
             handlers(null, code);
         });
-        return spw; 
+        return spw;
     }
 
 
@@ -342,7 +350,7 @@ function handler() {
      * executeProcess
      * 
      *
-     * @param { Object } [processConf]
+     * @param { ProcessConf } [processConf]
      * Defines the process Object needed to start the process
      * Expected Structure: {  }
      * 
@@ -355,7 +363,19 @@ function handler() {
      * @param { { [eventname:string]: (data: any) => any } } [handlers]
      * { signal : Function, ... }
      * 
-     * @returns { Object } processConf
+     * @returns { ProcessConf<{ 
+     *          name: String, 
+     *          exe: String, 
+     *          cmds: { generic: { exe: String, modulePath: String, file: String, usage: String, args: Array } }, 
+     *          process: Object, 
+     *          options: { stdio: String, shell: Boolean }, 
+     *          other: { 
+     *              paths: { conf: String, exe: String }, 
+     *              env: String, setprocess: Boolean, 
+     *              executetype: String, command: String 
+     *          }, 
+     *          [keywordargs: string]: (data: any) => any
+     *      }> } [processConf]
      * 
      * { name: String, exe: String, cmds: { commandOject }, process: Object, options { shellOptions }, other: { otherOptions }, [... keyargs ...] }
      * 
@@ -492,7 +512,7 @@ function handler() {
      * 
      * @param { CleanupHandler<{ (options, prc) => any }> } [cleanupHandler]
      * 
-     * @return { Boolean | Object } processConf
+     * @return { Boolean | ProcessConf } processConf
      * 
      */
     function executeAction(name, action, dataHandler, cleanupHandler) {
@@ -760,7 +780,7 @@ function handler() {
      * 
      * @param { * | Number | String } [signal]
      * 
-     * @returns { Boolean | Object }
+     * @returns { Boolean | Error }
      * Boolean or Error object is returned
      * 
      */
