@@ -11,11 +11,14 @@
     "url": "https://github.com/ganeshkbhat/cgi-js.git"
   },
   "scripts": {
-    "split": "node ./demo/demo-app/demo-split.js",
-    "recursive": "node ./demo/demo-app/demo-recursive.js",
-    "process": "node ./demo/demo-app/demo-processes.js",
-    "all": "node ./demo/demo-app/demo-all.js",
-    "test": "mocha ./test/src"
+    "demo-split": "node ./demo/demo-app/demo-split.js",
+    "demo-recursive": "node ./demo/demo-app/demo-recursive.js",
+    "demo-process": "node ./demo/demo-app/demo-processes.js",
+    "demo-all": "node ./demo/demo-app/demo-all.js",
+    "test": "mocha ./test/src",
+    "build:types": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build:cgijs": "",
+    "publish:cgijs": ""
   },
   "main": "index.js",
   "types": "./index.d.ts",
