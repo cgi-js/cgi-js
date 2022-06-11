@@ -126,6 +126,7 @@ Modify:
 - [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
 - [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [TODO]
 - [] Add JSDoc compatible typing based documentation
+        ** https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
         ** https://jsdoc.app/tags-type.html
         ** https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler#type-expressions
 

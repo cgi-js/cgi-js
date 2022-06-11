@@ -294,7 +294,7 @@ function handler() {
      * 
      * @param { Object } [proc]
      * 
-     * @param { EventHandlers<{ eventname: (data) => any }> } [eventHandlers]
+     * @param { { [eventname:string]: (data: any) => any } } [eventHandlers]
      * 
      * { event : { data: dataObject, handler: eventHandlerFunction } }
      * 
@@ -352,7 +352,7 @@ function handler() {
      * 
      * @param { CleanupHandler<{ (options, prc) => any }> } [cleanupHandler]
      * 
-     * @param { Handlers<{ eventname: (data) => any }> } [handlers]
+     * @param { { [eventname:string]: (data: any) => any } } [handlers]
      * { signal : Function, ... }
      * 
      * @returns { Object } processConf

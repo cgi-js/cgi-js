@@ -17,6 +17,10 @@ const socketproxy = require("socket-proxy");
 const http2socks = require("http-proxy-to-socks");
 
 
+/** @typedef { { [eventname:string]: (data: any) => any } } HandlerFunctionsObject */
+/** @typedef {{ prop1: string, prop2: (data: any) => any, prop3?: number }} ExampleSpecialType */
+/** @typedef {(data: string, index?: number) => boolean} ExamplePredicate */
+
 /**
  * 
  * handler
@@ -246,11 +250,13 @@ function handler() {
      * Adding TCP, UDP, Socks Protocols for proxy.
      * Avoid breaking change and add differentiator in config
      *
+     * @type HandlerFunctionsObject 
+     * 
      * @param { String } [name]
      * 
      * @param { Object } [config]
      * 
-     * @param { HandlerFunctions<{ eventname : (data) => any }> } [handlerFunctions]
+     * @param { { [eventname:string]: (data: any) => any } } [handlerFunctions]
      * 
      * @returns { Boolean } ?setup
      * 
