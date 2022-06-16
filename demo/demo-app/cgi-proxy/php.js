@@ -52,8 +52,6 @@ function response(type, exeOptions) {
     };
 }
 
-// app.use("/p", response("php", { web_root_folder: "C:/Users/ganes/OneDrive/Documents/projects/github/workspace-cgi/packages/cgi-js/www/files/php", bin: "C:/Users/ganes/OneDrive/Documents/projects/github/workspace-cgi/packages/cgi-js/binaries/lang-php/win", config_path: "", host: configuration.server.host, port: configuration.server.port, cmd_options: {} }))
-
 // PHP File: Use bin as string
 app.use("/php", response('php', { web_root_folder: php_www, bin: php_bin, config_path: php_config, host: configuration.server.host, port: configuration.server.port, cmd_options: php_cmd_options }));
 // PHP File: Use bin as object definition
