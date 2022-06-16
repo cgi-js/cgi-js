@@ -218,7 +218,7 @@ The MIT License (MIT) - See [LICENSE](https://github.com/ganeshkbhat/cgi-js/blob
 
 
 Copyright © 2019 - till library works:
-    Ganesh B <ganeshsurfs@gmail.com>
+    Ganesh B <desktopcgi@gmail.com>
 
 
 #### Please support the development in github repository through 
