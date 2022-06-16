@@ -145,8 +145,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 This project contains example that demonstrates working with ExpressJS.
 
-- The demos for runing CGI/Interpreted scripts with node.js and express applications can be found in the folder [demo app](https://github.com/cgi-js/cgi-js/tree/master/demo/demo-app).
-- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/cgi-js/cgi-js/tree/master/demo/demo-usage)
+- The demos for runing CGI/Interpreted scripts with node.js and express applications can be found in the folder [demo app](https://github.com/cgi-js/cgi-js/tree/main/demo/demo-app).
+- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/cgi-js/cgi-js/tree/main/demo/demo-usage)
 
 
 ##### Use case:
@@ -154,7 +154,7 @@ This project contains example that demonstrates working with ExpressJS.
 [cgijs](https://www.npmjs.com/package/cgijs) library has been created to address following use cases:
     
 - working with CGI / interpreted languages from `any` Node.js app framework
-- using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/ganeshkbhat/desktop-cgi) app
+- using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/desktop-cgi/desktop-cgi) app
 
 
 # Technical Specifications
