@@ -23,7 +23,7 @@
 CGIJS was created with a motivation to allow creation of a `Desktop executable/ application` using `Electron` that can run any `CGI` / `Interpreted language scripted files/ applications` under the hood. 
 
 
-[![Desktop CGI](./desktop-cgi.jpeg)](https://github.com/ganeshkbhat/desktop-cgi)
+[![Desktop CGI](./desktop-cgi.jpeg)](https://github.com/desktop-cgi/desktop-cgi)
 
 
 # Installation
@@ -145,8 +145,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 This project contains example that demonstrates working with ExpressJS.
 
-- The demos for runing CGI/Interpreted scripts with node.js and express applications can be found in the folder [demo app](https://github.com/ganeshkbhat/cgi-js/tree/master/demo/demo-app).
-- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/ganeshkbhat/cgi-js/tree/master/demo/demo-usage)
+- The demos for runing CGI/Interpreted scripts with node.js and express applications can be found in the folder [demo app](https://github.com/cgi-js/cgi-js/tree/master/demo/demo-app).
+- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/cgi-js/cgi-js/tree/master/demo/demo-usage)
 
 
 ##### Use case:
@@ -207,14 +207,14 @@ This project contains example that demonstrates working with ExpressJS.
 
 # Todo
 
-Check [.todo](https://github.com/ganeshkbhat/cgi-js/blob/main/.todo) file for latest TODO list
+Check [.todo](https://github.com/cgi-js/cgi-js/blob/main/.todo) file for latest TODO list
 
 <!-- # References -->
 
 
 # License
 
-The MIT License (MIT) - See [LICENSE](https://github.com/ganeshkbhat/cgi-js/blob/main/LICENSE) for further details
+The MIT License (MIT) - See [LICENSE](https://github.com/cgi-js/cgi-js/blob/main/LICENSE) for further details
 
 
 Copyright © 2019 - till library works:
