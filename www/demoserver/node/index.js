@@ -19,6 +19,6 @@ function runweb(type, config) {
 
 // runweb("webws", { port: 3000 });
 // runweb("ws", { port: 3000 });
-runweb("web", { port: 3000 });
+runweb("web", { port: 9001 });
 
 // module.exports = runweb;

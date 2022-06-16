@@ -27,8 +27,10 @@ if (ostype === "Linux") {
     configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-mac.json'));
 }
 
-let pl_bin = configuration.pl.embed.bin
-let pl_www = configuration.pl.script.path
+let pl_bin = (typeof configuration.pl.embed.bin === "string") ? configuration.pl.embed.bin : configuration.pl.embed.bin.bin_path;
+let pl_www = configuration.pl.script.path;
+let pl_config = configuration.pl.embed.config.file;
+let pl_cmd_options = configuration.pl.script.options;
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -53,16 +55,16 @@ function response(type, exeOptions) {
 }
 
 // PLC File
-app.use("/plc", response('plc', { web_root_folder: pl_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/plc", response('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PLD File
-app.use("/pld", response('pld', { web_root_folder: pl_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pld", response('pld', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PL File
-app.use("/pl", response('pl', { web_root_folder: pl_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pl", response('pl', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PLC File with useDefault as false
-app.use("/plcnud", response('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/plcnud", response('plc', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? false : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PLD File with useDefault as false
-app.use("/pldnud", response('pld', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pldnud", response('pld', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? false : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PL File with useDefault as false
-app.use("/plnud", response('pl', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/plnud", response('pl', { web_root_folder: pl_www, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 
 module.exports = app;

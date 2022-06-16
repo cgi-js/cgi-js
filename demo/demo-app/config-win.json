@@ -1,8 +1,8 @@
 {
     "php": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "C:/Users/ganes/OneDrive/Documents/projects/github/workspace-cgi/packages/cgi-js/",
+            "bin": "binaries/lang-php/win",
             "config": {
                 "file": ""
             },
@@ -10,7 +10,7 @@
         },
         "script": {
             "type": "file",
-            "path": "./www/php/",
+            "path": "./www/files/php/",
             "server": {
                 "host": "",
                 "port": "",
@@ -21,13 +21,13 @@
                     "pem": ""
                 }
             },
-            "options": ""
+            "options": {}
         }
     },
     "py": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "C:\\Users\\ganes\\OneDrive\\Documents\\projects\\github\\workspace-cgi\\packages\\cgi-js\\",
+            "bin": "binaries\\lang-python\\win",
             "config": {
                 "file": ""
             },
@@ -35,7 +35,7 @@
         },
         "script": {
             "type": "server",
-            "path": "./www/py/",
+            "path": "./www/files/py/",
             "server": {
                 "host": "",
                 "port": "",
@@ -51,8 +51,8 @@
     },
     "pl": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "\\binaries\\lang-perl\\win",
+            "bin": "\\binaries\\lang-perl\\win",
             "config": {
                 "file": ""
             },
@@ -60,7 +60,7 @@
         },
         "script": {
             "type": "server",
-            "path": "./www/perl/",
+            "path": "./www/files/perl/",
             "server": {
                 "host": "",
                 "port": "",
@@ -76,8 +76,8 @@
     },
     "rb": {
         "embed": {
-            "path": "",
-            "bin": "",
+            "path": "C:\\Users\\ganes\\OneDrive\\Documents\\projects\\github\\workspace-cgi\\packages\\cgi-js\\",
+            "bin": "binaries\\lang-ruby\\win",
             "config": {
                 "file": ""
             },
@@ -85,7 +85,7 @@
         },
         "script": {
             "type": "server",
-            "path": "./www/ruby/",
+            "path": "./www/files/ruby/",
             "server": {
                 "host": "",
                 "port": "",

@@ -27,8 +27,10 @@ if (ostype === "Linux") {
     configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-mac.json'));
 }
 
-let py_bin = configuration.py.embed.bin
-let py_www = configuration.py.script.path
+let py_bin = (typeof configuration.py.embed.bin === "string") ? configuration.py.embed.bin : configuration.py.embed.bin.bin_path;
+let py_www = configuration.py.script.path;
+let py_config = configuration.py.embed.config.file;
+let py_cmd_options = configuration.py.script.options;
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -53,12 +55,12 @@ function response(type, exeOptions) {
 }
 
 // PYTHON File
-app.use("/py", response('py', { web_root_folder: py_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/py", response('py', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? true : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 // PYTHON3 File
-app.use("/py3", response('py3', { web_root_folder: py_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/py3", response('py3', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? true : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 // PYTHON File with useDefault as false
-app.use("/pynud", response('py', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pynud", response('py', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? false : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 // PYTHON3 File with useDefault as false
-app.use("/pynud3", response('py3', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pynud3", response('py3', { web_root_folder: py_www, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? false : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 
 module.exports = app;

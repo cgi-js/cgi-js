@@ -26,8 +26,10 @@ if (ostype === "Linux") {
     configuration = JSON.parse(fs.readFileSync('./demo/demo-app/config-mac.json'));
 }
 
-let ruby_bin = configuration.rb.embed.bin
-let ruby_www = configuration.rb.script.path
+let ruby_bin = (typeof configuration.rb.embed.bin === "string") ? configuration.rb.embed.bin : configuration.rb.embed.bin.bin_path;
+let ruby_www = configuration.rb.script.path;
+let ruby_config = configuration.rb.embed.config.file;
+let ruby_cmd_options = configuration.rb.script.options;
 
 function response(type, exeOptions) {
     var cgi = cgijs.init();
@@ -52,10 +54,10 @@ function response(type, exeOptions) {
 }
 
 // RB File
-app.use("/rb", response('rb', { web_root_folder: ruby_www, bin: ruby_bin, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/rb", response('rb', { web_root_folder: ruby_www, bin: ruby_bin, config_path: ruby_config, host: configuration.server.host, port: configuration.server.port, cmd_options: ruby_cmd_options }));
 // RB File
-app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: "", useDefault: true }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/rbud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: (typeof configuration.rb.embed.bin === "string") ? true : configuration.rb.embed.bin.useDefault }, config_path: ruby_config, host: configuration.server.host, port: configuration.server.port, cmd_options: ruby_cmd_options }));
 // RB File with useDefault as false
-app.use("/rbnud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/rbnud", response('rb', { web_root_folder: ruby_www, bin: { bin_path: ruby_bin, useDefault: (typeof configuration.rb.embed.bin === "string") ? false : configuration.rb.embed.bin.useDefault }, config_path: ruby_config, host: configuration.server.host, port: configuration.server.port, cmd_options: ruby_cmd_options }));
 
 module.exports = app;

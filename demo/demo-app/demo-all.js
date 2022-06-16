@@ -37,6 +37,17 @@ let rby = configuration.rb.script.path;
 let pl = configuration.pl.script.path;
 let py = configuration.py.script.path;
 
+let php_config = configuration.php.embed.config;
+let rby_config = configuration.rb.embed.config;
+let pl_config = configuration.pl.embed.config;
+let py_config = configuration.py.embed.config;
+
+let php_cmd_options = configuration.php.script.cmd_options;
+let rby_cmd_options = configuration.rb.script.cmd_options;
+let pl_cmd_options = configuration.pl.script.cmd_options;
+let py_cmd_options = configuration.py.script.cmd_options;
+
+
 let sport = 9090, shost = '127.0.0.1';
 
 let config = {
@@ -87,12 +98,13 @@ function proxyHandler(handler, configuration) {
         proxy.proxy.web(req, res)
     }
 }
+
 let h = cgijs.proxy();
 app.use("/proxyone", proxyHandler(h, config));
 
 
 function response(type, exeOptions) {
-    
+
     return function (req, res) {
         let cgi = cgijs.init();
         // console.log("test", req)
@@ -106,11 +118,11 @@ function response(type, exeOptions) {
             headers: req.headers
         }
 
-        cgi.serve(type, requestObject, exeOptions).then(function(result) {
+        return cgi.serve(type, requestObject, exeOptions).then(function (result) {
             console.log("Result Fn", result)
             result.statusCode = (!result.statusCode) ? 200 : result.statusCode;
             res.status(result.statusCode).send(result.response);
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log("Error Fn", error)
             error.statusCode = (!error.statusCode) ? 500 : error.statusCode;
             res.status(error.statusCode).send(error.response);
@@ -120,45 +132,45 @@ function response(type, exeOptions) {
 
 
 // PHP File: Use bin as string
-app.use("/php", response('php', { web_root_folder: php, bin: php_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/php", response('php', { web_root_folder: php, bin: php_bin, config_path: php_config, host: shost, port: sport, cmd_options: php_cmd_options }));
 // PHP File: Use bin as object definition
-app.use("/phpud", response('php', { web_root_folder: php, bin: { bin_path: '', useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/phpud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: (typeof configuration.php.embed.bin === "string") ? true : configuration.php.embed.bin.useDefault }, config_path: php_config, host: shost, port: sport, cmd_options: php_cmd_options }));
 // PHP File: Use bin as Object definition with useDefault false
-app.use("/phpnud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/phpnud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: (typeof configuration.php.embed.bin === "string") ? false : configuration.php.embed.bin.useDefault }, config_path: php_config, host: shost, port: sport, cmd_options: php_cmd_options }));
 // PHP File: Use bin as Object definition with useDefault true
-app.use("/phpdud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/phpdud", response('php', { web_root_folder: php, bin: { bin_path: php_bin, useDefault: (typeof configuration.php.embed.bin === "string") ? true : configuration.php.embed.bin.useDefault }, config_path: php_config, host: shost, port: sport, cmd_options: php_cmd_options }));
 
 
 // RB File
-app.use("/rb", response('rb', { web_root_folder: rby, bin: rby_bin, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/rb", response('rb', { web_root_folder: rby, bin: rby_bin, config_path: rby_config, host: shost, port: sport, cmd_options: rby_cmd_options }));
 // RB File
-app.use("/rbud", response('rb', { web_root_folder: rby, bin: { bin_path: rby_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/rbud", response('rb', { web_root_folder: rby, bin: { bin_path: rby_bin, useDefault: (typeof configuration.rb.embed.bin === "string") ? true : configuration.rb.embed.bin.useDefault }, config_path: rby_config, host: shost, port: sport, cmd_options: rby_cmd_options }));
 // RB File with useDefault as false
-app.use("/rbnud", response('rb', { web_root_folder: rby, bin: { bin_path: rby_bin, useDefault: false }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/rbnud", response('rb', { web_root_folder: rby, bin: { bin_path: rby_bin, useDefault: (typeof configuration.rb.embed.bin === "string") ? true : configuration.rb.embed.bin.useDefault }, config_path: rby_config, host: shost, port: sport, cmd_options: rby_cmd_options }));
 
 
 // PLC File
-app.use("/plc", response('plc', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/plc", response('plc', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: shost, port: sport, cmd_options: pl_cmd_options }));
 // PLD File
-app.use("/pld", response('pld', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/pld", response('pld', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: shost, port: sport, cmd_options: pl_cmd_options }));
 // PL File
-app.use("/pl", response('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/pl", response('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? true : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: shost, port: sport, cmd_options: pl_cmd_options }));
 // PLC File with useDefault as false
-app.use("/plcnud", response('plc', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/plcnud", response('plc', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? false : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PLD File with useDefault as false
-app.use("/pldnud", response('pld', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pldnud", response('pld', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? false : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 // PL File with useDefault as false
-app.use("/plnud", response('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/plnud", response('pl', { web_root_folder: pl, bin: { bin_path: pl_bin, useDefault: (typeof configuration.pl.embed.bin === "string") ? false : configuration.pl.embed.bin.useDefault }, config_path: pl_config, host: configuration.server.host, port: configuration.server.port, cmd_options: pl_cmd_options }));
 
 
 // PYTHON File
-app.use("/py", response('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/py", response('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? true : configuration.py.embed.bin.useDefault }, config_path: py_config, host: shost, port: sport, cmd_options: py_cmd_options }));
 // PYTHON3 File
-app.use("/py3", response('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: true }, config_path: '', host: shost, port: sport, cmd_options: {} }));
+app.use("/py3", response('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? true : configuration.py.embed.bin.useDefault }, config_path: py_config, host: shost, port: sport, cmd_options: py_cmd_options }));
 // PYTHON File with useDefault as false
-app.use("/pynud", response('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pynud", response('py', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? false : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 // PYTHON3 File with useDefault as false
-app.use("/pynud3", response('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: false }, config_path: '', host: configuration.server.host, port: configuration.server.port, cmd_options: {} }));
+app.use("/pynud3", response('py3', { web_root_folder: py, bin: { bin_path: py_bin, useDefault: (typeof configuration.py.embed.bin === "string") ? false : configuration.py.embed.bin.useDefault }, config_path: py_config, host: configuration.server.host, port: configuration.server.port, cmd_options: py_cmd_options }));
 
 
 app.use("*", function (req, res) {
@@ -168,14 +180,14 @@ app.use("*", function (req, res) {
 });
 
 
-let server = app.listen(sport, shost, function() {
+let server = app.listen(sport, shost, function () {
     console.log(`Server listening at ${sport}!`);
 });
 
-process.on("SIGINT", function() {
-    remoteProxy.server.close(function() {
+process.on("SIGINT", function () {
+    remoteProxy.server.close(function () {
         console.log("Closing remote proxy server");
-        server.close(function() {
+        server.close(function () {
             console.log("Closing server");
             process.exit(1);
         });
