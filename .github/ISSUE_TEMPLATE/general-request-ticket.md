@@ -1,5 +1,5 @@
 ---
-name: Request ticket
+name: General Request ticket
 about: Suggest any other than issue or bug or feature or idea for this project
 title: "[REQUEST] Request summary"
 labels: ''
