@@ -226,5 +226,6 @@ Copyright © 2019 - till library works:
     - testing,
     - issue reporting,
     - contribution
-    - Please use these [styles](https://github.com/cgi-js/cgi-js/issues/13) for contributions
+    
+Please use these [styles](https://github.com/cgi-js/cgi-js/issues/13) for contributions
 
