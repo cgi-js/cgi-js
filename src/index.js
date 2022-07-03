@@ -16,7 +16,7 @@ const middlewaresMod = require("./middlewares");
 module.exports = {
     // .init - Backward compatibility [Remove in next version]
     "init": fileMod.serve,
-    "file": fileMod,
+    "file": fileMod.serve,
     "proxy": proxyMod,
     "process": processMod,
     "utils": utilsMod,

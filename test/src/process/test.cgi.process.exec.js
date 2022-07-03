@@ -10,12 +10,11 @@ const { json } = require("express");
 const eventEmitter = new events.EventEmitter();
 
 
-
-if (__dirname.toString().includes("src/process")) {
-    var args = [path.join(__dirname, "../../../www/files/node/index.js")];
-} else {
-    var args = [path.join(__dirname, "./www/files/node/index.js")];
-}
+// if (__dirname.toString().includes("src/process")) {
+//     var args = [path.join(__dirname, "../../../www/files/node/index.js")];
+// } else {
+//     var args = [path.join(__dirname, "./www/files/node/index.js")];
+// }
 
 
 let proc = obj.process.exec("ls", [], {
@@ -23,10 +22,19 @@ let proc = obj.process.exec("ls", [], {
     shell: true
 }, (error, stdout, stderr) => {
     console.log("Starting Tests for test.cgi.process.exec")
+    assert(stdout.includes(".todo"), 'stdout.includes(".todo")')
     assert(stdout.includes("test.cgi.process.exec"), 'stdout.includes("test.cgi.process.exec")')
-    assert(stdout.includes("test.cgi.process.executeAction"), 'stdout.includes("test.cgi.process.executeAction")')
+    assert(stdout.includes("test.cgi.process.fork"), 'stdout.includes("test.cgi.process.fork")')
     assert(stdout.includes("test.cgi.process.execFile"), 'stdout.includes("test.cgi.process.execFile")')
-    assert(stdout.includes("test.cgi.process.execProcess"), 'stdout.includes("test.cgi.process.execProcess")')
     console.log("Ending Tests: with above failure test.cgi.process.exec")
-})
+});
 
+
+let procs = obj.process.exec("node", ["--version"], {
+    stdio: 'inherit',
+    shell: true
+}, (error, stdout, stderr) => {
+    console.log("Starting Second Tests for test.cgi.process.exec")
+    assert(stdout.toString().includes("v"), 'stdout.includes("stdout.toString().includes("v")")')
+    console.log("Ending Second Tests: with above failure test.cgi.process.exec")
+});

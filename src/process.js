@@ -280,7 +280,7 @@ function handler() {
         let datah, datar, err, closer;
 
         spw.on('data', function (data) {
-            console.log('Data Event to start subprocess.');
+            // console.log('Data Event to start subprocess.');
             datah = dataHandler(null, data, null);
         }.bind(null, datah));
         spw.on('error', function (err) {
@@ -288,7 +288,10 @@ function handler() {
             err = dataHandler(err, null, null);
         }.bind(null, err));
         spw.on('close', function (code) {
-            console.log(`Child process exited with code ${code}`);
+            // console.log(`Child process exited with code ${code}`);
+            if (typeof handlers !== "function") {
+                handlers = (a, c) => { /* console.log(a, c); */ }
+            }
             handlers(null, code);
         });
         return spw;
@@ -421,12 +424,22 @@ function handler() {
                     // If cmds[cmd].exe is present, it takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
-                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
+
+                    // NEW
+                    executable = path.join((!!other.paths["exe"]) ? other.paths.exe : "", cmds[other.command]["exe"] ? cmds[other.command]["exe"] : (!!cmds[other.command].usage) ? cmds[other.command].usage : (!!cmds.exe) ? cmds.exe : undefined);
+
+                    // Deprecating Usage
+                    // executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["exe"]) ? cmds[other.command]["exe"] : (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
                     usage = "";
                 } else {
                     // If cmds[cmd].exe is not present, cmds[cmd].usage takes presidence
                     // If cmds[cmd].exe is not present, cmds[cmd].usage is not present, conf.exe takes presidence
-                    executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
+
+                    // NEW
+                    executable = path.join((!!other.paths["exe"]) ? other.paths.exe : "", (!!cmds[other.command].usage) ? cmds[other.command].usage : (!!cmds.exe) ? cmds.exe : undefined);
+
+                    // Deprecating Usage
+                    // executable = path.join(!!other.paths["exe"] ? other.paths.exe : "", (!!cmds[other.command]["usage"]) ? cmds[other.command]["usage"] : exe);
                     usage = "";
                 }
             }

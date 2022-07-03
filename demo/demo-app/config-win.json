@@ -1,19 +1,27 @@
 {
     "php": {
         "embed": {
-            "path": "C:/Users/ganes/OneDrive/Documents/projects/github/workspace-cgi/packages/cgi-js/",
-            "bin": "binaries/lang-php/win",
+            "path": "C:\\Users\\ganes\\OneDrive\\Documents\\projects\\github\\workspace-cgi\\packages\\cgi-js\\",
+            "bin": "binaries\\lang-php\\win",
             "config": {
+                "argument": "-c",
+                "seperator": " ",
                 "file": ""
             },
-            "options": ""
+            "options": {
+                "-c": {
+                    "seperator": " ",
+                    "value": ""
+                }
+            }
         },
         "script": {
             "type": "file",
-            "path": "./www/files/php/",
+            "file": "info.php",
+            "path": "./www/files/php",
             "server": {
-                "host": "",
-                "port": "",
+                "host": "localhost",
+                "port": 3001,
                 "username": "",
                 "password": "",
                 "ssl": {
@@ -21,7 +29,8 @@
                     "pem": ""
                 }
             },
-            "options": {}
+            "options": "-d expose_php=off",
+            "seperator": " "
         }
     },
     "py": {

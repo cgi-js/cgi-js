@@ -11,65 +11,479 @@ Move from child_process spawn to child_process exec - L2 (Next version)
 
 /* eslint no-console: 0 */
 const process = require('process');
+const { env } = require('process');
 const child = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const shell = require('shelljs');
+const { resolve } = require('path');
+
 const utils = require('./utils')();
+const processModule = require("./process")();
 const setter = utils.setter, getter = utils.getter, error = utils.error;
 
 
-function handler() {
+/**
+ * execute
+ * Alternate Process based CGI execution Model for CGI Module
+ *
+ * @return {FileModuleObject} 
+ */
+function execute() {
+	let ruby = "ruby", perl = "perl", python = "python", php = "php", phpCgi = "php-cgi", node = "node", cgi = "cgi", deno = "deno", ts = "tsc";
+	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
 
+	/** @type {LangOptionsObject<[key: String]: String>} */
 	let langOptionsObject = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
+
+
+	/** @type {LanguageOptionsObject< [key: String] : LangOptionsObject<Object> >} */
 	let LANG_OPTS = {
-		"rb": { "name": "ruby", "cgi": "ruby", "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
-		"pl": { "name": "perl", "cgi": "perl", "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
-		"plc": { "name": "perl", "cgi": "perl", "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
-		"pld": { "name": "perl", "cgi": "perl", "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
+		"rb": { "name": "ruby", "cgi": ruby, "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+		"pl": { "name": "perl", "cgi": perl, "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
+		"plc": { "name": "perl", "cgi": perl, "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
+		"pld": { "name": "perl", "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
 		"py3": { "name": "python3", "cgi": ((process.platform === "win32") ? 'python' : 'python3'), "which": "", "type": "py", "pattern": /.*?\.py$/ },
-		"py": { "name": "python", "cgi": "python", "which": "", "type": "py", "pattern": /.*?\.py$/ },
-		"php": { "name": "php", "cgi": "php" + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
-		"node": { "name": "node", "cgi": "node", "which": "", "type": "node", "pattern": /.*?\.js$/ }
+		"py": { "name": "python", "cgi": python, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"php": { "name": "php", "cgi": php, "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"php-cgi": { "name": "php-cgi", "cgi": phpCgi, "which": "", "type": "php-cgi", "pattern": /.*?\.php$/ },
+		"node": { "name": "node", "cgi": node, "which": "", "type": "node", "pattern": /.*?\.js$/ },
+		"deno": { "name": "deno", "cgi": deno, "which": "", "type": "deno", "pattern": /.*?\.ts$/ },
+		"ts": { "name": "ts", "cgi": ts, "which": "", "type": "ts", "pattern": /.*?\.ts$/ },
+		"cgi": { "name": "cgi", "cgi": cgi, "which": "", "type": "cgi", "pattern": /.*?\.cgi$/ }
 	}
 
-	function getEnvironment() {} // backward compatibility [remove/modify in next version]
-	function getVariables() {} // backward compatibility [remove/modify in next version]
-	function getBinPath(){}
-	function setBinPath(){}
-	
-	function setCGIType() {}
-	function getCGIType() {}
-	function setCGI(){}
-	function getCGI(){}
 
-	function cleanPath(exeOptions) {} // backward compatibility [remove in next version]
-	function getPHPHtml(lines) {} // backward compatibility [remove/modify in next version]
-	function getCGIHtml(lines) {} // backward compatibility [remove/modify in next version]
+	/**
+	 * getEnvironment
+	 * 
+	 *
+	 * @param {RequestObject<{ url: String, originalUrl: String, query: String, method: String, body: String, ip: String, headers: String }>} request
+	 * @param {String} host
+	 * @param {Number} port
+	 * @return {Object} EnvironmentVariableObject
+	 */
+	function getEnvironment(request, host, port) {
+		return {
+			SERVER_SIGNATURE: 'DesktopCGI: NodeJS server at localhost',
+			PATH_INFO: request.pathinfo,
+			PATH_TRANSLATED: '',
+			SCRIPT_NAME: request.url.pathname,
+			SCRIPT_FILENAME: request.file,
+			REQUEST_FILENAME: request.file,
+			SCRIPT_URI: request.file,
+			URL: request.originalUrl,
+			SCRIPT_URL: request.url.originalUrl,
+			REQUEST_URI: request.url.originalUrl,
+			REQUEST_METHOD: request.method,
+			QUERY_STRING: request.query || '',
+			CONTENT_TYPE: request.headers['Content-Type'] || '',
+			CONTENT_LENGTH: request.headers['Content-Length'] || 0,
+			AUTH_TYPE: '',
+			AUTH_USER: '',
+			REMOTE_USER: '',
+			ALL_HTTP: Object.keys(request.headers).map(function (x) {
+				return 'HTTP_' + x.toUpperCase().replace('-', '_') + ': ' + request.headers[x];
+			}).reduce(function (a, b) {
+				return a + b + '\n';
+			}, ''),
+			ALL_RAW: Object.keys(request.headers).map(function (x) {
+				return x + ': ' + request.headers[x];
+			}).reduce(function (a, b) {
+				return a + b + '\n';
+			}, ''),
+			SERVER_SOFTWARE: 'NodeJS',
+			SERVER_NAME: 'localhost',
+			SERVER_ADDR: host,
+			SERVER_PORT: port,
+			GATEWAY_INTERFACE: 'CGI/1.1',
+			SERVER_PROTOCOL: '',
+			REMOTE_ADDR: request.ip || '',
+			REMOTE_PORT: '',
+			DOCUMENT_ROOT: '',
+			INSTANCE_ID: '',
+			APPL_MD_PATH: '',
+			APPL_PHYSICAL_PATH: '',
+			IS_SUBREQ: '',
+			REDIRECT_STATUS: 1
+		};
+	}
 
-	function validateObject(){}
-	
-	function executeCGI(){}
-	function runCGI(){}
-	function serve(){}
+
+	/**
+	 * getBinPath
+	 *
+	 * @param {ExecuteOptions<{ name: String, type: String, os: String, exe: String, cmds: Object<{ run: Object<{ exe: String, usage: String, args: String[] }> }>, options: Object<{ stdio: String, shell: Boolean }>, other: Object<{ paths: Object<{ conf: String, exe: String }>, env: Object, setprocess: Boolean, executetype: String, command: String }> }>} exeOptions
+	 * @return {String | Boolean} WHICH_CGI
+	 */
+	function getBinPath(exeOptions) {
+		if (typeof exeOptions.bin === "string") {
+			/*
+			 * Return bin string
+			*/
+			return exeOptions.bin;
+		} else if (typeof exeOptions.bin === "object") {
+			if (!!exeOptions.bin.bin_path && exeOptions.bin.bin_path.trim() !== "") {
+				/*
+				 * Return bin.bin_path string from .bin object
+				*/
+				return exeOptions.bin.bin_path;
+			}
+		}
+		try {
+			/*
+			 * Return which .cgi string
+			*/
+			return shell.which(exeOptions.cgi);
+		} catch (e) {
+			/*
+			 * Invoke error and return Falsy Boolean
+			*/
+			error("getBinPath: bin path config type definition error " + e.toString(), false);
+			return false;
+		}
+	}
+
+
+	/**
+	 * setCGI
+	 *
+	 * @param {ExecuteOptions<{ name: String, type: String, os: String, exe: String, cmds: Object<{ run: Object<{ exe: String, usage: String, args: String[] }> }>, options: Object<{ stdio: String, shell: Boolean }>, other: Object<{ paths: Object<{ conf: String, exe: String }>, env: Object, setprocess: Boolean, executetype: String, command: String }> }>} exeOptions
+	 * @return {Boolean} boolean
+	 */
+	function setCGI(exeOptions) {
+		try {
+
+			/**
+			 * Key elements name, cgi, bin, type, pattern from
+			 * 		ExecuteOptions<Object>
+			 */
+			let { name, cgi, bin, type, pattern } = exeOptions;
+
+			/*
+			 * Throw error even if one key is not defined
+			 */
+			if (!name && !cgi && !bin && !type && !pattern) {
+				throw new Error("setCGI: All properties not defined");
+			}
+
+			/** @type {WHICH_CGI<String>} */
+			let WHICH_CGI;
+			if (typeof exeOptions.bin === "string") {
+				/*
+				 * .which for .bin string cgi
+				 */
+				WHICH_CGI = shell.which(bin, cgi);
+			} else if (typeof exeOptions.bin === "object" && !!bin.bin_path) {
+				/*
+				 * .which for .bin.bin_path string cgi
+				 */
+				WHICH_CGI = shell.which(bin.bin_path, cgi);
+			} else {
+				/*
+				 * .which for default installed cgi
+				 */
+				WHICH_CGI = shell.which(cgi);
+			}
+
+			/** @type {*} */
+			let options = { name: name, cgi: cgi, bin: bin, which: WHICH_CGI, type: type, pattern: pattern };
+
+			/** @type {*} */
+			let set = utils.setter(LANG_OPTS, options);
+
+			/*
+			 * Set LANG_OPTS if the setter worked
+			 */
+			if (!!set) { LANG_OPTS = set };
+
+			/*
+			 * Return Truthy Boolean after setter
+			*/
+			return true;
+		} catch (e) {
+			/*
+			 * Invoke error and return Falsy Boolean if any of above operations failed
+			*/
+			error("setCGI: CGI Executable fetch error" + e.toString(), false);
+			return false;
+		}
+	}
+
+
+	/**
+	 * getCGI
+	 *
+	 * @param {String} type
+	 * @return {LangOptionsObject} LanguageOptionsType
+	 */
+	function getCGI(type) {
+		/*
+		 * Get type of CGI from LANG_OPTS
+		 */
+		return getter(LANG_OPTS, type);
+	}
+
+
+	/**
+	 * getType
+	 * 
+	 * @param {*} type
+	 * @return {*} 
+	 */
+	function getType(type) {
+		return (!!getter(LANG_OPTS, type)) ? type : false;
+	}
+
+
+	/**
+	 * fileExists
+	 *
+	 * @param {String} type
+	 * @param {ExecuteOptions <{ name: String, type: String, os: String, exe: String, cmds: Object<{ run: Object<{ exe: String, usage: String, args: String[] }> }>, options: Object<{ stdio: String, shell: Boolean }>, other: Object<{ paths: Object<{ conf: String, exe: String }>, env: Object, setprocess: Boolean, executetype: String, command: String }> }>} exeOptions
+	 * @return {Promise} FilePathStringPromise
+	 */
+	function fileExists(type, exeOptions) {
+		return new Promise(async function (resolve, reject) {
+			/**
+			 * 
+			 * @param {String} f 
+			 */
+			let feFn = function (f) {
+				(!!f) ? resolve(f) : reject(f);
+			}
+
+			try {
+
+				/** @type {*} */
+				let file = path.join((!!exeOptions.embed.path) ? exeOptions.embed.path : "", (!!exeOptions.script.path) ? exeOptions.script.path : "", (!!exeOptions.script.file) ? exeOptions.script.file : "");
+
+				/** @type {*} */
+				let statsObj = fs.statSync(file);
+
+				/*
+				 * Check if the file is a directory
+				 */
+				if (statsObj.isDirectory()) {
+					feFn(path.join(exeOptions.web_root_folder, 'index.' + type));
+				}
+
+				/**
+				 * Resolve file path being present
+				*/
+				feFn(file);
+			} catch (e) {
+				/**
+				 * Reject file path being present
+				*/
+				feFn(false);
+			}
+		});
+	}
+
+
+	/**
+	 * processExecute
+	 *
+	 * @param {ExecuteOptions <{ name: String, type: String, os: String, exe: String, cmds: Object<{ run: Object<{ exe: String, usage: String, args: String[] }> }>, options: Object<{ stdio: String, shell: Boolean }>, other: Object<{ paths: Object<{ conf: String, exe: String }>, env: Object, setprocess: Boolean, executetype: String, command: String }> }>} config
+	 * @param {DataHandlerObject<{ (error: any, stdout: any, stderr: any) => any }>} datahandler
+	 * @param {CloseHandlerObject<{ (options: any, proc: any) => any }>} closehandler
+	 * @return {Promise} ProcessObjectPromise
+	 */
+	function processExecute(config, datahandler, closehandler, exithandler) {
+		return new Promise(function (resove, reject) {
+			/**
+			 * dataHandler
+			 *
+			 * @param {*} error
+			 * @param {*} stdout
+			 * @param {*} stderr
+			 */
+			function dataHandler(error, stdout, stderr) {
+				// let result = (!!datahandler) ? datahandler(error, stdout, stderr) : null;
+				resolve(stdout);
+			};
+
+			/**
+			 * closeHandler
+			 *
+			 * @param {*} options
+			 * @param {*} proc
+			 */
+			function closeHandler(options, proc) {
+				let result = (!!closehandler) ? closehandler(options, proc) : null;
+			}
+
+			if (!exithandler) {
+				exithandler = (arguments) => {  }
+			}
+
+			/** @type {Action<String>} */
+			let action = (!!config.other) ? (!!config.other.command) ? config.other.command : "generic" : "generic";
+
+			/** @type {CloseEventList<String[]>} */
+			let evt = [`close`, `end`, `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
+
+			let evtLen = evt.length;
+
+			/*
+			 * Register listeners for close, exit, and kill
+			 */
+			for (let i = 0; i < evtLen; i++) {
+				process.on(evt[i], exithandler);
+			}
+
+			config["other"]["command"] = action;
+			return processModule.process.executeProcess(config, dataHandler, closeHandler);
+		});
+	}
+
+
+	/**
+	 * serve
+	 * 
+	 * 
+	 * @param {String} type
+	 * @param {RequestObject <{ url: String, originalUrl: String, query: String, method: String, body: String, ip: String, headers: String }>} requestObject
+	 * @param {ExecuteOptions <{ name: String, type: String, os: String, exe: String, cmds: Object<{ run: Object<{ exe: String, usage: String, args: String[] }> }>, options: Object<{ stdio: String, shell: Boolean }>, other: Object<{ paths: Object<{ conf: String, exe: String }>, env: Object, setprocess: Boolean, executetype: String, command: String }> }>} exeOptions
+	 * @return {Promise} CGIResponseObjectPromise
+	 */
+	function serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler) {
+		return new Promise(function (resolve, reject) {
+
+			if (!exithandler) {
+				exithandler = (arguments) => {  }
+			}
+
+			/**
+			 * Fetching and Throwing error if CGI Type is not defined
+			 */
+			try {
+				type = getType(type);
+			} catch (e) {
+				reject({ headers: {}, response: e.toString() || "Error in Environments or Path", statusCode: 500 });
+			}
+
+			/**
+			 * Fetching and Setting if CGI is not registered
+			 * Throwing error if CGI Executable is not set
+			 */
+			if (!getCGI(type)) {
+				if (!setCGI(exeOptions)) {
+					throw new Error("filejs: Error setting file");
+				};
+			}
+
+			/**
+			 * Executing fileExists function with arguments
+			 * 		type, exeOptions
+			*/
+			fileExists(type, exeOptions).then(function (f) {
+				/**
+				 * CGI file (f)
+				 */
+				if (!f) {
+					reject({ headers: {}, response: "serve: File serve promise error: 1 ", statusCode: 500 });
+				}
+
+				/**
+				 * CGI Config template
+				 */
+				let config = require("./templatespawn");
+
+				/**
+				 * CGI Executable Options
+				 */
+				let config_options;
+
+				/**
+				 * CGI Command Executable Options
+				 */
+				let cmd_options;
+
+				/** 
+				 * Creating a string config's options commandline for the CGI executable
+				 * The user decides to combine both CGI Configs options and Commandline Options into one
+				 * Leaving this optional for the user to decide
+				*/
+				if (typeof exeOptions.embed.options === "object") {
+					let j = Object.keys(exeOptions.embed.options);
+					config_options = "";
+					for (let i = 0; i < j.length; i++) {
+						config_options += [j[i], exeOptions.embed.options[j[i]].seperator, exeOptions.embed.options[j[i]].value].join(exeOptions.script.seperator);
+					}
+				}
+
+				/** 
+				 * Creating a string execution command line's options for the CGI executable
+				 * The user decides to combine both CGI Configs options and Commandline Options into one
+				 * Leaving this optional for the user to decide
+				 * 
+				*/
+				if (typeof exeOptions.script.options === "object") {
+					let k = Object.keys(exeOptions.script.options);
+					cmd_options = "";
+					for (let i = 0; i < k.length; i++) {
+						cmd_options += [k[i], exeOptions.script.options[k[i]].seperator, exeOptions.script.options[k[i]].value].join(exeOptions.script.seperator);
+					}
+				} else if (typeof exeOptions.script.options === "string") {
+					cmd_options = exeOptions.script.options;
+				}
+
+				/** 
+				 * Assigning name, and cmd.exe, cmd.args value for
+				 * 		the config of CGI executable
+				*/
+				config["name"] = "";
+				config["cmds"][config.other.command] = {
+					"exe": path.join(exeOptions.embed.bin, type),
+					"args": [config_options, cmd_options, path.join(exeOptions.embed.path, exeOptions.script.path, exeOptions.script.file)]
+				};
+
+				/** 
+				 * Assigning other.paths.conf, other.paths.exe, and other.paths.env value for
+				 * 		the config.other of CGI executable
+				*/
+				config.other.paths.conf = exeOptions.embed.config.argument + exeOptions.embed.config.seperator + exeOptions.embed.config.file;
+				config.other.paths.exe = exeOptions.embed.path || "";
+				config.other["env"] = getEnvironment(requestObject, exeOptions.script.server.host, exeOptions.script.server.port);
+
+				/**
+				 * CGI execution with arguments of 
+				 * 		requestObject, exeOptions, config
+				 */
+				return processExecute(config, datahandler, closehandler).then(function (r) {
+					/** 
+					 * Resolving Result
+					*/
+					resolve(r);
+				}).catch(function (e) {
+					/** 
+					 * Rejecting error of executeCGI
+					*/
+					reject({ headers: {}, response: "serve: File serve promise error: 2 " + e.toString(), statusCode: 500 });
+				});
+			}).catch(function (e) {
+				/** 
+				 * Rejecting error of fileExists
+				*/
+				reject({ headers: {}, response: "serve: File serve promise error: 3 " + e.toString(), statusCode: 500 });
+			});
+		});
+	}
+
 
 	return {
 		setter: {
-			cgi: setCGI,
-			which: setCGI, // backward compatibility [remove in next version]
-			type: setCGIType,
-			bin: setBinPath
+			cgi: setCGI
 		},
 		getter: {
 			cgi: getCGI,
-			which: getCGI, // backward compatibility [remove in next version]
-			type: getCGIType,
 			bin: getBinPath,
-			vars: getEnvironment, // backward compatibility [remove in next version]
-			env: getVariables, // backward compatibility [remove in next version]
+			env: getEnvironment
 		},
-		execute: executeCGI,
-		runCGI: runCGI, // backward compatibility [remove in next version]
+		exists: fileExists,
+		execute: processExecute,
 		serve: serve
 	}
 }
@@ -139,6 +553,7 @@ function cgiServe() {
 		}
 	}
 
+
 	/**
 	 * 
 	 * validateLangOptionStructure
@@ -158,6 +573,7 @@ function cgiServe() {
 		return true;
 	}
 
+
 	/**
 	 * 
 	 * setCGI
@@ -174,7 +590,7 @@ function cgiServe() {
 
 	function setCGI(type, cgiExecutable, exeOptions) {
 		try {
-			let WHICH_CGI = shell.which(path.join(exeOptions.bin.bin_path, cgiExecutable));
+			let WHICH_CGI = shell.which(path.join(!!exeOptions.bin.bin_path ? exeOptions.bin.bin_path : exeOptions.bin, cgiExecutable));
 			if (!!LANG_OPTS[type]) {
 				LANG_OPTS[type].which = WHICH_CGI;
 				return true;
@@ -185,6 +601,7 @@ function cgiServe() {
 			return error("setCGI: CGI Executable fetch error", false);
 		}
 	}
+
 
 	/**
 	 *
@@ -198,7 +615,7 @@ function cgiServe() {
 	 * 
 	 */
 
-	function getCGI(type, exeOptions) {
+	function getCGI(type, exeOptions = {}) {
 		try {
 			if (!LANG_OPTS[type].which) {
 				let cgiset = setCGI(type, LANG_OPTS[type], exeOptions);
@@ -208,6 +625,7 @@ function cgiServe() {
 			return error("getCGI: CGI Executable fetch error " + e.toString(), false);
 		}
 	}
+
 
 	/**
 	 *
@@ -235,6 +653,7 @@ function cgiServe() {
 		return error("setCGITypes: Incorrect Type provided", false);
 	}
 
+
 	/**
 	 *
 	 * getCGITypes
@@ -256,6 +675,7 @@ function cgiServe() {
 		}
 		return LANG_OPTS;
 	}
+
 
 	/**
 	 *
@@ -283,6 +703,7 @@ function cgiServe() {
 		};
 	}
 
+
 	/**
 	 *
 	 * getVars
@@ -297,6 +718,7 @@ function cgiServe() {
 	function getVars(exeOptions) {
 		return cleanPath(exeOptions);
 	}
+
 
 	/**
 	 *
@@ -358,6 +780,7 @@ function cgiServe() {
 		return env;
 	}
 
+
 	/**
 	 *
 	 * getPattern
@@ -375,6 +798,7 @@ function cgiServe() {
 		return error("getPattern: Pattern does not exist " + pattern.toString(), false);
 	}
 
+
 	/**
 	 *
 	 * getType
@@ -391,6 +815,7 @@ function cgiServe() {
 		}
 		return error("getType: Type does not exist " + type.toString(), false);
 	}
+
 
 	/**
 	 *
@@ -421,6 +846,7 @@ function cgiServe() {
 			statusCode: statusCode
 		};
 	}
+
 
 	/**
 	 *
@@ -457,6 +883,7 @@ function cgiServe() {
 			statusCode: statusCode
 		};
 	}
+
 
 	/**
 	 *
@@ -496,6 +923,7 @@ function cgiServe() {
 			});
 		});
 	}
+
 
 	/**
 	 *
@@ -615,6 +1043,7 @@ function cgiServe() {
 		});
 	}
 
+
 	/**
 	 * 
 	 * serve
@@ -682,6 +1111,7 @@ function cgiServe() {
 		return promise;
 	}
 
+
 	return {
 		setter: {
 			which: setCGI,
@@ -698,4 +1128,6 @@ function cgiServe() {
 	}
 }
 
+
 exports.serve = cgiServe;
+exports.cgi = execute;

@@ -68,6 +68,7 @@ let proc = obj.process.executeProcess({
     assert(stdout.process.spawnargs.indexOf("/c"), 'stdout.process.spawnfile.includes("/c")')
     assert(stdout.process.spawnargs.indexOf('"ls "') > -1, "stdout.process.spawnargs.indexOf('ls ') > -1")
     console.log("Ending Tests: with above failure test.cgi.process.executeProcess.exec dataHandlers tests")
+    console.log(error, stdout, stderr);
     eventEmitter.emit('closeprocess', stdout);
 }, (options, proc) => {
     console.log("Starting Tests for test.cgi.process.executeProcess.exec close handlers tests")

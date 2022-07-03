@@ -2,4 +2,3 @@
 
 phpinfo();
 
-// echo phpinfo();
