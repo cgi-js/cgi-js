@@ -291,7 +291,7 @@ function execute() {
 	 * @return {Promise} ProcessObjectPromise
 	 */
 	function processExecute(config, datahandler, closehandler, exithandler) {
-		return new Promise(function (resove, reject) {
+		return new Promise(function (resolve, reject) {
 			/**
 			 * dataHandler
 			 *
@@ -301,7 +301,7 @@ function execute() {
 			 */
 			function dataHandler(error, stdout, stderr) {
 				// let result = (!!datahandler) ? datahandler(error, stdout, stderr) : null;
-				resolve(stdout);
+				resolve({ error, stdout, stderr });
 			};
 
 			/**
@@ -315,7 +315,7 @@ function execute() {
 			}
 
 			if (!exithandler) {
-				exithandler = (arguments) => {  }
+				exithandler = (arguments) => { }
 			}
 
 			/** @type {Action<String>} */
@@ -352,7 +352,7 @@ function execute() {
 		return new Promise(function (resolve, reject) {
 
 			if (!exithandler) {
-				exithandler = (arguments) => {  }
+				exithandler = (arguments) => { }
 			}
 
 			/**

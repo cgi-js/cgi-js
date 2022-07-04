@@ -1,9 +1,16 @@
 /* eslint-env mocha */
 
 var request = require('supertest');
+var mocha = require('mocha');
+var describe = mocha.describe;
+var it = mocha.it;
 var assert = require('chai').assert;
-var describe = require('chai').describe;
-var it = require('chai').it;
+
+// const assert = require('assert');
+// var assert = require('chai').assert;
+// var describe = require('chai').describe;
+// var it = require('chai').it;
+
 var express = require('express');
 var cgi = require('../../../src').init();
 
@@ -14,7 +21,7 @@ var py3 = "../../../binaries/lang-python3/win";
 var rb = "../../../binaries/lang-ruby/win";
 var pl = "../../../binaries/lang-perl/win";
 var shost = "localhost";
-var sport = 3000;
+var sport = 3003;
 
 
 function response(type, exeOptions) {

@@ -1,19 +1,13 @@
 /* eslint-env mocha */
 
 var request = require('supertest');
-
-var mocha = require('mocha')
-var describe = mocha.describe;
-var it = mocha.it;
-var assert = require('chai').assert;
-
-// const assert = require('assert');
 // var assert = require('chai').assert;
+const assert = require('assert');
+
 // var describe = require('chai').describe;
 // var it = require('chai').it;
-
 var express = require('express');
-var cgi = require('../../../src').init();
+var cgi = require('../../../../src').init();
 
 var app = express();
 var php = "../../../binaries/lang-php/win";
@@ -22,11 +16,11 @@ var py3 = "../../../binaries/lang-python3/win";
 var rb = "../../../binaries/lang-ruby/win";
 var pl = "../../../binaries/lang-perl/win";
 var shost = "localhost";
-var sport = 3002;
+var sport = 4010;
 
 
 function response(type, exeOptions) {
-    const cgijs = require("../../../src");
+    const cgijs = require("../../../../src");
     // const cgijs = require("cgijs");
     var cgi = cgijs.init();
     return function (req, res, next) {
@@ -87,7 +81,6 @@ app.listen(sport, shost, function () {
                 .expect(200)
                 .end(function (err, res) {
                     if (err) {
-                        expect(err).to.be.instanceOf(Error);
                         done(err);
                     } else {
                         assert.match();

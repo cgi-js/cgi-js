@@ -1,3 +1,10 @@
+var request = require('supertest');
+
+var mocha = require('mocha')
+var describe = mocha.describe;
+var it = mocha.it;
+var assert = require('chai').assert;
+
 const process = require("process");
 let cgi = require("../../../../src/file").cgi();
 
@@ -23,7 +30,7 @@ let exeOptions = {
         "path": "./www/files/php",
         "server": {
             "host": "localhost",
-            "port": 3001,
+            "port": 4001,
             "username": "",
             "password": "",
             "ssl": {
@@ -36,7 +43,7 @@ let exeOptions = {
     }
 }
 
-function server() {
+async function server() {
     let datahandler = function (error, stdout, stderr) { }
     let closehandler = function (options, proc) {
         // process.exit(0);
@@ -46,13 +53,21 @@ function server() {
     let type = "php-cgi";
     let requestObject = { url: { path: "/" }, originalUrl: "", query: "", method: "GET", body: "{}", ip: "192.168.1.1", headers: "" };
 
-    return cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler).then(function (r) {
-        // console.log(r)
-        return r;
-    }).catch(function (e) {
-        // console.log(e);
-        return e.toString();
-    });
+    // return cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler).then(function (r) {
+    //     console.log("Request", r)
+    //     return r;
+    // }).catch(function (e) {
+    //     console.log("Error", e);
+    //     return e.toString();
+    // });
+
+    try {
+        let r = await cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler);
+        console.log("Result ", r);
+    } catch (e) {
+        console.log("Error", e.toString());
+    }
 }
 
 server();
+
