@@ -63,11 +63,12 @@ async function server() {
 
     try {
         let r = await cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler);
-        console.log("Result ", r);
+        return r;
     } catch (e) {
-        console.log("Error", e.toString());
+        // console.log("Error", e.toString());
+        return e;
     }
 }
 
-server();
+console.log(function name(){ server().then((r) => { console.log(r.stdout) }).catch((e) => { console.log(e) }) }())
 
