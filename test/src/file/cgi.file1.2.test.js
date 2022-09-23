@@ -12,7 +12,6 @@ var assert = require('chai').assert;
 // var it = require('chai').it;
 
 var express = require('express');
-var cgi = require('../../../src').init();
 
 var app = express();
 var php = "../../../binaries/lang-php/win";
@@ -27,7 +26,8 @@ var sport = 3003;
 function response(type, exeOptions) {
     const cgijs = require("../../../src");
     // const cgijs = require("cgijs");
-    var cgi = cgijs.init();
+    var cgi = cgijs.cgi();
+
     return function (req, res, next) {
         let requestObject = {
             url: URL.parse(req.originalUrl),

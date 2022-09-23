@@ -44,30 +44,19 @@ let exeOptions = {
 }
 
 async function server() {
-    let datahandler = function (error, stdout, stderr) { }
-    let closehandler = function (options, proc) {
-        // process.exit(0);
-    }
-    let exithandler = function (arguments) { }
-
-    let type = "php-cgi";
-    let requestObject = { url: { path: "/" }, originalUrl: "", query: "", method: "GET", body: "{}", ip: "192.168.1.1", headers: "" };
-
-    // return cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler).then(function (r) {
-    //     console.log("Request", r)
-    //     return r;
-    // }).catch(function (e) {
-    //     console.log("Error", e);
-    //     return e.toString();
-    // });
-
     try {
+        let datahandler = function (error, stdout, stderr) { }
+        let closehandler = function (options, proc) {
+            // process.exit(0);
+        }
+        let exithandler = function (arguments) { }
+
+        let type = "php-cgi";
+        let requestObject = { url: { path: "/" }, originalUrl: "", query: "", method: "GET", body: "{}", ip: "192.168.1.1", headers: "" };
+
         let r = await cgi.serve(type, requestObject, exeOptions, datahandler, closehandler, exithandler);
-        console.log("Result ", r);
+        return r;
     } catch (e) {
-        console.log("Error", e.toString());
+        return e;
     }
 }
-
-server();
-

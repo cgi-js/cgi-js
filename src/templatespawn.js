@@ -25,7 +25,7 @@ module.exports = {
         },
         "env": "",
         "setprocess": true,
-        "executetype": "spawn",
+        "executetype": "exec",
         "command": "run"
     }
 }
