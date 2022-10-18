@@ -26,6 +26,10 @@
   },
   "main": "index.js",
   "types": "./index.d.ts",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.mjs"
+  },
   "dependencies": {
     "http-proxy": "1.18.1",
     "http-proxy-to-socks": "1.1.2",
