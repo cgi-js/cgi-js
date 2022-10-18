@@ -4,7 +4,7 @@
   "version": "1.2.0",
   "author": {
     "name": "Ganesh",
-    "email": "ganeshsurfs@gmail.com"
+    "email": "desktopcgi@gmail.com"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,14 @@
     "node": ">=8.0.0"
   },
   "keywords": [
+    "phpcgijs",
+    "node",
+    "nodejs",
+    "php",
+    "cgi",
+    "php-cgi",
+    "run php script",
+    "php cgi js",
     "cgijs",
     "run cgi scripts",
     "manage processes",
