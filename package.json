@@ -44,7 +44,7 @@
     "express": "4.17.3",
     "mocha": "9.2.2",
     "sinon": "13.0.1",
-    "socket.io": "4.4.1",
+    "socket.io": "4.5.3",
     "supertest": "6.2.2",
     "ws": "8.5.0"
   },
