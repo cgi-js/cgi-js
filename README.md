@@ -33,12 +33,28 @@ npm install cgijs --save
 ```
 
 
+
 # Features
 
 *Light weight, Flexible, Generic implementation. CGIJS is Nodejs `Framework Independent / agnostic` for application development.*
 
 
 There are three main modules inside CGIJS - `file` for CGI file execution, `proxy` for running proxies, and `process` for managing processes.
+
+
+
+#### **SECURITY NOTE**:
+
+
+- The process shell module is security agnostic and is dependant on your code.
+    - The package accesses the shell to run script executables using the node.js process module. Please consider your `security risks based on your executable's/ script's security risks`.
+- The proxy module is security agnostic and is dependant on your code.
+    - The `package has a LAN or WAN network proxy module AND does not create any proxies` by its own - unless specified by you. Please consider your custom created proxy's security risks.
+- The `package does not use Telemetry, nor Collect data Remotely, nor has Telemetry/Remote based Error collection` on its own.
+    - The package propogates errors for you to handle or collect errors/ data.
+
+
+# Library Features
 
 
 ##### Node CGI Embedded - run interpreted scripts that support cgi using nodejs
@@ -155,6 +171,8 @@ This project contains example that demonstrates working with ExpressJS.
     
 - working with CGI / interpreted languages from `any` Node.js app framework
 - using any CGI / interpreted languages apps with electron as demonstrated in functioning [desktop-cgi](https://github.com/desktop-cgi/desktop-cgi) app
+
+
 
 
 # Technical Specifications
