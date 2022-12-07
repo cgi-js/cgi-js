@@ -129,6 +129,7 @@ Modify:
         ** https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
         ** https://jsdoc.app/tags-type.html
         ** https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler#type-expressions
+- [] Consider concurrency for the package https://github.com/mkschreder/node-php/issues/23
 
 
 Prioritization and Version Consideration
