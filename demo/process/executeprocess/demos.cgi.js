@@ -30,7 +30,7 @@ config.other.command = "generic";
  * The commandline executable and arguments to run
  * Usage will override the exe
  */
-config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "..\\..\\www\\files\\cgi\\index.cgi")] }
+config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "..\\..\\..\\www\\files\\cgi\\index.cgi")] }
 
 
 cgijsProcess.process.executeProcess(config, function (e, o, se) {

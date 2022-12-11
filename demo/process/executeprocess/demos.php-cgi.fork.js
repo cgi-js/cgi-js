@@ -17,14 +17,14 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 
 
 var config = cgijs["default-configs"].process
 config.name = "php-cgi"
-config.cmds["generic"] = { "exe": "", "usage": path.join(__dirname, "./demos.php.exec.js"), "args": [] }
+config.cmds["generic"] = { "exe": "", "usage": path.join(__dirname, "./demos.php-cgi.exec.js"), "args": [] }
 config.other.executetype = "fork";
 config.other.command = "generic";
 

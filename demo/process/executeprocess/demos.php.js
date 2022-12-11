@@ -17,14 +17,14 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 
 
 var config = cgijs["default-configs"].process
 config.name = "php"
-config.cmds["generic"] = { "exe": "php", "usage": path.join(basePath, "php"), "args": [path.join(__dirname, "..\\..\\www\\files\\php\\index.php")] }
+config.cmds["generic"] = { "exe": "php", "usage": path.join(basePath, "php"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\php\\index.php")] }
 config.other.executetype = "exec";
 config.other.command = "generic";
 

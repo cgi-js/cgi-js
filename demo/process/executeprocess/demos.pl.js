@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 
@@ -30,7 +30,7 @@ config.other.command = "generic";
  * The commandline executable and arguments to run
  * Usage will override the exe
  */ 
-config.cmds["generic"] = { "exe": "perl", "usage": path.join(basePath, "perl"), "args": [path.join(__dirname, "..\\..\\www\\files\\perl\\index.pl")] }
+config.cmds["generic"] = { "exe": "perl", "usage": path.join(basePath, "perl"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\perl\\index.pl")] }
 
 
 cgijsProcess.process.executeProcess(config, function (e, o, se) {

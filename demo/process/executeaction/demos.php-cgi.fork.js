@@ -22,22 +22,18 @@ const cgijsProcess = cgijs.process();
 const basePath = "";
 
 
-var config = cgijs["default-configs"].process;
-config.name = "cmd-ls";
-config.other.executetype = "spawn";
+var config = cgijs["default-configs"].process
+config.name = "php-cgi"
+config.cmds["generic"] = { "exe": "", "usage": path.join(__dirname, "./demos.php-cgi.exec.js"), "args": [] }
+config.other.executetype = "fork";
 config.other.command = "generic";
 
-/**
- * The commandline executable and arguments to run
- * Usage will override the exe
- */ 
-config.cmds["generic"] = { "exe": "", "usage": "ls", "args": [] }
-
-
-cgijsProcess.process.executeProcess(config, function (e, o, se) {
+cgijsProcess.process.set(config);
+cgijsProcess.process.executeAction("php-cgi", "generic", function (e, o, se) {
     console.log(o);
     if (!!e || !!se) {
         console.log(e, se);
     }
     process.exit(0);
-})
+});
+
