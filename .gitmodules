@@ -1,0 +1,3 @@
+[submodule "binaries"]
+	path = binaries
+	url = https://github.com/desktop-cgi/binaries.git
