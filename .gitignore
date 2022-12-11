@@ -127,38 +127,38 @@ www/*/__pycache__/
 */*/__pycache__/
 
 
-binaries/db-mysql/linux/*
-binaries/db-mysql/mac/*
-binaries/db-mysql/win/*
-binaries/db-mongo/linux/*
-binaries/db-mongo/mac/*
-binaries/db-mongo/win/*
-binaries/db-redis/win/*
-binaries/db-redis/linux/*
-binaries/db-redis/mac/*
-binaries/lang-java/*
-binaries/lang-net/*
-binaries/lang-perl/*
-binaries/lang-php/*
-binaries/lang-python/*
-binaries/lang-python3/*
-binaries/lang-ruby/*
-binaries/lang-node/linux/*
-binaries/lang-node/mac/*
-binaries/lang-node/win/*
-binaries/server-httpd/linux/*
-binaries/server-httpd/win/*
-binaries/server-httpd/win/*
-binaries/server-nginx/mac/*
-binaries/server-nginx/win/*
-binaries/server-nginx/linux/*
-binaries/server-tomcat/mac/*
-binaries/server-tomcat/win/*
-binaries/server-tomcat/linux/*
-binaries/server-putty/*
-binaries/server-mongoose/*
-binaries/server-jetty/*
-binaries/server-iis-net/*
+# binaries/db-mysql/linux/*
+# binaries/db-mysql/mac/*
+# binaries/db-mysql/win/*
+# binaries/db-mongo/linux/*
+# binaries/db-mongo/mac/*
+# binaries/db-mongo/win/*
+# binaries/db-redis/win/*
+# binaries/db-redis/linux/*
+# binaries/db-redis/mac/*
+# binaries/lang-java/*
+# binaries/lang-net/*
+# binaries/lang-perl/*
+# binaries/lang-php/*
+# binaries/lang-python/*
+# binaries/lang-python3/*
+# binaries/lang-ruby/*
+# binaries/lang-node/linux/*
+# binaries/lang-node/mac/*
+# binaries/lang-node/win/*
+# binaries/server-httpd/linux/*
+# binaries/server-httpd/win/*
+# binaries/server-httpd/win/*
+# binaries/server-nginx/mac/*
+# binaries/server-nginx/win/*
+# binaries/server-nginx/linux/*
+# binaries/server-tomcat/mac/*
+# binaries/server-tomcat/win/*
+# binaries/server-tomcat/linux/*
+# binaries/server-putty/*
+# binaries/server-mongoose/*
+# binaries/server-jetty/*
+# binaries/server-iis-net/*
 
 
 tmp/*
