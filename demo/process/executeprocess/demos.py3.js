@@ -19,6 +19,7 @@
 const path = require("path");
 const os = require("os");
 const cgijs = require("../../../index.js");
+// const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 

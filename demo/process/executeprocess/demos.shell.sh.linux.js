@@ -18,6 +18,7 @@
 
 const path = require("path");
 const cgijs = require("../../../index.js");
+// const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 
@@ -27,7 +28,7 @@ var config = cgijs["default-configs"].process;
 /** 
  *  name of command to be stored as in instance
  */
-config.name = "";
+config.name = "bashsh";
 
 /** 
  * what type of process to use

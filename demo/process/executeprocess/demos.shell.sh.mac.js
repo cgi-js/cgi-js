@@ -22,32 +22,33 @@ const cgijs = require("../../../index.js");
 const cgijsProcess = cgijs.process();
 const basePath = "";
 
+
 var config = cgijs["default-configs"].process;
 
 /** 
  *  name of command to be stored as in instance
  */
-config.name = "cgi";
+config.name = "bashsh";
 
 /** 
  * what type of process to use
  * exec, spawn, fork (fork uses .js file)
  * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
  */
- config.other.executetype = "spawn";
+config.other.executetype = "spawn";
 
- /** 
-  * default command to run
-  * if not provided, uses generic command to run
-  */
- config.other.command = "generic";
+/** 
+ * default command to run
+ * if not provided, uses generic command to run
+ */
+config.other.command = "generic";
 
 /** 
  * what type of process to use
  * exec, spawn, fork (fork uses .js file)
  * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
  */
-config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "..\\..\\..\\www\\files\\cgi\\index.cgi")] }
+config.cmds["generic"] = { "exe": "", "usage": path.join(basePath, "testshell.sh"), "args": [path.join(__dirname, "")] }
 
 /** 
  * Execute the command name and the command to run from the config
@@ -60,4 +61,3 @@ cgijsProcess.process.executeProcess(config, function (e, o, se) {
     }
     process.exit(0);
 })
-
