@@ -23,16 +23,36 @@ const basePath = "";
 
 
 var config = cgijs["default-configs"].process;
-config.name = "php-cgi";
+
+/** 
+ *  name of command to be stored as in instance
+ */
+config.name = "";
+
+/** 
+ * what type of process to use
+ * exec, spawn, fork (fork uses .js file)
+ * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
+ */
 config.other.executetype = "spawn";
+
+/** 
+ * default command to run
+ * if not provided, uses generic command to run
+ */
 config.other.command = "generic";
 
-/**
- * The commandline executable and arguments to run
- * Usage will override the exe
- */ 
+/** 
+ * what type of process to use
+ * exec, spawn, fork (fork uses .js file)
+ * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
+ */
 config.cmds["generic"] = { "exe": "", "usage": path.join(basePath, "testshell.ps2"), "args": [path.join(__dirname, "")] }
 
+/** 
+ * Execute the command name and the command to run from the config
+ * executeProcess(config, callbackFunction)
+ */
 cgijsProcess.process.executeProcess(config, function (e, o, se) {
     console.log(o);
     if (!!e || !!se) {

@@ -22,19 +22,38 @@ const cgijsProcess = cgijs.process();
 const basePath = "";
 
 var config = cgijs["default-configs"].process;
-config.name = "";
-config.other.executetype = "spawn";
-config.other.command = "generic";
 
-/**
- * The commandline executable and arguments to run
- * Usage will override the exe
- */ 
+config.name = "";
+
+/** 
+ * what type of process to use
+ * exec, spawn, fork (fork uses .js file)
+ * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
+ */
+ config.other.executetype = "spawn";
+
+ /** 
+  * default command to run
+  * if not provided, uses generic command to run
+  */
+ config.other.command = "generic";
+
+/** 
+ * config.cmds["nameofcommand"] = { exe: "executablefile", usage: "usageincommandline", args: "commandline/args/including/filename" }
+ * usage overrides exe. if usage is not provided exe is used as command
+ * can assign multiple command names like 
+ * config.cmds[nameone], config.cmds[nametwo], config.cmds[namethree], etc
+ * check demos.server.httpd.js as example
+ */
  config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "")] }
  config.cmds["start"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "")] }
  config.cmds["stop"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "")] }
  config.cmds["reload"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "")] }
 
+ /** 
+ * Execute the command name and the command to run from the config
+ * executeProcess(config, callbackFunction)
+ */
 cgijsProcess.process.executeProcess(config, function (e, o, se) {
     console.log(o);
     if (!!e || !!se) {
