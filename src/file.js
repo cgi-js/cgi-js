@@ -11,6 +11,7 @@ Move from child_process spawn to child_process exec - L2 (Next version)
 
 /* eslint no-console: 0 */
 const process = require('process');
+const os = require('os');
 const { env } = require('process');
 const child = require('child_process');
 const path = require('path');
@@ -23,13 +24,410 @@ const processModule = require("./process")();
 const setter = utils.setter, getter = utils.getter, error = utils.error;
 
 
+function cgiProcessExecute() {
+
+
+	let ruby = "ruby", perl = "perl", python = "python", php = "php", node = "node";
+	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
+	let langOptions = { "name": '', "cgi": '', "which": '', "type": "", "pattern": null };
+	let LANG_OPTS = {
+		"ruby": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+		"rb": { "name": ruby, "cgi": ruby, "which": "", "type": "rb", "pattern": /.*?\.rb$/ },
+		"perl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
+		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
+		"plc": { "name": perl, "cgi": perl, "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
+		"pld": { "name": perl, "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
+		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"python": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"py": { "name": python, "cgi": python, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?(\.js|\.mjs|.cjs)$/ }
+	}
+
+
+	/**
+	 * 
+	 * validateLangOptionStructure
+	 * 
+	 * @param  { Object } obj
+	 * 
+	 * @returns { Boolean } validated
+	 * 
+	 */
+	function validateLangOptionStructure(obj) {
+		let k = Object.keys(obj), l = Object.keys(langOptions);
+		for (let i = 0; i < l.length; i++) {
+			if (k.indexOf(l[i]) >= 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	/**
+	 * getEnvironment
+	 * 
+	 *
+	 * @param {RequestObject<{ url: String, originalUrl: String, query: String, method: String, body: String, ip: String, headers: String }>} request
+	 * @param {String} host
+	 * @param {Number} port
+	 * @return {Object} EnvironmentVariableObject
+	 */
+	function getEnvironment(request, host, port) {
+		return {
+			SERVER_SIGNATURE: 'DesktopCGI: NodeJS server at localhost',
+			PATH_INFO: request.pathinfo,
+			PATH_TRANSLATED: '',
+			SCRIPT_NAME: request.url.pathname,
+			SCRIPT_FILENAME: request.file,
+			REQUEST_FILENAME: request.file,
+			SCRIPT_URI: request.file,
+			URL: request.originalUrl,
+			SCRIPT_URL: request.url.originalUrl,
+			REQUEST_URI: request.url.originalUrl,
+			REQUEST_METHOD: request.method,
+			QUERY_STRING: request.query || '',
+			CONTENT_TYPE: request.headers['Content-Type'] || '',
+			CONTENT_LENGTH: request.headers['Content-Length'] || 0,
+			AUTH_TYPE: '',
+			AUTH_USER: '',
+			REMOTE_USER: '',
+			ALL_HTTP: Object.keys(request.headers).map(function (x) {
+				return 'HTTP_' + x.toUpperCase().replace('-', '_') + ': ' + request.headers[x];
+			}).reduce(function (a, b) {
+				return a + b + '\n';
+			}, ''),
+			ALL_RAW: Object.keys(request.headers).map(function (x) {
+				return x + ': ' + request.headers[x];
+			}).reduce(function (a, b) {
+				return a + b + '\n';
+			}, ''),
+			SERVER_SOFTWARE: 'NodeJS',
+			SERVER_NAME: 'localhost',
+			SERVER_ADDR: host,
+			SERVER_PORT: port,
+			GATEWAY_INTERFACE: 'CGI/1.1',
+			SERVER_PROTOCOL: '',
+			REMOTE_ADDR: request.ip || '',
+			REMOTE_PORT: '',
+			DOCUMENT_ROOT: '',
+			INSTANCE_ID: '',
+			APPL_MD_PATH: '',
+			APPL_PHYSICAL_PATH: '',
+			IS_SUBREQ: '',
+			REDIRECT_STATUS: 1
+		};
+	}
+
+
+	/**
+	 * 
+	 * setCGI
+	 * 
+	 * @param { String } executable
+	 * 
+	 * @param { Object } exeOptions
+	 * 
+	 * @param { String } type
+	 * 
+	 * @returns { Boolean  | throw error } set?
+	 * 
+	 */
+	function setCGI(type, binPath = "", executable) {
+		try {
+			let WHICH_CGI = shell.which(binPath, executable);
+			if (!!LANG_OPTS[type]) {
+				LANG_OPTS[type].which = WHICH_CGI;
+				return true;
+			} else {
+				return error("setCGI: CGI Executable type apply error", false);
+			}
+		} catch (e) {
+			return error("setCGI: CGI Executable fetch error", false);
+		}
+	}
+
+
+	/**
+	 *
+	 * getCGI
+	 * 
+	 * @param { String } type
+	 * 
+	 * @param { Object } exeOptions
+	 * 
+	 * @returns { String } WHICH_CGI
+	 * 
+	 */
+
+	function getCGI(type, exeOptions = { bin: "" }) {
+		try {
+			if (!LANG_OPTS[type].which) {
+				let cgiset = setCGI(type, exeOptions.bin, exeOptions.executable);
+			}
+			return LANG_OPTS[type].which;
+		} catch (e) {
+			return error("getCGI: CGI Executable fetch error " + e.toString(), false);
+		}
+	}
+
+
+	/**
+	 *
+	 * setCGITypes
+	 * 
+	 * @param { String } cgiLang
+	 * 
+	 * @returns { Boolean } / {throw error}
+	 * 
+	 */
+	function setCGITypes(cgiLang) {
+		if (Array.isArray(cgiLang)) {
+			for (let i = 0; i < cgiLang.length; i++) {
+				let res = validateLangOptionStructure(cgiLang[i]);
+				if (!res) { throw new Error("Language option not a valid structure " + res.toString()); }
+				LANG_OPTS[cgiLang[i].name] = cgiLang[i];
+			}
+			return true;
+		} else if (typeof (cgiLang) === 'object') {
+			let res = validateLangOptionStructure(cgiLang);
+			if (!res) { throw new Error("Language option not a valid structure " + res.toString()); }
+			LANG_OPTS[cgiLang.name] = cgiLang;
+			return true;
+		}
+		return error("setCGITypes: Incorrect Type provided", false);
+	}
+
+
+	/**
+	 *
+	 * getCGITypes
+	 * 
+	 * @param { String | Array } cgiLang
+	 * 
+	 * @returns { Object LANG_OPTS | String LANG_OPTS[type] } Reconsider sending back all LangOpts
+	 * 
+	 */
+	function getCGITypes(cgiLang) {
+		if (typeof (cgiLang) === 'string') {
+			return LANG_OPTS[cgiLang];
+		} else if (Array.isArray(cgiLang)) {
+			let l = [];
+			for (let i = 0; i < cgiLang.length; i++) {
+				l.push(cgiLang[i]);
+			}
+			return l;
+		}
+		return [];
+	}
+
+
+	/**
+	 *
+	 * getPHPHtml
+	 * 
+	 * @param { Array } lines
+	 * 
+	 * @returns { Object } {html}
+	 * 
+	 */
+	function getPHPHtml(lines) {
+		var line = 0, headers = {}, statusCode;
+		do {
+			var m = lines[line].split(': ');
+			if (m[0] === '') break;
+			if (m[0] == 'Status') {
+				statusCode = parseInt(m[1]);
+			}
+			if (m.length == 2) {
+				headers[m[0]] = m[1];
+			}
+			line++;
+		} while (lines[line] !== '');
+		html = lines.splice(line + 1).join('\n')
+		return {
+			response: html,
+			headers: headers,
+			statusCode: statusCode
+		};
+	}
+
+
+	/**
+	 *
+	 * getCGIHtml
+	 * 
+	 * @param { String } lines
+	 * 
+	 * @returns { Object } {html, res}
+	 * 
+	 */
+	function getCGIHtml(lines) {
+		var line = 0, headers = {}, statusCode;
+		for (var i = 0; i < lines.length; i++) {
+			if (lines[line] !== '') {
+				try {
+					var m = lines[line].split(': ');
+					if (m[0] === '') break;
+					if (m[0] == 'Status') {
+						statusCode = parseInt(m[1]);
+					}
+					if (m.length == 2) {
+						headers[m[0]] = m[1];
+					}
+				} catch (err) {
+					console.error("getCGIHtml: ", err)
+					return error(err.toString(), false);
+				}
+			}
+		}
+		html = lines.join('\n')
+		return {
+			response: html,
+			headers: headers,
+			statusCode: statusCode
+		};
+	}
+
+
+	/**
+	 *
+	 *
+	 * @param {*} request
+	 * @param {*} transformRequestCallback
+	 * @return {*} 
+	 */
+	function transformRequest(request, transformRequestCallback) {
+		const URL = { ...require('url') };
+		if (!!transformRequestCallback && typeof transformRequestCallback === "function") {
+			return transformRequestCallback(request);
+		}
+		return {
+			url: URL.parse(request.originalUrl),
+			originalUrl: request.originalUrl,
+			query: request.url.query,
+			method: request.method,
+			body: request.body,
+			ip: request.ip,
+			headers: request.headers
+		}
+	}
+
+
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} response
+	 * @param {*} transformResponseCallback
+	 * @return {*} 
+	 */
+	function transformResponse(type, response, transformResponseCallback) {
+		if (!!transformResponseCallback && typeof transformResponseCallback === "function") {
+			return transformResponseCallback(response);
+		}
+		return (type === "php" || type === "php-cgi") ? getPHPHtml(response.split('\r\n')) : getCGIHtml(response.split('\r\n'));
+	}
+
+
+	/**
+	 *
+	 *
+	 * @param {*} exeOptions
+	 */
+	function validateConfigObject(exeOptions) {
+		if (!exeOptions.script || !exeOptions.embed) {
+			throw new Error("exeOptions: embed or script objects details not provided");
+		}
+
+		if (!!exeOptions.embed) {
+			if (!exeOptions.embed["path"] || !exeOptions.embed["bin"]) {
+				throw new Error("exeOptions: exeOptions.embed does not have bin path or base path");
+			}
+			exeOptions.embed["config"] = (!!exeOptions.embed["config"]) ? exeOptions.embed["config"] : {}
+			exeOptions.embed["options"] = (!!exeOptions.embed["options"]) ? exeOptions.embed["options"] : {}
+		}
+
+		if (!!exeOptions.script) {
+			if (!exeOptions.script["type"] || !exeOptions.script["file"] || !exeOptions.script["path"]) {
+				throw new Error("exeOptions: exeOptions.script does not have type or file or path");
+			}
+			exeOptions.script["options"] = (!!exeOptions.script["options"]) ? exeOptions.script["options"] : "";
+		}
+
+		exeOptions.script["transformResponse"] = (!!exeOptions.script["transformResponse"]) ? exeOptions.script["transformResponse"] : false;
+		exeOptions.script["transformRequest"] = (!!exeOptions.script["transformRequest"]) ? exeOptions.script["transformRequest"] : false;
+		exeOptions.script["headers"] = (!!exeOptions.script["headers"]) ? exeOptions.script["headers"] : {};
+		return exeOptions;
+	}
+
+
+	/**
+	 *
+	 *
+	 * @param {*} type
+	 * @param {*} request
+	 * @param {*} exeOptions
+	 * @param {*} datahandler
+	 * @param {*} [transformRequestCallback=undefined]
+	 * @return {*} 
+	 */
+	function execResponse(type, request, exeOptions, datahandler = undefined, transformRequestCallback = undefined) {
+		const cgijsProc = require("./process.js");
+		let cgiProcess = cgijsProc(), requestObject;
+
+		if (exeOptions.script.transformRequest) {
+			requestObject = transformRequest(request, transformRequestCallback)
+		}
+
+		if (!datahandler || typeof datahandler !== "function") {
+			throw new Error("file.js: execResponse: Datahandler not a function");
+		}
+
+		let command = {
+			"exe": path.join(exeOptions.basepath, exeOptions.embed.bin, getCGITypes(type).cgi),
+			"usage": path.join(exeOptions.basepath, exeOptions.embed.bin, getCGITypes(type).cgi),
+			"args": [exeOptions.script.options, path.join(exeOptions.script.path, exeOptions.script.file)]
+		};
+
+		let config = { ...require("./templatespawn.js") };
+		config.name = type;
+		config.cmds["run"] = command;
+		config.other.executetype = "exec";
+		config.other.command = "run";
+		return cgiProcess.process.executeProcess(config, (e, o, se) => {
+			if (!!exeOptions.script.transformResponse) {
+				o = transformResponse(type, o)
+			}
+			return datahandler(e, o, se);
+		});
+	}
+
+
+	return {
+		serve: execResponse,
+		execute: execResponse,
+		setType: setCGITypes,
+		getType: getCGITypes,
+		getEnvironment: getEnvironment,
+		transformRequest: transformRequest,
+		transformResponse: transformResponse,
+		getPHPHtml: getPHPHtml,
+		getCGIHtml: getCGIHtml,
+		setCGI: setCGI,
+		getCGI: getCGI
+	}
+}
+
+
 /**
  * execute
  * Alternate Process based CGI execution Model for CGI Module
  *
  * @return {FileModuleObject} 
  */
-function execute() {
+function cgiExecute() {
 	let ruby = "ruby", perl = "perl", python = "python", php = "php", phpCgi = "php-cgi", node = "node", cgi = "cgi", deno = "deno", ts = "tsc";
 	let python3 = ((process.platform === "win32") ? 'python' : 'python3');
 
@@ -244,6 +642,7 @@ function execute() {
 	 * @return {Promise} FilePathStringPromise
 	 */
 	function fileExists(type, exeOptions) {
+		console.log(type, exeOptions);
 		return new Promise(async function (resolve, reject) {
 			/**
 			 * 
@@ -258,6 +657,7 @@ function execute() {
 				/** @type {*} */
 				let file = path.join((!!exeOptions.embed.path) ? exeOptions.embed.path : "", (!!exeOptions.script.path) ? exeOptions.script.path : "", (!!exeOptions.script.file) ? exeOptions.script.file : "");
 
+				console.log(file);
 				/** @type {*} */
 				let statsObj = fs.statSync(file);
 
@@ -273,6 +673,7 @@ function execute() {
 				*/
 				feFn(file);
 			} catch (e) {
+				console.log(22)
 				/**
 				 * Reject file path being present
 				*/
@@ -312,14 +713,17 @@ function execute() {
 			 */
 			function closeHandler(options, proc) {
 				let result = (!!closehandler) ? closehandler(options, proc) : null;
+				return result;
 			}
 
 			if (!exithandler) {
 				exithandler = (arguments) => { }
 			}
 
-			/** @type {Action<String>} */
-			let action = (!!config.other) ? (!!config.other.command) ? config.other.command : "generic" : "generic";
+			// /** @type {Action<String>} */
+			// let action = (!!config.other) ? (!!config.other.command) ? config.other.command : "generic" : "generic";
+
+			config["other"]["command"] = (!!config.other) ? (!!config.other.command) ? config.other.command : "generic" : "generic";
 
 			/** @type {CloseEventList<String[]>} */
 			let evt = [`close`, `end`, `exit`, `SIGHUP`, `SIGQUIT`, `SIGKILL`, `SIGINT`, `SIGTERM`, `SIGUSR1`, `SIGUSR2`, `uncaughtException`];
@@ -333,8 +737,9 @@ function execute() {
 				process.on(evt[i], exithandler);
 			}
 
-			config["other"]["command"] = action;
-			return processModule.process.executeProcess(config, dataHandler, closeHandler);
+			// config["other"]["command"] = action;
+			// return processModule.process.executeProcess(config, dataHandler, closeHandler);
+			return processModule.process.executeProcess(config, dataHandler);
 		});
 	}
 
@@ -456,7 +861,7 @@ function execute() {
 					/** 
 					 * Resolving Result
 					*/
-					resolve(r);
+					resolve({ headers: {}, response: r.stdout.toString() || r.stderr.toString(), statusCode: 200 });
 				}).catch(function (e) {
 					/** 
 					 * Rejecting error of executeCGI
@@ -1129,5 +1534,7 @@ function cgiServe() {
 }
 
 
-exports.serve = cgiServe;
-exports.cgi = execute;
+module.exports.serve = cgiServe;
+module.exports.file = cgiExecute;
+module.exports.execute = cgiProcessExecute;
+module.exports.cgi = cgiProcessExecute;

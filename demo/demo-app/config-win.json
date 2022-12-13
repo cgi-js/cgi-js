@@ -2,7 +2,7 @@
     "php": {
         "embed": {
             "path": "C:\\Users\\ganes\\OneDrive\\Documents\\projects\\github\\workspace-cgi\\packages\\cgi-js\\",
-            "bin": "binaries\\lang-php\\win",
+            "bin": "",
             "config": {
                 "argument": "-c",
                 "seperator": " ",
