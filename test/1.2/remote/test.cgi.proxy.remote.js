@@ -1,0 +1,5 @@
+/*
+ * 
+ * TESTS GETTER FUNCTIONS
+ * 
+*/

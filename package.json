@@ -21,6 +21,8 @@
     "test:proxy": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
     "test:remote": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
     "test:utils": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
+    "test1.1": "mocha --reporter spec --recursive ./test/1.1/",
+    "test1.2": "mocha --reporter spec --recursive ./test/1.2/",
     "build:cgijs": "",
     "publish:cgijs": ""
   },

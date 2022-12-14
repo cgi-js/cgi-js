@@ -1,0 +1,5 @@
+/*
+ * 
+ * TESTS NGINX SERVER PROCESS
+ * 
+*/
