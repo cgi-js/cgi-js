@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../../index.js");
+const cgijs = require("../../../../index.js");
 // const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
@@ -37,7 +37,7 @@ var config = cgijs["default-configs"].process;
  * config.cmds[nameone], config.cmds[nametwo], config.cmds[namethree], etc
  * check demos.server.httpd.js as example
  */
-  config.cmds["generic"] = { "exe": "perl", "usage": path.join(basePath, "perl"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\perl\\index.plc")] }
+  config.cmds["generic"] = { "exe": "perl", "usage": path.join(basePath, "perl"), "args": [path.join(__dirname, "..\\..\\..\\..\\www\\files\\perl\\index.plc")] }
  
 /** 
  * what type of process to use

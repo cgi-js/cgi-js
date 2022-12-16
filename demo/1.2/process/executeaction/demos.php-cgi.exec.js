@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../../index.js");
+const cgijs = require("../../../../index.js");
 // const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
@@ -36,7 +36,7 @@ config.name = "php-cgi";
  * can assign multiple command names like 
  * config.cmds[nameone], config.cmds[nametwo], config.cmds[namethree], etc
  */
-config.cmds["generic"] = { "exe": "php-cgi", "usage": path.join(basePath, "php-cgi"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\php\\index.php")] }
+config.cmds["generic"] = { "exe": "php-cgi", "usage": path.join(basePath, "php-cgi"), "args": [path.join(__dirname, "..\\..\\..\\..\www\\files\\php\\index.php")] }
 
 /** 
  * what type of process to use

@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../../index.js");
+const cgijs = require("../../../../index.js");
 // const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
@@ -38,7 +38,7 @@ config.name = "php-cgi";
  * config.cmds[nameone], config.cmds[nametwo], config.cmds[namethree], etc
  * check demos.server.httpd.js as example
  */
-config.cmds["generic"] = { "exe": "php-cgi", "usage": path.join(basePath, "php-cgi"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\php\\index.php")] }
+config.cmds["generic"] = { "exe": "php-cgi", "usage": path.join(basePath, "php-cgi"), "args": [path.join(__dirname, "..\\..\\..\\..\\www\\files\\php\\index.php")] }
 
 /** 
  * what type of process to use

@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../../index.js");
+const cgijs = require("../../../../index.js");
 // const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
@@ -37,7 +37,7 @@ config.name = "python2";
  * config.cmds[nameone], config.cmds[nametwo], config.cmds[namethree], etc
  * check demos.server.httpd.js as example
  */
-config.cmds["generic"] = { "exe": "python", "usage": path.join(basePath, "python"), "args": [path.join(__dirname, "..\\..\\..\\www\\files\\py\\index.py")] }
+config.cmds["generic"] = { "exe": "python", "usage": path.join(basePath, "python"), "args": [path.join(__dirname, "..\\..\\..\\..\\www\\files\\py\\index.py")] }
 
 /** 
  * what type of process to use

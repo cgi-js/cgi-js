@@ -17,7 +17,7 @@
 'use strict';
 
 const path = require("path");
-const cgijs = require("../../../index.js");
+const cgijs = require("../../../../index.js");
 // const cgijs = require("cgijs");
 const cgijsProcess = cgijs.process();
 const basePath = "";
@@ -47,7 +47,7 @@ config.name = "cgi";
  * exec, spawn, fork (fork uses .js file)
  * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
  */
-config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "..\\..\\..\\www\\files\\cgi\\index.cgi")] }
+config.cmds["generic"] = { "exe": "", "usage": "", "args": [path.join(__dirname, "..\\..\\..\\..\\www\\files\\cgi\\index.cgi")] }
 
 /** 
  * Execute the command name and the command to run from the config
