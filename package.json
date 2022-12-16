@@ -33,12 +33,16 @@
     "import": "./index.mjs"
   },
   "dependencies": {
+    "csv": "^6.2.5",
     "http-proxy": "1.18.1",
     "http-proxy-to-socks": "1.1.2",
+    "ini": "^3.0.1",
     "shelljs": "0.8.5",
     "socket-proxy": "^1.1.0",
     "socks": "^2.7.1",
-    "udp-proxy": "1.2.0"
+    "udp-proxy": "1.2.0",
+    "xml-js": "^1.6.11",
+    "yaml": "^2.1.3"
   },
   "devDependencies": {
     "chai": "^4.3.7",

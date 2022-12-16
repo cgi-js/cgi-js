@@ -548,7 +548,7 @@ function utils() {
      * @return { Object } 
      * 
      */
-    function getCSVFile(filename, options, seperator = ",", linebreak = "\n", resulttype="array") {
+    function getCSVFile(filename, options, seperator = ",", linebreak = "\n", resulttype = "array") {
         let str = getFile(filename, options);
         return convertCSVArrayToObject(str, seperator, linebreak, resulttype);
     }
@@ -763,11 +763,10 @@ function utils() {
             set: setFile,
             exists: fileExists
         },
-        csv: {
-            get: getCSVFile,
-            // append: appendCSV,
-            set: setCSVFile
-        },
+        csv: { ...require("csv") },
+        ini: { ...require("ini") },
+        yaml: { ...require("yaml") },
+        xml: { ...require("xml-js") },
         json: {
             get: getJSONFile,
             set: setJSONFile,
@@ -787,7 +786,6 @@ function utils() {
         error: error,
         is_running: is_running
     }
-
 }
 
 module.exports = utils;

@@ -130,6 +130,8 @@ Modify:
         ** https://jsdoc.app/tags-type.html
         ** https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler#type-expressions
 - [] Consider concurrency for the package https://github.com/mkschreder/node-php/issues/23
+- [] Consider adding support for csv, xml, yaml, ini.
+- [] Consider @fast-csv/format and @fast-csv/parse
 
 
 Prioritization and Version Consideration
