@@ -22,7 +22,7 @@ const URL = require('url');
 const fs = require('fs');
 const os = require('os');
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 const { config } = require('process');
 // const cgijs = require("cgijs");
 
@@ -84,12 +84,47 @@ let sport = 9090, shost = '127.0.0.1';
 function response(type, exeOptions) {
 
     return function (req, res) {
+        let cgi = cgijs.file();
+        let requestObject = {
+            url: URL.parse(req.originalUrl),
+            originalUrl: req.originalUrl,
+            query: req.url.query,
+            method: req.method,
+            body: req.body,
+            ip: req.ip,
+            headers: req.headers
+        }
 
+        return cgi.serve(type, requestObject, exeOptions).then(function (result) {
+            // console.log("Result Fn", result)
+            result.statusCode = (!result.statusCode) ? 200 : result.statusCode;
+            res.status(result.statusCode).send(result.response);
+        }).catch(function (error) {
+            // console.log("Error Fn", error)
+            error.statusCode = (!error.statusCode) ? 500 : error.statusCode;
+            res.status(error.statusCode).send(error.response);
+        });
     };
 }
 
+// const cgijsProcess = cgijs.process();
+// const basePath = "";
+// var config = cgijs["default-configs"].process;
+// config.name = "php";
+// config.cmds["generic"] = { "exe": "php", "usage": path.join(basePath, "php"), "args": [path.join(__dirname, "..\\..\\www\\files\\php\\index.php")] }
+// config.other.executetype = "exec";
+// config.other.command = "generic";
+// cgijsProcess.process.executeProcess(config, function (e, o, se) {
+//     console.log(o);
+//     if (!!e || !!se) {
+//         console.log(e, se);
+//     }
+//     // process.exit(0);
+// })
+
+
 // PHP File: Use bin as string
-app.use("/php", response('php', {}));
+app.use("/php", response('php', { ...configuration, web_root_folder: path.join(configuration.embed.path, configuration.script.path), bin: "", config_path: lang_config, host: configuration.script.server.host, port: configuration.script.server.port, cmd_options: configuration.script.options }));
 
 app.use("*", function (req, res) {
     res.send(`

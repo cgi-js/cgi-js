@@ -22,11 +22,9 @@ const URL = require('url');
 const fs = require('fs');
 const os = require('os');
 const path = require("path");
-const cgijs = require("../../index.js");
-// const cgijs = require("cgijs");
-
+const cgijs = require("../../../index.js");
 const { config } = require('process');
-
+// const cgijs = require("cgijs");
 
 var app = express();
 
@@ -39,7 +37,7 @@ if (ostype === "Linux") {
     configuration = {
         "embed": {
             "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
-            "bin": "../../../../binaries/ruby",
+            "bin": "../../../../binaries/php",
             "config": {
                 "argument": "",
                 "seperator": " ",
@@ -54,10 +52,8 @@ if (ostype === "Linux") {
         },
         "script": {
             "type": "file",
-            "transformResponse": false,
-            "transformRequest": true,
-            "file": "index.rb",
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js\\www\\files\\ruby",
+            "file": "info.php",
+            "path": "\\www\\files\\php",
             "server": {
                 "host": "localhost",
                 "port": 3001,
@@ -68,7 +64,7 @@ if (ostype === "Linux") {
                     "pem": ""
                 }
             },
-            "options": "",
+            "options": "-d expose_php=off",
             "seperator": " "
         }
     };
@@ -77,7 +73,7 @@ if (ostype === "Linux") {
 }
 
 if (typeof configuration.embed.config === "string") {
-    lang_config = configuration.embed.config;
+    lang_config = configuration.embed.config
 } else if (typeof configuration.embed.config === "object") {
     lang_config = configuration.embed.config["argument"] + configuration.embed.config["seperator"] + configuration.embed.config["file"];
 }
@@ -88,30 +84,19 @@ let sport = 9090, shost = '127.0.0.1';
 function response(type, exeOptions) {
 
     return function (req, res) {
-        let fileExecute = cgijs.cgi();
 
-        return fileExecute.serve(type, req, exeOptions, (e, o, se) => {
-            req = req, res = res;
-            if (!!o) {
-                (!!exeOptions.script.transformResponse) ? res.set((!!o.headers) ? o.headers : { ...exeOptions.script.headers }) : null;
-                res.status((!o.statusCode) ? 200 : o.statusCode).send((!o.response) ? o : o.response);
-            } else if (!!se) {
-                res.status((!e.statusCode) ? 500 : e.statusCode).send(se.toString());
-            } else if (!!e) {
-                res.status((!se.statusCode) ? 500 : se.statusCode).send(e.toString());
-            }
-        });
     };
 }
 
 // PHP File: Use bin as string
-app.use("/py", response('python', configuration));
+app.use("/php", response('php', {}));
 
 app.use("*", function (req, res) {
     res.send(`
         "Testing my server"
     `);
 });
+
 
 let server = app.listen(sport, shost, function () {
     console.log(`Server listening at ${sport}!`);

@@ -22,11 +22,9 @@ const URL = require('url');
 const fs = require('fs');
 const os = require('os');
 const path = require("path");
-const cgijs = require("../../index.js");
-// const cgijs = require("cgijs");
-
+const cgijs = require("../../../index.js");
 const { config } = require('process');
-
+// const cgijs = require("cgijs");
 
 var app = express();
 
@@ -39,7 +37,7 @@ if (ostype === "Linux") {
     configuration = {
         "embed": {
             "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
-            "bin": "../../../../binaries/php",
+            "bin": "../../../../binaries/perl",
             "config": {
                 "argument": "",
                 "seperator": " ",
@@ -54,10 +52,8 @@ if (ostype === "Linux") {
         },
         "script": {
             "type": "file",
-            "transformResponse": false,
-            "transformRequest": true,
-            "file": "info.php",
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js\\www\\files\\php",
+            "file": "index.pl",
+            "path": "\\www\\files\\perl",
             "server": {
                 "host": "localhost",
                 "port": 3001,
@@ -88,24 +84,31 @@ let sport = 9090, shost = '127.0.0.1';
 function response(type, exeOptions) {
 
     return function (req, res) {
-        let fileExecute = cgijs.cgi();
+        let cgi = cgijs.file();
+        let requestObject = {
+            url: URL.parse(req.originalUrl),
+            originalUrl: req.originalUrl,
+            query: req.url.query,
+            method: req.method,
+            body: req.body,
+            ip: req.ip,
+            headers: req.headers
+        }
 
-        return fileExecute.serve(type, req, exeOptions, (e, o, se) => {
-            req = req, res = res;
-            if (!!o) {
-                (!!exeOptions.script.transformResponse) ? res.set((!!o.headers) ? o.headers : { ...exeOptions.script.headers }) : null;
-                res.status((!o.statusCode) ? 200 : o.statusCode).send((!o.response) ? o : o.response);
-            } else if (!!se) {
-                res.status((!e.statusCode) ? 500 : e.statusCode).send(se.toString());
-            } else if (!!e) {
-                res.status((!se.statusCode) ? 500 : se.statusCode).send(e.toString());
-            }
+        return cgi.serve(type, requestObject, exeOptions).then(function (result) {
+            // console.log("Result Fn", result)
+            result.statusCode = (!result.statusCode) ? 200 : result.statusCode;
+            res.status(result.statusCode).send(result.response);
+        }).catch(function (error) {
+            // console.log("Error Fn", error)
+            error.statusCode = (!error.statusCode) ? 500 : error.statusCode;
+            res.status(error.statusCode).send(error.response);
         });
     };
 }
 
-// PHP File: Use bin as string
-app.use("/php", response('php', configuration));
+// // PL File
+app.use("/pl", response('pl', { ...configuration, web_root_folder: path.join(configuration.embed.path, configuration.script.path), bin: "", config_path: lang_config, host: configuration.script.server.host, port: configuration.script.server.port, cmd_options: configuration.script.options }));
 
 app.use("*", function (req, res) {
     res.send(`

@@ -21,7 +21,7 @@ const URL = require('url');
 const fs = require('fs');
 const os = require('os');
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 
 const ostype = os.type();
 var configuration;
@@ -77,21 +77,8 @@ let config = {
 };
 
 
-
 // Sample Proxy Server (You have the option to avoid this all together)
-let apptwo = express();
-apptwo.use("*", function (req, res) {
-    res.send(`
-    Testing my server - PROXY from port ${config.options.target.port} <br><br>
-    Access Main at http://localhost:${sport}/
-    `);
-});
-apptwo.listen(config.options.target.port, config.options.target.host, function () {
-    console.log(`Server listening at ${config.options.target.port}!`);
-});
-
-// Sample Proxy Server (You have the option to avoid this all together)
-
+var remoteProxy = require("../demo-app/remote/remote-proxy")(config.options.target.port);
 
 function proxyHandler(handler, configuration) {
     handler.proxy.setup("proxyone", configuration, {})

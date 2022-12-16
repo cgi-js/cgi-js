@@ -22,7 +22,7 @@ const URL = require('url');
 const fs = require('fs');
 const os = require('os');
 const path = require("path");
-const cgijs = require("../../index.js");
+const cgijs = require("../../../index.js");
 // const cgijs = require("cgijs");
 
 const { config } = require('process');
@@ -77,7 +77,7 @@ if (ostype === "Linux") {
 }
 
 if (typeof configuration.embed.config === "string") {
-    lang_config = configuration.embed.config
+    lang_config = configuration.embed.config;
 } else if (typeof configuration.embed.config === "object") {
     lang_config = configuration.embed.config["argument"] + configuration.embed.config["seperator"] + configuration.embed.config["file"];
 }
@@ -105,7 +105,7 @@ function response(type, exeOptions) {
 }
 
 // PHP File: Use bin as string
-app.use("/py", response('py', configuration));
+app.use("/py", response('python', configuration));
 
 app.use("*", function (req, res) {
     res.send(`
