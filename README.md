@@ -10,6 +10,7 @@
 - Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
 - Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (`http`, `websockets`, `tcp`, `udp`, `socks`, `ssh`, `ftp`).
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
+- Supports parsing and working with json, ini, csv, yaml, and xml internally
 
 
 `[Funding Invited]`
@@ -95,7 +96,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] PHP (Version Independent) - `php` (for .php extension files)
 * [x] Ruby (Version Independent) - `rb` (for Ruby .rb extension files)
 * [x] Node.js (Version Independent) - `js` (for Node.js .js extension files)
-* [] CGI  - `cgi` (for CGI .cgi extension files) [TODO]
+* [x] CGI - `cgi` (for CGI .cgi extension files) [TODO Testing]
 
 ##### The script should support piping all proxies of above languages and following:
 
@@ -118,10 +119,10 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Putty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
 * [] Mongoose (Allows Embed) [TODO - Testing]
 * [] Jetty (Allows Embed) [TODO - Testing]
-* [] Putty (Allows Embed) [TODO - Testing]
-* [] PHP development server using `php -S` [TODO] <!-- php -S localhost:8000  -->
-* [] Ruby development server using `rails server` [TODO] <!-- bin/rails server -->
-* [] Python development server using `py -m http.server` [TODO] <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
+* [x] Putty (Allows Embed) [TODO - Testing]
+* [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
+* [x] Ruby development server using `rails server` [TODO - Testing] <!-- bin/rails server -->
+* [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [x] Other Proxy-able local/remote servers
 
 
