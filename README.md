@@ -168,7 +168,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 This project contains example that demonstrates working with ExpressJS.
 
 - The demos for runing CGI/Interpreted scripts with node.js and express applications can be found in the folder [demo app](https://github.com/cgi-js/cgi-js/tree/main/demo/demo-app).
-- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/cgi-js/cgi-js/tree/main/demo/demo-usage)
+- The demos for individual implementation of file, process, proxy, and utils modules can be found in the folder [demo usage [todo]](https://github.com/cgi-js/cgi-js/tree/main/demo)
 
 
 ##### Use case:
