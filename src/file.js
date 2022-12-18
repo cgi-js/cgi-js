@@ -674,7 +674,7 @@ function cgiExecute() {
 				*/
 				feFn(file);
 			} catch (e) {
-				console.log(22)
+				// console.log(22)
 				/**
 				 * Reject file path being present
 				*/
@@ -1277,7 +1277,7 @@ function cgiServe() {
 						headers[m[0]] = m[1];
 					}
 				} catch (err) {
-					console.error("getCGIHtml: ", err)
+					// console.error("getCGIHtml: ", err)
 					return error(err.toString(), false);
 				}
 			}
