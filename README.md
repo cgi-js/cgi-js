@@ -144,12 +144,16 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - [shelljs](https://www.npmjs.com/package/shelljs), 
     - [http-proxy](https://www.npmjs.com/package/http-proxy),
     - [socks](https://www.npmjs.com/package/socks),
     - [udp-proxy](https://www.npmjs.com/package/udp-proxy),
     - [socket-proxy](https://www.npmjs.com/package/socket-proxy),
-    - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks)
+    - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks),
+    - [csv](https://www.npmjs.com/package/csv) file parser,
+    - [xml-js](https://www.npmjs.com/package/xml-js) xml file parser,
+    - [yaml](https://www.npmjs.com/package/yaml) yaml file parser,
+    - [ini](https://www.npmjs.com/package/ini) ini file parser,
+    - [shelljs](https://www.npmjs.com/package/shelljs) to work with shell
     
 
 * Application Dependencies:
