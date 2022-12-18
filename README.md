@@ -49,7 +49,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 - The process shell module is security agnostic and is dependant on your code.
     - The package accesses the shell to run script executables using the node.js process module. Please consider your `security risks based on your executable's/ script's security risks`.
-- The proxy module is security agnostic and is dependant on your code.
+- The proxy module is security agnostic and is dependant on your code and proxy's security.
     - The `package has a LAN or WAN network proxy module AND does not create any proxies` by its own - unless specified by you. Please consider your custom created proxy's security risks.
 - The `package does not use Telemetry, nor Collect data Remotely, nor has Telemetry/Remote based Error collection` on its own.
     - The package propogates errors for you to handle or collect errors/ data.
@@ -132,6 +132,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] MongoDB [Done]
 * [] PgSQL [TODO]
 * [] Redis [TODO]
+* [x] bash, bat, ps scripts [Done]
 * [x] Other Processes for your application support
 
 
