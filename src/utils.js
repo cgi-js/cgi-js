@@ -763,7 +763,12 @@ function utils() {
             set: setFile,
             exists: fileExists
         },
-        csv: { ...require("csv") },
+        csv: {
+            get: getCSVFile,
+            append: appendCSV,
+            set: setCSVFile,
+            csv: { ...require("csv") }
+        },
         ini: { ...require("ini") },
         yaml: { ...require("yaml") },
         xml: { ...require("xml-js") },

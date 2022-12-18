@@ -11,11 +11,11 @@
 
 let utils = require("../../../src/utils")();
 const { assert } = require("console");
-
+const path = require("path");
 
 console.log("Starting Passing Tests: get.json Tests")
 
-const jsonfile = utils.json.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json");
+const jsonfile = utils.json.get(path.join(__dirname, "..\\..\\..\\demo\\demo-app\\config-win.json"));
 const keys = Object.keys(jsonfile);
 
 

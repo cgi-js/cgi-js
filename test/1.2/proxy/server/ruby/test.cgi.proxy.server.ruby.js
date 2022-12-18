@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS RUBY DEVELOPMENT SERVER PROCESS
- * 
-*/

@@ -11,7 +11,7 @@
 
 let utils = require("../../../src/utils")();
 const { assert } = require("console");
-
+const path = require("path");
 
 console.log("Starting Passing Tests: is_running Tests - personal machine pids used. change to your own")
 assert(utils.is_running(5444)) // returns truthy value

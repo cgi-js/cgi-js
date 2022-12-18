@@ -11,6 +11,7 @@
 
 let utils = require("../../../src/utils")();
 const { assert } = require("console");
+const path = require("path");
 
 let equalityObjectOne = {
     "test": 10,

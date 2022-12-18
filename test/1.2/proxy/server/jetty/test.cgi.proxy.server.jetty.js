@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS JETTY SERVER PROCESS
- * 
-*/

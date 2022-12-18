@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS PUTTY SERVER PROCESS
- * 
-*/

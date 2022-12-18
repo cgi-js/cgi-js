@@ -1,6 +1,0 @@
-/*
- * 
- * TESTS HTTPD SERVER PROCESS
- * 
-*/
-

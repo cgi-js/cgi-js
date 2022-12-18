@@ -21,11 +21,11 @@
 
 let utils = require("../../../src/utils")();
 const { assert } = require("console");
-
+const path = require("path");
 
 console.log("Starting Passing Tests: set.json Tests")
 
-const jsonfile = utils.json.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json");
+const jsonfile = utils.json.get(path.join(__dirname, "..\\..\\..\\demo\\demo-app\\config-win.json"));
 
 
 utils.json.set("./jsonfile.json", jsonfile);

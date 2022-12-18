@@ -2,9 +2,10 @@
 
 var request = require('supertest');
 
-var mocha = require('mocha')
-var describe = mocha.describe;
-var it = mocha.it;
+var mocha = require('mocha');
+var expect = require('chai').expect;
+// var describe = mocha.describe;
+// var it = mocha.it;
 var assert = require('chai').assert;
 
 // const assert = require('assert');

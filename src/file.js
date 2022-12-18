@@ -37,10 +37,11 @@ function cgiProcessExecute() {
 		"pl": { "name": perl, "cgi": perl, "which": "", "type": "pl", "pattern": /.*?\.pl$/ },
 		"plc": { "name": perl, "cgi": perl, "which": "", "type": "plc", "pattern": /.*?\.plc$/ },
 		"pld": { "name": perl, "cgi": perl, "which": "", "type": "pld", "pattern": /.*?\.pld$/ },
-		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
-		"python": { "name": python3, "cgi": python3, "which": "", "type": "py", "pattern": /.*?\.py$/ },
+		"py3": { "name": python3, "cgi": python3, "which": "", "type": "py3", "pattern": /.*?\.py$/ },
+		"python": { "name": python3, "cgi": python3, "which": "", "type": "python", "pattern": /.*?\.py$/ },
 		"py": { "name": python, "cgi": python, "which": "", "type": "py", "pattern": /.*?\.py$/ },
-		"php": { "name": php, "cgi": php + "-cgi", "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"php": { "name": php, "cgi": php, "which": "", "type": "php", "pattern": /.*?\.php$/ },
+		"php-cgi": { "name": php + "-cgi", "cgi": php + "-cgi", "which": "", "type": "php-cgi", "pattern": /.*?\.php$/ },
 		"node": { "name": node, "cgi": node, "which": "", "type": "node", "pattern": /.*?(\.js|\.mjs|.cjs)$/ }
 	}
 
@@ -277,7 +278,7 @@ function cgiProcessExecute() {
 						headers[m[0]] = m[1];
 					}
 				} catch (err) {
-					console.error("getCGIHtml: ", err)
+					// console.error("getCGIHtml: ", err);
 					return error(err.toString(), false);
 				}
 			}
@@ -384,11 +385,11 @@ function cgiProcessExecute() {
 		if (!datahandler || typeof datahandler !== "function") {
 			throw new Error("file.js: execResponse: Datahandler not a function");
 		}
-
+		
 		let command = {
-			"exe": path.join(exeOptions.basepath, exeOptions.embed.bin, getCGITypes(type).cgi),
-			"usage": path.join(exeOptions.basepath, exeOptions.embed.bin, getCGITypes(type).cgi),
-			"args": [exeOptions.script.options, path.join(exeOptions.script.path, exeOptions.script.file)]
+			"exe": path.join(exeOptions.embed.path, exeOptions.embed.bin, getCGITypes(type).cgi),
+			"usage": path.join(exeOptions.embed.path, exeOptions.embed.bin, getCGITypes(type).cgi),
+			"args": [exeOptions.script.options, path.join(exeOptions.basePath, exeOptions.script.path, exeOptions.script.file)]
 		};
 
 		let config = { ...require("./templatespawn.js") };
@@ -642,7 +643,7 @@ function cgiExecute() {
 	 * @return {Promise} FilePathStringPromise
 	 */
 	function fileExists(type, exeOptions) {
-		console.log(type, exeOptions);
+		// console.log(type, exeOptions);
 		return new Promise(async function (resolve, reject) {
 			/**
 			 * 
@@ -657,7 +658,7 @@ function cgiExecute() {
 				/** @type {*} */
 				let file = path.join((!!exeOptions.embed.path) ? exeOptions.embed.path : "", (!!exeOptions.script.path) ? exeOptions.script.path : "", (!!exeOptions.script.file) ? exeOptions.script.file : "");
 
-				console.log(file);
+				// console.log(file);
 				/** @type {*} */
 				let statsObj = fs.statSync(file);
 

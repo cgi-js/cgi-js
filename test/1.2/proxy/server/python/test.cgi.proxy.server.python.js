@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS PYTHON DEVELOPMENT SERVER PROCESS
- * 
-*/

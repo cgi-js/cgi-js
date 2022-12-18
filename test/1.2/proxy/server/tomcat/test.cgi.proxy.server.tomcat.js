@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS TOMCAT SERVER PROCESS
- * 
-*/

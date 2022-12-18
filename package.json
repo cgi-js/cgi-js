@@ -1,6 +1,6 @@
 {
   "name": "cgijs",
-  "description": "`CGIJS` is a Nodejs Module/library to run any `CGI` mode/`Interpreted language script` files like PHP, JS, Ruby, Python 2, Python 3, ASPX, JSP, and CGI, OR connect to any protocol or any web application server proxies, OR manage processes in the system.",
+  "description": "`CGIJS` is an all featured library to run any `CGI` mode/`Interpreted language script` files like PHP, JS, Ruby, Python 2, Python 3, ASPX, JSP, and CGI, OR connect to any protocol or any web application server proxies, OR manage processes in the system.",
   "version": "1.2.0",
   "author": {
     "name": "Ganesh",
@@ -16,13 +16,13 @@
     "demo-process": "node ./demo/demo-app/demo-processes.js",
     "demo-all": "node ./demo/demo-app/demo-all.js",
     "test": "mocha --reporter spec --recursive --config ./mocha.test.config.js",
-    "test:files": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
-    "test:process": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
-    "test:proxy": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
-    "test:remote": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
-    "test:utils": "node ./node_modules/mocha/bin/mocha --exit './test/src/file/**/*.test.js'",
-    "test1.1": "mocha --reporter spec --recursive ./test/1.1/",
-    "test1.2": "mocha --reporter spec --recursive ./test/1.2/",
+    "test:files": "node ./node_modules/mocha/bin/mocha --exit './test/1.1/file/**/test.*.js'",
+    "test:process": "node ./node_modules/mocha/bin/mocha --exit './test/1.1/process/test.*.js'",
+    "test:proxy": "node ./node_modules/mocha/bin/mocha --exit './test/1.1/proxy/**/test.*.js'",
+    "test:remote": "node ./node_modules/mocha/bin/mocha --exit './test/1.1/remote/**/test.*.js'",
+    "test:utils": "node ./node_modules/mocha/bin/mocha --exit './test/1.1/utils/**/test.*.js'",
+    "test1.1": "mocha --reporter spec --recursive ./test/1.1",
+    "test1.2": "mocha --reporter spec --recursive './test/1.2/**/*.test.js'",
     "build:cgijs": "",
     "publish:cgijs": ""
   },
@@ -46,12 +46,14 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
+    "cors": "^2.8.5",
     "eslint": "^8.28.0",
     "express": "^4.18.2",
     "mocha": "^10.1.0",
     "npm-check": "^6.0.1",
     "sinon": "^14.0.2",
     "socket.io": "^4.5.4",
+    "superagent": "^8.0.6",
     "supertest": "^6.3.1",
     "unimported": "^1.23.0",
     "ws": "^8.11.0"

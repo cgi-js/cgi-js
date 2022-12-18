@@ -11,12 +11,12 @@
 
 let utils = require("../../../src/utils")();
 const { assert } = require("console");
-
+const path = require("path");
 
 console.log("Starting Passing Tests: get.file Tests")
 
 
-const jsonfile = JSON.parse(utils.file.get("C:\\Users\\gb\\Documents\\projects\\github\\cgi-js\\demo\\demo-app\\config-win.json"));
+const jsonfile = JSON.parse(utils.file.get(path.join(__dirname, "..\\..\\..\\demo\\demo-app\\config-win.json")));
 const keys = Object.keys(jsonfile);
 
 assert(keys.includes("php"), "keys.includes('php') contains php is true")

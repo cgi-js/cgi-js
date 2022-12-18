@@ -1,5 +1,0 @@
-/*
- * 
- * TESTS MONGOOSE SERVER PROCESS
- * 
-*/
