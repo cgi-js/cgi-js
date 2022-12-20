@@ -37,8 +37,9 @@ if (ostype === "Linux") {
     configuration = JSON.parse(fs.readFileSync('../../demo/demo-app/config-linux.json'));
 } else if (ostype === "Windows_NT") {
     configuration = {
+        "basepath": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
         "embed": {
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
+            "path": "",
             "bin": "../../../../binaries/ruby",
             "config": {
                 "argument": "",
@@ -57,7 +58,7 @@ if (ostype === "Linux") {
             "transformResponse": false,
             "transformRequest": true,
             "file": "index.rb",
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js\\www\\files\\ruby",
+            "path": "\\www\\files\\ruby",
             "server": {
                 "host": "localhost",
                 "port": 3001,

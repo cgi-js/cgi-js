@@ -37,8 +37,9 @@ if (ostype === "Linux") {
     configuration = JSON.parse(fs.readFileSync('../../demo/demo-app/config-linux.json'));
 } else if (ostype === "Windows_NT") {
     configuration = {
+        "basePath": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
         "embed": {
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js",
+            "path": "",
             "bin": "../../../../binaries/php",
             "config": {
                 "argument": "",
@@ -57,7 +58,7 @@ if (ostype === "Linux") {
             "transformResponse": true,
             "transformRequest": true,
             "file": "info.php",
-            "path": "C:\\Users\\GB\\Documents\\projects\\desktopcgi\\desktop-cgi-application\\cgi-js\\www\\files\\php",
+            "path": "\\www\\files\\php",
             "server": {
                 "host": "localhost",
                 "port": 3001,

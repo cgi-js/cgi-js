@@ -1,0 +1,33 @@
+https://www.cyberciti.biz/faq/howto-install-curl-command-on-debian-linux-using-apt-get/
+
+Ansible	Check version • Fedora • FreeBSD • Linux • Ubuntu 18.04 • Ubuntu • macOS
+Backup Management	Debian/Ubuntu • FreeBSD • RHEL
+Database Server	Backup MySQL server • MariaDB Galera cluster • MariaDB TLS/SSL • MariaDB replication • MySQL Server • MySQL remote access
+Download managers	wget
+Driver Management	Linux Nvidia driver • lsmod
+Documentation	help • mandb • man • pinfo
+Disk Management	df • duf • ncdu • pydf
+File Management	cat • cp • less • mkdir • more • tree
+Firewall	Alpine Awall • CentOS 8 • OpenSUSE • RHEL 8 • Ubuntu 16.04 • Ubuntu 18.04 • Ubuntu 20.04 • Ubuntu 24.04
+KVM Virtualization	CentOS/RHEL 7 • CentOS/RHEL 8 • Debian 9/10/11 • Ubuntu 20.04
+Linux Desktop apps	Chrome • Chromium • GIMP • Skype • Spotify • VLC 3
+LXD	Backups • CentOS/RHEL • Fedora • Mount dir • Ubuntu 20.04
+Modern utilities	bat • exa
+Network Management	Monitoring tools • Network services • RHEL static IP • Restart network interface • nmcli
+Network Utilities	NetHogs • dig • host • ip • nmap • ping
+OpenVPN	CentOS 7 • CentOS 8 • Debian 10 • Debian 11 • Debian 8/9 • Ubuntu 18.04 • Ubuntu 20.04
+Power Management	upower
+Package Manager	apk • apt-get • apt • yum
+Processes Management	bg • chroot • cron • disown • fg • glances • gtop • iotop • jobs • killall • kill • pidof • pstree • pwdx • time • vtop
+Searching	ag • egrep • grep • whereis • which
+Shell builtins	compgen • echo • printf
+System Management	reboot • shutdown
+Terminal/ssh	sshpass • tty
+Text processing	cut • rev
+Text Editor	6 Text editors • Save and exit vim
+User Environment	exit • who
+User Information	groups • id • lastcomm • last • lid/libuser-lid • logname • members • users • whoami • w
+User Management	/etc/group • /etc/passwd • /etc/shadow • chsh
+Web Server	Apache • Let's Encrypt certificate • Lighttpd • Nginx Security • Nginx
+WireGuard VPN	Alpine • Amazon Linux • CentOS 8 • Debian 10 • Firewall • Ubuntu 20.04 • qrencode
+
