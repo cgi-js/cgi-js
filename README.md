@@ -154,6 +154,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [xml-js](https://www.npmjs.com/package/xml-js) xml file parser,
     - [yaml](https://www.npmjs.com/package/yaml) yaml file parser,
     - [ini](https://www.npmjs.com/package/ini) ini file parser,
+    - [dotenv](https://www.npmjs.com/package/dotenv) dotenv file parser,
     - [shelljs](https://www.npmjs.com/package/shelljs) to work with shell
     
 
