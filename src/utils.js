@@ -773,6 +773,7 @@ function utils() {
         yaml: { ...require("yaml") },
         xml: { ...require("xml-js") },
         dotenv: { ...require("dotenv") },
+        ssh: { ...require("ssh2") },
         json: {
             get: getJSONFile,
             set: setJSONFile,
