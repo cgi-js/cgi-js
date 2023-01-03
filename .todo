@@ -106,6 +106,7 @@ Add:
         ** Check inline docs for .proxy.redirect section after line `redirect: {`
         ** Current proxy file does not differentiate Patterns. The file currently differentiates communication based on just protocols
 - [] Consider Dependency Injection into CGIJS - https://github.com/mgechev/injection-js
+- [] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [Done]
