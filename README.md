@@ -148,6 +148,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [http-proxy](https://www.npmjs.com/package/http-proxy),
     - [socks](https://www.npmjs.com/package/socks),
     - [udp-proxy](https://www.npmjs.com/package/udp-proxy),
+    - [ssh2](https://www.npmjs.com/package/ssh2) for ssh2, ssh, ftp, sftp support,
     - [socket-proxy](https://www.npmjs.com/package/socket-proxy),
     - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks),
     - [csv](https://www.npmjs.com/package/csv) file parser,
