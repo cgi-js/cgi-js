@@ -145,18 +145,18 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * Environment and Library dependencies:
     - Nodejs: (> 8.x),
-    - [http-proxy](https://www.npmjs.com/package/http-proxy),
-    - [socks](https://www.npmjs.com/package/socks),
-    - [udp-proxy](https://www.npmjs.com/package/udp-proxy),
+    - [http-proxy](https://www.npmjs.com/package/http-proxy) for http-proxy support,
+    - [socks](https://www.npmjs.com/package/socks) for socks support,
+    - [udp-proxy](https://www.npmjs.com/package/udp-proxy) for udp support,
     - [ssh2](https://www.npmjs.com/package/ssh2) for ssh2, ssh, ftp, sftp support,
-    - [socket-proxy](https://www.npmjs.com/package/socket-proxy),
-    - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks),
-    - [csv](https://www.npmjs.com/package/csv) file parser,
-    - [xml-js](https://www.npmjs.com/package/xml-js) xml file parser,
-    - [yaml](https://www.npmjs.com/package/yaml) yaml file parser,
-    - [ini](https://www.npmjs.com/package/ini) ini file parser,
-    - [dotenv](https://www.npmjs.com/package/dotenv) dotenv file parser,
-    - [shelljs](https://www.npmjs.com/package/shelljs) to work with shell
+    - [socket-proxy](https://www.npmjs.com/package/socket-proxy) for socket proxy,
+    - [http-proxy-to-socks](https://www.npmjs.com/package/http-proxy-to-socks) for http to socks proxy,
+    - [csv](https://www.npmjs.com/package/csv) for file parser,
+    - [xml-js](https://www.npmjs.com/package/xml-js) for xml file parser,
+    - [yaml](https://www.npmjs.com/package/yaml) for yaml file parser,
+    - [ini](https://www.npmjs.com/package/ini) for ini file parser,
+    - [dotenv](https://www.npmjs.com/package/dotenv) for dotenv file parser,
+    - [shelljs](https://www.npmjs.com/package/shelljs) for support with shell
     
 
 * Application Dependencies:
