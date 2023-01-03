@@ -772,6 +772,7 @@ function utils() {
         ini: { ...require("ini") },
         yaml: { ...require("yaml") },
         xml: { ...require("xml-js") },
+        dotenv: { ...require("dotenv") },
         json: {
             get: getJSONFile,
             set: setJSONFile,
