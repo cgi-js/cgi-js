@@ -1,7 +1,7 @@
 {
   "name": "cgijs",
   "description": "`CGIJS` is an all featured library to run any `CGI` mode/`Interpreted language script` files like PHP, JS, Ruby, Python 2, Python 3, ASPX, JSP, and CGI, OR connect to any protocol or any web application server proxies, OR manage processes in the system.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Ganesh",
     "email": "desktopcgi@gmail.com"
@@ -127,6 +127,7 @@
     "tcp",
     "ssh",
     "ftp",
+    "ftps",
     "socket",
     "websocket",
     "socks",
