@@ -113,17 +113,17 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx (Allows Embed) <sub>[Done]</sub>
 * [x] Apache HTTPD (Allows Embed) <sub>[Done]</sub>
-* [x] Apache TomCat (Allows Embed) [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [] Mongoose (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [] Jetty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [x] Putty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
+* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<sub>Todo</sub> - <sub>Testing</sub>] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>Todo - Testing</sub>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
-* [] Other Proxy-able local/remote servers [INPROGRESS]
+* [] Other Proxy-able local/remote servers [<sub>InProgress</sub>]
 
 ##### The script currently allows working with (starting, stopping, restarting proxies) following web servers:
 
@@ -133,17 +133,17 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx (Allows Embed) <sub>[Done]</sub>
 * [x] Apache HTTPD (Allows Embed) <sub>[Done]</sub>
-* [x] Apache TomCat (Allows Embed) [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [] Mongoose (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [] Jetty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [x] Putty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
+* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<sub>Todo</sub> - Testing] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>Todo - Testing</sub>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
-* [] Other Proxy-able local/remote servers [INPROGRESS]
+* [] Other Proxy-able local/remote servers [<sub>InProgress</sub>]
 
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
@@ -153,17 +153,17 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx <sub>[Done]</sub>
 * [x] Apache HTTPD <sub>[Done]</sub>
-* [x] Apache TomCat [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
-* [] Mongoose (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [] Jetty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
-* [x] Putty (Allows Embed) [<sub>Todo</sub> - <sub>Testing</sub>]
+* [x] Apache TomCat [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<sub>Todo</sub> - <sub>Testing</sub>] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>Todo - Testing</sub>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
-* [] Other Proxy-able local/remote servers [INPROGRESS]
+* [] Other Proxy-able local/remote servers [<sub>InProgress</sub>]
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
