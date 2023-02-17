@@ -141,6 +141,18 @@
     "node asp bridge",
     "run",
     "execute",
-    "cgi script"
+    "cgi script",
+    "php shell",
+    "python shell",
+    "perl shell",
+    "java shell",
+    "node shell",
+    "ruby shell",
+    "run php shell",
+    "run python shell",
+    "run perl shell",
+    "run java shell",
+    "run node shell",
+    "run ruby shell"
   ]
 }

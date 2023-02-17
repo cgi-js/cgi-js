@@ -89,13 +89,13 @@ Add:
 - [*] Work with embedding Database Servers (MySQL, PgSQL[todo], MongoDB) [Partially done]
 - [*] Work with other using generic command process functions and executables [Partially done]
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
-- [] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [TODO]
-- [] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [TODO]
-- [] Deprecate phpcgijs in favour of cgijs [TODO]
-- [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]
-- [] Consider adding serving CGI file (.cgi) like PHP, an option [TODO]
-- [] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
-- [] Consider adding inbuilt PHP, Python, Ruby, Perl custom config based development server proxy to package api [TODO]
+- [*] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [DONE]
+- [*] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [DONE]
+- [*] Deprecate phpcgijs in favour of cgijs [INPROGRESS, Migration started]
+- [*] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [DONE]
+- [*] Consider adding serving CGI file (.cgi) like PHP, an option [DONE]
+- [*] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
+- [*] Consider adding inbuilt PHP, Python, Ruby, Perl custom config based development server proxy to package api [INPROGRESS]
 - [] Add middlewares for use with different frameworks for CGIJS CGI Files for all interpreted languages [TODO]
         ** Consider function name require('cgijs').middlewares.file.frameworkname(...arguments...) [TODO]
         ** Concept Credit - npm:http-php
@@ -106,22 +106,23 @@ Add:
         ** Check inline docs for .proxy.redirect section after line `redirect: {`
         ** Current proxy file does not differentiate Patterns. The file currently differentiates communication based on just protocols
 - [] Consider Dependency Injection into CGIJS - https://github.com/mgechev/injection-js
-- [] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json
+- [*] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json
+- [*] Consider adding concurrency.js in cgijs and phpcgijs
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [Done]
 - [*] Config based serving for file, web (proxy) applications [Done]
 - [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [Done]
     - [*] IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
-- [] Tests for Production release version 1.0.0 - file module [Partially done]
-- [*] Tests for Production release version 1.0.0 - process module [Partially done]
-- [*] Tests for Production release version 1.0.0 - proxy module [Partially done]
-- [*] Tests for Production release version 1.0.0 - utils module [Partially done]
+- [] Tests for Production release version 1.0.0 - file module [INPROGRESS] Partially done
+- [*] Tests for Production release version 1.0.0 - process module [INPROGRESS] Partially done
+- [*] Tests for Production release version 1.0.0 - proxy module [INPROGRESS] Partially done
+- [*] Tests for Production release version 1.0.0 - utils module [INPROGRESS] Partially done
 - [] Check and Redo Authentication for proxy connections for VLAN proxies [TODO]
 - [] Consider adding inbuilt development server management (testing needed) for CGI executables like PHP, Ruby, Python, others [Testing]
 - [] Consider support for gRPC for proxy. Consider adding socket's module [TODO] 
-- [] Consider support for UDP for proxy. Consider adding socket's module [TODO] [Packages considered - udp-proxy**, http2udp, node-udp-forwarder, udp-messaging]
-- [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [TODO] (Packages Considered: socks**, http-proxy-to-socks)
+- [] Consider support for UDP for proxy. Consider adding socket's module [INPROGRESS] Partially done [Packages considered - udp-proxy**, http2udp, node-udp-forwarder, udp-messaging]
+- [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [INPROGRESS] Partially done (Packages Considered: socks**, http-proxy-to-socks)
 - [*] Consider support for Other Protocols for proxy. Consider adding socket's module [Done]
 - [] Consider support for Other Protocols for proxy within package [TODO]
 - [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
