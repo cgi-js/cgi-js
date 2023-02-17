@@ -85,9 +85,9 @@ Add:
 - [*] Manual commands [DONE]
 - [*] Command line options for all interpretors in config object [DONE]
 - [*] Work with any executables/processes [DONE]
-- [*] Work with embedding Servers (HTTPD, Tomcat [TODO], Nginx) Partially done
-- [*] Work with embedding Database Servers (MySQL, PgSQL [TODO], MongoDB) Partially done
-- [*] Work with other using generic command process functions and executables [TODO] Partially done
+- [*] Work with embedding Servers (HTTPD, Tomcat [INPROGRESS], Nginx) Partially done
+- [*] Work with embedding Database Servers (MySQL, PgSQL [INPROGRESS], MongoDB) Partially done
+- [*] Work with other using generic command process functions and executables [INPROGRESS] Partially done
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 - [*] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [DONE]
 - [*] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [DONE]
