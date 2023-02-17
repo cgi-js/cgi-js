@@ -96,7 +96,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] PHP (Version Independent) - `php` (for .php extension files)
 * [x] Ruby (Version Independent) - `rb` (for Ruby .rb extension files)
 * [x] Node.js (Version Independent) - `js` (for Node.js .js extension files)
-* [x] CGI - `cgi` (for CGI .cgi extension files) [<sub>TODO Testing</sub>]
+* [x] CGI - `cgi` (for CGI .cgi extension files) [<sub>Todo Testing</sub>]
 
 ##### The script should support piping all proxies of above languages and following:
 
