@@ -91,7 +91,7 @@ Add:
 - [] Improve performance by reducing config parsing time. Consider singletons for non-dynamic configs [TODO]
 - [*] Move cgi file serving to be based on processes execute implementation keeping current method of cgi.serve implementation same [DONE]
 - [*] Add implementation of phpcgijs into cgijs - cgi.serve(filename, executable, args) without moving current method of implementation [DONE]
-- [*] Deprecate phpcgijs in favour of cgijs [INPROGRESS, Migration started]
+- [*] Deprecate phpcgijs in favour of cgijs [INPROGRESS] Migration started
 - [*] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [DONE]
 - [*] Consider adding serving CGI file (.cgi) like PHP, an option [DONE]
 - [*] Consider adding tracer for errors. Reconsider error handling mechanism [TODO]
@@ -106,8 +106,8 @@ Add:
         ** Check inline docs for .proxy.redirect section after line `redirect: {`
         ** Current proxy file does not differentiate Patterns. The file currently differentiates communication based on just protocols
 - [] Consider Dependency Injection into CGIJS - https://github.com/mgechev/injection-js
-- [*] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json
-- [*] Consider adding concurrency.js in cgijs and phpcgijs
+- [*] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json [DONE]
+- [*] Consider adding concurrency.js in cgijs and phpcgijs [INPROGRESS]
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [DONE]
