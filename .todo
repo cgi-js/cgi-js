@@ -79,12 +79,12 @@
 ##### TODO ITEMS
 
 Add:
-- [*] CGI File serving [Done]
-- [*] Proxy local and remote web servers [Done]
-- [*] Proxy supporting websockets [Done]
-- [*] Manual commands [Done]
-- [*] Command line options for all interpretors in config object [Done]
-- [*] Work with any executables/processes [Done]
+- [*] CGI File serving [DONE]
+- [*] Proxy local and remote web servers [DONE]
+- [*] Proxy supporting websockets [DONE]
+- [*] Manual commands [DONE]
+- [*] Command line options for all interpretors in config object [DONE]
+- [*] Work with any executables/processes [DONE]
 - [*] Work with embedding Servers (HTTPD, Tomcat [TODO], Nginx) Partially done
 - [*] Work with embedding Database Servers (MySQL, PgSQL [TODO], MongoDB) Partially done
 - [*] Work with other using generic command process functions and executables [TODO] Partially done
@@ -110,10 +110,10 @@ Add:
 - [*] Consider adding concurrency.js in cgijs and phpcgijs
 
 Modify:
-- [*] Make config and options dynamic based on config file for file based demos [Done]
-- [*] Config based serving for file, web (proxy) applications [Done]
-- [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [Done]
-    - [*] IMPORTANT: Remove multiple libraries for httpserver and fix one [Done]
+- [*] Make config and options dynamic based on config file for file based demos [DONE]
+- [*] Config based serving for file, web (proxy) applications [DONE]
+- [*] Add 'other' or 'custom' CGI executable option for unaccomodated Interpreted language support [DONE]
+    - [*] IMPORTANT: Remove multiple libraries for httpserver and fix one [DONE]
 - [] Tests for Production release version 1.0.0 - file module [INPROGRESS] Partially done
 - [*] Tests for Production release version 1.0.0 - process module [INPROGRESS] Partially done
 - [*] Tests for Production release version 1.0.0 - proxy module [INPROGRESS] Partially done
@@ -123,8 +123,8 @@ Modify:
 - [] Consider support for gRPC for proxy. Consider adding socket's module [TODO] 
 - [] Consider support for UDP for proxy. Consider adding socket's module [INPROGRESS] Partially done [Packages considered - udp-proxy**, http2udp, node-udp-forwarder, udp-messaging]
 - [] Consider adding support for Socks proxy. Plus support for Socks to http proxy [INPROGRESS] Partially done (Packages Considered: socks**, http-proxy-to-socks)
-- [*] Consider support for Other Protocols for proxy. Consider adding socket's module [Done]
-- [] Consider support for Other Protocols for proxy within package [TODO]
+- [*] Consider support for Other Protocols for proxy. Consider adding socket's module [DONE]
+- [] Consider support for Other Protocols for proxy within package [INPROGRESS]
 - [] Test Session management frameworks in PHP, Python, and Java Web Applications in http and https proxies (Memory/ File/ Cache/ Database Sessions) [TODO]
 - [] Consider and test bi-directional communication with CGI Mode executables like PHP, Python, Ruby, Perl, etc [TODO]
 - [] Add JSDoc compatible typing based documentation
@@ -132,7 +132,7 @@ Modify:
         ** https://jsdoc.app/tags-type.html
         ** https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler#type-expressions
 - [] Consider concurrency for the package https://github.com/mkschreder/node-php/issues/23
-- [] Consider adding support for csv, xml, yaml, ini.
+- [*] Consider adding support for csv, xml, yaml, ini. [DONE]
 - [] Consider @fast-csv/format and @fast-csv/parse
 
 

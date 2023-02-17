@@ -33,6 +33,7 @@
     "import": "./index.mjs"
   },
   "dependencies": {
+    "concurrency.js": "^0.0.23-beta",
     "csv": "^6.2.5",
     "dotenv": "^16.0.3",
     "http-proxy": "1.18.1",
