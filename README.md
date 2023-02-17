@@ -102,8 +102,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * [x] Jsp (With Tomcat, or any webserver as proxy) 
 * [x] Aspx (With IIS, Apache, or any webserver as proxy)
-* [] Jsp (With Tomcat embedded) <sub>Todo</sub>
-* [] Aspx (With Nginx and Apache embedded) <sub>Todo</sub>
+* [] Jsp (With Tomcat embedded) <sub>[Todo]</sub>
+* [] Aspx (With Nginx and Apache embedded) <sub>[Todo]</sub>
 
 ##### The script currently allows working with (starting, stopping, restarting using bash, bat scripts) following web servers:
 
@@ -170,8 +170,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * [x] Mysql <sub>[Done]</sub>
 * [x] MongoDB <sub>[Done]</sub>
-* [] PgSQL <sub>Todo</sub>
-* [] Redis <sub>Todo</sub>
+* [] PgSQL <sub>[Todo]</sub>
+* [] Redis <sub>[Todo]</sub>
 * [x] bash, bat, ps scripts <sub>[Done]</sub>
 * [x] Other Processes for your application support
 
