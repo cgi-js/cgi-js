@@ -49,7 +49,7 @@
 * [] Aspx (With Nginx and Apache embedded) [TODO]
 
 
-##### The script currently allows working with (starting, stopping, restarting) following web servers:
+##### The script currently allows working with (starting, stopping, restarting) following web servers (directly, shell scripts, and as proxy):
 
 * [x] IIS (Allows Proxy)
 * [x] Nginx (Allows Proxy)
@@ -64,7 +64,7 @@
 * [] Jetty (Allows Embed) [PLANNED]
 * [] Putty (Allows Proxy) [PLANNED]
 * [] Putty (Allows Embed) [PLANNED]
-* [x] Other Proxy-able local/remote servers
+* [*] Other Proxy-able local/remote servers
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:

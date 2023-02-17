@@ -105,34 +105,74 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [] Jsp (With Tomcat embedded) [TODO]
 * [] Aspx (With Nginx and Apache embedded) [TODO]
 
-##### The script currently allows working with (starting, stopping, restarting) following web servers:
+##### The script currently allows working with (starting, stopping, restarting using bash, bat scripts) following web servers:
 
-* [x] IIS (Allows Proxy) [Done]
-* [x] Nginx (Allows Proxy) [Done]
-* [x] Apache HTTPD (Allows Proxy) [Done]
-* [x] Apache TomCat (Allows Proxy) [Done]
-* [x] Nginx (Allows Embed) [Done]
-* [x] Apache HTTPD (Allows Embed) [Done]
+* [x] IIS [DONE]
+* [x] Nginx [DONE]
+* [x] Apache HTTPD [DONE]
+* [x] Apache TomCat [DONE]
+* [x] Nginx (Allows Embed) [DONE]
+* [x] Apache HTTPD (Allows Embed) [DONE]
 * [x] Apache TomCat (Allows Embed) [TODO - Testing, should work based on current testing of other proxies]
-* [x] Mongoose (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
-* [x] Jetty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
-* [x] Putty (Allows Proxy) [TODO - Testing, should work based on current testing of other proxies]
+* [x] Mongoose [TODO - Testing, should work based on current testing of other proxies]
+* [x] Jetty [TODO - Testing, should work based on current testing of other proxies]
+* [x] Putty [TODO - Testing, should work based on current testing of other proxies]
 * [] Mongoose (Allows Embed) [TODO - Testing]
 * [] Jetty (Allows Embed) [TODO - Testing]
 * [x] Putty (Allows Embed) [TODO - Testing]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
 * [x] Ruby development server using `rails server` [TODO - Testing] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
-* [x] Other Proxy-able local/remote servers
+* [] Other Proxy-able local/remote servers [INPROGRESS]
+
+##### The script currently allows working with (starting, stopping, restarting proxies) following web servers:
+
+* [x] IIS [DONE]
+* [x] Nginx [DONE]
+* [x] Apache HTTPD [DONE]
+* [x] Apache TomCat [DONE]
+* [x] Nginx (Allows Embed) [DONE]
+* [x] Apache HTTPD (Allows Embed) [DONE]
+* [x] Apache TomCat (Allows Embed) [TODO - Testing, should work based on current testing of other proxies]
+* [x] Mongoose [TODO - Testing, should work based on current testing of other proxies]
+* [x] Jetty [TODO - Testing, should work based on current testing of other proxies]
+* [x] Putty [TODO - Testing, should work based on current testing of other proxies]
+* [] Mongoose (Allows Embed) [TODO - Testing]
+* [] Jetty (Allows Embed) [TODO - Testing]
+* [x] Putty (Allows Embed) [TODO - Testing]
+* [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
+* [x] Ruby development server using `rails server` [TODO - Testing] <!-- bin/rails server -->
+* [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
+* [] Other Proxy-able local/remote servers [INPROGRESS]
+
+##### The script currently allows working with (starting, stopping, restarting) following web servers:
+
+* [x] IIS [DONE]
+* [x] Nginx [DONE]
+* [x] Apache HTTPD [DONE]
+* [x] Apache TomCat [DONE]
+* [x] Nginx [DONE]
+* [x] Apache HTTPD [DONE]
+* [x] Apache TomCat [TODO - Testing, should work based on current testing of other proxies]
+* [x] Mongoose [TODO - Testing, should work based on current testing of other proxies]
+* [x] Jetty [TODO - Testing, should work based on current testing of other proxies]
+* [x] Putty [TODO - Testing, should work based on current testing of other proxies]
+* [] Mongoose (Allows Embed) [TODO - Testing]
+* [] Jetty (Allows Embed) [TODO - Testing]
+* [x] Putty (Allows Embed) [TODO - Testing]
+* [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
+* [x] Ruby development server using `rails server` [TODO - Testing] <!-- bin/rails server -->
+* [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
+* [] Other Proxy-able local/remote servers [INPROGRESS]
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [x] Mysql [Done]
-* [x] MongoDB [Done]
+* [x] Mysql [DONE]
+* [x] MongoDB [DONE]
 * [] PgSQL [TODO]
 * [] Redis [TODO]
-* [x] bash, bat, ps scripts [Done]
+* [x] bash, bat, ps scripts [DONE]
 * [x] Other Processes for your application support
 
 
@@ -157,6 +197,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [ini](https://www.npmjs.com/package/ini) for ini file parser,
     - [dotenv](https://www.npmjs.com/package/dotenv) for dotenv file parser,
     - [shelljs](https://www.npmjs.com/package/shelljs) for support with shell
+    - [concurrency.js](https://www.npmjs.com/package/concurrency.js) for concurrency and parallelization support for threads and processes
     
 
 * Application Dependencies:
