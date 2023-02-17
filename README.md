@@ -113,10 +113,10 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx (Allows Embed) <sub>[Done]</sub>
 * [x] Apache HTTPD (Allows Embed) <sub>[Done]</sub>
-* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Mongoose [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Jetty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Putty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
 * [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
 * [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
@@ -133,10 +133,10 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx (Allows Embed) <sub>[Done]</sub>
 * [x] Apache HTTPD (Allows Embed) <sub>[Done]</sub>
-* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Apache TomCat (Allows Embed) [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Mongoose [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Jetty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Putty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
 * [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
 * [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
@@ -153,10 +153,10 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Apache TomCat <sub>[Done]</sub>
 * [x] Nginx <sub>[Done]</sub>
 * [x] Apache HTTPD <sub>[Done]</sub>
-* [x] Apache TomCat [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Mongoose [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Jetty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
-* [x] Putty [<sub>Todo - Testing, should work based on current testing of other proxies</sub>]
+* [x] Apache TomCat [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Mongoose [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Jetty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
+* [x] Putty [<sub>Todo - Testing</sub>], should work based on current testing of other proxies
 * [] Mongoose (Allows Embed) [<sub>Todo - Testing</sub>]
 * [] Jetty (Allows Embed) [<sub>Todo - Testing</sub>]
 * [x] Putty (Allows Embed) [<sub>Todo - Testing</sub>]
