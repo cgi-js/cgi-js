@@ -96,14 +96,14 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] PHP (Version Independent) - `php` (for .php extension files)
 * [x] Ruby (Version Independent) - `rb` (for Ruby .rb extension files)
 * [x] Node.js (Version Independent) - `js` (for Node.js .js extension files)
-* [x] CGI - `cgi` (for CGI .cgi extension files) [TODO Testing]
+* [x] CGI - `cgi` (for CGI .cgi extension files) [<sub>TODO Testing</sub>]
 
 ##### The script should support piping all proxies of above languages and following:
 
 * [x] Jsp (With Tomcat, or any webserver as proxy) 
 * [x] Aspx (With IIS, Apache, or any webserver as proxy)
-* [] Jsp (With Tomcat embedded) <sub>TODO</sub>
-* [] Aspx (With Nginx and Apache embedded) <sub>TODO</sub>
+* [] Jsp (With Tomcat embedded) <sub>Todo</sub>
+* [] Aspx (With Nginx and Apache embedded) <sub>Todo</sub>
 
 ##### The script currently allows working with (starting, stopping, restarting using bash, bat scripts) following web servers:
 
