@@ -117,11 +117,11 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Mongoose [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
 * [x] Jetty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
 * [x] Putty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
-* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
-* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
+* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [] Other Proxy-able local/remote servers [INPROGRESS]
 
@@ -137,9 +137,9 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 * [x] Mongoose [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
 * [x] Jetty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
 * [x] Putty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
-* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
-* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing]
+* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
 * [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
