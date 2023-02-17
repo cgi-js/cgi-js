@@ -102,77 +102,77 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
 
 * [x] Jsp (With Tomcat, or any webserver as proxy) 
 * [x] Aspx (With IIS, Apache, or any webserver as proxy)
-* [] Jsp (With Tomcat embedded) <span style="font-weight: bold;font-size:0.6em;">TODO</span>
-* [] Aspx (With Nginx and Apache embedded) <span style="font-weight: bold;font-size:0.6em;">TODO</span>
+* [] Jsp (With Tomcat embedded) <sub>TODO</sub>
+* [] Aspx (With Nginx and Apache embedded) <sub>TODO</sub>
 
 ##### The script currently allows working with (starting, stopping, restarting using bash, bat scripts) following web servers:
 
-* [x] IIS <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx (Allows Embed) <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD (Allows Embed) <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Mongoose [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Jetty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Putty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [x] IIS <sub>[DONE]</sub>
+* [x] Nginx <sub>[DONE]</sub>
+* [x] Apache HTTPD <sub>[DONE]</sub>
+* [x] Apache TomCat <sub>[DONE]</sub>
+* [x] Nginx (Allows Embed) <sub>[DONE]</sub>
+* [x] Apache HTTPD (Allows Embed) <sub>[DONE]</sub>
+* [x] Apache TomCat (Allows Embed) [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>TODO</sub> - <sub>Testing</sub>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [] Other Proxy-able local/remote servers [INPROGRESS]
 
 ##### The script currently allows working with (starting, stopping, restarting proxies) following web servers:
 
-* [x] IIS <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx (Allows Embed) <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD (Allows Embed) <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Mongoose [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Jetty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Putty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [x] IIS <sub>[DONE]</sub>
+* [x] Nginx <sub>[DONE]</sub>
+* [x] Apache HTTPD <sub>[DONE]</sub>
+* [x] Apache TomCat <sub>[DONE]</sub>
+* [x] Nginx (Allows Embed) <sub>[DONE]</sub>
+* [x] Apache HTTPD (Allows Embed) <sub>[DONE]</sub>
+* [x] Apache TomCat (Allows Embed) [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - Testing] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>TODO</sub> - Testing] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [] Other Proxy-able local/remote servers [INPROGRESS]
 
 ##### The script currently allows working with (starting, stopping, restarting) following web servers:
 
-* [x] IIS <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Nginx <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache HTTPD <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] Apache TomCat [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Mongoose [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Jetty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [x] Putty [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing, should work based on current testing of other proxies</span>]
-* [] Mongoose (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [] Jetty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
-* [x] Putty (Allows Embed) [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>]
+* [x] IIS <sub>[DONE]</sub>
+* [x] Nginx <sub>[DONE]</sub>
+* [x] Apache HTTPD <sub>[DONE]</sub>
+* [x] Apache TomCat <sub>[DONE]</sub>
+* [x] Nginx <sub>[DONE]</sub>
+* [x] Apache HTTPD <sub>[DONE]</sub>
+* [x] Apache TomCat [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Mongoose [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Jetty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [x] Putty [<sub>TODO</sub> - <sub>Testing, should work based on current testing of other proxies</sub>]
+* [] Mongoose (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [] Jetty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
+* [x] Putty (Allows Embed) [<sub>TODO</sub> - <sub>Testing</sub>]
 * [x] PHP development server using `php -S` <!-- php -S localhost:8000  -->
-* [x] Ruby development server using `rails server` [<span style="font-weight: bold;font-size:0.6em;">TODO</span> - <span style="font-weight: bold;font-size:0.6em;">Testing</span>] <!-- bin/rails server -->
+* [x] Ruby development server using `rails server` [<sub>TODO</sub> - <sub>Testing</sub>] <!-- bin/rails server -->
 * [x] Python development server using `py -m http.server` <!-- If Python version returned above is 3.X. On Windows, try "py -m http.server" or "py -3 -m http.server". If Python version returned above is 2.X use SimpleHTTPServer. python3 -m http.server OR python -m SimpleHTTPServer -->
 * [] Other Proxy-able local/remote servers [INPROGRESS]
 
 
 ##### The script currently allows working with (starting, stopping, restarting) following databases and processes:
 
-* [x] Mysql <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [x] MongoDB <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
-* [] PgSQL <span style="font-weight: bold;font-size:0.6em;">TODO</span>
-* [] Redis <span style="font-weight: bold;font-size:0.6em;">TODO</span>
-* [x] bash, bat, ps scripts <span style="font-weight: bold;font-size:0.6em;">[DONE]</span>
+* [x] Mysql <sub>[DONE]</sub>
+* [x] MongoDB <sub>[DONE]</sub>
+* [] PgSQL <sub>TODO</sub>
+* [] Redis <sub>TODO</sub>
+* [x] bash, bat, ps scripts <sub>[DONE]</sub>
 * [x] Other Processes for your application support
 
 
