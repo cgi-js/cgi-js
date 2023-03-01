@@ -108,6 +108,7 @@ Add:
 - [] Consider Dependency Injection into CGIJS - https://github.com/mgechev/injection-js
 - [*] Consider adding config parsers support: ini, csv, yaml, dotenv, xml, json [DONE]
 - [*] Consider adding concurrency.js in cgijs and phpcgijs [INPROGRESS]
+- [*] Consider adding calling functions of python and php (later others) directly from js. Check exposure of objects directly to JS. [TODO]
 
 Modify:
 - [*] Make config and options dynamic based on config file for file based demos [DONE]
