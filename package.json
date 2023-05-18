@@ -54,6 +54,7 @@
     "express": "^4.18.2",
     "mocha": "^10.1.0",
     "npm-check": "^3.2.10",
+    "pythagora": "^0.0.44",
     "sinon": "^14.0.2",
     "socket.io": "^4.5.4",
     "superagent": "^8.0.6",
