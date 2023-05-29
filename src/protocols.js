@@ -27,6 +27,51 @@ function protocolInterface(config) {
     }
 }
 
+function tcp(config) {
+    protocolInterface.call(this, config);
+}
+
+function tls(config) {
+    protocolInterface.call(this, config);
+}
+
+function udp(config) {
+    protocolInterface.call(this, config);
+}
+
+function socksv4(config) {
+    protocolInterface.call(this, config);
+}
+
+function socksv4a(config) {
+    protocolInterface.call(this, config);
+}
+
+function socksv5(config) {
+    protocolInterface.call(this, config);
+}
+
+function socks(config) {
+    protocolInterface.call(this, config);
+}
+
+function socket(config) {
+    protocolInterface.call(this, config);
+}
+
+function ftp(config) {
+    protocolInterface.call(this, config);
+}
+
+function ftps(config) {
+    protocolInterface.call(this, config);
+}
+
+function ws(config) {
+    protocolInterface.call(this, config);
+}
+
+
 function handlers(config) {
     protocolInterface.call(this, config);
 
@@ -49,6 +94,8 @@ function handlers(config) {
     } else if (config.protocol === "socket") {
 
     } else if (config.protocol === "ftp") {
+
+    } else if (config.protocol === "ftps") {
 
     }
 
