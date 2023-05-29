@@ -110,5 +110,16 @@ function handlers(config) {
     }
 }
 
-module.exports = handlers;
+module.exports.tcp = tcp;
+module.exports.tls = tls;
+module.exports.udp = udp;
+module.exports.socksv4 = socksv4;
+module.exports.socksv4a = socksv4a;
+module.exports.socksv5 = socksv5;
+module.exports.socks = socks;
+module.exports.socket = socket;
+module.exports.ftp = ftp;
+module.exports.ftps = ftps;
+module.exports.ws = ws;
+module.exports.handlers = handlers;
 

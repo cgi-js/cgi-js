@@ -23,6 +23,10 @@ module.exports = {
     "cgi": fileMod.cgi,
     "proxy": proxyMod,
     "process": processMod,
+    "protocols": {
+        ...require("./http2protocols"),
+        ...require("./protocols")
+    },
     "utils": utilsMod,
     "default-configs": {
         "proxy": proxy,
