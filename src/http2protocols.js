@@ -27,6 +27,7 @@ function protocolInterface(config) {
     }
 }
 
+
 function handlers(config) {
     protocolInterface.call(this, config);
 
@@ -62,4 +63,3 @@ function handlers(config) {
 }
 
 module.exports = handlers;
-
