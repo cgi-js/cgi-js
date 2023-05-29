@@ -11,6 +11,10 @@ Add a middleware for file
 
 */
 
+/* eslint no-console: 0 */
+
+'use strict';
+
 const fileMod = require("./file");
 const proxyMod = require("./process");
 

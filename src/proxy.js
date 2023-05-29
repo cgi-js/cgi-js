@@ -6,6 +6,9 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
+
+'use strict';
+
 const net = require("net");
 const httpProxy = require('http-proxy');
 const utils = require("./utils")();

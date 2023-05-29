@@ -6,6 +6,9 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
+
+'use strict';
+
 const process = require('process');
 const path = require("path");
 const utils = require("./utils")();

@@ -1,15 +1,21 @@
 /*
 License: MIT
 Dynamic CGI serving using dynamic path imports for 
-	 CGI supporting executable for Interpreted languages Embedded Distribution
+     CGI supporting executable for Interpreted languages Embedded Distribution
 Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com> 
+
 
 TODO:
 Move from shelljs to without dependencies - L3
 Move from child_process spawn to child_process exec - L2 (Next version)
+
 */
 
 /* eslint no-console: 0 */
+
+'use strict';
+
+
 const process = require('process');
 const os = require('os');
 const { env } = require('process');

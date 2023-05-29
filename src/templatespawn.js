@@ -6,6 +6,9 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 */
 
 /* eslint no-console: 0 */
+
+'use strict';
+
 module.exports = {
     "name": "processthread",
     "type": "file",
