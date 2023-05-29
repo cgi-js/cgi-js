@@ -34,13 +34,13 @@ config.name = "mysql";
  * exec, spawn, fork (fork uses .js file)
  * check demos.php-cgi.spawn.js, demos.php-cgi.fork.js, demos.php-cgi.exec.js as example
  */
- config.other.executetype = "spawn";
+config.other.executetype = "spawn";
 
- /** 
-  * default command to run
-  * if not provided, uses generic command to run
-  */
- config.other.command = "generic";
+/** 
+ * default command to run
+ * if not provided, uses generic command to run
+ */
+config.other.command = "generic";
 
 /** 
  * what type of process to use
