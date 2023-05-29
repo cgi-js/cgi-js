@@ -38,7 +38,7 @@
     "csv": "^6.2.5",
     "dotenv": "^16.0.3",
     "fsevents": "^2.3.2",
-    "ftp": "^0.3.10",
+    "ftps": "^1.2.0",
     "hasher-apis": "^0.2.7",
     "http-proxy": "1.18.1",
     "http-proxy-to-socks": "1.1.2",
