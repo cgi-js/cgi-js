@@ -70,7 +70,8 @@ let config = {
             "cert": null
         }
     },
-    "listenPort": 8001,
+    "host": "127.0.0.1",
+    "port": 8001,
     "stream": false,
     "modify": false,
     "runtime": false

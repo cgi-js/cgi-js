@@ -228,7 +228,7 @@ function handler() {
         let proxy = startProxy(inst.config), proxyObject = {}, setInst = null;
 
         inst.proxy = proxy;
-        inst.proxy.listen(inst.config.listenPort);
+        inst.proxy.listen(inst.config.port, inst.config.host || "localhost");
 
         if (!!inst.handlers) {
             let hKeys = Object.keys(inst.handlers);
