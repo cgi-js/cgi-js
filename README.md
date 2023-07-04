@@ -7,7 +7,8 @@
 
 `CGIJS` library:
 
-- Supports running any `CGI` / `Interpreted Language scripts` in `any OS` that runs `node.js`.
+- Supports running any `CGI` / `Interpreted Language scripts` using the nodejs process module in `any OS` that runs `node.js`. Needs the language interpretor to be installed in the system
+- [TODO] Supports running any `CGI` / `Interpreted Language scripts` using interpretors library module in `any OS` that runs `node.js`. Do not need the language interpretor to be installed in the system
 - Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (`http`, `websockets`, `tcp`, `udp`, `socks`, `ssh`, `ftp`).
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 - Supports working with `shell`, `json`, `ini`, `csv`, `yaml`, and `xml` internally
@@ -31,6 +32,15 @@ CGIJS was created with a motivation to allow creation of a `Desktop executable/ 
 
 ```
 npm install cgijs --save
+```
+
+
+If you wish to run interpreted languages like `php`, `python`, `ruby`, `perl` with wasm files without having the language's binary present/ installed in your system then use the following package.
+
+
+
+```
+npm install bridge-wasm --save
 ```
 
 
@@ -64,6 +74,8 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [x] Run any scripts that support CGI based serving/execution
     - [x] Run multiple CGI executables/ Interpreters in one or multiple applications
     - [x] Embed your own CGI/ Interpreted Language executables
+    - [x] Runs scripts with language interpretor binary (like php, python, ruby, etc) in your system
+    - [x] Runs scripts without language interpretor binary (like php, python, ruby, etc) in your system using their wasm packages
 
 
 ##### Node Web Proxy - run web proxies
@@ -198,7 +210,9 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [dotenv](https://www.npmjs.com/package/dotenv) for dotenv file parser,
     - [shelljs](https://www.npmjs.com/package/shelljs) for support with shell
     - [concurrency.js](https://www.npmjs.com/package/concurrency.js) for concurrency and parallelization support for threads and processes
-    
+
+* Extra needed dependencies to use langauge interpretor without having to install (or have) binaries in your system
+    - [bridge-wasm](https://www.npmjs.com/package/bridge-wasm) for running interpreted languages with wasm without having the binary in your system (installed/ present). 
 
 * Application Dependencies:
     - Your app, you decide
