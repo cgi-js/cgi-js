@@ -8,7 +8,7 @@
 `CGIJS` library:
 
 - Supports running any `CGI` / `Interpreted Language scripts` using the nodejs process module in `any OS` that runs `node.js`. Needs the language interpretor to be installed in the system
-- [TODO] Supports running any `CGI` / `Interpreted Language scripts` using interpretors library module in `any OS` that runs `node.js`. Do not need the language interpretor to be installed in the system
+- [TODO] Supports running any `CGI` / `Interpreted Language scripts` using interpreters library module in `any OS` that runs `node.js`. Do not need the language interpretor to be installed in the system
 - Supports both `CGI` executables as well as `proxy` to `localhost`/ `remote` /`embedded servers` using proxying of multiple protocols (`http`, `websockets`, `tcp`, `udp`, `socks`, `ssh`, `ftp`).
 - Supports managing processes like `embedded` `server` executables, embedded `database` executables, or `any other` embedded/ non-embedded executables 
 - Supports working with `shell`, `json`, `ini`, `csv`, `yaml`, and `xml` internally
