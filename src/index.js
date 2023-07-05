@@ -12,6 +12,7 @@ Contribution: 2018 Ganesh K. Bhat <ganeshsurfs@gmail.com>
 const fileMod = require("./file");
 const proxyMod = require("./proxy");
 const processMod = require("./process");
+const wasmMod = require("./wasm");
 const utilsMod = require('./utils');
 const { proxy, process } = require('./configs');
 const middlewaresMod = require("./middlewares");
@@ -23,6 +24,7 @@ module.exports = {
     "cgi": fileMod.cgi,
     "proxy": proxyMod,
     "process": processMod,
+    "wasm": wasmMod,
     "protocols": {
         ...require("./http2protocols"),
         ...require("./protocols")

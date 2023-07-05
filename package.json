@@ -43,6 +43,7 @@
     "http-proxy": "1.18.1",
     "http-proxy-to-socks": "1.1.2",
     "ini": "^3.0.1",
+    "jsparsers": "^0.0.1",
     "node-ipc": "^11.1.0",
     "shelljs": "0.8.5",
     "socket-proxy": "^1.1.0",
