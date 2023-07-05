@@ -35,7 +35,7 @@ npm install cgijs --save
 ```
 
 
-If you wish to run interpreted languages like `php`, `python`, `ruby`, `perl` with wasm files without having the language's binary present/ installed in your system then use the following package.
+If you wish to run interpreted languages like `php`, `perl`, `python`, `micropython`, `cpython`, `ruby`, `julia`, `cpp`, `golang`, `ocaml`, `lua`, `napi`, `wasm-run`, `r-lang`, `openssl` with `wasm files` without having the language's binary present/ installed in your system then use the following package.
 
 
 
@@ -211,7 +211,7 @@ There are three main modules inside CGIJS - `file` for CGI file execution, `prox
     - [shelljs](https://www.npmjs.com/package/shelljs) for support with shell
     - [concurrency.js](https://www.npmjs.com/package/concurrency.js) for concurrency and parallelization support for threads and processes
 
-* Extra needed dependencies to use langauge interpretor without having to install (or have) binaries in your system
+* Extra needed dependencies to use language interpretors and libraries for `php`, `perl`, `python`, `micropython`, `cpython`, `ruby`, `julia`, `cpp`, `golang`, `ocaml`, `lua`, `napi`, `wasm-run`, `r-lang`, `openssl` with `wasm files` without having to install (or have) binaries in your system
     - [bridge-wasm](https://www.npmjs.com/package/bridge-wasm) for running interpreted languages with wasm without having the binary in your system (installed/ present). 
 
 * Application Dependencies:
@@ -250,12 +250,21 @@ This project contains example that demonstrates working with ExpressJS.
     - Quick demo - proxying to proxies/servers
     - Quick demo - proxying to proxy's websocket
     - Quick demo - proxying to udp, socks, http to socks proxy's websocket
-* Run CGI files
+* Run CGI files using process module and binaries in the system
     - PHP (.php)
     - Perl (Perl any versions - .plc, .pld, .pl)
     - Python (Python2, Python3 - .py)
     - Ruby (.rb)
     - Node.js (.js)
+* Run CGI files using cgi-js` `wasm` module
+    - PHP (.php)
+    - Perl (Perl any versions - .plc, .pld, .pl)
+    - Python (Python2, Python3 - .py)
+    - Ruby (.rb)
+    - Lua (.)
+    - Rust (.)
+    - GoLang (.go)
+    - CPython (.py)
 * Run Proxy servers to connect to:
     - Any Local http/https/websocket Servers
     - Any Remote http/https/websocket Servers
