@@ -265,6 +265,8 @@ This project contains example that demonstrates working with ExpressJS.
     - Rust (.)
     - GoLang (.go)
     - CPython (.py)
+    - Julia (.)
+    - R-Lang (.)
 * Run Proxy servers to connect to:
     - Any Local http/https/websocket Servers
     - Any Remote http/https/websocket Servers
