@@ -152,3 +152,28 @@ Low Priority, High Effort:
     - [] Mongoose web server (Check usage with Process and Create Proxy) [TODO]  (Version 1.2.0)
     - [] Consider testing serving of js file as CGI executable like PHP, an option. Considering cgi-node as an option [TODO]  (Version 2.0.0)
     - [] Consider support for Other Protocols for proxy within package [TODO] (Version 2.0.0)
+    - [] Consider WASM support
+        - "pyodide"
+        - "micropython"
+        - python-wasm
+        - @cowasm/py-cython
+        - @cowasm/py-pip , @cowasm/py-setuptools , @cowasm/python-pip
+        - "ruby-head-wasm-wasi"
+        - "ruby-head-wasm-emscripten"
+        - "ruby-wasm-emscripten"
+        - @cowasm/lua
+        - @php-wasm/node , @php-wasm/web, @php-wasm/xxxx
+        - php-wasm
+        - @chriskoch/perl-wasm
+        - @cgojin/rust-on-browser
+        - @chriskoch/cpp-wasm
+        - @tybys/cgen
+        - @chriskoch/golang-wasm
+        - @chriskoch/julia-wasm
+        - @chriskoch/ocaml-wasm
+        - @chriskoch/lld
+        - webr [r-lang]
+        - napi API - emnapi, napi-wasm 
+        - @napi-rs/wasm-runtime
+
+
