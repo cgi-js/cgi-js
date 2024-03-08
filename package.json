@@ -95,6 +95,8 @@
     "typescript": "^5.3.3",
     "uglify-js": "^3.17.4",
     "unimported": "^1.31.1",
+    "vite": "^5.1.5",
+    "vite-plugin-node-polyfills": "^0.21.0",
     "webpack": "^5.90.3"
   },
   "private": false,
