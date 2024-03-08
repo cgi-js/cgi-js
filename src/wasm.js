@@ -17,5 +17,5 @@ function handler() {
 
 }
 
-module.eexport.InterfaceWasm = InterfaceWasm;
+module.exports.InterfaceWasm = InterfaceWasm;
 module.exports = handler;
