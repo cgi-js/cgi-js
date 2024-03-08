@@ -724,7 +724,7 @@ function cgiExecute() {
 			}
 
 			if (!exithandler) {
-				exithandler = (arguments) => { }
+				exithandler = (...args) => { }
 			}
 
 			// /** @type {Action<String>} */
