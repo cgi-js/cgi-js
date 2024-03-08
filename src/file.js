@@ -764,7 +764,7 @@ function cgiExecute() {
 		return new Promise(function (resolve, reject) {
 
 			if (!exithandler) {
-				exithandler = (arguments) => { }
+				exithandler = (...args) => { }
 			}
 
 			/**
