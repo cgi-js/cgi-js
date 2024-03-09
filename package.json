@@ -82,6 +82,8 @@
     "cors": "^2.8.5",
     "eslint": "^8.28.0",
     "express": "^4.18.2",
+    "jasmine-browser-runner": "^2.3.0",
+    "jasmine-core": "^5.1.2",
     "live-server": "^1.2.2",
     "mocha": "^10.2.0",
     "npm-check": "^3.2.10",
