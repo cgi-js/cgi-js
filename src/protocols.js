@@ -134,6 +134,8 @@ function socksv4a(config) {
 function socksv5(config) {
     protocolInterface.call(this, config);
     
+    let o;
+    
     this.connect = function () {
         
     }
@@ -154,6 +156,8 @@ function socksv5(config) {
 function socks(config) {
     protocolInterface.call(this, config);
     
+    let o;
+
     this.connect = function () {
         
     }
@@ -174,6 +178,8 @@ function socks(config) {
 function socket(config) {
     protocolInterface.call(this, config);
     
+    let o;
+
     this.connect = function () {
         
     }
@@ -194,6 +200,8 @@ function socket(config) {
 function ftp(config) {
     protocolInterface.call(this, config);
     
+    let o;
+
     this.connect = function () {
         
     }
@@ -214,6 +222,8 @@ function ftp(config) {
 function ftps(config) {
     protocolInterface.call(this, config);
     
+    let o;
+
     this.connect = function () {
         
     }
@@ -234,6 +244,8 @@ function ftps(config) {
 function ws(config) {
     protocolInterface.call(this, config);
     
+    let o;
+
     this.connect = function () {
         
     }
